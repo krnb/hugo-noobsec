@@ -1,4 +1,4 @@
-baseURL = 'http://noobsec.net/'
+baseURL = 'https://www.noobsec.net/'
 languageCode = 'en-us'
 title = 'Welcome to noobsec'
 theme = 'hugo-theme-monochrome'

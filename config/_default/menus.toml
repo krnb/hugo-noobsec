@@ -144,7 +144,7 @@
   url = "/shortcodes/"
   weight = 5
 [[navbar]]
-  identifier = "posts"
-  name = "Posts"
-  url = "/posts/"
+  identifier = "whoami"
+  name = "whoami"
+  url = "/whoami/"
   weight = 6
