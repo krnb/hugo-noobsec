@@ -1,0 +1,17 @@
+[build]
+  command = "hugo"
+  publish = "/public"
+
+[build.environment]
+  HUGO_VERSION = "0.98.0"
+
+[[headers]]
+  # Define which paths this specific [[headers]] block will cover.
+  for = "/*"
+
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin"
+
