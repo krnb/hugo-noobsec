@@ -1,0 +1,18 @@
+baseURL = 'http://noobsec.net/'
+languageCode = 'en-us'
+title = 'Welcome to noobsec'
+theme = 'hugo-theme-monochrome'
+enableEmoji = 'true'
+
+[taxonomies]
+category = "categories"
+tag = "tags"
+series = "series"
+
+[outputs]
+home = ["HTML", "RSS", "JSON"]
+
+[sitemap]
+  changefreq = 'monthly'
+  filename = 'sitemap.xml'
+  priority = 0.5
