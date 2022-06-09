@@ -2,6 +2,7 @@
 title: Hack OSCP
 date: 2020-06-30 22:45:33
 tags: [oscp]
+search_hidden: true
 ---
 
 # Hack OSCP - A n00bs Guide

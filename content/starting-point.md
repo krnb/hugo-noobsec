@@ -1,7 +1,7 @@
 ---
 title: Getting Into Cybersecurity - Red Team Edition
 date: 2020-08-31 15:48:04
-tags:
+search_hidden: true
 ---
 
 # Getting Into Cybersecurity - Red Team Edition
