@@ -2,7 +2,7 @@
   identifier = "oscp"
   name = "OSCP"
   url = "#"
-  weight = 5
+  weight = 1
   [[navbar]]
     identifier = "oscp_cheatsheet"
     name = "OSCP Cheatsheet"
@@ -22,19 +22,124 @@
     parent = "oscp"
     weight = 3
   [[navbar]]
-    identifier = "hacking_oscp"
-    name = "Hacking OSCP Certification"
-    url = "/hack-oscp"
-    parent = "oscp"
-    weight = 4
-  [[navbar]]
     identifier = "oscp_bof"
     name = "OSCP BOF"
     url = "/bof"
     parent = "oscp"
+    weight = 4
+[[navbar]]
+  identifier = "HTB"
+  name = "HTB"
+  url = "#"
+  weight = 2
+  [[navbar]]
+    identifier = "htb_bart"
+    name = "HTB Bart"
+    url = "/hackthebox/htb-bart"
+    parent = "HTB"
+    weight = 1
+  [[navbar]]
+    identifier = "htb_falafel"
+    name = "HTB Falafel"
+    url = "/hackthebox/htb-falafel-writeup-w-o-metasploit"
+    parent = "HTB"
+    weight = 2
+  [[navbar]]
+    identifier = "htb_cronos"
+    name = "HTB Cronos"
+    url = "/hackthebox/htb-cronos"
+    parent = "HTB"
+    weight = 3
+  [[navbar]]
+    identifier = "htb_bashed"
+    name = "HTB Bashed"
+    url = "/hackthebox/htb-bashed"
+    parent = "HTB"
+    weight = 4
+  [[navbar]]
+    identifier = "htb_lame"
+    name = "HTB Lame"
+    url = "/hackthebox/htb-lame"
+    parent = "HTB"
     weight = 5
+[[navbar]]
+  identifier = "web-attacks"
+  name = "Web Attacks"
+  url = "#"
+  weight = 3
+  [[navbar]]
+    identifier = "file_inclusion"
+    name = "File Inclusion"
+    url = "/file-inclusion"
+    parent = "web-attacks"
+    weight = 1
+  [[navbar]]
+    identifier = "sqli_0x01"
+    name = "SQLi 0x01"
+    url = "/sqli-0x01"
+    parent = "web-attacks"
+    weight = 2
+  [[navbar]]
+    identifier = "sqli_0x02"
+    name = "SQLi 0x02"
+    url = "/sqli-0x02"
+    parent = "web-attacks"
+    weight = 3
+  [[navbar]]
+    identifier = "sqli_0x03"
+    name = "SQLi 0x03"
+    url = "/sqli-0x03"
+    parent = "web-attacks"
+    weight = 4
+  [[navbar]]
+    identifier = "sqli_cheatsheet"
+    name = "SQLi Cheatsheet"
+    url = "/sqli-cheatsheet"
+    parent = "web-attacks"
+    weight = 5
+[[navbar]]
+  identifier = "cheatsheets"
+  name = "Cheatsheets"
+  url = "#"
+  weight = 4
+  [[navbar]]
+    identifier = "oscp_sheet"
+    name = "OSCP Cheatsheet"
+    url = "/oscp-cheatsheet"
+    parent = "cheatsheets"
+    weight = 1
+  [[navbar]]
+    identifier = "linpriv_cheatsheet"
+    name = "Linux PrivEsc Cheatsheet"
+    url = "/privesc-linux"
+    parent = "cheatsheets"
+    weight = 2
+  [[navbar]]
+    identifier = "winpriv_cheatsheet"
+    name = "Windows PrivEsc Cheatsheet"
+    url = "/privesc-windows"
+    parent = "cheatsheets"
+    weight = 3
+  [[navbar]]
+    identifier = "powerview_cheatsheet"
+    name = "PowerView Cheatsheet"
+    url = "/powerview-cheatsheet"
+    parent = "cheatsheets"
+    weight = 4
+  [[navbar]]
+    identifier = "mimikatz_cheatsheet"
+    name = "Mimikatz Cheatsheet"
+    url = "/mimikatz-cheatsheet"
+    parent = "cheatsheets"
+    weight = 5
+  [[navbar]]
+    identifier = "sqli"
+    name = "SQLi Cheatsheet"
+    url = "/sqli-cheatsheet"
+    parent = "cheatsheets"
+    weight = 8
 [[navbar]]
   identifier = "whoami"
   name = "whoami"
   url = "/whoami/"
-  weight = 6
+  weight = 5
