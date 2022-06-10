@@ -1,8 +1,13 @@
 [[navbar]]
+  identifier = "starting_point"
+  name = "Getting Started in Red Team"
+  url = "/starting-point"
+  weight = 1
+[[navbar]]
   identifier = "oscp"
   name = "OSCP"
   url = "#"
-  weight = 1
+  weight = 2
   [[navbar]]
     identifier = "oscp_cheatsheet"
     name = "OSCP Cheatsheet"
@@ -31,7 +36,7 @@
   identifier = "HTB"
   name = "HTB"
   url = "#"
-  weight = 2
+  weight = 3
   [[navbar]]
     identifier = "htb_bart"
     name = "HTB Bart"
@@ -66,7 +71,7 @@
   identifier = "web-attacks"
   name = "Web Attacks"
   url = "#"
-  weight = 3
+  weight = 4
   [[navbar]]
     identifier = "file_inclusion"
     name = "File Inclusion"
@@ -101,7 +106,7 @@
   identifier = "cheatsheets"
   name = "Cheatsheets"
   url = "#"
-  weight = 4
+  weight = 5
   [[navbar]]
     identifier = "oscp_sheet"
     name = "OSCP Cheatsheet"
@@ -140,6 +145,6 @@
     weight = 8
 [[navbar]]
   identifier = "whoami"
-  name = "whoami"
+  name = "Whoami"
   url = "/whoami/"
-  weight = 5
+  weight = 6

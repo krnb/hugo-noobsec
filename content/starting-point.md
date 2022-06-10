@@ -1,7 +1,6 @@
 ---
 title: Getting Into Cybersecurity - Red Team Edition
 date: 2020-08-31 15:48:04
-search_hidden: true
 ---
 
 # Getting Into Cybersecurity - Red Team Edition
@@ -16,9 +15,9 @@ Since finance is one of the biggest barrier that one could face, every resource 
 
 The following suggestions will be more towards getting into penetration testing or red teaming but if that is not your thing or rather you do not know what your thing is I would highly recommend reading through [Lesley Carharts'](https://twitter.com/hacks4pancakes/) [Starting an InfoSec Career - The Megamix](https://tisiphone.net/2015/10/12/starting-an-infosec-career-the-megamix-chapters-1-3/) series. The series is quite extensive and you would also get a look at different specializations in infosec from the amazing people who are working in it; it is fantastic. Also, Lesley is one of the most talented person in the infosec community and you gotta follow her on [Twitter](https://twitter.com/hacks4pancakes/).
 
-I have myself barely just gotten my feet wet in the massive ocean that is infosec, but I know a little and would love to share whatever I know if it helps you out. In no shape or form is this gonna be THE ULTIMATE guide to follow, there are a TON of options and you must research on your own to find what works best for you ¯\\\_(ツ)_/¯
+I have myself barely just gotten my feet wet in the massive ocean that is infosec, but I know a little and would love to share whatever I know if it helps you out. In no shape or form is this gonna be *THE ULTIMATE* guide to follow, there are a *TON* of options and you must research on your own to find what works best for you ¯\\\_(ツ)_/¯
 
-All this will only help you get started, perhaps even make you ready for an entry level job, but that is the most all these courses, CTFs, and trainings can provide you. Not so surprisingly, experience is the most important thing in this field and is what will help you get through your future hurdles, and you will build that in time.
+All this will only help you get started, perhaps even make you ready for an entry level job, but that is the most all these courses, CTFs, and trainings can provide you. Not so surprisingly, experience is the most important thing in this field and is what will help you get through your future hurdles, and you will build that...in time.
 
 ## Who This Post Is For?
 
