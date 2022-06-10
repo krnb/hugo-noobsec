@@ -4,6 +4,9 @@ title = 'Welcome to noobsec'
 theme = 'hugo-theme-monochrome'
 enableEmoji = 'true'
 
+disqusShortname = "n00bsec"
+googleAnalytics = "UA-171056200-1"
+
 [taxonomies]
 category = "categories"
 tag = "tags"
@@ -13,6 +16,6 @@ series = "series"
 home = ["HTML", "RSS", "JSON"]
 
 [sitemap]
-  changefreq = 'monthly'
+  changefreq = 'weekly'
   filename = 'sitemap.xml'
   priority = 0.5
