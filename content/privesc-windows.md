@@ -2,9 +2,14 @@
 title: Windows Privilege Escalation
 date: 2020-06-26 18:05:42
 tags: [oscp, cheatsheet, windows, privilege escalation]
+aliases:
+    - /windows-privesc
+    - /postexp-windows
 ---
 
 # Windows Privilege Escalation Cheatsheet
+
+Latest updated as of: *12 / June / 2022*
 
 So you got a shell, what *now*?<br>
 This post will help you with local enumeration as well as escalate your privileges further.

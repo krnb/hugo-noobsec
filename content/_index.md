@@ -27,6 +27,8 @@ Check out currently available content on the top. You can contact me [here](/who
 
 ## What's new?
 
-[11 - June - '22 ] - Website updated to include more flexibility and ease of navigation
+[12 - June - '22 ] - Website updated to include more flexibility and ease of navigation
 
-[15 - October - '21 ] - [Introduction to Active Directory](/activedirectory/ad-intro) has been added
+[12 - June - '22 ] - [Windows PrivEsc Cheatsheet](/privesc-windows) has been updated
+
+[12 - June - '22 ] - [AD Enumeration Cheatsheet](/ad-cheatsheet) has been added

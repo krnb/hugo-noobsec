@@ -1,13 +1,8 @@
 [[navbar]]
-  identifier = "starting_point"
-  name = "Getting Started in Red Team"
-  url = "/starting-point"
-  weight = 1
-[[navbar]]
   identifier = "oscp"
   name = "OSCP"
   url = "#"
-  weight = 2
+  weight = 1
   [[navbar]]
     identifier = "oscp_cheatsheet"
     name = "OSCP Cheatsheet"
@@ -15,28 +10,40 @@
     parent = "oscp"
     weight = 1
   [[navbar]]
-    identifier = "oscp_powerview"
-    name = "OSCP AD Cheatsheet"
-    url = "/powerview-cheatsheet"
+    identifier = "linprivesc_cheatsheet"
+    name = "Linux PrivEsc Cheatsheet"
+    url = "/privesc-linux"
     parent = "oscp"
     weight = 2
+  [[navbar]]
+    identifier = "winprivesc_cheatsheet"
+    name = "Windows PrivEsc Cheatsheet"
+    url = "/privesc-windows"
+    parent = "oscp"
+    weight = 3
+  [[navbar]]
+    identifier = "oscp_powerview"
+    name = "OSCP AD Cheatsheet"
+    url = "/ad-cheatsheet"
+    parent = "oscp"
+    weight = 4
   [[navbar]]
     identifier = "oscp_journey"
     name = "OSCP Journey"
     url = "/oscp-journey"
     parent = "oscp"
-    weight = 3
+    weight = 5
   [[navbar]]
     identifier = "oscp_bof"
     name = "OSCP BOF"
     url = "/bof"
     parent = "oscp"
-    weight = 4
+    weight = 6
 [[navbar]]
   identifier = "HTB"
   name = "HTB"
   url = "#"
-  weight = 3
+  weight = 2
   [[navbar]]
     identifier = "htb_bart"
     name = "HTB Bart"
@@ -71,7 +78,7 @@
   identifier = "web-attacks"
   name = "Web Attacks"
   url = "#"
-  weight = 4
+  weight = 3
   [[navbar]]
     identifier = "file_inclusion"
     name = "File Inclusion"
@@ -106,7 +113,7 @@
   identifier = "cheatsheets"
   name = "Cheatsheets"
   url = "#"
-  weight = 5
+  weight = 4
   [[navbar]]
     identifier = "oscp_sheet"
     name = "OSCP Cheatsheet"
@@ -126,15 +133,15 @@
     parent = "cheatsheets"
     weight = 3
   [[navbar]]
-    identifier = "powerview_cheatsheet"
-    name = "PowerView Cheatsheet"
-    url = "/powerview-cheatsheet"
+    identifier = "ad_enum"
+    name = "AD Enumeration Cheatsheet"
+    url = "/ad-cheatsheet"
     parent = "cheatsheets"
     weight = 4
   [[navbar]]
-    identifier = "mimikatz_cheatsheet"
-    name = "Mimikatz Cheatsheet"
-    url = "/mimikatz-cheatsheet"
+    identifier = "crtp_cheatsheet"
+    name = "CRTP Cheatsheet"
+    url = "/crtp-cheatsheet"
     parent = "cheatsheets"
     weight = 5
   [[navbar]]
@@ -142,9 +149,15 @@
     name = "SQLi Cheatsheet"
     url = "/sqli-cheatsheet"
     parent = "cheatsheets"
-    weight = 8
+    weight = 6
+
+[[navbar]]
+  identifier = "starting_point"
+  name = "Getting Started in Red Team"
+  url = "/starting-point"
+  weight = 5
 [[navbar]]
   identifier = "whoami"
-  name = "Whoami"
+  name = "About"
   url = "/whoami/"
   weight = 6

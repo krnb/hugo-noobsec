@@ -1,12 +1,12 @@
 ---
-title: powerview-cheatsheet
+title: CRTP Cheatsheet
 date: 2020-12-23 22:30:19
 tags: [cheatsheet, powerview, active directory]
 ---
 
-# PowerView Cheatsheet
+# CRTP Cheatsheet
 
-This cheatsheet corresponds to an older version of PowerView deliberately as this is the version that was used in Pentester Academys' CRTP certification course. This cheatsheet will be updated to the latest version of PowerView soon.
+This cheatsheet corresponds to an older version of PowerView deliberately as this is the version that was used in Pentester Academys' CRTP certification course. Updated AD enumeration (PowerView/SharpHound) cheatsheet can be found at [AD Enumeration](/ad-cheatsheet)
 
 ## Helpful Commands
 
