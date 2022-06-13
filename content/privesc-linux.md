@@ -2,6 +2,9 @@
 title: Linux Privilege Escalation
 date: 2020-06-29 16:33:08
 tags: [oscp, linux, cheatsheet, privilege escalation]
+aliases:
+    - /linux-privesc
+    - /postexp-linux
 ---
 
 # Linux Privilege Escalation Cheatsheet
