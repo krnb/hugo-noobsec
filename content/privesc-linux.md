@@ -5,6 +5,13 @@ tags: [oscp, linux, cheatsheet, privilege escalation]
 aliases:
     - /linux-privesc
     - /postexp-linux
+keywords:
+    - linux cheatsheet
+    - linux cheat sheet
+    - linux privilege escalation
+    - linux privesc
+    - linux privilege escalation cheatsheet
+    - linux privesc cheatsheet
 ---
 
 # Linux Privilege Escalation Cheatsheet
