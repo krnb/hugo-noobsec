@@ -5,6 +5,13 @@ tags: [oscp, cheatsheet, windows, privilege escalation]
 aliases:
     - /windows-privesc
     - /postexp-windows
+keywords:
+    - windows cheatsheet
+    - windows cheat sheet
+    - windows privilege escalation
+    - windows privesc
+    - windows privilege escalation cheatsheet
+    - windows privesc cheatsheet
 ---
 
 # Windows Privilege Escalation Cheatsheet

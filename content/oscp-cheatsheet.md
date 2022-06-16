@@ -2,6 +2,15 @@
 title: OSCP Cheatsheet
 date: 2020-06-25 08:51:22
 tags: [oscp, cheatsheet]
+keywords:
+    - oscp
+    - offensive security
+    - cheatsheet
+    - oscp cheatsheet
+    - oscp cheat sheet
+    - pen200 cheatsheet
+    - nmap
+    - file transfer cheat sheet
 ---
 
 # OSCP Cheatsheet

@@ -2,6 +2,10 @@
 title: CRTP Cheatsheet
 date: 2020-12-23 22:30:19
 tags: [cheatsheet, powerview, active directory]
+keywords:
+    - crtp cheatsheet
+    - crtp cheat sheet
+    - pentester academy cheatsheet
 ---
 
 # CRTP Cheatsheet
