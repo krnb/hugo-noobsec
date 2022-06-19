@@ -2,7 +2,6 @@
 title: "Welcome to noobsec"
 type: "blank"
 date: 2022-06-05T22:31:33+05:30
-draft: false
 toc: false
 ---
 
@@ -27,8 +26,8 @@ Check out currently available content on the top. You can contact me [here](/who
 
 ## What's new?
 
+[19 - June - '22 ] - [AD Cheatsheet](/ad-cheatsheet) has been updated
+
 [12 - June - '22 ] - Website updated to include more flexibility and ease of navigation
 
 [12 - June - '22 ] - [Windows PrivEsc Cheatsheet](/privesc-windows) has been updated
-
-[12 - June - '22 ] - [AD Enumeration Cheatsheet](/ad-cheatsheet) has been added

