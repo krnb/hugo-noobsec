@@ -134,7 +134,7 @@
     weight = 3
   [[navbar]]
     identifier = "ad_enum"
-    name = "AD Enumeration Cheatsheet"
+    name = "AD Cheatsheet"
     url = "/ad-cheatsheet"
     parent = "cheatsheets"
     weight = 4
