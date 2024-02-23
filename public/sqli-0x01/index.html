@@ -1,0 +1,861 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang='en-us'><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href='http://localhost:1313/favicon.ico' type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SQL Injection - 0x01 - Welcome to noobsec</title>
+
+    
+
+    
+
+    
+    <meta name="author" content="karan bhayani" />
+    
+
+    
+        <meta property="og:title" content="SQL Injection - 0x01" />
+<meta property="og:description" content="SQL Injection 0x01 Hi, welcome to the first post of the SQL injection series. Before we dive into the &ldquo;injection&rdquo; part of it, let&rsquo;s first understand the basics of what SQL is and the usual structure of a database-driven system.
+Structured Query Language (SQL) SQL is a database querying language which comes in various flavours like MySQL, MS-SQL, PostgreSQL, etc. In this series we&rsquo;ll mainly focus on MySQL
+It&rsquo;s a tabular database system, like Microsoft Excel simply put, with rows and columns." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/sqli-0x01/" /><meta property="article:section" content="" />
+<meta property="article:published_time" content="2020-07-03T16:22:37+00:00" />
+<meta property="article:modified_time" content="2020-07-03T16:22:37+00:00" />
+
+
+    
+
+    
+        <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="SQL Injection - 0x01"/>
+<meta name="twitter:description" content="SQL Injection 0x01 Hi, welcome to the first post of the SQL injection series. Before we dive into the &ldquo;injection&rdquo; part of it, let&rsquo;s first understand the basics of what SQL is and the usual structure of a database-driven system.
+Structured Query Language (SQL) SQL is a database querying language which comes in various flavours like MySQL, MS-SQL, PostgreSQL, etc. In this series we&rsquo;ll mainly focus on MySQL
+It&rsquo;s a tabular database system, like Microsoft Excel simply put, with rows and columns."/>
+
+    <link rel="stylesheet" href="/style.css" integrity="">
+
+
+
+    <link rel="stylesheet" href="/lib/css/prism.css" integrity="">
+
+
+        
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-171056200-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    
+
+    
+    <script>
+        if (!('theme' in localStorage)) {
+            localStorage.theme = 'light';
+        }
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+            document.documentElement.setAttribute("data-theme", "light");
+        }
+    </script>
+<script defer src="/js/header.js" integrity=""></script>
+
+
+
+    <script defer src="/js/zooming.js" integrity=""></script>
+
+
+
+
+
+
+
+    
+        
+
+        
+        
+
+        
+        
+            
+        
+
+        <script defer src="/js/prism.js" integrity="" data-manual></script>
+    
+
+
+
+    
+    
+    
+    <script defer src="/js/search-en-us.js" integrity=""></script>
+
+
+
+
+
+</head>
+<body>
+        <main><header>
+    <div class="brand">
+        <div id="sidebar_btn">
+            <svg id="menu_icon" width="26px" height="26px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+</svg>
+
+</svg>
+        </div>
+
+        <div>
+            <a href="/">noobsec</a>
+        </div>
+    </div>
+
+    <div class="toolbox">
+        <div id="theme_tool">
+            <svg id="dark_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+</svg>
+
+</svg>
+            <svg id="light_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+</svg>
+
+</svg>
+        </div>
+
+        
+            <div id="search_tool">
+                <svg id="search_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+</svg>
+
+</svg><div id="search_menu_wrapper" class="hidden">
+    <div id="search_menu">
+        <div id="search_menu_toolbar">
+            <div id="search_menu_input_wrapper">
+                <input id="search_menu_input" type="text" placeholder='Search Posts'>
+            </div>
+            <div id="search_menu_close_btn">
+                <svg width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+</svg>
+
+</svg>
+            </div>
+        </div>
+        <div id="search_menu_results">
+        </div>
+    </div>
+</div>
+</div>
+        
+
+        
+    </div>
+</header>
+<nav id="navbar" class="pure-menu">
+    <ul class="pure-menu-list"><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                    
+                        <a href="#" class="pure-menu-link">OSCP</a>
+                    
+                    <ul class="pure-menu-children">
+    
+        <li class="pure-menu-item">
+            
+                <a href="/oscp-cheatsheet" class="pure-menu-link">OSCP Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/privesc-linux" class="pure-menu-link">Linux PrivEsc Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/privesc-windows" class="pure-menu-link">Windows PrivEsc Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/ad-cheatsheet" class="pure-menu-link">OSCP AD Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/oscp-journey" class="pure-menu-link">OSCP Journey</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/bof" class="pure-menu-link">OSCP BOF</a>
+            
+        </li>
+    
+
+</ul>
+                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                    
+                        <a href="#" class="pure-menu-link">HTB</a>
+                    
+                    <ul class="pure-menu-children">
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-bart" class="pure-menu-link">HTB Bart</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-falafel-writeup-w-o-metasploit" class="pure-menu-link">HTB Falafel</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-cronos" class="pure-menu-link">HTB Cronos</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-bashed" class="pure-menu-link">HTB Bashed</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-lame" class="pure-menu-link">HTB Lame</a>
+            
+        </li>
+    
+
+</ul>
+                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                    
+                        <a href="#" class="pure-menu-link">Web Attacks</a>
+                    
+                    <ul class="pure-menu-children">
+    
+        <li class="pure-menu-item">
+            
+                <a href="/file-inclusion" class="pure-menu-link">File Inclusion</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-0x01" class="pure-menu-link">SQLi 0x01</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-0x02" class="pure-menu-link">SQLi 0x02</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-0x03" class="pure-menu-link">SQLi 0x03</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-cheatsheet" class="pure-menu-link">SQLi Cheatsheet</a>
+            
+        </li>
+    
+
+</ul>
+                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                    
+                        <a href="#" class="pure-menu-link">Cheatsheets</a>
+                    
+                    <ul class="pure-menu-children">
+    
+        <li class="pure-menu-item">
+            
+                <a href="/oscp-cheatsheet" class="pure-menu-link">OSCP Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/privesc-linux" class="pure-menu-link">Linux PrivEsc Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/privesc-windows" class="pure-menu-link">Windows PrivEsc Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/ad-cheatsheet" class="pure-menu-link">AD Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/crtp-cheatsheet" class="pure-menu-link">CRTP Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-cheatsheet" class="pure-menu-link">SQLi Cheatsheet</a>
+            
+        </li>
+    
+
+</ul>
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/starting-point" class="pure-menu-link">Getting Started in Red Team</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/whoami/" class="pure-menu-link">About</a>
+                    
+                </li></ul>
+</nav>
+<div id="sidebar_canvas_overlay" class="hidden"></div>
+<div id="sidebar" class="close">
+    <ul><li>
+                    <details>
+                        <summary><a href="#">OSCP</a></summary>
+    <ul>
+        
+            
+                <li>
+                    
+                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/ad-cheatsheet">OSCP AD Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/oscp-journey">OSCP Journey</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/bof">OSCP BOF</a>
+                    
+                </li>
+            
+        
+    </ul>
+</details>
+                </li><li>
+                    <details>
+                        <summary><a href="#">HTB</a></summary>
+    <ul>
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-bart">HTB Bart</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-falafel-writeup-w-o-metasploit">HTB Falafel</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-cronos">HTB Cronos</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-bashed">HTB Bashed</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-lame">HTB Lame</a>
+                    
+                </li>
+            
+        
+    </ul>
+</details>
+                </li><li>
+                    <details>
+                        <summary><a href="#">Web Attacks</a></summary>
+    <ul>
+        
+            
+                <li>
+                    
+                        <a href="/file-inclusion">File Inclusion</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-0x01">SQLi 0x01</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-0x02">SQLi 0x02</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-0x03">SQLi 0x03</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
+                    
+                </li>
+            
+        
+    </ul>
+</details>
+                </li><li>
+                    <details>
+                        <summary><a href="#">Cheatsheets</a></summary>
+    <ul>
+        
+            
+                <li>
+                    
+                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/ad-cheatsheet">AD Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/crtp-cheatsheet">CRTP Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
+                    
+                </li>
+            
+        
+    </ul>
+</details>
+                </li><li>
+                    <a href="/starting-point">Getting Started in Red Team</a>
+                </li><li>
+                    <a href="/whoami/">About</a>
+                </li></ul>
+</div><div id="content" class="content-margin">
+                
+    
+    <details class="collapsible-menu-wrapper"><summary class="collapsible-menu-type"><span>Table of contents</span></summary><div class="collapsible-menu">
+        
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#structured-query-language-sql">Structured Query Language (SQL)</a></li>
+    <li><a href="#structure-of-a-system">Structure Of A System</a></li>
+    <li><a href="#basics-of-sql">Basics of SQL</a>
+      <ul>
+        <li><a href="#structure-of-a-select-statement">Structure of a <code>SELECT</code> statement</a></li>
+        <li><a href="#sql-operands">SQL Operands</a></li>
+      </ul>
+    </li>
+    <li><a href="#what-is-sql-injection">What is SQL Injection?</a>
+      <ul>
+        <li><a href="#classic-sql-injection---authentication-bypass">Classic SQL Injection - Authentication Bypass</a></li>
+      </ul>
+    </li>
+    <li><a href="#fin">Fin</a></li>
+  </ul>
+</nav>
+        
+    </div></details>
+
+
+
+    <div class="content-margin">
+
+
+
+<article >
+    
+    
+        
+        
+    
+    <h1 id="sql-injection-0x01">SQL Injection 0x01</h1>
+<!-- 💉 Injections are pretty cool aren't they? 💉 -->
+<p>Hi, welcome to the first post of the SQL injection series. Before we dive into the &ldquo;injection&rdquo; part of it, let&rsquo;s first understand the basics of what SQL is and the usual structure of a database-driven system.</p>
+<h2 id="structured-query-language-sql">Structured Query Language (SQL)</h2>
+<p>SQL is a database querying language which comes in various flavours like MySQL, MS-SQL, PostgreSQL, etc. In this series we&rsquo;ll mainly focus on MySQL</p>
+<p>It&rsquo;s a tabular database system, like Microsoft Excel simply put, with rows and columns.</p>
+<p>Database servers can have multiple databases with different user rights if required and within those custom tables are created to support the systems functionality.</p>
+<p>An SQL database are usually used to support login forms, blogs, ecommerce websites, etc. It&rsquo;s not restricted to websites and can also be found in mobile applications.</p>
+<h2 id="structure-of-a-system">Structure Of A System</h2>
+<p>Usual structure of a database-driven system. Today n-tiered architecture are used in a dynamic system, 3-tier architecture being the simplest kind.</p>
+<p>A three-tier architectural breakdown:
+Client (or Presentation) tier (Browser) - Renders HTML + JS
+Logic tier (Code or Application Server) - PHP, ASPX, etc
+Data tier (Database Server) - MySQL, MS-SQL, PostgreSQL, Oracle, etc.</p>
+<p>Structure of a system visually:</p>
+<p><img src="/sqli-0x01/system_structure.png" alt="Structure of a system"></p>
+<p>Client views the system via a browser which sends requests (usually just the parameters) as per the functionalities presented to the logic tier which sends the complete request (the entire query invisible to the user) to the database server.
+The database server executes the query successfully, if valid, sends the results (or errors) to the logic tier. The logic tier performs any processing that&rsquo;s put by the developer on the results received and forwards the processed result to the end-user.</p>
+<!-- Structure explanation done -->
+<h2 id="basics-of-sql">Basics of SQL</h2>
+<p>We don&rsquo;t have to learn SQL for DBMS (DataBase Management System) purposes but we certainly need to understand how queries are built and functionality of different aspects of a query. Having this knowledge we can guess a bit better what the query is from the input and output.</p>
+<h3 id="structure-of-a-select-statement">Structure of a <code>SELECT</code> statement</h3>
+<p><code>SELECT</code> and <code>FROM</code> are required to form a SELECT query. Rest are optional.</p>
+<pre  class="mc-prism hide language-text" ><code class="language-SQL"># Used to retrieve rows from selected columns
+SELECT &lt;column_names/wildcard&gt;
+
+# Specifies the table to retrieve data from
+FROM &lt;table_name&gt;
+
+# Specifies the condition or logic as per which rows (data) from columns specified should be retrieved
+[WHERE &lt;condition&gt; &lt;operator&gt; &lt;condition&gt;]
+
+# Concatenates two SELECT queries. Number of rows fetched by both the queries should be same.
+[UNION &lt;SELECT&gt;]
+
+# Group or aggregate the results by a column name or position
+[GROUP BY &lt;column number/name&gt;]
+
+# This is the same as putting a where condition
+[HAVING &lt;condition&gt;]
+
+# Alter the results by the column name or position
+[ORDER BY &lt;column number/name&gt;]
+
+# Number of rows to display in the output
+[LIMIT &lt;offset&gt;,&lt;number of rows&gt;]
+</code></pre>
+<p>Example of a <code>SELECT</code> query:</p>
+<pre  class="mc-prism hide language-text" ><code class="language-SQL"># All statements end with a semi-colon -&gt; ;
+SELECT CustomerName FROM customers;
+</code></pre>
+<h3 id="sql-operands">SQL Operands</h3>
+<p>We&rsquo;ll mostly be only working with <code>OR</code> and sometimes <code>AND</code> operators. Other operators that exist are <code>NOT</code> and <code>XOR</code>, which are not so important to us.</p>
+<p><strong><code>OR</code> logic table</strong>:
+Condition column - statement1_result <code>OR</code> statement2_result</p>
+<table class="mc-table">
+<thead>
+<tr>
+<th>Condition</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>true</em> <code>OR</code> <em>true</em></td>
+<td>True ✔</td>
+</tr>
+<tr>
+<td><em>true</em> <code>OR</code> <em>false</em></td>
+<td>True ✔</td>
+</tr>
+<tr>
+<td><em>false</em> <code>OR</code> <em>true</em></td>
+<td>True ✔</td>
+</tr>
+<tr>
+<td><em>false</em> <code>OR</code> <em>false</em></td>
+<td>False ❌</td>
+</tr>
+</tbody>
+</table>
+<p>If either of the statements is true, the result will be true.</p>
+<p><strong><code>AND</code> logic table</strong>:
+Condition column - statement1_result <code>AND</code> statement2_result</p>
+<table class="mc-table">
+<thead>
+<tr>
+<th>Condition</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>true</em> <code>AND</code> <em>true</em></td>
+<td>True ✔</td>
+</tr>
+<tr>
+<td><em>true</em> <code>AND</code> <em>false</em></td>
+<td>False ❌</td>
+</tr>
+<tr>
+<td><em>false</em> <code>AND</code> <em>true</em></td>
+<td>False ❌</td>
+</tr>
+<tr>
+<td><em>false</em> <code>AND</code> <em>false</em></td>
+<td>False ❌</td>
+</tr>
+</tbody>
+</table>
+<p>If both of the statements are either true or false, the result will be true.</p>
+<p>Usage of these both will help us ensuring an SQL injection is present.</p>
+<p>Just to give a brief about what the <code>NOT</code> operator is used for, let&rsquo;s take an example of a table consisting of all the people living in some country. You want a list of all the people in that country whose job title is NOT <em>Thought Leader</em>. A query for that would look something like this:</p>
+<pre  class="mc-prism hide language-text" ><code class="language-SQL">SELECT first_name, last_name FROM population WHERE job is NOT &quot;Thought Leader&quot;;
+</code></pre>
+<h2 id="what-is-sql-injection">What is SQL Injection?</h2>
+<p>SQL injection is a web based attack in which the malicious end-user enters an SQL query (in an input field or a parameter) which would append to the existing query in the logic tier of the application and this now new (malicious) query is passed on to the database which executes it, if it&rsquo;s a fully-working query and not broken syntactically, and returns the result back to the end-user.</p>
+<p><img src="/sqli-0x01/exploits_of_a_mom.png" alt="DROP Tables. "></p>
+<div style="text-align: center;"><span style="font-size: small;">Credit to <a href="https://xkcd.com/327/" target="_blank">XKCD Comics</a>. If you've never checked them out, YOU SHOULD!</span></div>
+<br>
+Considering the above comic, although destructive and not very beneficial, it still is a SQL injection.
+<p>When a web application fails to properly sanitize the user input (parameters that are passed to the SQL statement or query), the malicious SQL query will be executed. This query will be executed with the same rights as the web server.</p>
+<p>If a command is being executed on the system via the database server, this command will be executed on the system with the rights of whoever deployed the database server. If MySQL (mysqld) is running as root user, then the commands that will be executed on the system will be as root.</p>
+<h3 id="classic-sql-injection---authentication-bypass">Classic SQL Injection - Authentication Bypass</h3>
+<p>How could I possibly end this post without actually displaying an SQL injection?! And welcome to the section you were waiting for.</p>
+<p>Let&rsquo;s consider the following PHP code of a login page as an example:
+We are passing our input in the <code>user</code> and <code>pass</code> field</p>
+<pre  class="mc-prism hide language-text" ><code class="language-PHP"># Takes the user input from the login POST request
+$user = $_POST['user'];
+$pass = $_POST['pass'];
+
+$query = &quot;SELECT * FROM users WHERE username=$user AND password=$pass&quot;;
+</code></pre>
+<p>The user controls the SQL query parameters &ldquo;username&rdquo; and &ldquo;password&rdquo; because they can potentially send in any value and it would be passed on to those parameters.</p>
+<p><strong>Let&rsquo;s consider a legitimate request first</strong>:
+POST login request sent by a legitimate user with <code>user=admin&amp;pass=amdin</code> and there&rsquo;s a typo in the password field</p>
+<p>The SQL query that will be built with this request would be:</p>
+<pre  class="mc-prism hide language-text" ><code class="language-SQL">SELECT * FROM users WHERE username=&quot;admin&quot; AND password=&quot;amdin&quot;;
+</code></pre>
+<p>The query will fetch all the entries in the database that matches <code>username=admin</code> and <code>password=amdin</code>. If no entries exist, the database will return nothing and so the logic tier will receive nothing from the database. The browser will then display whatever error is coded to display that login attempt has been failed.
+Maybe something like <em>Incorrect Password</em>.</p>
+<p><strong>Let&rsquo;s consider a malicious request now</strong>:
+POST login request sent by an attacker with <code>user='or'1'='1';-- -&amp;pass=lulz</code></p>
+<p>The SQL query that will be built with that request would be:</p>
+<pre  class="mc-prism hide language-text" ><code class="language-SQL">SELECT * FROM users WHERE username=''or'1'='1';-- - AND password=lulz';
+</code></pre>
+<p>By sending <code>'or'1'='1';-- -</code> in the user field in the POST request, we did not only modify the username parameter but also commented out the rest of the query that was initially present, which is the password parameter of the <code>WHERE</code> condition check.</p>
+<p>With this two modifications, our malicious query will always yield <em>true</em> due to the <code>OR</code> operand. Once this query is sent by the logic tier to the database server, the database server will execute it and return all the rows as the result!</p>
+<p>If there is no check present as to how many rows the PHP code (logic tier) must recieve, it&rsquo;ll by default take the first row (as it can&rsquo;t take all) from the result received from the database server. Since this first row is very much a valid result, the logic tier would log the malicious user into the system (mostly as admin).</p>
+<p>We&rsquo;ve successfully performed an SQL Injection to bypass authentication mechanism!</p>
+<h2 id="fin">Fin</h2>
+<p>If you stuck around and read all the way till here, thank you! If you have any suggestions, queries or found a mistake, feel free to contact me, if you&rsquo;d like me to credit you regarding it, I won&rsquo;t mind that.</p>
+<p>Regarding this series&hellip;it will go in depth from the basics to as advanced as I possibly can which would very much be out of the scope of OSCP and maybe even OSWE. There would probably be a weekly update to this series or as soon as I learn enough to blog about it.
+This series is not just to teach you about SQL injection but are also my personal notes if that gives you any more confidence about the quality of this.</p>
+<p>Have a great day, take care and hack the planet!</p>
+<p>Read the next post <a href="/sqli-0x02">SQL Injection 0x02 - Testing &amp; UNION Attacks</a></p>
+
+</article>
+</div>
+
+
+                
+                    <div class="content-margin">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "n00bsec" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+                
+            </div>
+<footer>
+    <article>Made with love...and copious amounts of coffee</article>
+</footer>
+
+</main>
+    </body>
+</html>

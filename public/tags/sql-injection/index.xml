@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Sql Injection on Welcome to noobsec</title>
+    <link>http://localhost:1313/tags/sql-injection/</link>
+    <description>Recent content in Sql Injection on Welcome to noobsec</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 29 Jul 2020 13:10:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/sql-injection/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MySQL Injection Cheatsheet</title>
+      <link>http://localhost:1313/sqli-cheatsheet/</link>
+      <pubDate>Wed, 29 Jul 2020 13:10:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/sqli-cheatsheet/</guid>
+      <description>MySQL Injection cheatsheet Testing checklist Name Character Function Single quote &#39; String terminator Semi colon ; Query terminator Comment -- - Removes the rest of the query Comment # Removes the rest of the query Comment /*comment this*/ Can be placed anywhere in a query, used for bypassing weak filters Single quote with a comment &#39;-- - End a string and remove rest of the query Single quote, semi colon and a comment &#39;;-- - End a string, end query, and remove rest of the query OR operator OR 1=1-- - For integers, true test OR operator OR 1=2-- - For integers, false test OR operator &#39; OR &#39;1&#39;=&#39;1&#39;-- - For strings, test test AND operator AND 1=1-- - For integers, true test AND operator AND 1=2-- - For integers, false test AND operator &#39; AND &#39;1&#39;=&#39;1&#39;-- - For strings, true test Arithmetic ?</description>
+    </item>
+    
+    <item>
+      <title>HackTheBox - Falafel Writeup w/o Metasploit</title>
+      <link>http://localhost:1313/hackthebox/htb-falafel-writeup-w-o-metasploit/</link>
+      <pubDate>Sat, 18 Jul 2020 14:46:16 +0000</pubDate>
+      
+      <guid>http://localhost:1313/hackthebox/htb-falafel-writeup-w-o-metasploit/</guid>
+      <description>HackTheBox - Falafel Writeup w/o Metasploit Introduction Falafel is a retired HackTheBox machine and one of the most interesting machines I have hacked on the platform. It is a Linux machine with some really fun vulnerabilities to exploit. The machine is rated hard but the author was kind enough to give us hints as we hack through it. The machine requires you to know a range of nuances from SQLi to Linux filesystems.</description>
+    </item>
+    
+    <item>
+      <title>HackTheBox - Cronos Writeup w/o Metasploit</title>
+      <link>http://localhost:1313/hackthebox/htb-cronos/</link>
+      <pubDate>Tue, 07 Jul 2020 01:43:22 +0000</pubDate>
+      
+      <guid>http://localhost:1313/hackthebox/htb-cronos/</guid>
+      <description>HackTheBox - Cronos Writeup w/o Metasploit Introduction Cronos is a HackTheBox retired machine. It is a Linux box, and has been officially rated as medium in difficulty, although I feel the machine is quite easy. Let&amp;rsquo;s jump in.
+Reconnaissance General Enumeration We&amp;rsquo;ll start out with an nmap scan. I always start with a quick initial scan. Command:
+nmap -Pn -n -oN nmap/initial 10.10.10.13Output: We can see that from the top 1000 ports only three are open:</description>
+    </item>
+    
+    <item>
+      <title>SQL Injection - 0x01</title>
+      <link>http://localhost:1313/sqli-0x01/</link>
+      <pubDate>Fri, 03 Jul 2020 16:22:37 +0000</pubDate>
+      
+      <guid>http://localhost:1313/sqli-0x01/</guid>
+      <description>SQL Injection 0x01 Hi, welcome to the first post of the SQL injection series. Before we dive into the &amp;ldquo;injection&amp;rdquo; part of it, let&amp;rsquo;s first understand the basics of what SQL is and the usual structure of a database-driven system.
+Structured Query Language (SQL) SQL is a database querying language which comes in various flavours like MySQL, MS-SQL, PostgreSQL, etc. In this series we&amp;rsquo;ll mainly focus on MySQL
+It&amp;rsquo;s a tabular database system, like Microsoft Excel simply put, with rows and columns.</description>
+    </item>
+    
+  </channel>
+</rss>

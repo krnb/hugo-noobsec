@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Boolean Sql Injection on Welcome to noobsec</title>
+    <link>http://localhost:1313/tags/boolean-sql-injection/</link>
+    <description>Recent content in Boolean Sql Injection on Welcome to noobsec</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 18 Jul 2020 14:46:16 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/boolean-sql-injection/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>HackTheBox - Falafel Writeup w/o Metasploit</title>
+      <link>http://localhost:1313/hackthebox/htb-falafel-writeup-w-o-metasploit/</link>
+      <pubDate>Sat, 18 Jul 2020 14:46:16 +0000</pubDate>
+      
+      <guid>http://localhost:1313/hackthebox/htb-falafel-writeup-w-o-metasploit/</guid>
+      <description>HackTheBox - Falafel Writeup w/o Metasploit Introduction Falafel is a retired HackTheBox machine and one of the most interesting machines I have hacked on the platform. It is a Linux machine with some really fun vulnerabilities to exploit. The machine is rated hard but the author was kind enough to give us hints as we hack through it. The machine requires you to know a range of nuances from SQLi to Linux filesystems.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,810 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang='en-us'><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href='http://localhost:1313/favicon.ico' type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Getting Into Cybersecurity - Red Team Edition - Welcome to noobsec</title>
+
+    
+
+    
+
+    
+    <meta name="author" content="karan bhayani" />
+    
+
+    
+        <meta property="og:title" content="Getting Into Cybersecurity - Red Team Edition" />
+<meta property="og:description" content="Getting Into Cybersecurity - Red Team Edition Introduction I came across this question and was asked so often that I decided to turn it into a blog post.
+Since finance is one of the biggest barrier that one could face, every resource listed here will be either completely free or at least provide a good amount of free resources/content.
+Disclaimer The following suggestions will be more towards getting into penetration testing or red teaming but if that is not your thing or rather you do not know what your thing is I would highly recommend reading through Lesley Carharts&rsquo; Starting an InfoSec Career - The Megamix series." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/starting-point/" /><meta property="article:section" content="" />
+<meta property="article:published_time" content="2020-08-31T15:48:04+00:00" />
+<meta property="article:modified_time" content="2020-08-31T15:48:04+00:00" />
+
+
+    
+
+    
+        <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Getting Into Cybersecurity - Red Team Edition"/>
+<meta name="twitter:description" content="Getting Into Cybersecurity - Red Team Edition Introduction I came across this question and was asked so often that I decided to turn it into a blog post.
+Since finance is one of the biggest barrier that one could face, every resource listed here will be either completely free or at least provide a good amount of free resources/content.
+Disclaimer The following suggestions will be more towards getting into penetration testing or red teaming but if that is not your thing or rather you do not know what your thing is I would highly recommend reading through Lesley Carharts&rsquo; Starting an InfoSec Career - The Megamix series."/>
+
+    <link rel="stylesheet" href="/style.css" integrity="">
+
+
+
+
+        
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-171056200-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    
+
+    
+    <script>
+        if (!('theme' in localStorage)) {
+            localStorage.theme = 'light';
+        }
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+            document.documentElement.setAttribute("data-theme", "light");
+        }
+    </script>
+<script defer src="/js/header.js" integrity=""></script>
+
+
+
+    <script defer src="/js/zooming.js" integrity=""></script>
+
+
+
+
+
+
+
+
+
+    
+    
+    
+    <script defer src="/js/search-en-us.js" integrity=""></script>
+
+
+
+
+
+</head>
+<body>
+        <main><header>
+    <div class="brand">
+        <div id="sidebar_btn">
+            <svg id="menu_icon" width="26px" height="26px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+</svg>
+
+</svg>
+        </div>
+
+        <div>
+            <a href="/">noobsec</a>
+        </div>
+    </div>
+
+    <div class="toolbox">
+        <div id="theme_tool">
+            <svg id="dark_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+</svg>
+
+</svg>
+            <svg id="light_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+</svg>
+
+</svg>
+        </div>
+
+        
+            <div id="search_tool">
+                <svg id="search_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+</svg>
+
+</svg><div id="search_menu_wrapper" class="hidden">
+    <div id="search_menu">
+        <div id="search_menu_toolbar">
+            <div id="search_menu_input_wrapper">
+                <input id="search_menu_input" type="text" placeholder='Search Posts'>
+            </div>
+            <div id="search_menu_close_btn">
+                <svg width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+</svg>
+
+</svg>
+            </div>
+        </div>
+        <div id="search_menu_results">
+        </div>
+    </div>
+</div>
+</div>
+        
+
+        
+    </div>
+</header>
+<nav id="navbar" class="pure-menu">
+    <ul class="pure-menu-list"><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                    
+                        <a href="#" class="pure-menu-link">OSCP</a>
+                    
+                    <ul class="pure-menu-children">
+    
+        <li class="pure-menu-item">
+            
+                <a href="/oscp-cheatsheet" class="pure-menu-link">OSCP Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/privesc-linux" class="pure-menu-link">Linux PrivEsc Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/privesc-windows" class="pure-menu-link">Windows PrivEsc Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/ad-cheatsheet" class="pure-menu-link">OSCP AD Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/oscp-journey" class="pure-menu-link">OSCP Journey</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/bof" class="pure-menu-link">OSCP BOF</a>
+            
+        </li>
+    
+
+</ul>
+                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                    
+                        <a href="#" class="pure-menu-link">HTB</a>
+                    
+                    <ul class="pure-menu-children">
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-bart" class="pure-menu-link">HTB Bart</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-falafel-writeup-w-o-metasploit" class="pure-menu-link">HTB Falafel</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-cronos" class="pure-menu-link">HTB Cronos</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-bashed" class="pure-menu-link">HTB Bashed</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-lame" class="pure-menu-link">HTB Lame</a>
+            
+        </li>
+    
+
+</ul>
+                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                    
+                        <a href="#" class="pure-menu-link">Web Attacks</a>
+                    
+                    <ul class="pure-menu-children">
+    
+        <li class="pure-menu-item">
+            
+                <a href="/file-inclusion" class="pure-menu-link">File Inclusion</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-0x01" class="pure-menu-link">SQLi 0x01</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-0x02" class="pure-menu-link">SQLi 0x02</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-0x03" class="pure-menu-link">SQLi 0x03</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-cheatsheet" class="pure-menu-link">SQLi Cheatsheet</a>
+            
+        </li>
+    
+
+</ul>
+                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                    
+                        <a href="#" class="pure-menu-link">Cheatsheets</a>
+                    
+                    <ul class="pure-menu-children">
+    
+        <li class="pure-menu-item">
+            
+                <a href="/oscp-cheatsheet" class="pure-menu-link">OSCP Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/privesc-linux" class="pure-menu-link">Linux PrivEsc Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/privesc-windows" class="pure-menu-link">Windows PrivEsc Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/ad-cheatsheet" class="pure-menu-link">AD Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/crtp-cheatsheet" class="pure-menu-link">CRTP Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-cheatsheet" class="pure-menu-link">SQLi Cheatsheet</a>
+            
+        </li>
+    
+
+</ul>
+                </li><li class="navbar-item pure-menu-item insection">
+                    
+                        <a href="/starting-point" class="pure-menu-link">Getting Started in Red Team</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/whoami/" class="pure-menu-link">About</a>
+                    
+                </li></ul>
+</nav>
+<div id="sidebar_canvas_overlay" class="hidden"></div>
+<div id="sidebar" class="close">
+    <ul><li>
+                    <details>
+                        <summary><a href="#">OSCP</a></summary>
+    <ul>
+        
+            
+                <li>
+                    
+                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/ad-cheatsheet">OSCP AD Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/oscp-journey">OSCP Journey</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/bof">OSCP BOF</a>
+                    
+                </li>
+            
+        
+    </ul>
+</details>
+                </li><li>
+                    <details>
+                        <summary><a href="#">HTB</a></summary>
+    <ul>
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-bart">HTB Bart</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-falafel-writeup-w-o-metasploit">HTB Falafel</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-cronos">HTB Cronos</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-bashed">HTB Bashed</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-lame">HTB Lame</a>
+                    
+                </li>
+            
+        
+    </ul>
+</details>
+                </li><li>
+                    <details>
+                        <summary><a href="#">Web Attacks</a></summary>
+    <ul>
+        
+            
+                <li>
+                    
+                        <a href="/file-inclusion">File Inclusion</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-0x01">SQLi 0x01</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-0x02">SQLi 0x02</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-0x03">SQLi 0x03</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
+                    
+                </li>
+            
+        
+    </ul>
+</details>
+                </li><li>
+                    <details>
+                        <summary><a href="#">Cheatsheets</a></summary>
+    <ul>
+        
+            
+                <li>
+                    
+                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/ad-cheatsheet">AD Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/crtp-cheatsheet">CRTP Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
+                    
+                </li>
+            
+        
+    </ul>
+</details>
+                </li><li>
+                    <a href="/starting-point">Getting Started in Red Team</a>
+                </li><li>
+                    <a href="/whoami/">About</a>
+                </li></ul>
+</div><div id="content" class="content-margin">
+                
+    
+    <details class="collapsible-menu-wrapper"><summary class="collapsible-menu-type"><span>Table of contents</span></summary><div class="collapsible-menu">
+        
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#disclaimer">Disclaimer</a></li>
+    <li><a href="#who-this-post-is-for">Who This Post Is For?</a></li>
+    <li><a href="#no-it-experience">No IT Experience</a></li>
+    <li><a href="#lets-begin">Let&rsquo;s Begin</a>
+      <ul>
+        <li><a href="#google">Google</a></li>
+        <li><a href="#note-taking">Note Taking</a></li>
+        <li><a href="#linux">Linux</a></li>
+        <li><a href="#python">Python</a></li>
+        <li><a href="#other-languages">Other Languages</a></li>
+        <li><a href="#computer-networks">Computer Networks</a></li>
+        <li><a href="#web-application-exploitation">Web Application Exploitation</a></li>
+        <li><a href="#capture-the-flag">Capture The Flag</a></li>
+      </ul>
+    </li>
+    <li><a href="#proof-of-knowledge">Proof of Knowledge</a>
+      <ul>
+        <li><a href="#certifications">Certifications</a></li>
+      </ul>
+    </li>
+    <li><a href="#fin">Fin</a></li>
+  </ul>
+</nav>
+        
+    </div></details>
+
+
+
+    <div class="content-margin">
+
+
+
+<article >
+    
+    
+        
+        
+    
+    <h1 id="getting-into-cybersecurity---red-team-edition">Getting Into Cybersecurity - Red Team Edition</h1>
+<h2 id="introduction">Introduction</h2>
+<p>I came across this question and was asked so often that I decided to turn it into a blog post.</p>
+<p>Since finance is one of the biggest barrier that one could face, every resource listed here will be either completely free or at least provide a good amount of free resources/content.</p>
+<h2 id="disclaimer">Disclaimer</h2>
+<p>The following suggestions will be more towards getting into penetration testing or red teaming but if that is not your thing or rather you do not know what your thing is I would highly recommend reading through <a href="https://twitter.com/hacks4pancakes/">Lesley Carharts&rsquo;</a> <a href="https://tisiphone.net/2015/10/12/starting-an-infosec-career-the-megamix-chapters-1-3/">Starting an InfoSec Career - The Megamix</a> series. The series is quite extensive and you would also get a look at different specializations in infosec from the amazing people who are working in it; it is fantastic. Also, Lesley is one of the most talented person in the infosec community and you gotta follow her on <a href="https://twitter.com/hacks4pancakes/">Twitter</a>.</p>
+<p>I have myself barely just gotten my feet wet in the massive ocean that is infosec, but I know a little and would love to share whatever I know if it helps you out. In no shape or form is this gonna be <em>THE ULTIMATE</em> guide to follow, there are a <em>TON</em> of options and you must research on your own to find what works best for you ¯\_(ツ)_/¯</p>
+<p>All this will only help you get started, perhaps even make you ready for an entry level job, but that is the most all these courses, CTFs, and trainings can provide you. Not so surprisingly, experience is the most important thing in this field and is what will help you get through your future hurdles, and you will build that&hellip;in time.</p>
+<h2 id="who-this-post-is-for">Who This Post Is For?</h2>
+<p>Anyone who is just starting out in the industry, not sure where to begin, basically a noob. The following suggestions are as per my experiences, these are the things I did, and it has worked out for me, clearly.</p>
+<h2 id="no-it-experience">No IT Experience</h2>
+<p>Let&rsquo;s say you found this field very interesting and want to dive into it but do not have any IT or computer experience before. I would suggest doing the <a href="https://www.coursera.org/professional-certificates/google-it-support">Google IT Support Professional Certificate</a> from Coursera. This course will cover all the basics you need to know before you get started with cybersecurity. The course provides 7 day free trial, so hack your way through it for a free certificate :)</p>
+<h2 id="lets-begin">Let&rsquo;s Begin</h2>
+<p>Ok so you decided to be a pentester, let&rsquo;s get started!</p>
+<p><em>Note: None of the following needs to be done in a particular order, you can do things in any order whichever makes you feel more comfortable</em></p>
+<h3 id="google">Google</h3>
+<p>This might seem like a little obvious or feel like I&rsquo;m making fun of you, I&rsquo;m not. Google will be your best tool throughout your journey regardless of what you intend on doing. Learn how to look up things properly, learn some <a href="https://securitytrails.com/blog/google-hacking-techniques">Google Dorks</a> to look for specific things. Google every issue or doubt you come across, there is a very high chance someone else went through that too.</p>
+<h3 id="note-taking">Note Taking</h3>
+<p>Before you start with anything, ensure that you take plenty of notes. There are a ton of notes out there, but creating your own notes and hacking sheets will help you the most. I use following applications (both are free):</p>
+<ol>
+<li><a href="notion.so/">Notion</a> - General note taking of almost everything I learn</li>
+<li>Joplin - Jotting down hack steps of each machine I tackle on HackTheBox</li>
+</ol>
+<h3 id="linux">Linux</h3>
+<p>There&rsquo;s no getting rid of the penguin. Ok, maybe there is, but learning Linux will open up a lot of the playground with which you can learn how to hack. Not to mention, a majority of the servers are infact Linux-based, along with almost all the IoT devices. There is a lot you can do with this.</p>
+<p>Start by learning the basics of <a href="https://www.youtube.com/playlist?list=PL6gx4Cwl9DGCkg2uj3PxUWhMDuTw3VKjM">Linux</a></p>
+<p>Some commands/tools that I feel you absolutely must learn are:</p>
+<ul>
+<li><input disabled="" type="checkbox"> vi/vim - learn from <code>vimtutor</code> command on Linux</li>
+<li><input disabled="" type="checkbox"> cut</li>
+<li><input disabled="" type="checkbox"> sed</li>
+<li><input disabled="" type="checkbox"> awk</li>
+<li><input disabled="" type="checkbox"> curl</li>
+<li><input disabled="" type="checkbox"> grep</li>
+<li><input disabled="" type="checkbox"> tmux - learn from <a href="https://www.youtube.com/watch?v=Lqehvpe_djs">here</a></li>
+</ul>
+<p>Once you&rsquo;ve done that you could head on to <a href="https://overthewire.org/wargames/">OverTheWire</a> and start by playing the Bandit series to not only practice Linux in a CTF-style environment but you&rsquo;ll also learn some cool tricks which may help you in the future.</p>
+<p>Once you have grasped the basics, you should head on to bash scripting. Bash scripting, in my opinion, is quite underrated. Linux commands can do a ton of stuff individually, and you automate it using bash scripts you can achieve pretty amazing stuff like automating your exploitation process, or even enumeration.</p>
+<p>You can learn bash scripting from <a href="https://www.youtube.com/playlist?list=PLS1QulWo1RIYmaxcEqw5JhK3b-6rgdWO_">here</a></p>
+<h3 id="python">Python</h3>
+<p>I would also highly recommend learning Python. Like bash, python will come in handy in terms of automation, in some places bash will feel more &ldquo;right&rdquo; to use, other times python.</p>
+<p>You can start learning python from <a href="https://www.youtube.com/playlist?list=PL6gx4Cwl9DGAcbMi1sH6oAMk4JHw91mC_">here</a></p>
+<p>One of the libraries that I would highly recommend learning is the <em>requests</em> library.</p>
+<p>Python for hacking/exploitation is no different than any other python. Python is python. You just need to apply the concepts in different ways. Some of the projects/scripts that I would recommend making are:</p>
+<ol>
+<li>pingsweep</li>
+<li>portscanner</li>
+<li>bruteforcer</li>
+<li>bruteforcer bypassing CSRF tokens</li>
+<li>SQL injection automation</li>
+</ol>
+<p>You can achieve the same in bash :)</p>
+<h3 id="other-languages">Other Languages</h3>
+<p>As Python can help in automating things, each language has its&rsquo; own pros and cons.
+Other languages that you should consider learning are:</p>
+<ul>
+<li><input disabled="" type="checkbox"> C - Useful for general binary exploitation purposes - <a href="https://www.youtube.com/playlist?list=PL0170B6E7DD6D8810">resource 1</a>, <a href="https://beej.us/guide/bgc/html/single/bgc.html">resource 2</a></li>
+<li><input disabled="" type="checkbox"> C# - Useful for Windows exploitation - Google</li>
+<li><input disabled="" type="checkbox"> C++ - Useful for Windows exploitation - Google</li>
+<li><input disabled="" type="checkbox"> PowerShell - Useful for Windows exploitation - Google</li>
+</ul>
+<p>Web languages that you should be able to read at the least are:</p>
+<ul>
+<li><input disabled="" type="checkbox"> PHP</li>
+<li><input disabled="" type="checkbox"> JavaScript</li>
+</ul>
+<p>If you&rsquo;re wondering why did I not mention Java, the reason is quite simple, I absolutely despise it. If you want to you can learn it enough to be able to read it and understand what the code is doing.</p>
+<h3 id="computer-networks">Computer Networks</h3>
+<p>Learning computer networks in essential. It might feel like a lot but in time you will get a hang of it. You do not need to take a graduate level networking course or something, but you should know the following at the least:</p>
+<ul>
+<li><input disabled="" type="checkbox"> OSI model</li>
+<li><input disabled="" type="checkbox"> How TCP and UDP work</li>
+<li><input disabled="" type="checkbox"> TCP three way handshake</li>
+<li><input disabled="" type="checkbox"> Some important protocols work - HTTP, SSH (these are the ones at top of my head right now)</li>
+<li><input disabled="" type="checkbox"> Subnetting</li>
+</ul>
+<p>This <a href="https://www.youtube.com/playlist?list=PL6gx4Cwl9DGBpuvPW0aHa7mKdn_k9SPKO">YouTube playlist</a> covers most of the topics if not all. Google things to learn more.</p>
+<p>To understand the flow of connections and learn more about protocols, learn <a href="https://www.youtube.com/playlist?list=PL6gx4Cwl9DGBI2ZFuyZOl5Q7sptR7PwYN">Wireshark</a>, and tcpdump.</p>
+<p>Want to learn networking a little more &ldquo;properly&rdquo;? Go through this <a href="https://beej.us/guide/bgnet/html/">Guide to Network Programming</a></p>
+<h3 id="web-application-exploitation">Web Application Exploitation</h3>
+<p>With Linux, Python, and computer networks are out of the way, you now know some good amount of basics to go ahead with.</p>
+<p>Next you could start learning how to exploit web applications.</p>
+<p>The best tool, in my opinion, that you should learn how to use as proficiently as possible is <a href="https://portswigger.net/burp">PortSwiggers&rsquo; BurpSuite</a>, which is a web proxy tool.</p>
+<p>One of the best resources currently out there is PortSwiggers&rsquo; <a href="https://portswigger.net/web-security">Web Security Academy</a>. It goes through a lot of web exploits which are quite realistic, you could start with XSS or SQL injection. It also provides a free lab to practice each kind of exploit.</p>
+<p>You can practice your python skills here as well.</p>
+<p>Another resource that you should check out is <a href="https://owasp.org/">OWASP</a>, Open Web Application Security Project. OWASP provides brilliant projects like <a href="https://owasp.org/www-project-web-security-testing-guide/">OWASP Web Security Testing Guide</a> and <a href="https://owasp.org/www-project-top-ten/">OWASP TOP 10</a>. You should go through them thoroughly.</p>
+<p>You can also leverage two different vulnerable labs to practice your web hacking skills - <a href="http://www.dvwa.co.uk/">DVWA</a> and <a href="https://owasp.org/www-project-juice-shop/">OWASP Juice Shop</a></p>
+<p>You can also practice on <a href="https://overthewire.org/wargames/natas/">OverTheWire - Natas</a></p>
+<h3 id="capture-the-flag">Capture The Flag</h3>
+<p>After learning all that the only way to learn more is by hacking. Some of the CTF websites that you can get your hands dirty are:</p>
+<ul>
+<li><input disabled="" type="checkbox"> <a href="https://www.hackthebox.eu/">HackTheBox</a> - free + paid (personal favourite)</li>
+<li><input disabled="" type="checkbox"> <a href="https://www.vulnhub.com/">VulnHub</a> - completely free</li>
+<li><input disabled="" type="checkbox"> <a href="https://www.tryhackme.com/">TryHackMe</a> - free + paid</li>
+<li><input disabled="" type="checkbox"> <a href="https://overthewire.org/wargames/">OverTheWire</a> - completely free</li>
+<li><input disabled="" type="checkbox"> <a href="https://ctf.hacker101.com/">Hacker101 CTF</a> - completely free</li>
+</ul>
+<h2 id="proof-of-knowledge">Proof of Knowledge</h2>
+<p>There are multiple ways of showing that you know something - certificate of completion, a social media post of &ldquo;I hacked machine X&rdquo;, and so on.
+What stands out the most is making a blog and writing about what you learned, write about something you hacked and explain the vulnerability as deep as possible and at the same time suggest remediations to fix the vulnerability.</p>
+<p>Create a GitHub repo to store all your scripts there, and display those as well!</p>
+<h3 id="certifications">Certifications</h3>
+<p>If you&rsquo;re considering getting certified or going for some certifications, I have stated which certification will provide you what:</p>
+<ol>
+<li>CompTIA Security+ : to understand the basics of security theory of different verticles (<em>recommended</em>)</li>
+<li>Offensive Security Certified Professional (OSCP) : a stamp that you now know the basics (<em>recommended</em>)</li>
+<li>Certified Ethical Hacker (CEH) : for HR purposes only</li>
+</ol>
+<p>Certifications are expensive, so if you do intend on getting one somehow while managing your financial problems, get only OSCP.</p>
+<h2 id="fin">Fin</h2>
+<p>Before you go, read <a href="https://twitter.com/z3roTrust/status/1296666120426942470">this</a>.</p>
+<p>I believe this is more than enough to get anyone into pentesting, if you have any doubt or suggestion, feel free to contact me :)
+Take care and hack the planet!</p>
+
+</article>
+</div>
+
+
+                
+                    <div class="content-margin">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "n00bsec" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+                
+            </div>
+<footer>
+    <article>Made with love...and copious amounts of coffee</article>
+</footer>
+
+</main>
+    </body>
+</html>

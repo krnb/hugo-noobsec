@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Sql Injeciton on Welcome to noobsec</title>
+    <link>http://localhost:1313/tags/sql-injeciton/</link>
+    <description>Recent content in Sql Injeciton on Welcome to noobsec</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 18 Jul 2020 14:37:47 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/sql-injeciton/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SQL Injection 0x03 - Blind Boolean Attacks</title>
+      <link>http://localhost:1313/sqli-0x03/</link>
+      <pubDate>Sat, 18 Jul 2020 14:37:47 +0000</pubDate>
+      
+      <guid>http://localhost:1313/sqli-0x03/</guid>
+      <description>SQL Injection 0x03 - Blind Boolean Attacks Introduction Blind SQL injection are the type of SQL injections attacks wherein no database error is received from the web responses, there are either subtle or no changes to the web page upon sending injection payloads. Since these changes are either subtle or non-existent, it becomes harder to identify and exploit these vulnerabilities but are certainly not impossible.
+Hi, welcome to the third part of the SQL injection series, if you haven&amp;rsquo;t read the first two posts and are a complete beginner I&amp;rsquo;d suggest you read them first - SQL Injection 0x01 - Introduction and SQL Injection 0x02 - Testing &amp;amp; UNION Attacks.</description>
+    </item>
+    
+    <item>
+      <title>SQL Injection 0x02 - Testing and UNION Attacks</title>
+      <link>http://localhost:1313/sqli-0x02/</link>
+      <pubDate>Fri, 10 Jul 2020 22:31:47 +0000</pubDate>
+      
+      <guid>http://localhost:1313/sqli-0x02/</guid>
+      <description>SQL Injection 0x02 - Testing and UNION Attacks Introduction Hi, welcome to the second post of the sql injection series, if you haven&amp;rsquo;t read the first part of the series, you can read it here.
+In this post I have focused on how to perform testing for error-based SQL injection and then moved on to a general process of performing UNION attacks. I have also covered how you can automate data extraction when the amount of data you are dealing with is a lot.</description>
+    </item>
+    
+  </channel>
+</rss>

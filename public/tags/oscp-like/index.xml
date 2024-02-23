@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Oscp-Like on Welcome to noobsec</title>
+    <link>http://localhost:1313/tags/oscp-like/</link>
+    <description>Recent content in Oscp-Like on Welcome to noobsec</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 08 Aug 2020 23:43:37 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/oscp-like/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>HackTheBox - Bashed Writeup w/o Metasploit</title>
+      <link>http://localhost:1313/hackthebox/htb-bashed/</link>
+      <pubDate>Sat, 08 Aug 2020 23:43:37 +0000</pubDate>
+      
+      <guid>http://localhost:1313/hackthebox/htb-bashed/</guid>
+      <description>HackTheBox - Bashed Writeup w/o Metasploit Introduction Bashed is a retired HackTheBox machine, rated easy and rightfully so. We go from finding a hidden web shell to quickly gaining root due to over privileged users. I present a small discussion at the end of the write-up that I had with some folks on what steps could be taken to secure something like this on a corporate level, not really necessary but fun.</description>
+    </item>
+    
+    <item>
+      <title>HackTheBox - Lame Writeup w/o Metasploit</title>
+      <link>http://localhost:1313/hackthebox/htb-lame/</link>
+      <pubDate>Sat, 01 Aug 2020 19:03:06 +0000</pubDate>
+      
+      <guid>http://localhost:1313/hackthebox/htb-lame/</guid>
+      <description>HackTheBox - Lame Writeup w/o Metasploit Introduction Lame was the first machine on the HackTheBox platform, it is very much like any other Boot2Root machine but is good for beginners. Lame is a Linux machine and has rightfully rated as Easy by the platform. There are 2 ways to own the machine and a false positive which may or may not lead to a rabbit hole, depending on the way you approach it.</description>
+    </item>
+    
+    <item>
+      <title>HackTheBox - Cronos Writeup w/o Metasploit</title>
+      <link>http://localhost:1313/hackthebox/htb-cronos/</link>
+      <pubDate>Tue, 07 Jul 2020 01:43:22 +0000</pubDate>
+      
+      <guid>http://localhost:1313/hackthebox/htb-cronos/</guid>
+      <description>HackTheBox - Cronos Writeup w/o Metasploit Introduction Cronos is a HackTheBox retired machine. It is a Linux box, and has been officially rated as medium in difficulty, although I feel the machine is quite easy. Let&amp;rsquo;s jump in.
+Reconnaissance General Enumeration We&amp;rsquo;ll start out with an nmap scan. I always start with a quick initial scan. Command:
+nmap -Pn -n -oN nmap/initial 10.10.10.13Output: We can see that from the top 1000 ports only three are open:</description>
+    </item>
+    
+  </channel>
+</rss>

