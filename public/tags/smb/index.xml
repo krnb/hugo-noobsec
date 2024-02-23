@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Smb on Welcome to noobsec</title>
+    <link>http://localhost:1313/tags/smb/</link>
+    <description>Recent content in Smb on Welcome to noobsec</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 01 Aug 2020 19:03:06 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/smb/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>HackTheBox - Lame Writeup w/o Metasploit</title>
+      <link>http://localhost:1313/hackthebox/htb-lame/</link>
+      <pubDate>Sat, 01 Aug 2020 19:03:06 +0000</pubDate>
+      
+      <guid>http://localhost:1313/hackthebox/htb-lame/</guid>
+      <description>HackTheBox - Lame Writeup w/o Metasploit Introduction Lame was the first machine on the HackTheBox platform, it is very much like any other Boot2Root machine but is good for beginners. Lame is a Linux machine and has rightfully rated as Easy by the platform. There are 2 ways to own the machine and a false positive which may or may not lead to a rabbit hole, depending on the way you approach it.</description>
+    </item>
+    
+  </channel>
+</rss>

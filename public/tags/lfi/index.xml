@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Lfi on Welcome to noobsec</title>
+    <link>http://localhost:1313/tags/lfi/</link>
+    <description>Recent content in Lfi on Welcome to noobsec</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 29 Jun 2020 21:44:39 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/lfi/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>File Inclusion</title>
+      <link>http://localhost:1313/file-inclusion/</link>
+      <pubDate>Mon, 29 Jun 2020 21:44:39 +0000</pubDate>
+      
+      <guid>http://localhost:1313/file-inclusion/</guid>
+      <description>File Inclusion Introduction File inclusion vulnerabilities are of two types: Remote File Inclusion (RFI) and Local File Inclusion (LFI). RFI is said to be present when a web application allows remote users to load and execute a remote file on the server. LFI is said to be present when a web application allows remote users to load any pre-existing file and execute it on the server.
+These vulnerabilities are often found in poorly written and/or deployed web applications which loads files or content to display it to the end-user, completely forgetting that this input could be modified.</description>
+    </item>
+    
+  </channel>
+</rss>

