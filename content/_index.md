@@ -6,6 +6,12 @@ toc: false
 ---
 
 # Hello, world!
+
+Hi, welcome to yet another security blog!
+
+It's nicer cause its got a cow :)
+
+
 <pre style="display: grid; place-items: center; ">
  ____________________
 < Welcome to noobsec >
@@ -17,8 +23,6 @@ toc: false
                 ||     ||
 
 </pre>
-
-Hi, welcome to my blog! I hope you liked the cow, feel free to pet it :)
 
 The purpose of this blog is to share my knowledge and things I do with everyone.
 
