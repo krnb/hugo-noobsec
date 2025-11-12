@@ -13,8 +13,23 @@
       <pubDate>Tue, 30 Jun 2020 22:45:33 +0000</pubDate>
       
       <guid>http://localhost:1313/hack-oscp/</guid>
-      <description>Hack OSCP - A n00bs Guide Since I cleared OSCP plenty of folks asked me how to clear OSCP, and although I briefly mentioned it in my OSCP Journey post, it was not the whole picture and also not very accessible, and so I&amp;rsquo;m writing this post.
-Please note that PwK is a course you&amp;rsquo;re paying for to learn from, the course teaches you almost everything you need to learn and you&amp;rsquo;ll get to practice in the labs as well.</description>
+      <description>&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;hack-oscp---a-n00bs-guide&#34; --&gt;
+
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;Hack OSCP - A n00bs Guide
+  &lt;a href=&#34;#hack-oscp---a-n00bs-guide&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;p&gt;Since I cleared OSCP plenty of folks asked me how to clear OSCP, and although I briefly mentioned it in my &lt;a href=&#34;http://localhost:1313/oscp-journey&#34; target=&#34;_blank&#34;&gt;OSCP Journey&lt;/a&gt; post, it was not the whole picture and also not very accessible, and so I&amp;rsquo;m writing this post.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -23,8 +38,41 @@ Please note that PwK is a course you&amp;rsquo;re paying for to learn from, the 
       <pubDate>Mon, 29 Jun 2020 21:44:39 +0000</pubDate>
       
       <guid>http://localhost:1313/file-inclusion/</guid>
-      <description>File Inclusion Introduction File inclusion vulnerabilities are of two types: Remote File Inclusion (RFI) and Local File Inclusion (LFI). RFI is said to be present when a web application allows remote users to load and execute a remote file on the server. LFI is said to be present when a web application allows remote users to load any pre-existing file and execute it on the server.
-These vulnerabilities are often found in poorly written and/or deployed web applications which loads files or content to display it to the end-user, completely forgetting that this input could be modified.</description>
+      <description>&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;file-inclusion&#34; --&gt;
+
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;File Inclusion
+  &lt;a href=&#34;#file-inclusion&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;introduction&#34; --&gt;
+
+&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;Introduction
+  &lt;a href=&#34;#introduction&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h2&gt;
+
+&lt;p&gt;File inclusion vulnerabilities are of two types: &lt;strong&gt;Remote File Inclusion (RFI)&lt;/strong&gt; and &lt;strong&gt;Local File Inclusion (LFI)&lt;/strong&gt;.
+&lt;strong&gt;RFI&lt;/strong&gt; is said to be present when a web application allows remote users to load and execute a remote file on the server.
+&lt;strong&gt;LFI&lt;/strong&gt; is said to be present when a web application allows remote users to load any pre-existing file and execute it on the server.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -33,10 +81,27 @@ These vulnerabilities are often found in poorly written and/or deployed web appl
       <pubDate>Mon, 29 Jun 2020 16:33:08 +0000</pubDate>
       
       <guid>http://localhost:1313/privesc-linux/</guid>
-      <description>Linux Privilege Escalation Cheatsheet So you got a shell, what now? This cheatsheet will help you with local enumeration as well as escalate your privilege further
-Usage of different enumeration scripts are encouraged, my favourite is LinPEAS Another linux enumeration script I personally use is LinEnum Abuse existing functionality of programs using GTFOBins
-Note: This is a live document. I&amp;rsquo;ll be adding more content as I learn more
-Unstable shell Send yourself another shell from within the unstable shell</description>
+      <description>&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;linux-privilege-escalation-cheatsheet&#34; --&gt;
+
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;Linux Privilege Escalation Cheatsheet
+  &lt;a href=&#34;#linux-privilege-escalation-cheatsheet&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;p&gt;So you got a shell, what &lt;em&gt;now&lt;/em&gt;?
+This cheatsheet will help you with local enumeration as well as escalate your privilege further&lt;/p&gt;
+&lt;p&gt;Usage of different enumeration scripts are encouraged, my favourite is &lt;a href=&#34;https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/linPEAS&#34;&gt;LinPEAS&lt;/a&gt;
+Another linux enumeration script I personally use is &lt;a href=&#34;https://github.com/rebootuser/LinEnum/blob/master/LinEnum.sh&#34;&gt;LinEnum&lt;/a&gt;
+Abuse existing functionality of programs using &lt;a href=&#34;https://gtfobins.github.io/&#34;&gt;GTFOBins&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -45,8 +110,40 @@ Unstable shell Send yourself another shell from within the unstable shell</descr
       <pubDate>Sat, 27 Jun 2020 10:26:58 +0000</pubDate>
       
       <guid>http://localhost:1313/oscp-journey/</guid>
-      <description>OSCP Journey From a persistent n00b who couldn&amp;rsquo;t even hack a medium difficulty machine on his own to cracking OSCP in 4 months!
-Background I wanted to do the PwK course and clear OSCP since past couple years but haven&amp;rsquo;t been able to due to reasons. Two of my certifications were going to expire in August &amp;lsquo;20, and I had to do a certification to renew them, a perfect opportunity. Before I started with the PwK course, I had very little experience with hacking or even CTF for that matter.</description>
+      <description>&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;oscp-journey&#34; --&gt;
+
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;OSCP Journey
+  &lt;a href=&#34;#oscp-journey&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;p&gt;From a persistent n00b who couldn&amp;rsquo;t even hack a medium difficulty machine on his own to cracking OSCP in 4 months!&lt;/p&gt;
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;background&#34; --&gt;
+
+&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;Background
+  &lt;a href=&#34;#background&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h2&gt;
+
+&lt;p&gt;I wanted to do the PwK course and clear OSCP since past couple years but haven&amp;rsquo;t been able to due to reasons. Two of my certifications were going to expire in August &amp;lsquo;20, and I had to do a certification to renew them, a perfect opportunity. Before I started with the PwK course, I had very little experience with hacking or even CTF for that matter. My college studies or previous certifications weren&amp;rsquo;t of any help here either. But I decided to take a deep breath, and dive in.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -55,11 +152,45 @@ Background I wanted to do the PwK course and clear OSCP since past couple years 
       <pubDate>Fri, 26 Jun 2020 18:32:04 +0000</pubDate>
       
       <guid>http://localhost:1313/bof/</guid>
-      <description>Windows 32-Bit Buffer Overflow SLMail Example
-Practice these:
-SLMail - download from exploit-db Brainpan - download from vulnhub Step By Step Scripts All the scripts are available here as well as at the bottom.
-connect.py Making sure connection and all the operations are successfully performed is crucial as everything will be built on this script/step.
-import socketimport sysrhost = &amp;quot;192.168.&amp;quot;rport = 110try:s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)s.connect((rhost,rport))print s.</description>
+      <description>&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;windows-32-bit-buffer-overflow&#34; --&gt;
+
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;Windows 32-Bit Buffer Overflow
+  &lt;a href=&#34;#windows-32-bit-buffer-overflow&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;p&gt;SLMail Example&lt;/p&gt;
+&lt;p&gt;Practice these:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; SLMail - download from &lt;a href=&#34;https://www.exploit-db.com/apps/12f1ab027e5374587e7e998c00682c5d-SLMail55_4433.exe&#34;&gt;exploit-db&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Brainpan - download from &lt;a href=&#34;https://www.vulnhub.com/entry/brainpan-1,51/&#34;&gt;vulnhub&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;step-by-step-scripts&#34; --&gt;
+
+&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;Step By Step Scripts
+  &lt;a href=&#34;#step-by-step-scripts&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h2&gt;
+
+&lt;p&gt;All the scripts are available &lt;a href=&#34;https://github.com/krnb/scripts/tree/master/bof&#34;&gt;here&lt;/a&gt; as well as at the &lt;a onclick=&#34;go_bottom()&#34; style=&#34;cursor: pointer; &#34;&gt;bottom&lt;/a&gt;.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -68,12 +199,26 @@ import socketimport sysrhost = &amp;quot;192.168.&amp;quot;rport = 110try:s
       <pubDate>Fri, 26 Jun 2020 18:05:42 +0000</pubDate>
       
       <guid>http://localhost:1313/privesc-windows/</guid>
-      <description>Windows Privilege Escalation Cheatsheet Latest updated as of: 12 / June / 2022
-So you got a shell, what now?
-This post will help you with local enumeration as well as escalate your privileges further.
-Usage of different enumeration scripts and tools is encouraged, my favourite is WinPEAS. If confused which executable to use, use this
-Keep in mind:
-To exploit services or registry, you require: appropriate write permissions service start permission service stop permission Look for non-standard programs on the system Note: This is a live document.</description>
+      <description>&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;windows-privilege-escalation-cheatsheet&#34; --&gt;
+
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;Windows Privilege Escalation Cheatsheet
+  &lt;a href=&#34;#windows-privilege-escalation-cheatsheet&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;p&gt;Latest updated as of: &lt;em&gt;12 / June / 2022&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;So you got a shell, what &lt;em&gt;now&lt;/em&gt;?&lt;br&gt;
+This post will help you with local enumeration as well as escalate your privileges further.&lt;/p&gt;
+&lt;p&gt;Usage of different enumeration scripts and tools is encouraged, my favourite is &lt;a href=&#34;https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/winPEAS&#34;&gt;WinPEAS&lt;/a&gt;. If confused which executable to use, use &lt;a href=&#34;https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/blob/master/winPEAS/winPEASexe/winPEAS/bin/Obfuscated%20Releases/winPEASany.exe&#34;&gt;this&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -82,13 +227,39 @@ To exploit services or registry, you require: appropriate write permissions serv
       <pubDate>Thu, 25 Jun 2020 08:51:22 +0000</pubDate>
       
       <guid>http://localhost:1313/oscp-cheatsheet/</guid>
-      <description>OSCP Cheatsheet General Enumeration - Nmap Replace $ip with target IP
-Initial scan
-nmap -Pn -n -vvv -oN nmap/initial $ipIf no ports are found, scan in parts
-nmap -Pn -n -vvv -p1-500 -oN nmap/partial $ipScan all ports
-nmap -Pn -n -vvv -p- -oN nmap/allports $ipTargeted scanning
-nmap -Pn -n -vvv -p22,80 -oN nmap/targeted $ipUDP Scanning
-sudo nmap -Pn -n -vvv -sU -oN nmap/udp $ipAutomated nmap scanning (my preference is nmapAutomator, never missed a port)</description>
+      <description>&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;oscp-cheatsheet&#34; --&gt;
+
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;OSCP Cheatsheet
+  &lt;a href=&#34;#oscp-cheatsheet&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;general-enumeration---nmap&#34; --&gt;
+
+&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;General Enumeration - Nmap
+  &lt;a href=&#34;#general-enumeration---nmap&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;Replace $ip with target IP&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

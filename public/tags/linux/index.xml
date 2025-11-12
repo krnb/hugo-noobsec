@@ -13,10 +13,27 @@
       <pubDate>Mon, 29 Jun 2020 16:33:08 +0000</pubDate>
       
       <guid>http://localhost:1313/privesc-linux/</guid>
-      <description>Linux Privilege Escalation Cheatsheet So you got a shell, what now? This cheatsheet will help you with local enumeration as well as escalate your privilege further
-Usage of different enumeration scripts are encouraged, my favourite is LinPEAS Another linux enumeration script I personally use is LinEnum Abuse existing functionality of programs using GTFOBins
-Note: This is a live document. I&amp;rsquo;ll be adding more content as I learn more
-Unstable shell Send yourself another shell from within the unstable shell</description>
+      <description>&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;linux-privilege-escalation-cheatsheet&#34; --&gt;
+
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;Linux Privilege Escalation Cheatsheet
+  &lt;a href=&#34;#linux-privilege-escalation-cheatsheet&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;p&gt;So you got a shell, what &lt;em&gt;now&lt;/em&gt;?
+This cheatsheet will help you with local enumeration as well as escalate your privilege further&lt;/p&gt;
+&lt;p&gt;Usage of different enumeration scripts are encouraged, my favourite is &lt;a href=&#34;https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/linPEAS&#34;&gt;LinPEAS&lt;/a&gt;
+Another linux enumeration script I personally use is &lt;a href=&#34;https://github.com/rebootuser/LinEnum/blob/master/LinEnum.sh&#34;&gt;LinEnum&lt;/a&gt;
+Abuse existing functionality of programs using &lt;a href=&#34;https://gtfobins.github.io/&#34;&gt;GTFOBins&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

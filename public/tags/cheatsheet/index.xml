@@ -13,9 +13,40 @@
       <pubDate>Wed, 23 Dec 2020 22:30:19 +0000</pubDate>
       
       <guid>http://localhost:1313/crtp-cheatsheet/</guid>
-      <description>CRTP Cheatsheet This cheatsheet corresponds to an older version of PowerView deliberately as this is the version that was used in Pentester Academys&amp;rsquo; CRTP certification course. Updated AD enumeration (PowerView/SharpHound) cheatsheet can be found at AD Enumeration
-Helpful Commands Commands to help use PowerView even better.
-Command Description Set-MpPreference -DisableRealTimeMonitoring $true Disable Windows Defender real time monitoring Set-MpPreference -DisableIOAVProtection $true Disable Windows Defender scanning for all files downloaded Disabling Defender even if for a small amount of time puts the assets at risk, instead one could opt for bypassing AMSI using this resource.</description>
+      <description>&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;crtp-cheatsheet&#34; --&gt;
+
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;CRTP Cheatsheet
+  &lt;a href=&#34;#crtp-cheatsheet&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;p&gt;This cheatsheet corresponds to an older version of PowerView deliberately as this is the version that was used in Pentester Academys&amp;rsquo; CRTP certification course. Updated AD enumeration (PowerView/SharpHound) cheatsheet can be found at &lt;a href=&#34;http://localhost:1313/ad-cheatsheet&#34;&gt;AD Enumeration&lt;/a&gt;&lt;/p&gt;
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;helpful-commands&#34; --&gt;
+
+&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;Helpful Commands
+  &lt;a href=&#34;#helpful-commands&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h2&gt;
+
+&lt;p&gt;Commands to help use PowerView even better.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -24,7 +55,233 @@ Command Description Set-MpPreference -DisableRealTimeMonitoring $true Disable Wi
       <pubDate>Wed, 29 Jul 2020 13:10:00 +0000</pubDate>
       
       <guid>http://localhost:1313/sqli-cheatsheet/</guid>
-      <description>MySQL Injection cheatsheet Testing checklist Name Character Function Single quote &#39; String terminator Semi colon ; Query terminator Comment -- - Removes the rest of the query Comment # Removes the rest of the query Comment /*comment this*/ Can be placed anywhere in a query, used for bypassing weak filters Single quote with a comment &#39;-- - End a string and remove rest of the query Single quote, semi colon and a comment &#39;;-- - End a string, end query, and remove rest of the query OR operator OR 1=1-- - For integers, true test OR operator OR 1=2-- - For integers, false test OR operator &#39; OR &#39;1&#39;=&#39;1&#39;-- - For strings, test test AND operator AND 1=1-- - For integers, true test AND operator AND 1=2-- - For integers, false test AND operator &#39; AND &#39;1&#39;=&#39;1&#39;-- - For strings, true test Arithmetic ?</description>
+      <description>&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;mysql-injection-cheatsheet&#34; --&gt;
+
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;MySQL Injection cheatsheet
+  &lt;a href=&#34;#mysql-injection-cheatsheet&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;testing-checklist&#34; --&gt;
+
+&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;Testing checklist
+  &lt;a href=&#34;#testing-checklist&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;Name&lt;/th&gt;
+          &lt;th&gt;Character&lt;/th&gt;
+          &lt;th&gt;Function&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Single quote&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;&#39;&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;String terminator&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Semi colon&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;;&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;Query terminator&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Comment&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;-- -&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;Removes the rest of the query&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Comment&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;#&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;Removes the rest of the query&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Comment&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;/*comment this*/&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;Can be placed anywhere in a query, used for bypassing weak filters&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Single quote with a comment&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;&#39;-- -&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;End a string and remove rest of the query&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Single quote, semi colon and a comment&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;&#39;;-- -&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;End a string, end query, and remove rest of the query&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;OR operator&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;OR 1=1-- -&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;For integers, &lt;code&gt;true&lt;/code&gt; test&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;OR operator&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;OR 1=2-- -&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;For integers, &lt;code&gt;false&lt;/code&gt; test&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;OR operator&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;&#39; OR &#39;1&#39;=&#39;1&#39;-- -&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;For strings, &lt;code&gt;test&lt;/code&gt; test&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;AND operator&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;AND 1=1-- -&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;For integers, &lt;code&gt;true&lt;/code&gt; test&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;AND operator&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;AND 1=2-- -&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;For integers, &lt;code&gt;false&lt;/code&gt; test&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;AND operator&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;&#39; AND &#39;1&#39;=&#39;1&#39;-- -&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;For strings, &lt;code&gt;true&lt;/code&gt; test&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Arithmetic&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;?id=2-1&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;For integers, arithmetic operation would load the resultant post&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Sleep function&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;OR sleep(5)-- -&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;Blind test&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;functions&#34; --&gt;
+
+&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;Functions
+  &lt;a href=&#34;#functions&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;Function&lt;/th&gt;
+          &lt;th&gt;Description&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;database()&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;Get the name of the working database&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;user()&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;Get the name of the user operating on the working database&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;version()&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;MySQL version&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;concat()&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;Concatenate two or more strings per row&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;group_concat()&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;Concatenate all the strings in one row&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;substring(&#39;string&#39;/&amp;lt;column_name&amp;gt;,&amp;lt;offset&amp;gt;,&amp;lt;length&amp;gt;)&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;Get a part of the value of a string or column&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;ord()&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;Convert the value to ordinal (decimal)&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;number-of-columns&#34; --&gt;
+
+&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;Number of Columns
+  &lt;a href=&#34;#number-of-columns&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;Method&lt;/th&gt;
+          &lt;th&gt;Description&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;ORDER BY 3-- -&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;For numbers. If column index provided exceeds the number of column present in the table, there will be an error&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;&#39; ORDER BY 3-- -&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;For string. If column index provided exceeds the number of column present in the table, there will be an error&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt; UNION SELECT 1,2,3-- -&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;For numbers. It will throw an error till right number of columns haven&amp;rsquo;t been &amp;ldquo;SELECT&amp;quot;ed&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;database-contents&#34; --&gt;
+
+&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;Database Contents
+  &lt;a href=&#34;#database-contents&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h2&gt;
+
+&lt;p&gt;&lt;em&gt;Works with UNION queries&lt;/em&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -33,10 +290,27 @@ Command Description Set-MpPreference -DisableRealTimeMonitoring $true Disable Wi
       <pubDate>Mon, 29 Jun 2020 16:33:08 +0000</pubDate>
       
       <guid>http://localhost:1313/privesc-linux/</guid>
-      <description>Linux Privilege Escalation Cheatsheet So you got a shell, what now? This cheatsheet will help you with local enumeration as well as escalate your privilege further
-Usage of different enumeration scripts are encouraged, my favourite is LinPEAS Another linux enumeration script I personally use is LinEnum Abuse existing functionality of programs using GTFOBins
-Note: This is a live document. I&amp;rsquo;ll be adding more content as I learn more
-Unstable shell Send yourself another shell from within the unstable shell</description>
+      <description>&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;linux-privilege-escalation-cheatsheet&#34; --&gt;
+
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;Linux Privilege Escalation Cheatsheet
+  &lt;a href=&#34;#linux-privilege-escalation-cheatsheet&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;p&gt;So you got a shell, what &lt;em&gt;now&lt;/em&gt;?
+This cheatsheet will help you with local enumeration as well as escalate your privilege further&lt;/p&gt;
+&lt;p&gt;Usage of different enumeration scripts are encouraged, my favourite is &lt;a href=&#34;https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/linPEAS&#34;&gt;LinPEAS&lt;/a&gt;
+Another linux enumeration script I personally use is &lt;a href=&#34;https://github.com/rebootuser/LinEnum/blob/master/LinEnum.sh&#34;&gt;LinEnum&lt;/a&gt;
+Abuse existing functionality of programs using &lt;a href=&#34;https://gtfobins.github.io/&#34;&gt;GTFOBins&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -45,11 +319,45 @@ Unstable shell Send yourself another shell from within the unstable shell</descr
       <pubDate>Fri, 26 Jun 2020 18:32:04 +0000</pubDate>
       
       <guid>http://localhost:1313/bof/</guid>
-      <description>Windows 32-Bit Buffer Overflow SLMail Example
-Practice these:
-SLMail - download from exploit-db Brainpan - download from vulnhub Step By Step Scripts All the scripts are available here as well as at the bottom.
-connect.py Making sure connection and all the operations are successfully performed is crucial as everything will be built on this script/step.
-import socketimport sysrhost = &amp;quot;192.168.&amp;quot;rport = 110try:s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)s.connect((rhost,rport))print s.</description>
+      <description>&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;windows-32-bit-buffer-overflow&#34; --&gt;
+
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;Windows 32-Bit Buffer Overflow
+  &lt;a href=&#34;#windows-32-bit-buffer-overflow&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;p&gt;SLMail Example&lt;/p&gt;
+&lt;p&gt;Practice these:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; SLMail - download from &lt;a href=&#34;https://www.exploit-db.com/apps/12f1ab027e5374587e7e998c00682c5d-SLMail55_4433.exe&#34;&gt;exploit-db&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Brainpan - download from &lt;a href=&#34;https://www.vulnhub.com/entry/brainpan-1,51/&#34;&gt;vulnhub&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;step-by-step-scripts&#34; --&gt;
+
+&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;Step By Step Scripts
+  &lt;a href=&#34;#step-by-step-scripts&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h2&gt;
+
+&lt;p&gt;All the scripts are available &lt;a href=&#34;https://github.com/krnb/scripts/tree/master/bof&#34;&gt;here&lt;/a&gt; as well as at the &lt;a onclick=&#34;go_bottom()&#34; style=&#34;cursor: pointer; &#34;&gt;bottom&lt;/a&gt;.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -58,12 +366,26 @@ import socketimport sysrhost = &amp;quot;192.168.&amp;quot;rport = 110try:s
       <pubDate>Fri, 26 Jun 2020 18:05:42 +0000</pubDate>
       
       <guid>http://localhost:1313/privesc-windows/</guid>
-      <description>Windows Privilege Escalation Cheatsheet Latest updated as of: 12 / June / 2022
-So you got a shell, what now?
-This post will help you with local enumeration as well as escalate your privileges further.
-Usage of different enumeration scripts and tools is encouraged, my favourite is WinPEAS. If confused which executable to use, use this
-Keep in mind:
-To exploit services or registry, you require: appropriate write permissions service start permission service stop permission Look for non-standard programs on the system Note: This is a live document.</description>
+      <description>&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;windows-privilege-escalation-cheatsheet&#34; --&gt;
+
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;Windows Privilege Escalation Cheatsheet
+  &lt;a href=&#34;#windows-privilege-escalation-cheatsheet&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;p&gt;Latest updated as of: &lt;em&gt;12 / June / 2022&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;So you got a shell, what &lt;em&gt;now&lt;/em&gt;?&lt;br&gt;
+This post will help you with local enumeration as well as escalate your privileges further.&lt;/p&gt;
+&lt;p&gt;Usage of different enumeration scripts and tools is encouraged, my favourite is &lt;a href=&#34;https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/winPEAS&#34;&gt;WinPEAS&lt;/a&gt;. If confused which executable to use, use &lt;a href=&#34;https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/blob/master/winPEAS/winPEASexe/winPEAS/bin/Obfuscated%20Releases/winPEASany.exe&#34;&gt;this&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -72,13 +394,39 @@ To exploit services or registry, you require: appropriate write permissions serv
       <pubDate>Thu, 25 Jun 2020 08:51:22 +0000</pubDate>
       
       <guid>http://localhost:1313/oscp-cheatsheet/</guid>
-      <description>OSCP Cheatsheet General Enumeration - Nmap Replace $ip with target IP
-Initial scan
-nmap -Pn -n -vvv -oN nmap/initial $ipIf no ports are found, scan in parts
-nmap -Pn -n -vvv -p1-500 -oN nmap/partial $ipScan all ports
-nmap -Pn -n -vvv -p- -oN nmap/allports $ipTargeted scanning
-nmap -Pn -n -vvv -p22,80 -oN nmap/targeted $ipUDP Scanning
-sudo nmap -Pn -n -vvv -sU -oN nmap/udp $ipAutomated nmap scanning (my preference is nmapAutomator, never missed a port)</description>
+      <description>&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;oscp-cheatsheet&#34; --&gt;
+
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;OSCP Cheatsheet
+  &lt;a href=&#34;#oscp-cheatsheet&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;general-enumeration---nmap&#34; --&gt;
+
+&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;General Enumeration - Nmap
+  &lt;a href=&#34;#general-enumeration---nmap&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;Replace $ip with target IP&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

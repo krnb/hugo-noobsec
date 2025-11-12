@@ -14,6 +14,16 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang='en-us'><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
@@ -26,23 +36,27 @@
     
 
     
-    <meta name="author" content="karan bhayani" />
+    <meta name="author" content="nomi bhayani" />
     
 
     
-        <meta property="og:title" content="Introduction to Active Directory" />
-<meta property="og:description" content="Introduction to Active Directory Prologue Hello there! Welcome to the first post in the Active Directory series, this post talks about AD in brief and does not go in detail at all. The objective of this post is to have a starting point in the series of AD related posts and can assist a person in understanding what AD is in general before learning about either attacks or defenses in AD." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="http://localhost:1313/activedirectory/ad-intro/" /><meta property="article:section" content="activedirectory" />
-<meta property="article:published_time" content="2021-10-10T08:23:07+00:00" />
-<meta property="article:modified_time" content="2021-10-10T08:23:07+00:00" />
-
+        <meta property="og:url" content="http://localhost:1313/activedirectory/ad-intro/">
+  <meta property="og:site_name" content="Welcome to noobsec">
+  <meta property="og:title" content="Introduction to Active Directory">
+  <meta property="og:description" content="Introduction to Active DirectoryPrologueHello there! Welcome to the first post in the Active Directory series, this post talks about AD in brief and does not go in detail at all. The objective of this post is to have a starting point in the series of AD related posts and can assist a person in understanding what AD is in general before learning about either attacks or defenses in AD. With that being said, let’s get started.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="activedirectory">
+    <meta property="article:published_time" content="2021-10-10T08:23:07+00:00">
+    <meta property="article:modified_time" content="2021-10-10T08:23:07+00:00">
 
     
 
     
-        <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Introduction to Active Directory"/>
-<meta name="twitter:description" content="Introduction to Active Directory Prologue Hello there! Welcome to the first post in the Active Directory series, this post talks about AD in brief and does not go in detail at all. The objective of this post is to have a starting point in the series of AD related posts and can assist a person in understanding what AD is in general before learning about either attacks or defenses in AD."/>
+        
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Introduction to Active Directory">
+  <meta name="twitter:description" content="Introduction to Active DirectoryPrologueHello there! Welcome to the first post in the Active Directory series, this post talks about AD in brief and does not go in detail at all. The objective of this post is to have a starting point in the series of AD related posts and can assist a person in understanding what AD is in general before learning about either attacks or defenses in AD. With that being said, let’s get started.">
 
     <link rel="stylesheet" href="/style.css" integrity="">
 
@@ -50,18 +64,20 @@
 
 
         
-<script>
-var doNotTrack = false;
-if (!doNotTrack) {
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-	ga('create', 'UA-171056200-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZX99LLTQ8"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-VZX99LLTQ8');
+        }
+      </script>
     
 
     
@@ -76,7 +92,13 @@ if (!doNotTrack) {
             document.documentElement.setAttribute("data-theme", "light");
         }
     </script>
-<script defer src="/js/header.js" integrity=""></script>
+<script defer src="/js/theme-switch.js" integrity=""></script>
+
+
+
+    <script defer src="/js/hide-navbar-on-scroll.js" integrity=""></script>
+
+
 
 
 
@@ -99,98 +121,263 @@ if (!doNotTrack) {
 
 
 
+
+    
 </head>
-<body>
-        <main><header>
-    <div class="brand">
-        <div id="sidebar_btn">
-            <svg id="menu_icon" width="26px" height="26px" viewBox="0 0 24 24">
+<body><header>
+    <div id="header_content" class="wide">
+        <div id="header_left">
+            <div id="sidebar_btn">
+                <input type="checkbox" id="sidebar_btn_input" class="hidden" />
+                <label id="sidebar_btn_label" for="sidebar_btn_input">
 <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    width="24px" height="24px" viewBox="0 0 24 24" fill="none"
     stroke="currentColor" stroke-width="2" stroke-linecap="round"
     stroke-linejoin="round">
     <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
 </svg>
 
-</svg>
-        </div>
-
-        <div>
-            <a href="/">noobsec</a>
-        </div>
-    </div>
-
-    <div class="toolbox">
-        <div id="theme_tool">
-            <svg id="dark_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
-<svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24" height="24" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-    stroke-linejoin="round">
-    <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-</svg>
-
-</svg>
-            <svg id="light_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
-<svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24" height="24" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-    stroke-linejoin="round">
-    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-</svg>
-
-</svg>
-        </div>
-
+</label>
+                <label id="sidebar_canvas_overlay_wrapper" for="sidebar_btn_input">
+                    <div id="sidebar_canvas_overlay"></div>
+                </label>
+                <div id="sidebar">
+                    <ul><li>
+                                <a href="#">OSCP</a>
+    <ul>
         
-            <div id="search_tool">
-                <svg id="search_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
-<svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24" height="24" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-    stroke-linejoin="round">
-    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-</svg>
 
-</svg><div id="search_menu_wrapper" class="hidden">
-    <div id="search_menu">
-        <div id="search_menu_toolbar">
-            <div id="search_menu_input_wrapper">
-                <input id="search_menu_input" type="text" placeholder='Search Posts'>
+            
+                <li>
+                    
+                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/ad-cheatsheet">OSCP AD Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/oscp-journey">OSCP Journey</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/bof">OSCP BOF</a>
+                    
+                </li>
+            
+        
+    </ul>
+</li><li>
+                                <a href="#">HTB</a>
+    <ul>
+        
+
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-bart">HTB Bart</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-falafel-writeup-w-o-metasploit">HTB Falafel</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-cronos">HTB Cronos</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-bashed">HTB Bashed</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-lame">HTB Lame</a>
+                    
+                </li>
+            
+        
+    </ul>
+</li><li>
+                                <a href="#">Web Attacks</a>
+    <ul>
+        
+
+            
+                <li>
+                    
+                        <a href="/file-inclusion">File Inclusion</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/sqli-0x01">SQLi 0x01</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/sqli-0x02">SQLi 0x02</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/sqli-0x03">SQLi 0x03</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
+                    
+                </li>
+            
+        
+    </ul>
+</li><li>
+                                <a href="#">Cheatsheets</a>
+    <ul>
+        
+
+            
+                <li>
+                    
+                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/ad-cheatsheet">AD Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/crtp-cheatsheet">CRTP Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
+                    
+                </li>
+            
+        
+    </ul>
+</li><li>
+                                <a href="/starting-point">Getting Started in Red Team</a></li><li>
+                                <a href="/whoami/">About</a></li></ul>
+                </div>
             </div>
-            <div id="search_menu_close_btn">
-                <svg width="18px" height="18px" viewBox="0 0 24 24">
-<svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24" height="24" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-    stroke-linejoin="round">
-    <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
-</svg>
-
-</svg>
-            </div>
-        </div>
-        <div id="search_menu_results">
-        </div>
-    </div>
-</div>
-</div>
         
-
-        
-    </div>
-</header>
-<nav id="navbar" class="pure-menu">
-    <ul class="pure-menu-list"><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+            <div class="brand">
+                <div>
+                    <a href="/">noobsec</a>
+                </div>
+            </div><nav id="header_navbar" class="pure-menu header-menu">
+    <ul class="pure-menu-list"><li class="header-menu-item header-menu-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
                     
                         <a href="#" class="pure-menu-link">OSCP</a>
                     
                     <ul class="pure-menu-children">
+
     
         <li class="pure-menu-item">
             
@@ -198,6 +385,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -207,6 +395,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -214,6 +403,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -223,6 +413,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -230,6 +421,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -240,11 +432,12 @@ if (!doNotTrack) {
     
 
 </ul>
-                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                </li><li class="header-menu-item header-menu-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
                     
                         <a href="#" class="pure-menu-link">HTB</a>
                     
                     <ul class="pure-menu-children">
+
     
         <li class="pure-menu-item">
             
@@ -252,6 +445,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -261,6 +455,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -269,6 +464,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -276,6 +472,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -286,11 +483,12 @@ if (!doNotTrack) {
     
 
 </ul>
-                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                </li><li class="header-menu-item header-menu-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
                     
                         <a href="#" class="pure-menu-link">Web Attacks</a>
                     
                     <ul class="pure-menu-children">
+
     
         <li class="pure-menu-item">
             
@@ -298,6 +496,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -307,6 +506,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -314,6 +514,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -323,6 +524,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -332,11 +534,12 @@ if (!doNotTrack) {
     
 
 </ul>
-                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                </li><li class="header-menu-item header-menu-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
                     
                         <a href="#" class="pure-menu-link">Cheatsheets</a>
                     
                     <ul class="pure-menu-children">
+
     
         <li class="pure-menu-item">
             
@@ -344,6 +547,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -353,6 +557,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -360,6 +565,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -369,6 +575,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -376,6 +583,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -386,231 +594,88 @@ if (!doNotTrack) {
     
 
 </ul>
-                </li><li class="navbar-item pure-menu-item ">
+                </li><li class="header-menu-item pure-menu-item ">
                     
                         <a href="/starting-point" class="pure-menu-link">Getting Started in Red Team</a>
                     
-                </li><li class="navbar-item pure-menu-item ">
+                </li><li class="header-menu-item pure-menu-item ">
                     
                         <a href="/whoami/" class="pure-menu-link">About</a>
                     
                 </li></ul>
 </nav>
-<div id="sidebar_canvas_overlay" class="hidden"></div>
-<div id="sidebar" class="close">
-    <ul><li>
-                    <details>
-                        <summary><a href="#">OSCP</a></summary>
-    <ul>
-        
+</div>
+
+        <div id="header_right">
             
-                <li>
-                    
-                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
-                    
-                </li>
+
+            <div id="theme_tool">
+                <button id="dark_mode_btn" class="header-menu-btn outline-button" title='Switch to dark mode' type="button">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24px" height="24px" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+</svg>
+
+</button>
+                <button id="light_mode_btn" class="header-menu-btn outline-button" title='Switch to light mode' type="button">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24px" height="24px" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+</svg>
+
+</button>
+            </div>
+
             
-        
+                <div id="search_tool">
+                    <button id="search_btn" class="header-menu-btn outline-button" title='Search Posts' type="button">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24px" height="24px" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+</svg>
+
+</button>
+                </div>
             
-                <li>
-                    
-                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/ad-cheatsheet">OSCP AD Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/oscp-journey">OSCP Journey</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/bof">OSCP BOF</a>
-                    
-                </li>
-            
-        
-    </ul>
-</details>
-                </li><li>
-                    <details>
-                        <summary><a href="#">HTB</a></summary>
-    <ul>
-        
-            
-                <li>
-                    
-                        <a href="/hackthebox/htb-bart">HTB Bart</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/hackthebox/htb-falafel-writeup-w-o-metasploit">HTB Falafel</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/hackthebox/htb-cronos">HTB Cronos</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/hackthebox/htb-bashed">HTB Bashed</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/hackthebox/htb-lame">HTB Lame</a>
-                    
-                </li>
-            
-        
-    </ul>
-</details>
-                </li><li>
-                    <details>
-                        <summary><a href="#">Web Attacks</a></summary>
-    <ul>
-        
-            
-                <li>
-                    
-                        <a href="/file-inclusion">File Inclusion</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/sqli-0x01">SQLi 0x01</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/sqli-0x02">SQLi 0x02</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/sqli-0x03">SQLi 0x03</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
-                    
-                </li>
-            
-        
-    </ul>
-</details>
-                </li><li>
-                    <details>
-                        <summary><a href="#">Cheatsheets</a></summary>
-    <ul>
-        
-            
-                <li>
-                    
-                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/ad-cheatsheet">AD Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/crtp-cheatsheet">CRTP Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
-                    
-                </li>
-            
-        
-    </ul>
-</details>
-                </li><li>
-                    <a href="/starting-point">Getting Started in Red Team</a>
-                </li><li>
-                    <a href="/whoami/">About</a>
-                </li></ul>
-</div><div id="content" class="content-margin">
+        </div>
+    </div>
+</header><div id="search_menu_wrapper" class="hidden">
+    <div id="search_menu">
+        <div id="search_menu_toolbar">
+            <div id="search_menu_input_wrapper">
+                <input id="search_menu_input" type="text" placeholder='Search Posts'>
+            </div>
+            <div id="search_menu_close_btn">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1.25rem" height="1.25rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+</svg>
+
+</div>
+        </div>
+        <div id="search_menu_results">
+        </div>
+    </div>
+</div>
+<main>
+            <div id="content" class="content-margin">
                 
     
-    <details class="collapsible-menu-wrapper"><summary class="collapsible-menu-type"><span>Table of contents</span></summary><div class="collapsible-menu">
+    
+        
+        <details class="collapsible-menu-wrapper"><summary class="collapsible-menu-type"><span>Table of contents</span></summary><div class="collapsible-menu">
         
             <nav id="TableOfContents">
   <ul>
@@ -623,10 +688,12 @@ if (!doNotTrack) {
 </nav>
         
     </div></details>
+    
 
 
 
     <div class="content-margin">
+
 
 
 
@@ -636,10 +703,84 @@ if (!doNotTrack) {
         
         
     
-    <h1 id="introduction-to-active-directory">Introduction to Active Directory</h1>
-<h2 id="prologue">Prologue</h2>
+
+    
+    
+        
+        
+        
+    
+        
+        
+            
+            
+            
+        
+        <section id="introduction-to-active-directory">
+
+
+<h1 class="header-anchor-wrapper">Introduction to Active Directory
+  <a href="#introduction-to-active-directory" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h1>
+
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="prologue">
+
+
+<h2 class="header-anchor-wrapper">Prologue
+  <a href="#prologue" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
 <p>Hello there! Welcome to the first post in the Active Directory series, this post talks about AD in brief and does not go in detail at all. The objective of this post is to have a starting point in the series of AD related posts and can assist a person in understanding what AD is in general before learning about either attacks or defenses in AD. With that being said, let&rsquo;s get started.</p>
-<h2 id="active-directory-overview">Active Directory Overview</h2>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="active-directory-overview">
+
+
+<h2 class="header-anchor-wrapper">Active Directory Overview
+  <a href="#active-directory-overview" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
 <p>Active Directory (AD) or as Microsoft calls it Active Directory Domain Services (AD DS) is a directory service which holds all the information about the environement and supports the network and its users in various forms. Think of it as a yellow pages book but for the organizations&rsquo; network. It holds different kinds of information about the organization such as users, groups, computers, access control lists, passwords of the users, and other supporting information.</p>
 <p>In essence, AD is a centralized database which provides information via Lightweight Directory Access Protocol (LDAP) and is the backbone of many dependant applications/ services which accesses this information via LDAP.</p>
 <p>Attributes of an Active Directory environment:
@@ -651,7 +792,30 @@ As the name suggests, this consist of information about any object in the domain
 For an AD to function and provide support to its&rsquo; dependant applications (like Kerberos or DNS), it is essential that they as well as the users can query information that is present and perform their necessary activities.</p>
 <p><strong>Replication</strong>
 In an AD, there are usually more than one Domain Controllers. Best practice suggets that you should have at least 2 in your forest. In order for a DC to maintain a complete copy of all the required information, the replication service assist them in doing so. If any change is made in either of the DCs, the other DC performs replication to obtain this new information and stays up-to-date.</p>
-<h2 id="active-directory-structure">Active Directory Structure</h2>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="active-directory-structure">
+
+
+<h2 class="header-anchor-wrapper">Active Directory Structure
+  <a href="#active-directory-structure" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
 <p>Let&rsquo;s understand the structure of an Active Directory environment.</p>
 <p><img src="AD_structure.png" alt="Active Directory Structure"></p>
 <!-- AD Forest and domain diagram -->
@@ -660,17 +824,64 @@ In an AD, there are usually more than one Domain Controllers. Best practice sugg
 <p><img src="ad_domain_names.png" alt="Active Directory Domain Names"></p>
 <p>We can take the example of URLs to understand this better. Let&rsquo;s say the Forest is called <em>example.com</em>. In the organization you have different departments, and so you decided to make a container for them to work within. These containers, or Trees, would look like - <em>sales.example.com</em>, <em>hr.example.com</em>, <em>finance.example.com</em>, etc. Taking sales Tree, the Domains within it would look like <em>north.sales.example.com</em>, <em>south.sales.example.com</em>, etc.</p>
 <p>AD leverages the same thing as above to label domains in different levels of the forest.</p>
-<h2 id="trust">Trust</h2>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="trust">
+
+
+<h2 class="header-anchor-wrapper">Trust
+  <a href="#trust" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
 <p>As mentioned before, a parent-child relationship is followed in an AD environment.</p>
 <p><img src="ad_trust.png" alt="Active Directory Structure"></p>
 <p>This means that within a forest, there is an inherent and transitive two-way trust relationship present between the top most node (DC of the top most domain) to the bottom most node of the forest.</p>
 <p>This inherent trust only exists within the forest, and not between forests. A forest acts as a perimeter with the AD, and this is known as the security boundary, where objects from one forest can not access resources/ information from another forest or vice versa by default.</p>
 <p>In order to operate between multiple forests, explicit trust needs to be established and it is necessary to specify whether this trust is a two-way or one-way trust relationship.</p>
-<h2 id="fin">Fin</h2>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="fin">
+
+
+<h2 class="header-anchor-wrapper">Fin
+  <a href="#fin" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
 <p>I hope this provided a base level understanding regarding AD. The topics touched over here would be expanded upon if and when required. In you have any suggestions, queries, or found a mistake, please feel free to contact me.</p>
 <p>Take care and keep hacking!</p>
 <p>Would like to keep reading? Read the next post - <a href="/activedirectory/kerberos-intro">Introduction to Kerberos</a></p>
-
+</section>
+    
 </article>
 </div>
 
@@ -700,11 +911,13 @@ In an AD, there are usually more than one Domain Controllers. Best practice sugg
 </div>
 
                 
+
+                
             </div>
+        </main>
 <footer>
     <article>Made with love...and copious amounts of coffee</article>
 </footer>
 
-</main>
-    </body>
+</body>
 </html>

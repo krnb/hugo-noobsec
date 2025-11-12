@@ -14,6 +14,16 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang='en-us'><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
@@ -26,25 +36,30 @@
     
 
     
-    <meta name="author" content="karan bhayani" />
+    <meta name="author" content="nomi bhayani" />
     
 
     
-        <meta property="og:title" content="Kerberoasting" />
-<meta property="og:description" content="Attacking Kerberos - Kerberoasting Introduction Kerberoasting is a very popular attack in the Active Directory realm since over 6 years now. Attacking guard dog of Hades by Tim Meddin
-Overview In any organization that is using Active Directory, the authentication process is done via Kerberos since a while now. While Kerberos is a secure network authentication protocol, there are several gaps inherently with the way it works. To read about how Kerberos works in more detail, you can read Introduction to Kerberos post." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="http://localhost:1313/activedirectory/kerberoast/" /><meta property="article:section" content="activedirectory" />
-<meta property="article:published_time" content="2021-10-15T22:17:51+00:00" />
-<meta property="article:modified_time" content="2021-10-15T22:17:51+00:00" />
-
+        <meta property="og:url" content="http://localhost:1313/activedirectory/kerberoast/">
+  <meta property="og:site_name" content="Welcome to noobsec">
+  <meta property="og:title" content="Kerberoasting">
+  <meta property="og:description" content="Attacking Kerberos - KerberoastingIntroductionKerberoasting is a very popular attack in the Active Directory realm since over 6 years now. Attacking guard dog of Hades by Tim Meddin">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="activedirectory">
+    <meta property="article:published_time" content="2021-10-15T22:17:51+00:00">
+    <meta property="article:modified_time" content="2021-10-15T22:17:51+00:00">
+    <meta property="article:tag" content="Active Directory">
+    <meta property="article:tag" content="Windows">
+    <meta property="article:tag" content="Kerberos">
 
     
 
     
-        <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Kerberoasting"/>
-<meta name="twitter:description" content="Attacking Kerberos - Kerberoasting Introduction Kerberoasting is a very popular attack in the Active Directory realm since over 6 years now. Attacking guard dog of Hades by Tim Meddin
-Overview In any organization that is using Active Directory, the authentication process is done via Kerberos since a while now. While Kerberos is a secure network authentication protocol, there are several gaps inherently with the way it works. To read about how Kerberos works in more detail, you can read Introduction to Kerberos post."/>
+        
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Kerberoasting">
+  <meta name="twitter:description" content="Attacking Kerberos - KerberoastingIntroductionKerberoasting is a very popular attack in the Active Directory realm since over 6 years now. Attacking guard dog of Hades by Tim Meddin">
 
     <link rel="stylesheet" href="/style.css" integrity="">
 
@@ -52,18 +67,20 @@ Overview In any organization that is using Active Directory, the authentication 
 
 
         
-<script>
-var doNotTrack = false;
-if (!doNotTrack) {
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-	ga('create', 'UA-171056200-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZX99LLTQ8"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-VZX99LLTQ8');
+        }
+      </script>
     
 
     
@@ -78,7 +95,13 @@ if (!doNotTrack) {
             document.documentElement.setAttribute("data-theme", "light");
         }
     </script>
-<script defer src="/js/header.js" integrity=""></script>
+<script defer src="/js/theme-switch.js" integrity=""></script>
+
+
+
+    <script defer src="/js/hide-navbar-on-scroll.js" integrity=""></script>
+
+
 
 
 
@@ -101,98 +124,263 @@ if (!doNotTrack) {
 
 
 
+
+    
 </head>
-<body>
-        <main><header>
-    <div class="brand">
-        <div id="sidebar_btn">
-            <svg id="menu_icon" width="26px" height="26px" viewBox="0 0 24 24">
+<body><header>
+    <div id="header_content" class="wide">
+        <div id="header_left">
+            <div id="sidebar_btn">
+                <input type="checkbox" id="sidebar_btn_input" class="hidden" />
+                <label id="sidebar_btn_label" for="sidebar_btn_input">
 <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    width="24px" height="24px" viewBox="0 0 24 24" fill="none"
     stroke="currentColor" stroke-width="2" stroke-linecap="round"
     stroke-linejoin="round">
     <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
 </svg>
 
-</svg>
-        </div>
-
-        <div>
-            <a href="/">noobsec</a>
-        </div>
-    </div>
-
-    <div class="toolbox">
-        <div id="theme_tool">
-            <svg id="dark_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
-<svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24" height="24" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-    stroke-linejoin="round">
-    <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-</svg>
-
-</svg>
-            <svg id="light_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
-<svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24" height="24" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-    stroke-linejoin="round">
-    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-</svg>
-
-</svg>
-        </div>
-
+</label>
+                <label id="sidebar_canvas_overlay_wrapper" for="sidebar_btn_input">
+                    <div id="sidebar_canvas_overlay"></div>
+                </label>
+                <div id="sidebar">
+                    <ul><li>
+                                <a href="#">OSCP</a>
+    <ul>
         
-            <div id="search_tool">
-                <svg id="search_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
-<svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24" height="24" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-    stroke-linejoin="round">
-    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-</svg>
 
-</svg><div id="search_menu_wrapper" class="hidden">
-    <div id="search_menu">
-        <div id="search_menu_toolbar">
-            <div id="search_menu_input_wrapper">
-                <input id="search_menu_input" type="text" placeholder='Search Posts'>
+            
+                <li>
+                    
+                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/ad-cheatsheet">OSCP AD Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/oscp-journey">OSCP Journey</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/bof">OSCP BOF</a>
+                    
+                </li>
+            
+        
+    </ul>
+</li><li>
+                                <a href="#">HTB</a>
+    <ul>
+        
+
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-bart">HTB Bart</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-falafel-writeup-w-o-metasploit">HTB Falafel</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-cronos">HTB Cronos</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-bashed">HTB Bashed</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-lame">HTB Lame</a>
+                    
+                </li>
+            
+        
+    </ul>
+</li><li>
+                                <a href="#">Web Attacks</a>
+    <ul>
+        
+
+            
+                <li>
+                    
+                        <a href="/file-inclusion">File Inclusion</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/sqli-0x01">SQLi 0x01</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/sqli-0x02">SQLi 0x02</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/sqli-0x03">SQLi 0x03</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
+                    
+                </li>
+            
+        
+    </ul>
+</li><li>
+                                <a href="#">Cheatsheets</a>
+    <ul>
+        
+
+            
+                <li>
+                    
+                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/ad-cheatsheet">AD Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/crtp-cheatsheet">CRTP Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
+                    
+                </li>
+            
+        
+    </ul>
+</li><li>
+                                <a href="/starting-point">Getting Started in Red Team</a></li><li>
+                                <a href="/whoami/">About</a></li></ul>
+                </div>
             </div>
-            <div id="search_menu_close_btn">
-                <svg width="18px" height="18px" viewBox="0 0 24 24">
-<svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24" height="24" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-    stroke-linejoin="round">
-    <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
-</svg>
-
-</svg>
-            </div>
-        </div>
-        <div id="search_menu_results">
-        </div>
-    </div>
-</div>
-</div>
         
-
-        
-    </div>
-</header>
-<nav id="navbar" class="pure-menu">
-    <ul class="pure-menu-list"><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+            <div class="brand">
+                <div>
+                    <a href="/">noobsec</a>
+                </div>
+            </div><nav id="header_navbar" class="pure-menu header-menu">
+    <ul class="pure-menu-list"><li class="header-menu-item header-menu-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
                     
                         <a href="#" class="pure-menu-link">OSCP</a>
                     
                     <ul class="pure-menu-children">
+
     
         <li class="pure-menu-item">
             
@@ -200,6 +388,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -209,6 +398,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -216,6 +406,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -225,6 +416,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -232,6 +424,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -242,11 +435,12 @@ if (!doNotTrack) {
     
 
 </ul>
-                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                </li><li class="header-menu-item header-menu-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
                     
                         <a href="#" class="pure-menu-link">HTB</a>
                     
                     <ul class="pure-menu-children">
+
     
         <li class="pure-menu-item">
             
@@ -254,6 +448,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -263,6 +458,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -271,6 +467,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -278,6 +475,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -288,11 +486,12 @@ if (!doNotTrack) {
     
 
 </ul>
-                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                </li><li class="header-menu-item header-menu-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
                     
                         <a href="#" class="pure-menu-link">Web Attacks</a>
                     
                     <ul class="pure-menu-children">
+
     
         <li class="pure-menu-item">
             
@@ -300,6 +499,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -309,6 +509,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -316,6 +517,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -325,6 +527,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -334,11 +537,12 @@ if (!doNotTrack) {
     
 
 </ul>
-                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                </li><li class="header-menu-item header-menu-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
                     
                         <a href="#" class="pure-menu-link">Cheatsheets</a>
                     
                     <ul class="pure-menu-children">
+
     
         <li class="pure-menu-item">
             
@@ -346,6 +550,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -355,6 +560,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -362,6 +568,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -371,6 +578,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -378,6 +586,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -388,231 +597,88 @@ if (!doNotTrack) {
     
 
 </ul>
-                </li><li class="navbar-item pure-menu-item ">
+                </li><li class="header-menu-item pure-menu-item ">
                     
                         <a href="/starting-point" class="pure-menu-link">Getting Started in Red Team</a>
                     
-                </li><li class="navbar-item pure-menu-item ">
+                </li><li class="header-menu-item pure-menu-item ">
                     
                         <a href="/whoami/" class="pure-menu-link">About</a>
                     
                 </li></ul>
 </nav>
-<div id="sidebar_canvas_overlay" class="hidden"></div>
-<div id="sidebar" class="close">
-    <ul><li>
-                    <details>
-                        <summary><a href="#">OSCP</a></summary>
-    <ul>
-        
+</div>
+
+        <div id="header_right">
             
-                <li>
-                    
-                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
-                    
-                </li>
+
+            <div id="theme_tool">
+                <button id="dark_mode_btn" class="header-menu-btn outline-button" title='Switch to dark mode' type="button">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24px" height="24px" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+</svg>
+
+</button>
+                <button id="light_mode_btn" class="header-menu-btn outline-button" title='Switch to light mode' type="button">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24px" height="24px" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+</svg>
+
+</button>
+            </div>
+
             
-        
+                <div id="search_tool">
+                    <button id="search_btn" class="header-menu-btn outline-button" title='Search Posts' type="button">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24px" height="24px" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+</svg>
+
+</button>
+                </div>
             
-                <li>
-                    
-                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/ad-cheatsheet">OSCP AD Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/oscp-journey">OSCP Journey</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/bof">OSCP BOF</a>
-                    
-                </li>
-            
-        
-    </ul>
-</details>
-                </li><li>
-                    <details>
-                        <summary><a href="#">HTB</a></summary>
-    <ul>
-        
-            
-                <li>
-                    
-                        <a href="/hackthebox/htb-bart">HTB Bart</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/hackthebox/htb-falafel-writeup-w-o-metasploit">HTB Falafel</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/hackthebox/htb-cronos">HTB Cronos</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/hackthebox/htb-bashed">HTB Bashed</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/hackthebox/htb-lame">HTB Lame</a>
-                    
-                </li>
-            
-        
-    </ul>
-</details>
-                </li><li>
-                    <details>
-                        <summary><a href="#">Web Attacks</a></summary>
-    <ul>
-        
-            
-                <li>
-                    
-                        <a href="/file-inclusion">File Inclusion</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/sqli-0x01">SQLi 0x01</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/sqli-0x02">SQLi 0x02</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/sqli-0x03">SQLi 0x03</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
-                    
-                </li>
-            
-        
-    </ul>
-</details>
-                </li><li>
-                    <details>
-                        <summary><a href="#">Cheatsheets</a></summary>
-    <ul>
-        
-            
-                <li>
-                    
-                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/ad-cheatsheet">AD Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/crtp-cheatsheet">CRTP Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
-                    
-                </li>
-            
-        
-    </ul>
-</details>
-                </li><li>
-                    <a href="/starting-point">Getting Started in Red Team</a>
-                </li><li>
-                    <a href="/whoami/">About</a>
-                </li></ul>
-</div><div id="content" class="content-margin">
+        </div>
+    </div>
+</header><div id="search_menu_wrapper" class="hidden">
+    <div id="search_menu">
+        <div id="search_menu_toolbar">
+            <div id="search_menu_input_wrapper">
+                <input id="search_menu_input" type="text" placeholder='Search Posts'>
+            </div>
+            <div id="search_menu_close_btn">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1.25rem" height="1.25rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+</svg>
+
+</div>
+        </div>
+        <div id="search_menu_results">
+        </div>
+    </div>
+</div>
+<main>
+            <div id="content" class="content-margin">
                 
     
-    <details class="collapsible-menu-wrapper"><summary class="collapsible-menu-type"><span>Table of contents</span></summary><div class="collapsible-menu">
+    
+        
+        <details class="collapsible-menu-wrapper"><summary class="collapsible-menu-type"><span>Table of contents</span></summary><div class="collapsible-menu">
         
             <nav id="TableOfContents">
   <ul>
@@ -631,10 +697,12 @@ if (!doNotTrack) {
 </nav>
         
     </div></details>
+    
 
 
 
     <div class="content-margin">
+
 
 
 
@@ -644,10 +712,84 @@ if (!doNotTrack) {
         
         
     
-    <h1 id="attacking-kerberos---kerberoasting">Attacking Kerberos - Kerberoasting</h1>
-<h2 id="introduction">Introduction</h2>
+
+    
+    
+        
+        
+        
+    
+        
+        
+            
+            
+            
+        
+        <section id="attacking-kerberos---kerberoasting">
+
+
+<h1 class="header-anchor-wrapper">Attacking Kerberos - Kerberoasting
+  <a href="#attacking-kerberos---kerberoasting" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h1>
+
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="introduction">
+
+
+<h2 class="header-anchor-wrapper">Introduction
+  <a href="#introduction" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
 <p>Kerberoasting is a very popular attack in the Active Directory realm since over 6 years now.  Attacking guard dog of Hades by Tim Meddin</p>
-<h2 id="overview">Overview</h2>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="overview">
+
+
+<h2 class="header-anchor-wrapper">Overview
+  <a href="#overview" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
 <p>In any organization that is using Active Directory, the authentication process is done via Kerberos since a while now. While Kerberos is a secure network authentication protocol, there are several gaps inherently with the way it works. To read about how Kerberos works in more detail, you can read <a href="/activedirectory/kerberos-intro">Introduction to Kerberos</a> post. In short, it works as follows:</p>
 <p><img src="../kerberos-intro/kerb_auth.png" alt="Kerberos Authentication"></p>
 <p><strong>Step 1</strong>: User creates an encrypted request by taking system time and encrypting it using the password hash. It sends the request to the KDC asking TGT</p>
@@ -657,15 +799,84 @@ if (!doNotTrack) {
 <p><strong>Step 5</strong>: User receives the service ticket, forwards the same to the service requesting access to its resource.</p>
 <p><strong>Step 6</strong>: Service receives the service ticket, attempts to decrypt the ticket and if successful, assumes that the ticket is legitimate and as per the access control lists set against the user, the service decides whether or not to provide the requested access.</p>
 <p>That covers the overall flow of how a user goes from authenticating to requesting access to services in an organization.</p>
-<h2 id="security-loopholes">Security &ldquo;Loopholes&rdquo;</h2>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="security-loopholes">
+
+
+<h2 class="header-anchor-wrapper">Security &ldquo;Loopholes&rdquo;
+  <a href="#security-loopholes" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
 <p>In the entire process, from user authenticating to requesting access to services, it is good to note that nothing is sent in plaintext over the wire. Every crucial piece of information is encrypted and only the right entities can decrypt and view the contents of these encrypted packets, which is great&hellip;almost.</p>
 <p>There are two main security &ldquo;loopholes&rdquo; - validation, open access to service tickets.</p>
 <p>In Kerberos, ticket validation happens at two points - TGT with KDC and service ticket with service account. In both the cases, the validation is whether the service (KDC or the service account) is able to decrypt or not and if successful, the ticket is deemed legitimate.</p>
 <p>Also with the way Kerberos works, by design, any user can request for tickets for any service within the forest. This means that any user can request a service ticket for any service and extract these tickets from the memory and crack them offline a.k.a <em>kerberoast</em> them.</p>
-<h3 id="implications">Implications</h3>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="implications">
+
+
+<h3 class="header-anchor-wrapper">Implications
+  <a href="#implications" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h3>
+
 <p>As anyone is allowed to request for tickets, this creates an opportunity for an attacker to extract tickets, crack them and leverage the service account hashes to create more tickets.</p>
 <p>Kerberoasting is the base attack that allows creation of additional tickets. If a service account hash is cracked then service tickets are created which are known as <em>Silver Tickets</em>. We will get into creation of silver tickets and how they are useful later.</p>
-<h2 id="attack">Attack</h2>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="attack">
+
+
+<h2 class="header-anchor-wrapper">Attack
+  <a href="#attack" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
 <p>Now that we understand how Kerberos and kerberoasting works, let&rsquo;s take a look at how could one actually go about performing this attack.</p>
 <ol>
 <li>
@@ -683,14 +894,84 @@ if (!doNotTrack) {
 <p>crack em</p>
 </li>
 </ol>
-<h2 id="defense">Defense</h2>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="defense">
+
+
+<h2 class="header-anchor-wrapper">Defense
+  <a href="#defense" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
 <p>Only understanding how the attack works helps no one, let&rsquo;s take a look at how we can mitigate these kinds of attack paths.
 it&rsquo;s good to enumerate your network as an attacker to understand whether you have such paths existing in your network. The best way would be to completely avoid these things, but we all know how well that goes. Stopping attackers to request tickets is impossible, but allowing one to move further in the network is definitely possible. We can have protection as well as detection</p>
 <p>protection - long passwords, disallow rc4, modify msdssupportedencryptontypes to only aes
 detection - encryption downgrade (false positives), create honeypots</p>
-<h2 id="references">References</h2>
-<h2 id="fin">Fin</h2>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="references">
 
+
+<h2 class="header-anchor-wrapper">References
+  <a href="#references" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="fin">
+
+
+<h2 class="header-anchor-wrapper">Fin
+  <a href="#fin" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
+</section>
+    
 </article>
 </div>
 
@@ -720,11 +1001,13 @@ detection - encryption downgrade (false positives), create honeypots</p>
 </div>
 
                 
+
+                
             </div>
+        </main>
 <footer>
     <article>Made with love...and copious amounts of coffee</article>
 </footer>
 
-</main>
-    </body>
+</body>
 </html>

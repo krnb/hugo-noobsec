@@ -6,7 +6,7 @@ toc: false
 
 # Who Am I?
 
-Hi, my name is Karan Bhayani. I am a security professional who likes learning new things.
+Hi, my name is Nomi "Karan" Bhayani. I am a security professional who likes learning new things.
 
 I like to believe that only understanding how to attack and/or defend something is not sufficient and we should understand how things truly work. I am currently interested in Windows and Active Directory. <br>
 
@@ -23,6 +23,8 @@ Here are few papers I hold that says I know something
 ## Connect With Me
 Have a question, suggestion, constructive criticism, or just wanna chat? Hit me up!
 
-{{< icon name="github" link="https://github.com/krnb/hugo-noobsec" >}}
-{{< icon name="twitter" link="https://twitter.com/badchararray" >}}
-{{< icon name="linkedin" link="https://twitter.com/badchararray" >}}
+{{< icon-group gap="12px" >}}
+{{< icon vendor="feather" name="github" link="https://github.com/krnb/hugo-noobsec" >}}
+{{< icon vendor="feather" name="twitter" link="https://twitter.com/badchararray" >}}
+{{< icon vendor="feather" name="linkedin" link="https://www.linkedin.com/in/nomibhayani" >}}
+{{< /icon-group >}}

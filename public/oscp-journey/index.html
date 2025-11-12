@@ -14,6 +14,16 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang='en-us'><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
@@ -26,25 +36,29 @@
     
 
     
-    <meta name="author" content="karan bhayani" />
+    <meta name="author" content="nomi bhayani" />
     
 
     
-        <meta property="og:title" content="OSCP Journey" />
-<meta property="og:description" content="OSCP Journey From a persistent n00b who couldn&rsquo;t even hack a medium difficulty machine on his own to cracking OSCP in 4 months!
-Background I wanted to do the PwK course and clear OSCP since past couple years but haven&rsquo;t been able to due to reasons. Two of my certifications were going to expire in August &lsquo;20, and I had to do a certification to renew them, a perfect opportunity. Before I started with the PwK course, I had very little experience with hacking or even CTF for that matter." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="http://localhost:1313/oscp-journey/" /><meta property="article:section" content="" />
-<meta property="article:published_time" content="2020-06-27T10:26:58+00:00" />
-<meta property="article:modified_time" content="2020-06-27T10:26:58+00:00" />
-
+        <meta property="og:url" content="http://localhost:1313/oscp-journey/">
+  <meta property="og:site_name" content="Welcome to noobsec">
+  <meta property="og:title" content="OSCP Journey">
+  <meta property="og:description" content="OSCP JourneyFrom a persistent n00b who couldn’t even hack a medium difficulty machine on his own to cracking OSCP in 4 months!
+BackgroundI wanted to do the PwK course and clear OSCP since past couple years but haven’t been able to due to reasons. Two of my certifications were going to expire in August ‘20, and I had to do a certification to renew them, a perfect opportunity. Before I started with the PwK course, I had very little experience with hacking or even CTF for that matter. My college studies or previous certifications weren’t of any help here either. But I decided to take a deep breath, and dive in.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:published_time" content="2020-06-27T10:26:58+00:00">
+    <meta property="article:modified_time" content="2020-06-27T10:26:58+00:00">
+    <meta property="article:tag" content="Oscp">
 
     
 
     
-        <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="OSCP Journey"/>
-<meta name="twitter:description" content="OSCP Journey From a persistent n00b who couldn&rsquo;t even hack a medium difficulty machine on his own to cracking OSCP in 4 months!
-Background I wanted to do the PwK course and clear OSCP since past couple years but haven&rsquo;t been able to due to reasons. Two of my certifications were going to expire in August &lsquo;20, and I had to do a certification to renew them, a perfect opportunity. Before I started with the PwK course, I had very little experience with hacking or even CTF for that matter."/>
+        
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="OSCP Journey">
+  <meta name="twitter:description" content="OSCP JourneyFrom a persistent n00b who couldn’t even hack a medium difficulty machine on his own to cracking OSCP in 4 months!
+BackgroundI wanted to do the PwK course and clear OSCP since past couple years but haven’t been able to due to reasons. Two of my certifications were going to expire in August ‘20, and I had to do a certification to renew them, a perfect opportunity. Before I started with the PwK course, I had very little experience with hacking or even CTF for that matter. My college studies or previous certifications weren’t of any help here either. But I decided to take a deep breath, and dive in.">
 
     <link rel="stylesheet" href="/style.css" integrity="">
 
@@ -52,18 +66,20 @@ Background I wanted to do the PwK course and clear OSCP since past couple years 
 
 
         
-<script>
-var doNotTrack = false;
-if (!doNotTrack) {
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-	ga('create', 'UA-171056200-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-VZX99LLTQ8"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-VZX99LLTQ8');
+        }
+      </script>
     
 
     
@@ -78,7 +94,13 @@ if (!doNotTrack) {
             document.documentElement.setAttribute("data-theme", "light");
         }
     </script>
-<script defer src="/js/header.js" integrity=""></script>
+<script defer src="/js/theme-switch.js" integrity=""></script>
+
+
+
+    <script defer src="/js/hide-navbar-on-scroll.js" integrity=""></script>
+
+
 
 
 
@@ -101,98 +123,263 @@ if (!doNotTrack) {
 
 
 
+
+    
 </head>
-<body>
-        <main><header>
-    <div class="brand">
-        <div id="sidebar_btn">
-            <svg id="menu_icon" width="26px" height="26px" viewBox="0 0 24 24">
+<body><header>
+    <div id="header_content" class="wide">
+        <div id="header_left">
+            <div id="sidebar_btn">
+                <input type="checkbox" id="sidebar_btn_input" class="hidden" />
+                <label id="sidebar_btn_label" for="sidebar_btn_input">
 <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="24" height="24" viewBox="0 0 24 24" fill="none"
+    width="24px" height="24px" viewBox="0 0 24 24" fill="none"
     stroke="currentColor" stroke-width="2" stroke-linecap="round"
     stroke-linejoin="round">
     <line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>
 </svg>
 
-</svg>
-        </div>
-
-        <div>
-            <a href="/">noobsec</a>
-        </div>
-    </div>
-
-    <div class="toolbox">
-        <div id="theme_tool">
-            <svg id="dark_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
-<svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24" height="24" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-    stroke-linejoin="round">
-    <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-</svg>
-
-</svg>
-            <svg id="light_mode_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
-<svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24" height="24" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-    stroke-linejoin="round">
-    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-</svg>
-
-</svg>
-        </div>
-
+</label>
+                <label id="sidebar_canvas_overlay_wrapper" for="sidebar_btn_input">
+                    <div id="sidebar_canvas_overlay"></div>
+                </label>
+                <div id="sidebar">
+                    <ul><li>
+                                <a href="#">OSCP</a>
+    <ul>
         
-            <div id="search_tool">
-                <svg id="search_btn" class="toolbox-btn" width="18px" height="18px" viewBox="0 0 24 24">
-<svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24" height="24" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-    stroke-linejoin="round">
-    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-</svg>
 
-</svg><div id="search_menu_wrapper" class="hidden">
-    <div id="search_menu">
-        <div id="search_menu_toolbar">
-            <div id="search_menu_input_wrapper">
-                <input id="search_menu_input" type="text" placeholder='Search Posts'>
+            
+                <li>
+                    
+                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/ad-cheatsheet">OSCP AD Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/oscp-journey">OSCP Journey</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/bof">OSCP BOF</a>
+                    
+                </li>
+            
+        
+    </ul>
+</li><li>
+                                <a href="#">HTB</a>
+    <ul>
+        
+
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-bart">HTB Bart</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-falafel-writeup-w-o-metasploit">HTB Falafel</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-cronos">HTB Cronos</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-bashed">HTB Bashed</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/hackthebox/htb-lame">HTB Lame</a>
+                    
+                </li>
+            
+        
+    </ul>
+</li><li>
+                                <a href="#">Web Attacks</a>
+    <ul>
+        
+
+            
+                <li>
+                    
+                        <a href="/file-inclusion">File Inclusion</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/sqli-0x01">SQLi 0x01</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/sqli-0x02">SQLi 0x02</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/sqli-0x03">SQLi 0x03</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
+                    
+                </li>
+            
+        
+    </ul>
+</li><li>
+                                <a href="#">Cheatsheets</a>
+    <ul>
+        
+
+            
+                <li>
+                    
+                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/ad-cheatsheet">AD Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/crtp-cheatsheet">CRTP Cheatsheet</a>
+                    
+                </li>
+            
+        
+
+            
+                <li>
+                    
+                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
+                    
+                </li>
+            
+        
+    </ul>
+</li><li>
+                                <a href="/starting-point">Getting Started in Red Team</a></li><li>
+                                <a href="/whoami/">About</a></li></ul>
+                </div>
             </div>
-            <div id="search_menu_close_btn">
-                <svg width="18px" height="18px" viewBox="0 0 24 24">
-<svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24" height="24" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-    stroke-linejoin="round">
-    <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
-</svg>
-
-</svg>
-            </div>
-        </div>
-        <div id="search_menu_results">
-        </div>
-    </div>
-</div>
-</div>
         
-
-        
-    </div>
-</header>
-<nav id="navbar" class="pure-menu">
-    <ul class="pure-menu-list"><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+            <div class="brand">
+                <div>
+                    <a href="/">noobsec</a>
+                </div>
+            </div><nav id="header_navbar" class="pure-menu header-menu">
+    <ul class="pure-menu-list"><li class="header-menu-item header-menu-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
                     
                         <a href="#" class="pure-menu-link">OSCP</a>
                     
                     <ul class="pure-menu-children">
+
     
         <li class="pure-menu-item">
             
@@ -200,6 +387,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -209,6 +397,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -216,6 +405,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -225,6 +415,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -232,6 +423,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -242,11 +434,12 @@ if (!doNotTrack) {
     
 
 </ul>
-                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                </li><li class="header-menu-item header-menu-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
                     
                         <a href="#" class="pure-menu-link">HTB</a>
                     
                     <ul class="pure-menu-children">
+
     
         <li class="pure-menu-item">
             
@@ -254,6 +447,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -263,6 +457,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -271,6 +466,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -278,6 +474,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -288,11 +485,12 @@ if (!doNotTrack) {
     
 
 </ul>
-                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                </li><li class="header-menu-item header-menu-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
                     
                         <a href="#" class="pure-menu-link">Web Attacks</a>
                     
                     <ul class="pure-menu-children">
+
     
         <li class="pure-menu-item">
             
@@ -300,6 +498,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -309,6 +508,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -316,6 +516,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -325,6 +526,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -334,11 +536,12 @@ if (!doNotTrack) {
     
 
 </ul>
-                </li><li class="navbar-item navbar-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
+                </li><li class="header-menu-item header-menu-dropdown pure-menu-item pure-menu-has-children pure-menu-allow-hover ">
                     
                         <a href="#" class="pure-menu-link">Cheatsheets</a>
                     
                     <ul class="pure-menu-children">
+
     
         <li class="pure-menu-item">
             
@@ -346,6 +549,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -355,6 +559,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -362,6 +567,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -371,6 +577,7 @@ if (!doNotTrack) {
         </li>
     
 
+
     
         <li class="pure-menu-item">
             
@@ -378,6 +585,7 @@ if (!doNotTrack) {
             
         </li>
     
+
 
     
         <li class="pure-menu-item">
@@ -388,231 +596,88 @@ if (!doNotTrack) {
     
 
 </ul>
-                </li><li class="navbar-item pure-menu-item ">
+                </li><li class="header-menu-item pure-menu-item ">
                     
                         <a href="/starting-point" class="pure-menu-link">Getting Started in Red Team</a>
                     
-                </li><li class="navbar-item pure-menu-item ">
+                </li><li class="header-menu-item pure-menu-item ">
                     
                         <a href="/whoami/" class="pure-menu-link">About</a>
                     
                 </li></ul>
 </nav>
-<div id="sidebar_canvas_overlay" class="hidden"></div>
-<div id="sidebar" class="close">
-    <ul><li>
-                    <details>
-                        <summary><a href="#">OSCP</a></summary>
-    <ul>
-        
+</div>
+
+        <div id="header_right">
             
-                <li>
-                    
-                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
-                    
-                </li>
+
+            <div id="theme_tool">
+                <button id="dark_mode_btn" class="header-menu-btn outline-button" title='Switch to dark mode' type="button">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24px" height="24px" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+</svg>
+
+</button>
+                <button id="light_mode_btn" class="header-menu-btn outline-button" title='Switch to light mode' type="button">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24px" height="24px" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+</svg>
+
+</button>
+            </div>
+
             
-        
+                <div id="search_tool">
+                    <button id="search_btn" class="header-menu-btn outline-button" title='Search Posts' type="button">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24px" height="24px" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+</svg>
+
+</button>
+                </div>
             
-                <li>
-                    
-                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/ad-cheatsheet">OSCP AD Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/oscp-journey">OSCP Journey</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/bof">OSCP BOF</a>
-                    
-                </li>
-            
-        
-    </ul>
-</details>
-                </li><li>
-                    <details>
-                        <summary><a href="#">HTB</a></summary>
-    <ul>
-        
-            
-                <li>
-                    
-                        <a href="/hackthebox/htb-bart">HTB Bart</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/hackthebox/htb-falafel-writeup-w-o-metasploit">HTB Falafel</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/hackthebox/htb-cronos">HTB Cronos</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/hackthebox/htb-bashed">HTB Bashed</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/hackthebox/htb-lame">HTB Lame</a>
-                    
-                </li>
-            
-        
-    </ul>
-</details>
-                </li><li>
-                    <details>
-                        <summary><a href="#">Web Attacks</a></summary>
-    <ul>
-        
-            
-                <li>
-                    
-                        <a href="/file-inclusion">File Inclusion</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/sqli-0x01">SQLi 0x01</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/sqli-0x02">SQLi 0x02</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/sqli-0x03">SQLi 0x03</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
-                    
-                </li>
-            
-        
-    </ul>
-</details>
-                </li><li>
-                    <details>
-                        <summary><a href="#">Cheatsheets</a></summary>
-    <ul>
-        
-            
-                <li>
-                    
-                        <a href="/oscp-cheatsheet">OSCP Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/privesc-linux">Linux PrivEsc Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/privesc-windows">Windows PrivEsc Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/ad-cheatsheet">AD Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/crtp-cheatsheet">CRTP Cheatsheet</a>
-                    
-                </li>
-            
-        
-            
-                <li>
-                    
-                        <a href="/sqli-cheatsheet">SQLi Cheatsheet</a>
-                    
-                </li>
-            
-        
-    </ul>
-</details>
-                </li><li>
-                    <a href="/starting-point">Getting Started in Red Team</a>
-                </li><li>
-                    <a href="/whoami/">About</a>
-                </li></ul>
-</div><div id="content" class="content-margin">
+        </div>
+    </div>
+</header><div id="search_menu_wrapper" class="hidden">
+    <div id="search_menu">
+        <div id="search_menu_toolbar">
+            <div id="search_menu_input_wrapper">
+                <input id="search_menu_input" type="text" placeholder='Search Posts'>
+            </div>
+            <div id="search_menu_close_btn">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1.25rem" height="1.25rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+</svg>
+
+</div>
+        </div>
+        <div id="search_menu_results">
+        </div>
+    </div>
+</div>
+<main>
+            <div id="content" class="content-margin">
                 
     
-    <details class="collapsible-menu-wrapper"><summary class="collapsible-menu-type"><span>Table of contents</span></summary><div class="collapsible-menu">
+    
+        
+        <details class="collapsible-menu-wrapper"><summary class="collapsible-menu-type"><span>Table of contents</span></summary><div class="collapsible-menu">
         
             <nav id="TableOfContents">
   <ul>
@@ -638,10 +703,12 @@ if (!doNotTrack) {
 </nav>
         
     </div></details>
+    
 
 
 
     <div class="content-margin">
+
 
 
 
@@ -651,46 +718,304 @@ if (!doNotTrack) {
         
         
     
-    <h1 id="oscp-journey">OSCP Journey</h1>
+
+    
+    
+        
+        
+        
+    
+        
+        
+            
+            
+            
+        
+        <section id="oscp-journey">
+
+
+<h1 class="header-anchor-wrapper">OSCP Journey
+  <a href="#oscp-journey" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h1>
+
 <p>From a persistent n00b who couldn&rsquo;t even hack a medium difficulty machine on his own to cracking OSCP in 4 months!</p>
-<h2 id="background">Background</h2>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="background">
+
+
+<h2 class="header-anchor-wrapper">Background
+  <a href="#background" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
 <p>I wanted to do the PwK course and clear OSCP since past couple years but haven&rsquo;t been able to due to reasons. Two of my certifications were going to expire in August &lsquo;20, and I had to do a certification to renew them, a perfect opportunity. Before I started with the PwK course, I had very little experience with hacking or even CTF for that matter. My college studies or previous certifications weren&rsquo;t of any help here either. But I decided to take a deep breath, and dive in.</p>
-<h2 id="prep">Prep</h2>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="prep">
+
+
+<h2 class="header-anchor-wrapper">Prep
+  <a href="#prep" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
 <p>My course and lab access started in January, it was the old course, I completed all of my exercises and was only able to crack 14 machines in the Public Network. Not good by any standards, but it was just a start. I was glad I was able to do enough to make my lab report. Once my lab access got over, I took a break of 2 months, focussed on college.</p>
 <p>Two months later, in March, I decided to start preparing for the exam. I came across <a href="https://docs.google.com/spreadsheets/u/1/d/1dwSMIAPIam0PuRBkCiDI88pU3yzrqqHkDtBngUHNCw8/edit">OSCP-like machines list</a> by <a href="https://twitter.com/TJ_Null">TJ_Null</a> which looked quite promising and so signed-up for the HackTheBox VIP platform.</p>
 <p>I went through every machine (approximately 50) in two months. I watched IppSec&rsquo;s video of the machine I&rsquo;m targetting, and hacked it and continued that for almost every machine. I made a report for each machine I hacked and documented each step including why certain steps were taken, why it worked and why something I was trying did not, and the reasoning behind it. This was essential because I was under a time crunch, needed to build my hacking methodology, and make it as robust as I possibly can. Apart from watching IppSec&rsquo;s video, I read walkthroughs by various people of the same machine to get more information, their thought process and learnings out of it. All my learnings can be found <a href="/oscp-cheatsheet" target="_blank">here</a></p>
 <p><strong>HACK EVERY SINGLE MACHINE ON THAT LIST!!!</strong> You&rsquo;ll thank yourself later.</p>
 <p>And that was it, and that&rsquo;s all the practice you need apart from buffer overflow. For the buffer overflow, practice on <a href="https://www.exploit-db.com/apps/12f1ab027e5374587e7e998c00682c5d-SLMail55_4433.exe">SLMail</a> and <a href="https://www.vulnhub.com/entry/brainpan-1,51/">Brainpan</a> on a free Windows VM available <a href="https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/">here</a>. Remember to run the VM in a host-only network and turn off protection mechanisms. My buffer overflow cheatsheet can be found <a href="/bof" target="_blank">here</a></p>
-<h2 id="exam">Exam</h2>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="exam">
+
+
+<h2 class="header-anchor-wrapper">Exam
+  <a href="#exam" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
 <p>I had scheduled my exam at 3.30 AM, everyone is asleep, can peacefully work on my stuff without any external disturbances. Proctoring started at 3.15 AM, took a little time but went smoothly. Started with my exam at 3.45 AM.
 I decided to first get done with Buffer Overflow, easy 25 points. Started AutoRecon on the other 25 point machine in the background. Ran first few commands, and suddenly I&rsquo;m not receiving any output from the debugging machine, it was completely frozen. Huh? I thought it could be some issue with <code>rdesktop</code>, tried to kill it, it won&rsquo;t die. Checked my connection, it was re-connecting. Ugh. Killed the connection, tried to connect to the VPN again, it was trying to connect. I looked down at my taskbar at the internet connection icon, and there it was - my worst nightmare, the internet has crashed. It was 4 AM and I won&rsquo;t be getting any support from the ISPs&rsquo; end. FUCK. I took my phone, turned the hotspot on, connected to the proctoring software, informed the proctor that my internet has crashed and I&rsquo;m changing my location. They informed me that they would pause the VPN, I agreed.</p>
 <p>I called a bunch of folks where I could continue the rest of the exam from, some places are completely locked down, can&rsquo;t go there. Can go to a relative&rsquo;s place, 50 minutes away by car, their building has a bunch of Covid-19 cases in there, and a whole lot in a hospital near that place. Fuck me. Looked for cabs, luckily I found one, booked it immediately, packed my stuff. It was 5 AM, I&rsquo;ve got nothing and chances are I could catch the virus, not the best of odds.</p>
 <img src="https://media.giphy.com/media/xU1spRleFHmtjvskXw/giphy.gif" alt="Too stressed" width="300" height="250" />
-<h3 id="cracking-bof---25-points">Cracking BOF - 25 points</h3>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="cracking-bof---25-points">
+
+
+<h3 class="header-anchor-wrapper">Cracking BOF - 25 points
+  <a href="#cracking-bof---25-points" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h3>
+
 <p>It was 6.20 AM, I finally reached the place, sanitized myself, and unpacked. Showed the proctor my environment again, got the green light to continue with my exam. Started AutoRecon on the 25 pointer again, focussed on BOF, and cracked it by 7 AM. I&rsquo;ve got 25 points in 3.5 hours, 45 points more, any 3 more boxes to crack. It was time to focus on the other 25 pointer, luckily AutoRecon was done. Ran AutoRecon on one of the 20 pointer machine. Checked my directory for the 25 pointer recon results&hellip;.aaaand it&rsquo;s gone. The new scan command probably overwrote it. <em>Internal screaming</em>. Chucked AutoRecon entirely, moved to nmapAutomator. Best move so far.</p>
 <p>Ran nmapAutomator on the 25 pointer machine, it printed out its finding as it went on, perfect. Poked at the open ports found one by one, looked for publicly known exploits against any service or name I was coming across using <code>searchsploit</code> and Google, and ran enumeration scripts. Consecutive scanning proved a whole lot better than parallel scanning. Couldn&rsquo;t find anything on the 25 pointer, moved on. Ran nmapAutomator on the 20 point machine, poked open ports one by one, repeated the enumeration process, again found nothing. Scanned the other 20 point machine, poked open ports, repeated the enumeration process, landed no where. It was noon by then and I only had 25 points so far. Needed some fresh air.</p>
 <img src="https://media.giphy.com/media/l41Yxij9zr2UI8wx2/giphy.gif" alt="Scrambling" width="500" height="300" />
-<h3 id="cracking-10-pointer">Cracking 10 pointer</h3>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="cracking-10-pointer">
+
+
+<h3 class="header-anchor-wrapper">Cracking 10 pointer
+  <a href="#cracking-10-pointer" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h3>
+
 <p>I took a break for few minutes, I realized I had not looked at the 10 pointer machine yet, thought &ldquo;welp here goes nothing.&rdquo; Got back from the break, scanned 10 pointer machine, performed the enumeration process, found the vunlerable thing! ╰(<em>°▽°</em>)╯. Pwned the machine in 20 minutes. Checked enumeration results of the other machines again, nothing clicked. It was 1 PM and I had 35 points, 35 more to go.</p>
-<h3 id="cracking-20-pointer">Cracking 20 pointer</h3>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="cracking-20-pointer">
+
+
+<h3 class="header-anchor-wrapper">Cracking 20 pointer
+  <a href="#cracking-20-pointer" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h3>
+
 <p>Took a lunch break for 30 minutes. Checked the enumeration results on one of the 20 pointer, saw a promising exploit, there were 2 versions: manual and metasploit. I was not sure if I should blow my metasploit chance yet. In retrospect, I should&rsquo;ve and you&rsquo;ll soon realize why. I was up for around 10 hours now, and I was already tired cause of all the gymnatics and so stressed you could see it physically. I checked the manual exploit, it was written in broken english but the steps were obvious, tried to follow it, did not work, but had a strong feeling that it would (hint: msf module). I tried various patterns of it without achieving anything for a <strong>couple hours</strong>. I got so tired I execute the simplest thing I could imagine, should have done that as my first try, and decided to move on if that won&rsquo;t work. IT WORKED! Realized why my previous exploits weren&rsquo;t working and felt like a total moron.</p>
 <p>Updated my exploit according to the new information, got a low shell but was highly unustable. Checked the MSF module, decided to make my exploit as per the MSF module instead of using Metasploit itself. It worked! Got a low shell, escalated my privileges in 5 minutes. Done. It was 7 PM, and I had 55 points. Time for another break.</p>
-<h3 id="cracking-25-pointer">Cracking 25 pointer</h3>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="cracking-25-pointer">
+
+
+<h3 class="header-anchor-wrapper">Cracking 25 pointer
+  <a href="#cracking-25-pointer" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h3>
+
 <p>Got back from the break, checked my enumeration results again, realized this is all the data I had to work with. Again checked for publicly known exploits for a particular thing, but I did not know it&rsquo;s version. I was looking for exploits with that exact name of the thing for too long (bad move), with no results. Felt like giving up, tried the generic name exploit and IT WORKED! I already had that information since 7:30 AM, I wasted away all these hours <em>sigh</em>. Got a low shell by midnight.</p>
 <p>Ran the local enumeration script on the system, pretty quickly identified a lot of rabbit holes. But coud not find the way to escalate my privileges, spend 2 more hours just scrambling. Realized the privilege escalation was right in front of my eyes, again it wasn&rsquo;t anything complex. Some non-standard application on system. Looked up publicly known exploit, one entry &ldquo;Software name privilege escalation&rdquo;. <em>facepalm</em>.</p>
 <p>Tried to get the exploit to work with just 40 minutes to go. Unable to get it to execute as per what I wanted. Something was off. Tried to follow the exploit steps manually, I could follow them, but it wasn&rsquo;t working. Maybe a rabbit hole? Nope, it couldn&rsquo;t be, it was the only thing that stood out, or atleast that&rsquo;s what I felt. Realized it was based on something, modified that, followed the steps again. Get a message on the side from proctor that my time is up and that VPN has been closed. I couldn&rsquo;t escalate my privileges in time, neither could I say I found the right thing.</p>
 <p>24 hours - 65 points
 <img src="https://media.giphy.com/media/jOpLbiGmHR9S0/giphy.gif" alt="Almost had it" width="500" height="300"/></p>
-<h2 id="reporting">Reporting</h2>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="reporting">
+
+
+<h2 class="header-anchor-wrapper">Reporting
+  <a href="#reporting" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
 <p>I wrote both my exam report and lab report and submitted them as per instructions by 2:30 AM the next day. I was hoping to get the 5 bonus points and clear the certification. Surprisingly, I didn&rsquo;t have to wait long and get my result in 2 days. I&rsquo;ve successfully obtained the certification!</p>
 <img src="https://media.giphy.com/media/l4EpkVLqUj8BI7OV2/giphy.gif" alt="The victory is mine!" width="500" height="300" />
-<h2 id="takeaway">Takeaway</h2>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="takeaway">
+
+
+<h2 class="header-anchor-wrapper">Takeaway
+  <a href="#takeaway" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h2>
+
 <p>Things to keep in mind:</p>
 <ul>
 <li>I want you to know that this exam is <em>EASY</em>. I know the margin by which I cleared, yet still I&rsquo;ll say the same. If it wasn&rsquo;t for my overthinking and external failure, it&rsquo;d have been a walk in the park</li>
 <li>This exam is <em>INTENDED</em> to be completed in 12 hours. Good thing we have 24</li>
 </ul>
-<h3 id="improved-enumeration-process">Improved Enumeration Process</h3>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="improved-enumeration-process">
+
+
+<h3 class="header-anchor-wrapper">Improved Enumeration Process
+  <a href="#improved-enumeration-process" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h3>
+
 <ul>
 <li>nmapAutomator each IP consecutively
 <ul>
@@ -725,7 +1050,30 @@ I decided to first get done with Buffer Overflow, easy 25 points. Started AutoRe
 </ul>
 </li>
 </ul>
-<h3 id="do">Do</h3>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="do">
+
+
+<h3 class="header-anchor-wrapper">Do
+  <a href="#do" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h3>
+
 <ul>
 <li>Stay calm</li>
 <li>Take breaks frequently</li>
@@ -739,14 +1087,38 @@ I decided to first get done with Buffer Overflow, easy 25 points. Started AutoRe
 </ul>
 </li>
 </ul>
-<h3 id="dont">Don&rsquo;t</h3>
+</section>
+    
+        
+        
+            
+            
+            
+        
+        <section id="dont">
+
+
+<h3 class="header-anchor-wrapper">Don&rsquo;t
+  <a href="#dont" class="header-anchor-link">
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1rem" height="1rem" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+    stroke-linejoin="round">
+    <line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line>
+</svg>
+
+</a>
+</h3>
+
 <ul>
 <li>Scan all IPs at once - overloading network will give you incomplete results</li>
 <li>Panic</li>
 <li>Overlook exploits because names do not match <em>exactly</em> (This costed me over 5 hours)</li>
 <li>Be afraid to use your Metasploit card (This costed me 4 hours)</li>
 </ul>
-
+</section>
+    
 </article>
 </div>
 
@@ -776,11 +1148,13 @@ I decided to first get done with Buffer Overflow, easy 25 points. Started AutoRe
 </div>
 
                 
+
+                
             </div>
+        </main>
 <footer>
     <article>Made with love...and copious amounts of coffee</article>
 </footer>
 
-</main>
-    </body>
+</body>
 </html>

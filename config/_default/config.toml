@@ -4,8 +4,11 @@ title = 'Welcome to noobsec'
 theme = 'hugo-theme-monochrome'
 enableEmoji = 'true'
 
-disqusShortname = "n00bsec"
-googleAnalytics = "UA-171056200-1"
+[services]
+  [services.disqus]
+    shortname = 'n00bsec'
+  [services.googleAnalytics]
+    id = 'G-VZX99LLTQ8'
 
 [taxonomies]
 category = "categories"
